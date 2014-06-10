@@ -1,5 +1,5 @@
 
-llab['file'] = "";
+bjc['file'] = "";
 
 
 /*
@@ -48,23 +48,22 @@ llab['file'] = "";
 /* The allowed tags for easy entry.
  * e.g.   h1: Some Text [maybe/a/link/too]
  */
-//TODO put in bjc namespace
-var tags = ["h1", "h2", "h3", "h4", "h5", "h6"];
+bjc.tags = ["h1", "h2", "h3", "h4", "h5", "h6"];
 
 
 
-llab.renderFull = function(data, ignored1, ignored2) {
+bjc.renderFull = function(data, ignored1, ignored2) {
     if (getParameterByName("course") != "") {
         var course_link = getParameterByName("course");
         if (course_link.indexOf("http://") == -1) {
-            course_link = llab.rootURL + "/course/" + course_link;
+            course_link = bjc.rootURL + "/course/" + course_link;
         }
         $("#full").append($(document.createElement("a")).attr({"class":"course_link", "href": course_link}).html("Go to Main Course Page"));
     }
     if (typeof getParameterByName("topic") == "object") {
-        llab.file = getParameterByName("topic")[0];
+        bjc.file = getParameterByName("topic")[0];
     } else {
-        llab.file = getParameterByName("topic");
+        bjc.file = getParameterByName("topic");
     }
     var hidden = [];
     var hiddenString = "";
@@ -93,7 +92,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
     var course = getParameterByName("course");
     for (var i = 0; i < lines.length; i++) {
         line = lines[i];
-        line = llab.stripComments(line);
+        line = bjc.stripComments(line);
         if (line.length > 0 && !raw && (hidden.indexOf($.trim(line.slice(0, line.indexOf(":")))) == -1)) {
             if (line.slice(0, 6) == "title:") {
                 //TODO pull out the html tags for the page title
@@ -128,7 +127,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 if (learningGoal) {
                     list.append($(document.createElement("li")).append(line.slice(14)));    
                 } else {
-                    indent = llab.indentString(line);
+                    indent = bjc.indentString(line);
                     line = $.trim(line);
                     learningGoal = true;
                     item = $(document.createElement("div")).attr({'class': 'learninggoals' + indent});
@@ -142,7 +141,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 if (bigIdea) {
                     list.append($(document.createElement("li")).append(line.slice(9)));     
                 } else {
-                    indent = llab.indentString(line);
+                    indent = bjc.indentString(line);
                     line = $.trim(line);
                     bigIdea = true;
                     item = $(document.createElement("div")).attr({'class': 'bigideas' + indent});
@@ -152,11 +151,11 @@ llab.renderFull = function(data, ignored1, ignored2) {
                     topic.append(item);
                 };
             } else {
-                indent = llab.indentString(line);
+                indent = bjc.indentString(line);
                 line = $.trim(line);
                 learningGoal = false;
                 bigIdea = false;
-                if (line.indexOf(":") != -1 && llab.isTag(line.slice(0, line.indexOf(":")))) {
+                if (line.indexOf(":") != -1 && bjc.isTag(line.slice(0, line.indexOf(":")))) {
                     item = $(document.createElement(line.slice(0, line.indexOf(":"))));
                 } else if (line.indexOf(":") != -1) {
                     item = $(document.createElement("div")).attr({'class': line.split(":")[0] + indent});
@@ -169,19 +168,20 @@ llab.renderFull = function(data, ignored1, ignored2) {
                     temp.append(text);
                     url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
                     if (url.indexOf("http") != -1) {
-                        url = llab.rootURL + "/" + llab.llabPath +"/html/empty-curriculum-page.html" + "?" + "src=" + url + "&" + "topic=" + llab.file + "&step=" + num + "&title=" + text;
+                        url = bjc.rootURL + "/admin/empty-curriculum-page.html" + "?" + "src=" + url + "&" + "topic=" + bjc.file
+			    + "&step=" + num + "&title=" + text;
                     } else {
-			if (url.indexOf(llab.rootURL) == -1 && url.indexOf("..") == -1) {
+			if (url.indexOf(bjc.rootURL) == -1 && url.indexOf("..") == -1) {
 			    if (url[0] == "/") {
-				url = llab.rootURL + url;
+				url = bjc.rootURL + url;
 			    } else {
-				url = llab.rootURL + "/" + url;
+				url = bjc.rootURL + "/" + url;
 			    }
 			}
 			if (url.indexOf("?") != -1) {
-                            url += "&" + "topic=" + llab.file + "&step=" + num;
+                            url += "&" + "topic=" + bjc.file + "&step=" + num;
 			} else {
-                            url += "?" + "topic=" + llab.file + "&step=" + num;
+                            url += "?" + "topic=" + bjc.file + "&step=" + num;
 			}
 		    }
 		    
@@ -189,8 +189,6 @@ llab.renderFull = function(data, ignored1, ignored2) {
                     num += 1;
                     temp.attr({'href': url});
                     item.append(temp);
-                    //url_list.push(url);
-                    //topic_list.push(text);
                 } else {
                     item.append(line.slice(line.indexOf(":") + 1));
                 }
@@ -218,13 +216,10 @@ llab.renderFull = function(data, ignored1, ignored2) {
 
 
 
-
-
-
 /* Returns the indent class of this string,
  * depending on how far it has been indented
  * on the line. */
-llab.indentString = function(s) {
+bjc.indentString = function(s) {
     var len = s.length;
     var count = 0;
     for (var i = 0; i < len; i++) {
@@ -241,40 +236,29 @@ llab.indentString = function(s) {
 
 
 /* Returns true iff S is an allowed html tag. */
-llab.isTag = function(s) {
-    var n = tags.length;
-    for (var i = 0; i < n; i++) {
-        if (s == tags[i]) {
-            return true;
-        }
-    }
-    return false;
+bjc.isTag = function(s) {
+    return bjc.tags.indexOf(s) > -1;
 }
 
 
 
 if (getParameterByName("topic") != "") {
     if (typeof getParameterByName("topic") == "object") {
-        llab.file = getParameterByName("topic")[0];
+        bjc.file = getParameterByName("topic")[0];
     } else {
-        llab.file = getParameterByName("topic");
+        bjc.file = getParameterByName("topic");
     }
     $.ajax({
-        url : llab.rootURL + "/topic/" + llab.file,
+        url : bjc.rootURL + "/topic/" + bjc.file,
         type : "GET",
         dataType : "text",
         cache : false,
-        success : llab.renderFull
+        success : bjc.renderFull
     });
 } else {
     // TODO -- better error messge.  maybe show default course or topic?
     document.getElementsByTagName('BODY').item(0).innerHTML = "Please specify a file in the URL.";
 }
-
-
-
-
-//document.functionsReady = true;
 
 
 /*
@@ -295,8 +279,5 @@ if (getParameterByName("topic") != "") {
   
   if no colon at all, just put no class on the div
   
-  
-  
 */
-
 

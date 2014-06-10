@@ -1,12 +1,12 @@
 /*
- * course.js
+ * bjc-course.js
  * 
- * loaded in course pages.
- * can depend on jquery and library.js
+ * loaded on course pages.
+ * can depend on jquery and bjc-library.js
  */
 
  /* hide items and pass on course name. */
-llab.editURLs = function() {
+bjc.editURLs = function() {
     $(".topic_container").each(function() {
         var args = "";
         var attributes = this.attributes;
@@ -20,7 +20,6 @@ llab.editURLs = function() {
         });
     });
     $("a").each(function() {
-    	// TODO use rootURL
         if (document.location.href.indexOf("/bjc-r/course") == -1) {
             this.href + "&course=" + document.location.href;
         } else {
@@ -29,7 +28,7 @@ llab.editURLs = function() {
     });
 }
 
-llab.addTitle = function() {
+bjc.addTitle = function() {
     // insert main div
     if ($("#full").length == 0) {
         $(document.body).wrapInner('<div id="full"></div>');
@@ -41,6 +40,6 @@ llab.addTitle = function() {
 }
  
  $(document).ready(function() {
-    llab.editURLs();
-    llab.addTitle();
+    bjc.editURLs();
+    bjc.addTitle();
  });
