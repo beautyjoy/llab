@@ -122,7 +122,7 @@ llab.initialSetUp = function() {
 
 	function getTag(name, src, type) {
 		var tag;
-		console.log("Dealing with tag " + name + " with src " + src + " of type " + type);
+		//console.log("Dealing with tag " + name + " with src " + src + " of type " + type);
 		 
 		tag = document.createElement(name);
 		if (src.substring(0, 7) !== "http://") {

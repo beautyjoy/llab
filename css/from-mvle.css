@@ -68,7 +68,7 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
 .helpIcon {
 	width: 16px;
 	height: 16px;
-	background-image: url(images/infoIcon.png);
+	background-image: url(../img/infoIcon.png);
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	padding: 0px;
@@ -80,7 +80,7 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
 }
 
 .helpIcon :hover {
-	background-image: url(images/infoIconRollover.png);
+	background-image: url(../img/infoIconRollover.png);
 }
 
 .helpTextLink {
@@ -186,7 +186,7 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
 }
 
 .infoBoxCenteredDiv, .assessmentTypeCenteredDiv {
-	background-image:url(images/BackgroundBlue600.png);
+	background-image:url(../img/BackgroundBlue600.png);
 	background-position:0px -400px;
 	background-repeat:repeat-x;
 	background-color:#FFF;
