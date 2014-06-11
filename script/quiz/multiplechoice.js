@@ -514,5 +514,6 @@ MC.prototype.getTemplate = function() {
 };
 
 
+
 // file is loaded, baby
-bjc.loaded['multiplechoice'] = true;
+llab.loaded['multiplechoice'] = true;

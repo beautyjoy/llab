@@ -1,36 +1,75 @@
 /*
  * Common functions for any bjc page
  * 
- * CANNOT RELY ON JQUERY, YO
+ * CANNOT RELY ON JQUERY OR ANY OTHER LLAB LIBRARY
  */
 
-if (typeof bjc === 'undefined') {
-    // if bjc-loader wasn't used, we need this.
-    bjc = {};
-    bjc.rootURL = "/bjc-r";
-    bjc.loaded = {};   // needs to be defined, even though unused if bjc_loader isn't run
+if (typeof llab === 'undefined') {
+    // if loader.js wasn't used, we need this.
+    llab = {};
+    llab.loaded = {};
+    
+
 }
+
+
+
+
+/*
+ ******** CONFIG *******
+ */
+
+
+// if the website isn't at the root of the server, add the path here
+llab.rootURL = "";
+//llab.rootURL = "/bjc-r";
+
+// change if llab scripts are installed in a different path *within* rootURL.  
+llab.install_directory = "llab/";
+
+// reference your custom CSS files, from within llab install directory
+llab.paths.css_files = ["css/default.css" , "css/from-mvle.css"];
+
+
+
+// google analytics tokens
+llab.GAuse = false;
+llab.GACode = 'UA-47210910-3';
+llab.GAurl = 'berkeley.edu';
+
+
+
+
+/*
+ ********* END CONFIG *********
+ */
+
+
+
+
+
+
 
 /////////////////
 
 
-bjc.CORSproxy = "www.corsproxy.com";
+llab.CORSproxy = "www.corsproxy.com";
 
-bjc.CORSCompliantServers = [];
-bjc.CORSCompliantServers.push("bjc.berkeley.edu");
-bjc.CORSCompliantServers.push("bjc.eecs.berkeley.edu");
-bjc.CORSCompliantServers.push("snap.berkeley.edu");
-bjc.CORSCompliantServers.push("inst.eecs.berkeley.edu");
-bjc.CORSCompliantServers.push("cs10.berkeley.edu");
+llab.CORSCompliantServers = [];
+llab.CORSCompliantServers.push("llab.berkeley.edu");
+llab.CORSCompliantServers.push("llab.eecs.berkeley.edu");
+llab.CORSCompliantServers.push("snap.berkeley.edu");
+llab.CORSCompliantServers.push("inst.eecs.berkeley.edu");
+llab.CORSCompliantServers.push("cs10.berkeley.edu");
 
 
 ////
 
-bjc.snapRunURLBase = "http://snap.berkeley.edu/snapsource/snap.html#open:";
+llab.snapRunURLBase = "http://snap.berkeley.edu/snapsource/snap.html#open:";
 
 // returns the current domain with a cors proxy if needed
 
-bjc.getSnapRunURL = function(targeturl) {
+llab.getSnapRunURL = function(targeturl) {
 
 	if (targeturl != null) {   
 
@@ -40,17 +79,17 @@ bjc.getSnapRunURL = function(targeturl) {
 
 		} else {
 			// internal resource!
-			var finalurl = bjc.snapRunURLBase + "http://";
+			var finalurl = llab.snapRunURLBase + "http://";
 			var currdom = document.domain;
 			console.log(currdom);
 			// why not, for the devs out there...
 			if (currdom == "localhost") {
-				currdom = "bjc.berkeley.edu";
+				currdom = "llab.berkeley.edu";
 			}
-			if (bjc.CORSCompliantServers.indexOf(currdom) == -1) {
-				finalurl = finalurl + bjc.CORSproxy + "/";
+			if (llab.CORSCompliantServers.indexOf(currdom) == -1) {
+				finalurl = finalurl + llab.CORSproxy + "/";
 			}
-			if (targeturl.indexOf("..") != -1 || targeturl.indexOf(bjc.rootURL) == -1) {
+			if (targeturl.indexOf("..") != -1 || targeturl.indexOf(llab.rootURL) == -1) {
 				var path = window.location.pathname;
 				path = path.split("?")[0];
 				path = path.substring(0, path.lastIndexOf("/") + 1)
@@ -68,7 +107,7 @@ bjc.getSnapRunURL = function(targeturl) {
 
 
 
-//TODO put this in the bjc namespace
+//TODO put this in the llab namespace
 /** Returns the value of the URL parameter associated with NAME. */
 function getParameterByName(name) {
 	/*name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
@@ -99,7 +138,7 @@ function getParameterByName(name) {
 
 
 /** Strips comments off the line. */
-bjc.stripComments = function(line) {
+llab.stripComments = function(line) {
 	var index = line.indexOf("//");
 	if (index != -1 && line[index - 1] != ":") {
 		line = line.slice(0, index);
@@ -107,25 +146,27 @@ bjc.stripComments = function(line) {
 	return line;
 }
 
-/** Google Analytics Tracking -- Currently not in use for BJC-R.
- *  Each new repo should get their own GA token, and setup and then swap these
- *  values. To make use of this code, the two ga() functions need to be called
+
+
+/** Google Analytics Tracking
+ * To make use of this code, the two ga() functions need to be called
  *  on each page that is loaded, which means this file must be loaded. 
  */
-bjc.GACode = 'UA-47210910-3';
-bjc.GAurl = 'berkeley.edu';
-bjc.GAfun =  function(i,s,o,g,r,a,m) {
+
+// TODO -- use boolean llab.GAuse 
+
+llab.GAfun =  function(i,s,o,g,r,a,m) {
     i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   };
 
-bjc.GA = function() {
-        bjc.GAfun(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+llab.GA = function() {
+        llab.GAfun(window,document,'script','//www.google-analytics.com/analytics.js','ga');
     }
 // GA Function Calls -- these do the real work!: 
-// ga('create', bjc.GACode, bjc.GAUrl);
+// ga('create', llab.GACode, llab.GAUrl);
 // ga('send', 'pageview');
 
 
-bjc.loaded['bjc-library'] = true;
+llab.loaded['library'] = true;

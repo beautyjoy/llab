@@ -1,0 +1,59 @@
+<!--
+
+A X.quiz file contains the contents of a <div class="assessment-data".
+You can either put these contents in such a div in a content page, or put them in
+a X.quiz page and reference it, in the content page, with
+    <div class="assessment-data" src="/path/to/X.quiz"></div>
+   
+In content pages, quiz-wide options are specificied as attributes
+on the outer div. To specify defaults here (that could be overridden by those
+in the content page), include an optional 
+
+  <div class="assessment-defaults"></div>
+  
+here.  For instance: 
+       <div class="assessment-defaults"
+        type="multiplechoice" identifier="goteam"
+        hasinlinefeedback="true" maxchoices="1"
+        responseIdentifier="ri" shuffle="true"
+        ></div>
+(TODO)
+
+
+-->
+
+<div class="assessment-defaults"
+        type="multiplechoice" identifier="thisquiz"
+        hasinlinefeedback="true" maxchoices="1"
+        responseIdentifier="default" shuffle="true"
+        >
+</div>
+        
+<div class="prompt">
+    <p>
+        PROMPT_HTML
+    </p>
+</div>
+
+<div class="choice" identifier="c1">
+    <div class="text">
+        CHOICE_1_HTML
+    </div>
+    <div class="feedback">
+        FEEDBACK_HTML
+    </div>
+</div>
+
+<div class="choice" identifier="c2">
+    <div class="text">
+        CHOICE_2_HTML
+    </div>
+    <div class="feedback">
+        FEEDBACK_HTML
+    </div>
+</div>
+
+<div class="responseDeclaration" identifier="default">
+    <div class="correctResponse" identifier="c1"></div>
+</div>
+
