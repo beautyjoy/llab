@@ -5,11 +5,11 @@
  * This is borrowed from UCCP APCSA work
  */
 
-bjc['file'] = "";
-bjc['step'] = "";
-bjc['url_list'] = new Array();
+llab['file'] = "";
+llab['step'] = "";
+llab['url_list'] = new Array();
 
-bjc.secondarySetUp = function() {
+llab.secondarySetUp = function() {
 
     // insert main div
     if ($("#full").length == 0) {
@@ -38,7 +38,7 @@ bjc.secondarySetUp = function() {
     // fix snap links so they run snap
     $("a.run").each(function(i) {
 	$(this).attr("target", "_blank");
-	$(this).attr('href', bjc.getSnapRunURL(this.getAttribute('href')));
+	$(this).attr('href', llab.getSnapRunURL(this.getAttribute('href')));
     });
 
 
@@ -54,7 +54,7 @@ bjc.secondarySetUp = function() {
 	    if (!(this.getAttribute('term'))) {
 		this.setAttribute('term', this.innerHTML)
 	    }
-	    vocabDiv.append('<a href="' + bjc.rootURL + '/glossary/view.html?term=' + this.getAttribute('term')
+	    vocabDiv.append('<a href="' + llab.rootURL + '/glossary/view.html?term=' + this.getAttribute('term')
 			    + '" target="_vocab">' + this.getAttribute('term') + '</a>');
 	});
     }
@@ -68,7 +68,7 @@ bjc.secondarySetUp = function() {
 	    if (!(this.getAttribute('topic'))) {
 		this.setAttribute('topic', this.innerHTML)
 	    };
-	    helpDiv.append('<p><a href="' + bjc.rootURL + '/help/view.html?topic=' + this.getAttribute('topic')
+	    helpDiv.append('<p><a href="' + llab.rootURL + '/help/view.html?topic=' + this.getAttribute('topic')
 			   + '" target="_help">' + this.getAttribute('topic') + '</a></p>');
 	});
     }
@@ -88,25 +88,25 @@ bjc.secondarySetUp = function() {
     }
 
     // should this page be rendered with the topic header (left, right buttons, etc)
-    bjc['step'] = parseInt(getParameterByName("step"));
+    llab['step'] = parseInt(getParameterByName("step"));
     var temp = getParameterByName("topic");
-    if (temp != "" && !isNaN(bjc['step'])) {
+    if (temp != "" && !isNaN(llab['step'])) {
 	if (getParameterByName("step") == "") {
 	    // TODO -- this shouldn't happen, but we could intelligently find which
 	    // step this should be
 	}
         if (typeof temp == "object") {
-            bjc['file'] = temp[1];
+            llab['file'] = temp[1];
         } else {
-            bjc['file'] = temp;
+            llab['file'] = temp;
         }
 	
 	$.ajax({
-	    url : bjc.rootURL + "/topic/" + bjc.file,
+	    url : llab.rootURL + "/topic/" + llab.file,
 	    type : "GET",
 	    dataType : "text",
 	    cache : false,
-	    success: bjc.processLinks
+	    success: llab.processLinks
 	});
     }
     
@@ -118,12 +118,12 @@ bjc.secondarySetUp = function() {
 /** Processes just the hyperlinked elements in this page,
  *	and creates navigation buttons. 
  */
-bjc.processLinks = function(data, ignored1, ignored2) {
+llab.processLinks = function(data, ignored1, ignored2) {
     var temp = getParameterByName("topic");
     if (typeof temp == "object") {
-        bjc['file'] = temp[1];
+        llab['file'] = temp[1];
     } else {
-        bjc['file'] = temp;
+        llab['file'] = temp;
     }
     var hidden = [];
     var hiddenString = "";
@@ -145,18 +145,18 @@ bjc.processLinks = function(data, ignored1, ignored2) {
     var b_backButton = $(document.createElement("a")).addClass("backbutton");
     backButton.text("BACK");
     backButton.button({disabled: true});
-    backButton.click(bjc.goBack);
+    backButton.click(llab.goBack);
     b_backButton.text("BACK");
     b_backButton.button({disabled: true});
-    b_backButton.click(bjc.goBack);
+    b_backButton.click(llab.goBack);
     var forwardButton = $(document.createElement("a")).addClass("forwardbutton");
     var b_forwardButton = $(document.createElement("a")).addClass("forwardbutton");
     forwardButton.text("FORWARD");
     forwardButton.button({disabled: true});
-    forwardButton.click(bjc.goForward);
+    forwardButton.click(llab.goForward);
     b_forwardButton.text("FORWARD");
     b_forwardButton.button({disabled: true});
-    b_forwardButton.click(bjc.goForward);
+    b_forwardButton.click(llab.goForward);
     var list = $(document.createElement("ul")).attr({'class': 'steps'});
     list.menu();
     list.menu("collapse");
@@ -169,11 +169,11 @@ bjc.processLinks = function(data, ignored1, ignored2) {
     
     for (var i = 0; i < lines.length; i++) {
 	line = lines[i];
-	line = bjc.stripComments(line);
+	line = llab.stripComments(line);
 	if (line.length > 1 && (hidden.indexOf($.trim(line.slice(0, line.indexOf(":")))) == -1)) {
 	    if (line.indexOf("title:") != -1) {
-		/* Create a link back to the main topic. */
-		url = bjc.rootURL + "/topic/topic.html?topic=" + bjc.file + hiddenString + "&course=" + course;
+		/* Create a link back to the main topic.  Should this be to the file in llab? */
+		url = llab.topic_launch_page + "?topic=" + llab.file + hiddenString + "&course=" + course;
 		text = line.slice(line.indexOf(":") + 1);
 		if (text.length > 35) {
 		    text = text.slice(0, 35) + "...";
@@ -192,25 +192,25 @@ bjc.processLinks = function(data, ignored1, ignored2) {
 		}
 		url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
 		if (url.indexOf("http") != -1) {
-		    url = bjc.rootURL + "/admin/empty-curriculum-page.html" + "?" + "src=" +
-			url + "&" + "topic=" + bjc.file + "&step=" + num +
+		    url = llab.empty_topic_page_path + "?" + "src=" +
+			url + "&" + "topic=" + llab.file + "&step=" + num +
 			"&title=" + text + hiddenString + "&course=" + course;
 		} else {
-		    if (url.indexOf(bjc.rootURL) == -1 && url.indexOf("..") == -1) {
+		    if (url.indexOf(llab.rootURL) == -1 && url.indexOf("..") == -1) {
 			if (url[0] == "/") {
-			    url = bjc.rootURL + url;
+			    url = llab.rootURL + url;
 			} else {
-			    url = bjc.rootURL + "/" + url;
+			    url = llab.rootURL + "/" + url;
 			}
 		    }
 		    if (url.indexOf("?") != -1) {
-			url += "&" + "topic=" + bjc.file + "&step=" + num + hiddenString + "&course=" + course;
+			url += "&" + "topic=" + llab.file + "&step=" + num + hiddenString + "&course=" + course;
 		    } else {
-			url += "?" + "topic=" + bjc.file + "&step=" + num + hiddenString + "&course=" + course;
+			url += "?" + "topic=" + llab.file + "&step=" + num + hiddenString + "&course=" + course;
 		    }
 		}
-		bjc['url_list'].push(url);
-		if (num == (bjc.step - 1)) {
+		llab['url_list'].push(url);
+		if (num == (llab.step - 1)) {
 		    backButton.attr({'value': url});
 		    backButton.button({disabled: false});
 		    b_backButton.attr({'value': url});
@@ -218,13 +218,13 @@ bjc.processLinks = function(data, ignored1, ignored2) {
 		    option = $(document.createElement("a")).attr({'href': url});
 		    option.html(text);
 		    
-		} else if (num == bjc.step) {
+		} else if (num == llab.step) {
 		    text = "<span class='current-step-link'>" + text + "</span>";
 		    option = $(document.createElement("a"));
 		    option.html(text);
 		    list_header.html("Click here to navigate...");
 		    
-		} else if (num == (bjc.step + 1)) {
+		} else if (num == (llab.step + 1)) {
 		    forwardButton.attr({'value': url});
 		    forwardButton.button({disabled: false});
                     b_forwardButton.attr({'value': url});
@@ -247,7 +247,7 @@ bjc.processLinks = function(data, ignored1, ignored2) {
     if (getParameterByName("course") != "") {
         var course_link = getParameterByName("course");
         if (course_link.indexOf("http://") == -1) {
-            course_link = bjc.rootURL + "/course/" + course_link;
+            course_link = llab.courses_path + course_link;
         }
         list_item = $(document.createElement("li")).attr({'class': 'list_item'});
         list_item.append($(document.createElement("a")).attr({"class": "course_link", "href": course_link}).html("Go to Main Course Page"));
@@ -272,8 +272,8 @@ bjc.processLinks = function(data, ignored1, ignored2) {
     list_header.width(list.outerWidth());
     list.slideToggle(0);    
     
-    if (document.URL.indexOf(bjc.rootURL + "/admin/empty-curriculum-page.html") != -1) {
-	bjc.addFrame();
+    if (document.URL.indexOf(llab.empty_topic_page_path) != -1) {
+	llab.addFrame();
     } else {
 	$("#full").append('<div id="full-bottom-bar"></div>');
 	var b_nav = $(document.createElement("div")).addClass("bottom-nav");
@@ -282,7 +282,7 @@ bjc.processLinks = function(data, ignored1, ignored2) {
 	b_nav.append(background.clone());
 	$("#full-bottom-bar").append(b_nav);
 
-	bjc.moveAlonzo(bjc.url_list.length, bjc.step,
+	llab.moveAlonzo(llab.url_list.length, llab.step,
 		       Number($("#full-bottom-bar").css("width").slice(0, -2)), 
 		       Number(b_backButton.css("width").slice(0, -2)) +
 		       Number(b_forwardButton.css("width").slice(0, -2)));
@@ -292,7 +292,7 @@ bjc.processLinks = function(data, ignored1, ignored2) {
 }
 
 
-bjc.addFrame = function() {
+llab.addFrame = function() {
     var source = getParameterByName("src");
     $("#full").append('<a href=' + source + ' target="_">Open page in new window</a><br><br>');
     $("#full").append('<div id="cont"></div>');
@@ -300,12 +300,12 @@ bjc.addFrame = function() {
     $("#cont").append(frame);
 }
 
-bjc.goBack = function() {
-    window.location.href = bjc['url_list'][bjc.step - 1];
+llab.goBack = function() {
+    window.location.href = llab['url_list'][llab.step - 1];
 }
 
-bjc.goForward = function() {
-    window.location.href = bjc['url_list'][bjc.step + 1];
+llab.goForward = function() {
+    window.location.href = llab['url_list'][llab.step + 1];
 }
 
 /* Hides the dropdown when a user clicks somewhere else. */
@@ -315,12 +315,13 @@ $('html').click(function(event) {
     }
 });
 
+
 /* Positions alonzo along the bottom of the lab page, signifying the student's progress.
  * numSteps is the total number of steps in the lab, currentStep is the number of the
  * current step, totalWidth is the width of the entire bottom bar, and buttonWidth is
  * the combined width of the two nav buttons.
  */
-bjc.moveAlonzo = function(numSteps, currentStep, totalWidth, buttonWidth) {
+llab.moveAlonzo = function(numSteps, currentStep, totalWidth, buttonWidth) {
     var width = totalWidth - Number($('.bottom-nav').css('width').slice(0, -2));
     var result;
     if (currentStep < numSteps - 1) {
@@ -336,4 +337,4 @@ bjc.moveAlonzo = function(numSteps, currentStep, totalWidth, buttonWidth) {
 }
 
 
-$(document).ready(bjc.secondarySetUp);
+$(document).ready(llab.secondarySetUp);
