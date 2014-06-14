@@ -280,4 +280,3 @@ if (getParameterByName("topic") != "") {
   if no colon at all, just put no class on the div
   
 */
-
