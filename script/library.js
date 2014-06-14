@@ -1,48 +1,17 @@
 /*
- * Common functions for any bjc page
+ * Common functions for any llab page
  * 
  * CANNOT RELY ON JQUERY OR ANY OTHER LLAB LIBRARY
  */
 
 if (typeof llab === 'undefined') {
-    // if loader.js wasn't used, we need this.
+    // if loader.js wasn't used, we'll do this here in the first one
     llab = {};
     llab.loaded = {};
-    
-
 }
 
 
 
-
-/*
- ******** CONFIG *******
- */
-
-
-// if the website isn't at the root of the server, add the path here
-llab.rootURL = "";
-//llab.rootURL = "/bjc-r";
-
-// change if llab scripts are installed in a different path *within* rootURL.  
-llab.install_directory = "llab/";
-
-// reference your custom CSS files, from within llab install directory
-llab.paths.css_files = ["css/default.css" , "css/from-mvle.css"];
-
-
-
-// google analytics tokens
-llab.GAuse = false;
-llab.GACode = 'UA-47210910-3';
-llab.GAurl = 'berkeley.edu';
-
-
-
-
-/*
- ********* END CONFIG *********
- */
 
 
 
@@ -169,4 +138,7 @@ llab.GA = function() {
 // ga('send', 'pageview');
 
 
+
+
+/////////////////////  END
 llab.loaded['library'] = true;
