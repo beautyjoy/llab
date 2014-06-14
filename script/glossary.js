@@ -1,5 +1,4 @@
 
-
 var termParam = getParameterByName("term");
 var termWord = "";
 console.log("yoyo")
