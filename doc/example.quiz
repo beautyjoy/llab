@@ -1,18 +1,16 @@
 <!--
 
-A X.quiz file contains the contents of a <div class="assessment-data".
-You can either put these contents in such a div in a content page, or put them in
+A X.quiz file is a <div class="assessment-data".
+You can either put these in such a div in a content page, or put them in
 a X.quiz page and reference it, in the content page, with
     <div class="assessment-data" src="/path/to/X.quiz"></div>
    
-In content pages, quiz-wide options are specificied as attributes
+In content pages, question-wide options can be specificied as attributes
 on the outer div. To specify defaults here (that could be overridden by those
-in the content page), include an optional 
+in the content page), include attributes in your outermost div (with class="assessment-data") 
 
-  <div class="assessment-defaults"></div>
-  
-here.  For instance: 
-       <div class="assessment-defaults"
+ For instance: 
+       <div class="assessment-data"
         type="multiplechoice" identifier="goteam"
         hasinlinefeedback="true" maxchoices="1"
         responseIdentifier="ri" shuffle="true"
@@ -22,38 +20,39 @@ here.  For instance:
 
 -->
 
-<div class="assessment-defaults"
+<div class="assessment-data"
         type="multiplechoice" identifier="thisquiz"
         hasinlinefeedback="true" maxchoices="1"
         responseIdentifier="default" shuffle="true"
         >
-</div>
+
         
-<div class="prompt">
-    <p>
-        PROMPT_HTML
-    </p>
-</div>
-
-<div class="choice" identifier="c1">
-    <div class="text">
-        CHOICE_1_HTML
+    <div class="prompt">
+        <p>
+            PROMPT_HTML
+        </p>
     </div>
-    <div class="feedback">
-        FEEDBACK_HTML
-    </div>
-</div>
 
-<div class="choice" identifier="c2">
-    <div class="text">
-        CHOICE_2_HTML
+    <div class="choice" identifier="c1">
+        <div class="text">
+            CHOICE_1_HTML
+        </div>
+        <div class="feedback">
+            FEEDBACK_HTML
+        </div>
     </div>
-    <div class="feedback">
-        FEEDBACK_HTML
+
+    <div class="choice" identifier="c2">
+        <div class="text">
+            CHOICE_2_HTML
+        </div>
+        <div class="feedback">
+            FEEDBACK_HTML
+        </div>
     </div>
-</div>
 
-<div class="responseDeclaration" identifier="default">
-    <div class="correctResponse" identifier="c1"></div>
-</div>
+    <div class="responseDeclaration" identifier="default">
+        <div class="correctResponse" identifier="c1"></div>
+    </div>
 
+</div>
