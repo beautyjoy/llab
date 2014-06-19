@@ -4,26 +4,15 @@
 */
 
 
-
-
 /*
  * CONFIG
  */
 
-CONFIG_FILE_PATH = "/llab-website-test/llab/config.js";
+CONFIG_FILE_PATH = "/~cs61bl/r/assets-llab/config.js";
 
 /*
  * END CONFIG
  */
-
-
-
-
-
-
-
-
-
 
 
 // NOTE: this is built in library.js if not built here (because this file isn't used, say)

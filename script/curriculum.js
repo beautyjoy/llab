@@ -16,32 +16,11 @@ llab.secondarySetUp = function() {
         $(document.body).wrapInner('<div id="full"></div>');
     }
 
-    // create Title tag, yo
-    if (getParameterByName("title") != "") {
-	document.title = decodeURIComponent(getParameterByName("title"));
-    }
-    var titleText = document.title;
-    if (titleText && $(".header").length == 0) {
-	$('<div class="header"></div>').prependTo($("#full")).html(titleText);
-
-	// I don't think this does anything. If nothing breaks I'll remove it.
-	/* if (getParameterByName("title") != "") {
-	    $(".header").html(titleText);
-	}*/
-    }
-    document.body.style.marginTop = "60px";
-    document.title = $(".header").text();
-    
-    
-
-
     // fix snap links so they run snap
     $("a.run").each(function(i) {
 	$(this).attr("target", "_blank");
 	$(this).attr('href', llab.getSnapRunURL(this.getAttribute('href')));
     });
-
-
 
     // make the vocab box if necessary
     if ($("span.vocab").length > 0) {
@@ -141,20 +120,20 @@ llab.processLinks = function(data, ignored1, ignored2) {
     var text;
     var num = 0;
     var nav = $(document.createElement("div")).addClass("nav");
-    var backButton = $(document.createElement("a")).addClass("backbutton");
-    var b_backButton = $(document.createElement("a")).addClass("backbutton");
+    var backButton = $(document.createElement("a")).addClass("button");
+    var b_backButton = $(document.createElement("a")).addClass("button");
     backButton.text("BACK");
     backButton.button({disabled: true});
     backButton.click(llab.goBack);
     b_backButton.text("BACK");
     b_backButton.button({disabled: true});
     b_backButton.click(llab.goBack);
-    var forwardButton = $(document.createElement("a")).addClass("forwardbutton");
-    var b_forwardButton = $(document.createElement("a")).addClass("forwardbutton");
-    forwardButton.text("FORWARD");
+    var forwardButton = $(document.createElement("a")).addClass("button");
+    var b_forwardButton = $(document.createElement("a")).addClass("button");
+    forwardButton.text("NEXT");
     forwardButton.button({disabled: true});
     forwardButton.click(llab.goForward);
-    b_forwardButton.text("FORWARD");
+    b_forwardButton.text("NEXT");
     b_forwardButton.button({disabled: true});
     b_forwardButton.click(llab.goForward);
     var list = $(document.createElement("ul")).attr({'class': 'steps'});
@@ -217,13 +196,11 @@ llab.processLinks = function(data, ignored1, ignored2) {
 		    b_backButton.button({disabled: false});
 		    option = $(document.createElement("a")).attr({'href': url});
 		    option.html(text);
-		    
 		} else if (num == llab.step) {
 		    text = "<span class='current-step-link'>" + text + "</span>";
 		    option = $(document.createElement("a"));
 		    option.html(text);
-		    list_header.html("Click here to navigate...");
-		    
+		    list_header.html("Click here to navigate");
 		} else if (num == (llab.step + 1)) {
 		    forwardButton.attr({'value': url});
 		    forwardButton.button({disabled: false});
@@ -231,7 +208,6 @@ llab.processLinks = function(data, ignored1, ignored2) {
 		    b_forwardButton.button({disabled: false});
 		    option = $(document.createElement("a")).attr({'href': url});
 		    option.html(text);
-		    
 		} else {
 		    option = $(document.createElement("a")).attr({'href': url});
 		    option.html(text);
@@ -255,10 +231,10 @@ llab.processLinks = function(data, ignored1, ignored2) {
     }
 
     list_header.click(function() {
-	if (list_header.html() == "Click here to navigate...") {
-	    list_header.html("Click again to close...");
+	if (list_header.html() == "Click here to navigate") {
+	    list_header.html("Click again to close");
 	} else {
-	    list_header.html("Click here to navigate...");
+	    list_header.html("Click here to navigate");
 	}
 	$($(".steps")[0]).slideToggle(300);
     });
@@ -269,8 +245,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
     var background = $(document.createElement("div")).attr({'class': 'nav_background'});
     nav.append(background);
     $("#full").prepend(nav);
-    list_header.width(list.outerWidth());
-    list.slideToggle(0);    
+    list.slideToggle(0);
     
     if (document.URL.indexOf(llab.empty_topic_page_path) != -1) {
 	llab.addFrame();
@@ -281,13 +256,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
 	b_nav.append(b_forwardButton);
 	b_nav.append(background.clone());
 	$("#full-bottom-bar").append(b_nav);
-
-	llab.moveAlonzo(llab.url_list.length, llab.step,
-		       Number($("#full-bottom-bar").css("width").slice(0, -2)), 
-		       Number(b_backButton.css("width").slice(0, -2)) +
-		       Number(b_forwardButton.css("width").slice(0, -2)));
     }
-
     
 }
 
@@ -314,27 +283,5 @@ $('html').click(function(event) {
 	$($(".steps")[0]).slideUp(300);
     }
 });
-
-
-/* Positions alonzo along the bottom of the lab page, signifying the student's progress.
- * numSteps is the total number of steps in the lab, currentStep is the number of the
- * current step, totalWidth is the width of the entire bottom bar, and buttonWidth is
- * the combined width of the two nav buttons.
- */
-llab.moveAlonzo = function(numSteps, currentStep, totalWidth, buttonWidth) {
-    var width = totalWidth - Number($('.bottom-nav').css('width').slice(0, -2));
-    var result;
-    if (currentStep < numSteps - 1) {
-	width *= .98
-	result = Math.round((currentStep * (width / (numSteps - 1)) + 1) / totalWidth * 100) + "%";
-    } else {
-	var picWidth = $("#full-bottom-bar").css("background-size");
-	picWidth = picWidth.slice(0, picWidth.indexOf("px"));
-	result = width - Number(picWidth) - 4 + "px"; // the 4 is just to add a bit of space
-    }
-    result = result + " 2px";
-    $("#full-bottom-bar").css("background-position", result)
-}
-
 
 $(document).ready(llab.secondarySetUp);

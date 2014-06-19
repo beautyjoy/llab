@@ -17,7 +17,7 @@ if (typeof llab === 'undefined') {
 
 // if the website isn't at the root of the server, add the path here.
 // starting / means this is an absolute link, yo
-llab.rootURL = "/cs61bl/r/";
+llab.rootURL = "/~cs61bl/r/";
 
 // change if llab scripts are installed in a different path *within* rootURL.  
 llab.install_directory = "assets-llab/";
@@ -27,13 +27,8 @@ llab.llab_path = llab.rootURL + llab.install_directory;
 
 // reference your custom CSS files, from within llab install directory.  
 //  Multiple CSS files is fine, include a separate push for each
-llab.paths.css_files.push('http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.0/normalize.min.css');
-llab.paths.css_files.push('http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css');
-//llab.paths.css_files.push("css/default.css");
-//llab.paths.css_files.push("css/from-mvle.css");  // TODO lose this one please
+llab.paths.css_files.push('http://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
 llab.paths.css_files.push("../assets/css/labslide.css");
-
-
 
 // courses -- path to folder containing courses.
 //  a course 'name', when prepended with this, will be an absolute link
