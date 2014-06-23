@@ -152,7 +152,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
 	if (line.length > 1 && (hidden.indexOf($.trim(line.slice(0, line.indexOf(":")))) == -1)) {
 	    if (line.indexOf("title:") != -1) {
 		/* Create a link back to the main topic.  Should this be to the file in llab? */
-		url = llab.topic_launch_page + "?topic=" + llab.file + hiddenString + "&course=" + course;
+		url = llab.topic_home_page + "?topic=" + llab.file + hiddenString + "&course=" + course;
 		text = line.slice(line.indexOf(":") + 1);
 		if (text.length > 35) {
 		    text = text.slice(0, 35) + "...";
