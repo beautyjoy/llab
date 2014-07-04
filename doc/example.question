@@ -1,13 +1,14 @@
 <!--
 
-A X.quiz file is a <div class="assessment-data".
-You can either put these in such a div in a content page, or put them in
-a X.quiz page and reference it, in the content page, with
-    <div class="assessment-data" src="/path/to/X.quiz"></div>
+A X.question file contains only a <div class="assessment-data">...</div>.
+You can either put these in such a content page, or put them in
+a X.question file and reference it, in the content page, with
+    <div class="assessment-data" src="/path/to/X.question"></div>
    
-In content pages, question-wide options can be specificied as attributes
-on the outer div. To specify defaults here (that could be overridden by those
-in the content page), include attributes in your outermost div (with class="assessment-data") 
+In content pages, question-wide options can be specified as attributes/values
+on the 'assessment-data' div. Any attribute/values in a X.question file 
+(in the 'assessment-data' div) will serve as defaults, to be overridden 
+by any attributes/values present in the content page)
 
  For instance: 
        <div class="assessment-data"
