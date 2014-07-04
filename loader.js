@@ -60,6 +60,7 @@ llab.paths.stage_complete_functions[0] = function() {
 llab.paths.scripts[1] = [];
 llab.paths.scripts[1].push("lib/jquery-1.9.1.min.js");
 llab.paths.scripts[1].push("script/library.js");
+llab.paths.scripts[1].push("script/lib/sha1.js");     // for brainstorm
 
 llab.loaded['library'] = false;
 llab.paths.stage_complete_functions[1] = function() {
@@ -77,11 +78,13 @@ return (( typeof jQuery == 'function') &&
 llab.paths.scripts[2] = [];
 llab.paths.scripts[2].push("lib/jquery-ui.1.10.2.min.js");
 llab.paths.scripts[2].push("script/quiz/multiplechoice.js");
+llab.paths.scripts[2].push("script/user.js");
 
 llab.loaded['multiplechoice'] = false;
 llab.paths.stage_complete_functions[2] = function() {
 	return ((llab.loaded['multiplechoice'] ) && 
-	        (typeof jQuery.ui !== 'undefined')
+	        (typeof jQuery.ui !== 'undefined') &&
+	        (llab.loaded['user'] )
 	);
 }
 
@@ -95,6 +98,7 @@ llab.paths.stage_complete_functions[2] = function() {
 llab.paths.scripts[3] = [];
 llab.paths.scripts[3].push("script/quiz.js");
 llab.paths.scripts[3].push("script/curriculum.js");
+llab.paths.scripts[3].push("script/brainstorm.js");
 
 
 llab.paths.stage_complete_functions[3] = function() {
@@ -170,7 +174,7 @@ llab.initialSetUp = function() {
 			}
 		} else {
 			//console.log("waiting on stage " + stage_num);
-			setTimeout(function() {proceedWhenComplete(stage_num)}, 50);
+			setTimeout(function() {proceedWhenComplete(stage_num)}, 20);
 		}
 	}
 

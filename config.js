@@ -33,6 +33,8 @@ llab.paths.css_files.push('http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.0
 llab.paths.css_files.push('http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css');
 llab.paths.css_files.push("css/default.css");
 llab.paths.css_files.push("css/from-mvle.css");  // TODO lose this one please
+llab.paths.css_files.push("css/brainstorm.css");
+llab.paths.css_files.push("css/user.css");
 
 
 
