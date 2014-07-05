@@ -10,7 +10,7 @@
  * CONFIG
  */
 
-CONFIG_FILE_PATH = "/llab-website-test/llab/config.js";
+CONFIG_FILE_PATH = "/bjc-r/llab/config.js";
 
 /*
  * END CONFIG
