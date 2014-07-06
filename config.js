@@ -29,8 +29,8 @@ llab.llab_path = llab.rootURL + llab.install_directory;
 
 // reference your custom CSS files, from within llab install directory.  
 //  Multiple CSS files is fine, include a separate push for each
-llab.paths.css_files.push('cdnjs.cloudflare.com/ajax/libs/normalize/3.0.0/normalize.min.css');
-llab.paths.css_files.push('ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css');
+llab.paths.css_files.push('css/bootstrap.min.css');
+llab.paths.css_files.push('css/bootstrap-theme.min.css');
 llab.paths.css_files.push("css/default.css");
 llab.paths.css_files.push("css/from-mvle.css");  // TODO lose this one please
 
@@ -51,7 +51,7 @@ llab.empty_topic_page_path = llab.llab_path + "html/empty-topic-page.html";
 
 
 // google analytics tokens
-llab.GAuse = false;
+llab.GAuse = true;
 llab.GACode = 'UA-47210910-3';
 llab.GAurl = 'berkeley.edu';
 
