@@ -19,13 +19,6 @@ CONFIG_FILE_PATH = "/bjc-r/llab/config.js";
 
 
 
-
-
-
-
-
-
-
 // NOTE: this is built in library.js if not built here (because this file isn't used, say)
 llab = {};
 llab.loaded = {};  // keys are true if that script file is loaded (script file should set key to true)
@@ -34,7 +27,7 @@ llab.loaded = {};  // keys are true if that script file is loaded (script file s
 llab.paths = {};
 llab.paths.stage_complete_functions = [];
 llab.paths.scripts = [];  // holds the scripts to load, in stages below
-llab.paths.css_files = [];  
+llab.paths.css_files = [];
 llab.rootURL = "";  // to be overridden in config.js
 llab.install_directory = "";  // to be overridden in config.js
 
@@ -58,7 +51,7 @@ llab.paths.stage_complete_functions[0] = function() {
 /////////////////
 ///////////////// stage 1
 llab.paths.scripts[1] = [];
-llab.paths.scripts[1].push("lib/jquery-1.9.1.min.js");
+llab.paths.scripts[1].push("lib/jquery.min.js");
 llab.paths.scripts[1].push("script/library.js");
 
 llab.loaded['library'] = false;
@@ -75,13 +68,14 @@ return (( typeof jQuery == 'function') &&
 // all these scripts depend on jquery, loaded in stage 1
 // all quiz item types should get loaded here
 llab.paths.scripts[2] = [];
-llab.paths.scripts[2].push("lib/jquery-ui.1.10.2.min.js");
+llab.paths.scripts[2].push("script/curriculum.js");
+llab.paths.scripts[2].push("lib/bootstrap.min.js");
 llab.paths.scripts[2].push("script/quiz/multiplechoice.js");
 
 llab.loaded['multiplechoice'] = false;
 llab.paths.stage_complete_functions[2] = function() {
 	return ((llab.loaded['multiplechoice'] ) && 
-	        (typeof jQuery.ui !== 'undefined')
+	        (true) // FIXME -- proper bootstrap check
 	);
 }
 
@@ -91,10 +85,8 @@ llab.paths.stage_complete_functions[2] = function() {
 ////////////////
 ////////////////  stage 3
 // quiz.js depends on each of the quiz item types having loaded
-// curriculum depends on jquery-ui
 llab.paths.scripts[3] = [];
 llab.paths.scripts[3].push("script/quiz.js");
-llab.paths.scripts[3].push("script/curriculum.js");
 
 
 llab.paths.stage_complete_functions[3] = function() {
