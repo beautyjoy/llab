@@ -121,16 +121,28 @@ input[type=submit] {
     border: 1px solid #3399ff;
 }
 
-ul li, ol li {
+ul > li, ol > li {
     padding: 5px;
     margin-left: 35px; /* WHY? This causes problems in some places... */
 }
 
-li ul, li ol {
+li > ul, li > ol {
     margin-top: 5px;
     margin-bottom: 5px;
     border: none;
     display: block;
+}
+
+/* 
+Removes borders from nested lists. 
+NOTE: Generally the child selector ( > ) is preferred due to specificity and
+performance.
+However, .full is needed because the class reference is more specific and the
+above rules override these without it.
+*/
+.full ul > ul, .full ol > ol,
+.full ul > ol, .full ol > ul {
+  border: none;
 }
 
 th {
