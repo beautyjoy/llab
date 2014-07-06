@@ -32,7 +32,7 @@ llab.step = NaN;
 llab.url_list = [];
 
 var FULL = llab.selectors.FULL,
-    hamburger = llab.selectors.hamburger;
+    hamburger = llab.fragments.hamburger;
 
 llab.secondarySetUp = function() { 
     
@@ -153,6 +153,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
         list_item,
         line,
         used;
+        console.log(course);
     
     for (var i = 0; i < lines.length; i++) {
         line = llab.stripComments($.trim(lines[i]));
@@ -220,6 +221,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
         num += 1;
     } // end for loop
     
+    console.log(course);
     if (course !== "") {
         if (course.indexOf("http://") === -1) {
             course = llab.courses_path + course;
@@ -237,7 +239,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
     dropdown.append(list);
     
     // FIXME -- shouldn't special case this
-    if (document.URL.indexOf("empty-curriculum-page.html") !== -1) {
+    if (document.URL.indexOf(llab.empty_topic_page_path) !== -1) {
         llab.addFrame();
     }
 
@@ -346,20 +348,15 @@ llab.createTitleNav = function() {
 llab.buildDropdown = function() {
     // TODO -- cleanup use selectors for classes
 
-    var dropwon, list_header, nav_text;
+    var dropwon, list_header;
     // Container div for the whole menu (title + links)
     dropdown = $(document.createElement("div")).attr(
         {'class': 'dropdown inline'});
-    
-    // span not completely necessary, but might help with width issues.
-    // nav_text = $(document.createElement('span')).html(llab.clickNav);
     
     // build the list header
     list_header = $(document.createElement("button")).attr(
         {'class': 'navbar-toggle btn btn-default dropdown-toggle list_header',
          'type' : 'button', 'data-toggle' : "dropdown" }); 
-    // list_header.append(nav_text);
-    // list_header.append(llab.bootstrapCaret);
     list_header.append(hamburger);
     
     // Add Header to dropdown 
