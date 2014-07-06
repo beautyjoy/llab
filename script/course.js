@@ -11,8 +11,10 @@
 
  /* hide items and pass on course name. */
 llab.editURLs = function() {
-
+    console.log('grr');
+    console.log($(".topic_container a"));
     $(".topic_container a").each(function() {
+        
         var args = "";
         var attributes = this.attributes;
         for (var i = 0; i < attributes.length; i++) {
@@ -36,5 +38,6 @@ llab.editURLs = function() {
 };
 
  $(document).ready(function() {
+     console.log('srsly');
     llab.editURLs();
  });
