@@ -68,8 +68,9 @@ return (( typeof jQuery == 'function') &&
 // all these scripts depend on jquery, loaded in stage 1
 // all quiz item types should get loaded here
 llab.paths.scripts[2] = [];
-llab.paths.scripts[2].push("script/curriculum.js");
 llab.paths.scripts[2].push("script/course.js");
+llab.paths.scripts[2].push("script/curriculum.js");
+llab.paths.scripts[2].push("script/topic.js");
 llab.paths.scripts[2].push("lib/bootstrap.min.js");
 llab.paths.scripts[2].push("script/quiz/multiplechoice.js");
 

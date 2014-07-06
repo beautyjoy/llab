@@ -26,7 +26,7 @@ llab.editURLs = function() {
     
     // FIXME -- this is most surely buggy
     $("a").each(function() {
-        if (document.location.href.indexOf(llab.courses_path) == -1) {
+        if (document.location.href.indexOf(llab.courses_path) === -1) {
             this.href + "&course=" + document.location.href;
         } else {
             this.href = this.href + "&course=" + document.location.href.split("?")[0].split("/").pop();

@@ -153,7 +153,6 @@ llab.processLinks = function(data, ignored1, ignored2) {
         list_item,
         line,
         used;
-        console.log(course);
     
     for (var i = 0; i < lines.length; i++) {
         line = llab.stripComments($.trim(lines[i]));
@@ -175,12 +174,12 @@ llab.processLinks = function(data, ignored1, ignored2) {
             text = "<span class='main-topic-link'>" + text + "</span>";
             list_item = llab.dropdownItem(text, url);
             // Note: Add to top of list!
-            list.prepend(llab.bootstrapSep);
+            list.prepend(llab.fragments.bootstrapSep);
             list.prepend(list_item);
-            
+
             continue;
         }
-        
+
         // TODO:  Check if we have a title for this link?
         // If we don't have a link, skip this line.
         var hasLink = line.indexOf("[") !== -1 && line.indexOf("]") !== -1;
@@ -221,7 +220,6 @@ llab.processLinks = function(data, ignored1, ignored2) {
         num += 1;
     } // end for loop
     
-    console.log(course);
     if (course !== "") {
         if (course.indexOf("http://") === -1) {
             course = llab.courses_path + course;
@@ -304,6 +302,7 @@ llab.setupTitle = function() {
     document.title = $(".navbar-brand").text();
     
     // FIXME -- Not great on widnow resize
+    // Needs to be refactored, and window listener added
     $(document.body).css('padding-top', $('.llab-nav').height());
     llab.titleSet = true;
 }

@@ -1,4 +1,4 @@
-
+// FIXME -- documentation needed.
 llab['file'] = "";
 
 
@@ -53,12 +53,14 @@ llab.tags = ["h1", "h2", "h3", "h4", "h5", "h6"];
 
 
 llab.renderFull = function(data, ignored1, ignored2) {
+    var FULL = llab.selectors.FULL;
+    
     if (getParameterByName("course") != "") {
         var course_link = getParameterByName("course");
         if (course_link.indexOf("http://") == -1) {
             course_link = llab.courses_path + course_link;
         }
-        $("#full").append($(document.createElement("a")).attr({"class":"course_link", "href": course_link}).html("Go to Main Course Page"));
+        $(FULL).append($(document.createElement("a")).attr({"class":"course_link", "href": course_link}).html("Go to Main Course Page"));
     }
     if (typeof getParameterByName("topic") == "object") {
         llab.file = getParameterByName("topic")[0];
@@ -105,7 +107,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
             } else if (line.slice(0,1) == "{") {
                 in_topic = true;
                 topic = $(document.createElement("div")).attr({'class': 'topic'});
-                $("#full").append(topic);
+                $(FULL).append(topic);
                 learningGoal = false;
                 bigIdea = false;
             } else if (line.slice(0, 6) == "topic:") {
@@ -240,27 +242,38 @@ llab.isTag = function(s) {
     return llab.tags.indexOf(s) > -1;
 }
 
-
-
-if (getParameterByName("topic") != "") {
-    if (typeof getParameterByName("topic") == "object") {
-        llab.file = getParameterByName("topic")[0];
+llab.displayTopic = function() {
+    if (getParameterByName("topic") != "") {
+        if (typeof getParameterByName("topic") == "object") {
+            llab.file = getParameterByName("topic")[0];
+        } else {
+            llab.file = getParameterByName("topic");
+        }
+        $.ajax({
+            url : llab.topics_path + llab.file,
+            type : "GET",
+            dataType : "text",
+            cache : false,
+            success : llab.renderFull
+        });
     } else {
-        llab.file = getParameterByName("topic");
+        // TODO -- better error messge.  maybe show default course or topic?
+        document.getElementsByTagName('BODY').item(0).innerHTML = "Please specify a file in the URL.";
     }
-    $.ajax({
-        url : llab.topics_path + llab.file,
-        type : "GET",
-        dataType : "text",
-        cache : false,
-        success : llab.renderFull
-    });
-} else {
-    // TODO -- better error messge.  maybe show default course or topic?
-    document.getElementsByTagName('BODY').item(0).innerHTML = "Please specify a file in the URL.";
 }
 
+// Make a call to build a topic page.
+// Be sure that content is set only on pages that it should be
+$(document).ready(function() {
+    // FIXME -- refactor check
+    var url = document.URL,
+        topicFile = (url.indexOf("topic.html") !== -1 ||
+            url.indexOf("empty-topic-page.html") !== -1);
 
+    if (topicFile === true) {
+        llab.displayTopic();
+    }
+});
 /*
   Error checking (do this after building page, so it won't slow it down?)
 
