@@ -14,9 +14,9 @@
 llab.selectors = {};
 llab.fragments = {};
 llab.strings = {};
-llab.goMain = 'Go to the Course Page';
+llab.strings.goMain = 'Go to the Course Page';
 // &#8230; is ellipsis
-llab.clickNav = 'Click here to navigate&#8230;&nbsp;&nbsp;';
+llab.strings.clickNav = 'Click here to navigate&nbsp;&nbsp;';
 // 
 llab.fragments.bootstrapSep = '<li class="divider list_item" role="presentation"></li>';
 llab.fragments.bootstrapCaret = '<span class="caret"></span>';
@@ -224,7 +224,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
         if (course.indexOf("http://") === -1) {
             course = llab.courses_path + course;
         }
-        text = "<span class='course-link-list'>" + llab.goMain + "</span>";      
+        text = "<span class='course-link-list'>" + llab.strings.goMain + "</span>";
         list_item = llab.dropdownItem(text, course);
         list.prepend(list_item);
     }
@@ -319,7 +319,7 @@ llab.createTitleNav = function() {
                   '<ul class="nav-btns btn-group"></ul></div>',
         topNav = $(llab.selectors.NAVSELECT),
         buttons = "<a class='btn btn-default backbutton arrow'>back</a>" +
-                   "<a class='btn btn-default forwardbutton arrow'>forward</a>";
+                   "<a class='btn btn-default forwardbutton arrow'>next</a>";
     
     if (topNav.length === 0) {
         $(document.body).prepend(topHTML);
