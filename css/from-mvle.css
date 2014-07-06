@@ -61,13 +61,12 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
 	/* looks OK in IE, too small in firefox, ug.  Firefox at 150% is about right, 130% in IE is right */
 	font-size: 135%;
 	font-weight: 500;
-    color: 
 }
 
 .helpIcon {
 	width: 16px;
 	height: 16px;
-	background-image: url(../img/infoIcon.png);
+	background-image: url(images/infoIcon.png);
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	padding: 0px;
@@ -79,7 +78,7 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
 }
 
 .helpIcon :hover {
-	background-image: url(../img/infoIconRollover.png);
+	background-image: url(images/infoIconRollover.png);
 }
 
 .helpTextLink {
@@ -185,7 +184,7 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
 }
 
 .infoBoxCenteredDiv, .assessmentTypeCenteredDiv {
-	background-image:url(../img/BackgroundBlue600.png);
+	background-image:url(images/BackgroundBlue600.png);
 	background-position:0px -400px;
 	background-repeat:repeat-x;
 	background-color:#FFF;
@@ -428,7 +427,7 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
 	border-left:4px solid #999;
 	padding-left:6px;
 	margin-left:30px;
-	
+
 }
 
 .MultipleChoice input * {
@@ -465,7 +464,7 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
 .MultipleChoice .buttonDiv {
     min-height: 31px;
 	background-color: #FFFFFF;
-	
+
 }
 
 .MultipleChoiceData {
@@ -477,5 +476,5 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
 }
 
 .InlineMultipleChoice .inline-prompt {
-    
+
 }

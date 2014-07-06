@@ -4,6 +4,7 @@
  * CANNOT RELY ON JQUERY OR ANY OTHER LLAB LIBRARY
  */
 
+
 if (typeof llab === 'undefined') {
     // if loader.js wasn't used, we'll do this here in the first one
     llab = {};
@@ -11,17 +12,9 @@ if (typeof llab === 'undefined') {
 }
 
 
-
-
-
-
-
-
-
-
 /////////////////
 
-
+// TODO: Move to config potentially
 llab.CORSproxy = "www.corsproxy.com";
 
 llab.CORSCompliantServers = [];
@@ -32,7 +25,7 @@ llab.CORSCompliantServers.push("inst.eecs.berkeley.edu");
 llab.CORSCompliantServers.push("cs10.berkeley.edu");
 
 
-////
+//// TODO: Move this to config? Or refactor?
 
 llab.snapRunURLBase = "http://snap.berkeley.edu/snapsource/snap.html#open:";
 
@@ -135,7 +128,26 @@ if (llab.GAuse) {
     ga('send', 'pageview');
 }
 
-
+/** Truncate a STR to an output of N chars.
+ *  N does NOT include any HTML characters in the string.
+ */
+llab.truncate = function(str, n) {
+    // Ensure string is 'proper' HTML by putting it in a div, then extracting.
+    var clean = document.createElement('div');
+    clean.innerHTML = str;
+    clean = clean.textContent || clean.innerText || '';
+    
+    // TODO: Shorten string to end on whole words?
+    // TODO: Be smarter about stripping from HTML content
+    // This, don't factor HTML into the removed length
+    // Perhaps match postion of nth character to the original string?
+    // &#8230; is a unicode ellipses
+    if (clean.length > n) {
+        return clean.slice(0, n - 1) + '&#8230;';
+    }
+    
+    return str; // return the HTML content if possible.
+};
 
 /////////////////////  END
 llab.loaded['library'] = true;

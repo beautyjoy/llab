@@ -1,340 +1,520 @@
-/**
+/** curriculum.js
  *
- * sets up a BJC curriculum page -- either local or external.
- * Uses jquery.
- * This is borrowed from UCCP APCSA work
+ *  sets up a curriculum page -- either local or external.
+ *
+ *  Dependencies:
+ *      jQuery
+ *      library.js
+ *      (Bootsrap) - optional, needed for looks, if missing code will still run
  */
 
-llab['file'] = "";
-llab['step'] = "";
-llab['url_list'] = new Array();
 
-llab.secondarySetUp = function() {
+// TODO: These need to be moved to a better place:
+// These are common strings that need not be build and should be reused!
+llab.selectors = {};
+llab.fragments = {};
+llab.strings = {};
+llab.goMain = 'Go to the Course Page';
+// &#8230; is ellipsis
+llab.clickNav = 'Click here to navigate&#8230;&nbsp;&nbsp;';
+// 
+llab.fragments.bootstrapSep = '<li class="divider list_item" role="presentation"></li>';
+llab.fragments.bootstrapCaret = '<span class="caret"></span>';
+llab.fragments.hamburger = '<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>';
+// LLAB selectors for common page elements
+llab.selectors.FULL = '.full';
+llab.selectors.NAVSELECT = '.llab-nav';
+llab.selectors.PROGRESS = '.full-bottom-bar';
 
-    // insert main div
-    if ($("#full").length == 0) {
-        $(document.body).wrapInner('<div id="full"></div>');
-    }
 
-    // create Title tag, yo
-    if (getParameterByName("title") != "") {
-	document.title = decodeURIComponent(getParameterByName("title"));
-    }
-    var titleText = document.title;
-    if (titleText && $(".header").length == 0) {
-	$('<div class="header"></div>').prependTo($("#full")).html(titleText);
+llab.file = "";
+llab.step = NaN;
+llab.url_list = [];
 
-	// I don't think this does anything. If nothing breaks I'll remove it.
-	/* if (getParameterByName("title") != "") {
-	    $(".header").html(titleText);
-	}*/
-    }
-    document.body.style.marginTop = "60px";
-    document.title = $(".header").text();
+var FULL = llab.selectors.FULL,
+    hamburger = llab.selectors.hamburger;
+
+llab.secondarySetUp = function() { 
     
-    
+    llab.step = parseInt(getParameterByName("step"));
 
+    // Currently title requires llab.step work work properly.
+    llab.setupTitle();
 
     // fix snap links so they run snap
     $("a.run").each(function(i) {
-	$(this).attr("target", "_blank");
-	$(this).attr('href', llab.getSnapRunURL(this.getAttribute('href')));
+        $(this).attr("target", "_blank");
+        $(this).attr('href', llab.getSnapRunURL(this.getAttribute('href')));
     });
-
-
 
     // make the vocab box if necessary
     if ($("span.vocab").length > 0) {
-	if ($("div.vocab").length == 0) {
-	    // it might already exist, in order to have a 'topX' class inserted.
-	    $("#full").append('<div class="vocab"></div>');
-	}
-	var vocabDiv = $("div.vocab");
-	$("span.vocab").each(function(i) {
-	    if (!(this.getAttribute('term'))) {
-		this.setAttribute('term', this.innerHTML)
-	    }
-	    vocabDiv.append('<a href="' + llab.rootURL + '/glossary/view.html?term=' + this.getAttribute('term')
-			    + '" target="_vocab">' + this.getAttribute('term') + '</a>');
-	});
+        if ($("div.vocab").length === 0) {
+            // it might already exist, in order to have a 'topX' class inserted.
+            $(".full").append('<div class="vocab"></div>');
+        }
+        var vocabDiv = $("div.vocab");
+        $("span.vocab").each(function(i) {
+            if (!(this.getAttribute('term'))) {
+                this.setAttribute('term', this.innerHTML)
+            }
+            vocabDiv.append('<a href="' + llab.rootURL +
+                '/glossary/view.html?term=' + this.getAttribute('term')
+                + '" target="_vocab">' + this.getAttribute('term') + '</a>');
+        });
     }
 
     // make the help box if necessary
     var helpSpans = $("span.help");
     if (helpSpans.length > 0) {
-	$("#full").append('<div class="help"></div>');
-	var helpDiv = $("div.help");
-	helpSpans.each(function(i) {
-	    if (!(this.getAttribute('topic'))) {
-		this.setAttribute('topic', this.innerHTML)
-	    };
-	    helpDiv.append('<p><a href="' + llab.rootURL + '/help/view.html?topic=' + this.getAttribute('topic')
-			   + '" target="_help">' + this.getAttribute('topic') + '</a></p>');
-	});
+        // TODO clean this up
+        $(FULL).append('<div class="help"></div>');
+        var helpDiv = $("div.help");
+        helpSpans.each(function(i) {
+            if (!(this.getAttribute('topic'))) {
+                this.setAttribute('topic', this.innerHTML);
+            }
+            helpDiv.append('<p><a href="' + llab.rootURL + '/help/view.html?topic=' + this.getAttribute('topic')
+            + '" target="_help">' + this.getAttribute('topic') + '</a></p>');
+        });
     }
 
     // move anything that belongs in to the margin there, if necessary
     // these are the 4 class of divs that matter.
     var marginSelector = ["div.key", "div.warning", "div.help", "div.vocab"];
     if ($(marginSelector.join(',')).length > 0) {
-	// add the two columns.
-	$('#full').wrapInner('<div id="mainCol"></div>').prepend('<div id="marginCol"></div>');
-	// this moves the divs over.  Perhaps it could do some smarter ordering
-	// always put vocab at the bottom, for instance.
-	var marginCol = $("#marginCol").get(0);
-	$.each(marginSelector, function(i, divclass) {
-	    $(divclass).appendTo(marginCol);
-	});
+        // add the two columns.
+        $(FULL).wrapInner('<div id="mainCol"></div>').prepend('<div id="marginCol"></div>');
+        // this moves the divs over.  Perhaps it could do some smarter ordering
+        // always put vocab at the bottom, for instance.
+        var marginCol = $("#marginCol").get(0);
+        $.each(marginSelector, function(i, divclass) {
+            $(divclass).appendTo(marginCol);
+        });
     }
 
-    // should this page be rendered with the topic header (left, right buttons, etc)
-    llab['step'] = parseInt(getParameterByName("step"));
-    var temp = getParameterByName("topic");
-    if (temp != "" && !isNaN(llab['step'])) {
-	if (getParameterByName("step") == "") {
-	    // TODO -- this shouldn't happen, but we could intelligently find which
-	    // step this should be
-	}
-        if (typeof temp == "object") {
-            llab['file'] = temp[1];
-        } else {
-            llab['file'] = temp;
-        }
-	
-	$.ajax({
-	    url : llab.rootURL + "/topic/" + llab.file,
-	    type : "GET",
-	    dataType : "text",
-	    cache : false,
-	    success: llab.processLinks
-	});
+    // Get the topic file and step from the URL
+    var topicFile = getParameterByName("topic");
+
+    // We don't have a topic file, so we should exit.
+    if (topicFile === "" || isNaN(llab.step)) {
+        return;
     }
     
+    if (getParameterByName("step") === "") {
+        // TODO -- this shouldn't happen, but we could intelligently find 
+        // which step this should be
+    }
     
+    if (typeof topicFile == "object") {
+        llab.file = topicFile[1];
+    } else {
+        llab.file = topicFile;
+    }
     
+    $.ajax({
+        url : llab.rootURL + "/topic/" + llab.file,
+        type : "GET",
+        dataType : "text",
+        cache : true, // cache the topic page.
+        success: llab.processLinks
+    });
 }; // close secondarysetup();
 
-
-/** Processes just the hyperlinked elements in this page,
- *	and creates navigation buttons. 
+/** 
+ *  Processes just the hyperlinked elements in the topic file,
+ *  and creates navigation buttons.
+ *  FIXME: This should share code with llab.topic!
  */
 llab.processLinks = function(data, ignored1, ignored2) {
-    var temp = getParameterByName("topic");
-    if (typeof temp == "object") {
-        llab['file'] = temp[1];
-    } else {
-        llab['file'] = temp;
-    }
     var hidden = [];
     var hiddenString = "";
-    temp = window.location.search.substring(1).split("&");
+    
+    // URL Options
+    var temp = window.location.search.substring(1).split("&");
+    
     for (var i = 0; i < temp.length; i++) {
-        var temp2 = temp[i].split("=");
-        if (temp2[0].substring(0, 2) == "no" && temp2[1] == "true") {
-            hidden.push(temp2[0].substring(2));
-            hiddenString += ("&" + temp2[0] + "=" + temp2[1]);
+        var param = temp[i].split("="); // param = [OPTION, VALUE]
+        if (param[0].substring(0, 2) == "no" && param[1] == "true") {
+            hidden.push(param[0].substring(2));
+            hiddenString += ("&" + temp[i]);
         }
-    }
-    var course = getParameterByName("course");
-    var lines = data.split("\n");
-    var line;
-    var text;
-    var num = 0;
-    var nav = $(document.createElement("div")).addClass("nav");
-    var backButton = $(document.createElement("a")).addClass("backbutton");
-    var b_backButton = $(document.createElement("a")).addClass("backbutton");
-    backButton.text("BACK");
-    backButton.button({disabled: true});
-    backButton.click(llab.goBack);
-    b_backButton.text("BACK");
-    b_backButton.button({disabled: true});
-    b_backButton.click(llab.goBack);
-    var forwardButton = $(document.createElement("a")).addClass("forwardbutton");
-    var b_forwardButton = $(document.createElement("a")).addClass("forwardbutton");
-    forwardButton.text("FORWARD");
-    forwardButton.button({disabled: true});
-    forwardButton.click(llab.goForward);
-    b_forwardButton.text("FORWARD");
-    b_forwardButton.button({disabled: true});
-    b_forwardButton.click(llab.goForward);
-    var list = $(document.createElement("ul")).attr({'class': 'steps'});
-    list.menu();
-    list.menu("collapse");
-    var option;
-    var url = document.URL;
-    var list_item;
-    var hidden;
-    var list_header = $(document.createElement("div")).attr({'class': 'list_header'});
-    list_header.menu();
+    } // end for loop
+    
+    var textLength = 35,
+        course = getParameterByName("course"),
+        lines = data.split("\n"),
+        num = 0,
+        url = document.URL,
+        list = $(document.createElement("ul")).attr(
+        { 'class': 'dropdown-menu dropdown-menu-right', 
+          'role' : "menu",  'aria-labelledby' : "Topic-Navigation-Meu"}),
+        text,
+        list_item,
+        line,
+        used;
     
     for (var i = 0; i < lines.length; i++) {
-	line = lines[i];
-	line = llab.stripComments(line);
-	if (line.length > 1 && (hidden.indexOf($.trim(line.slice(0, line.indexOf(":")))) == -1)) {
-	    if (line.indexOf("title:") != -1) {
-		/* Create a link back to the main topic.  Should this be to the file in llab? */
-		url = llab.topic_launch_page + "?topic=" + llab.file + hiddenString + "&course=" + course;
-		text = line.slice(line.indexOf(":") + 1);
-		if (text.length > 35) {
-		    text = text.slice(0, 35) + "...";
-		}
-		text = "<span class='main-topic-link'>" + text + "</span>";
-		option = $(document.createElement("a")).attr({'href': url});
-		option.html(text);
-		list_item = $(document.createElement("li")).attr({'class': 'list_item'});
-		list_item.append(option);
-		list.prepend(list_item);
-	    }
-	    if (line.indexOf("[") != -1) {
-		text = line.slice(line.indexOf(":") + 1, line.indexOf("["))
-		if (text.length > 35) {
-		    text = text.slice(0, 35) + "...";
-		}
-		url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
-		if (url.indexOf("http") != -1) {
-		    url = llab.empty_topic_page_path + "?" + "src=" +
-			url + "&" + "topic=" + llab.file + "&step=" + num +
-			"&title=" + text + hiddenString + "&course=" + course;
-		} else {
-		    if (url.indexOf(llab.rootURL) == -1 && url.indexOf("..") == -1) {
-			if (url[0] == "/") {
-			    url = llab.rootURL + url;
-			} else {
-			    url = llab.rootURL + "/" + url;
-			}
-		    }
-		    if (url.indexOf("?") != -1) {
-			url += "&" + "topic=" + llab.file + "&step=" + num + hiddenString + "&course=" + course;
-		    } else {
-			url += "?" + "topic=" + llab.file + "&step=" + num + hiddenString + "&course=" + course;
-		    }
-		}
-		llab['url_list'].push(url);
-		if (num == (llab.step - 1)) {
-		    backButton.attr({'value': url});
-		    backButton.button({disabled: false});
-		    b_backButton.attr({'value': url});
-		    b_backButton.button({disabled: false});
-		    option = $(document.createElement("a")).attr({'href': url});
-		    option.html(text);
-		    
-		} else if (num == llab.step) {
-		    text = "<span class='current-step-link'>" + text + "</span>";
-		    option = $(document.createElement("a"));
-		    option.html(text);
-		    list_header.html("Click here to navigate...");
-		    
-		} else if (num == (llab.step + 1)) {
-		    forwardButton.attr({'value': url});
-		    forwardButton.button({disabled: false});
-                    b_forwardButton.attr({'value': url});
-		    b_forwardButton.button({disabled: false});
-		    option = $(document.createElement("a")).attr({'href': url});
-		    option.html(text);
-		    
-		} else {
-		    option = $(document.createElement("a")).attr({'href': url});
-		    option.html(text);
-		}
-		list_item = $(document.createElement("li")).attr({'class': 'list_item'});
-		list_item.append(option);
-		list.append(list_item);
-		num = num + 1;
-	    }
-	}
-    }
-    
-    if (getParameterByName("course") != "") {
-        var course_link = getParameterByName("course");
-        if (course_link.indexOf("http://") == -1) {
-            course_link = llab.courses_path + course_link;
+        line = llab.stripComments($.trim(lines[i]));
+        
+        // Skip is this line is hidden in URL params.
+        used = hidden.indexOf(line.slice(0, line.indexOf(":"))) === -1;
+        if (!used) { continue };
+        
+        // Line is a title.
+        if (line.indexOf("title:") !== -1) {
+            /* Create a link back to the main topic. */
+            url = (llab.topic_launch_page + "?topic=" + llab.file +
+                  hiddenString + "&course=" + course);
+            
+            text = line.slice(line.indexOf(":") + 1);
+            text = llab.truncate($.trim(text), textLength);
+            
+            // Create a special Title link and add a separator.
+            text = "<span class='main-topic-link'>" + text + "</span>";
+            list_item = llab.dropdownItem(text, url);
+            // Note: Add to top of list!
+            list.prepend(llab.bootstrapSep);
+            list.prepend(list_item);
+            
+            continue;
         }
-        list_item = $(document.createElement("li")).attr({'class': 'list_item'});
-        list_item.append($(document.createElement("a")).attr({"class": "course_link", "href": course_link}).html("Go to Main Course Page"));
+        
+        // TODO:  Check if we have a title for this link?
+        // If we don't have a link, skip this line.
+        var hasLink = line.indexOf("[") !== -1 && line.indexOf("]") !== -1;
+        if (!hasLink) {
+            continue; 
+        }
+        
+        // Grab the link title between : and [ 
+        text = line.slice(line.indexOf(":") + 1, line.indexOf("["));
+        text = llab.truncate($.trim(text), textLength);
+        // Grab the link betweem [ and ]
+        url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
+        
+        // Content References an external resource
+        if (url.indexOf("http") !== -1) {
+            url = (llab.empty_topic_page_path + "?" + "src=" +  url + "&" + 
+                  "topic=" + llab.file + "&step=" + num + "&title=" + text +
+                  hiddenString + "&course=" + course);
+        } else {
+            if (url.indexOf(llab.rootURL) === -1 && url.indexOf("..") === -1) {
+                url = llab.rootURL + (url[0] === "/" ? '' : "/") + url;
+            }
+            //TODO: Does this matter?
+            url += url.indexOf("?") !== -1 ? "&" : "?";
+            url += "topic=" + llab.file + "&step=" + num + hiddenString;
+            url += "&course=" + course;
+        }
+        
+        llab.url_list.push(url);
+        
+        // Make the current step have an arrow in the dropdown menu
+        if (num === llab.step) {
+            text = "<span class='current-step-link'>" + text + "</span>";
+        }
+
+        list_item = llab.dropdownItem(text, url);
+        list.append(list_item);
+        num += 1;
+    } // end for loop
+    
+    if (course !== "") {
+        if (course.indexOf("http://") === -1) {
+            course = llab.courses_path + course;
+        }
+        text = "<span class='course-link-list'>" + llab.goMain + "</span>";      
+        list_item = llab.dropdownItem(text, course);
         list.prepend(list_item);
     }
 
-    list_header.click(function() {
-	if (list_header.html() == "Click here to navigate...") {
-	    list_header.html("Click again to close...");
-	} else {
-	    list_header.html("Click here to navigate...");
-	}
-	$($(".steps")[0]).slideToggle(300);
-    });
-    nav.append(backButton);
-    nav.append(list_header);
-    nav.append(forwardButton);
-    nav.append(list);
-    var background = $(document.createElement("div")).attr({'class': 'nav_background'});
-    nav.append(background);
-    $("#full").prepend(nav);
-    list_header.width(list.outerWidth());
-    list.slideToggle(0);    
+    // Setup the nav button links and build the dropdown.
+    llab.setButtonURLs();
+    llab.buildDropdown();
+    // FIXME -- will break on pages with multiple dropdowns (future)
+    var dropdown = $('.dropdown');
+    dropdown.append(list);
     
-    if (document.URL.indexOf(llab.empty_topic_page_path) != -1) {
-	llab.addFrame();
-    } else {
-	$("#full").append('<div id="full-bottom-bar"></div>');
-	var b_nav = $(document.createElement("div")).addClass("bottom-nav");
-	b_nav.append(b_backButton);
-	b_nav.append(b_forwardButton);
-	b_nav.append(background.clone());
-	$("#full-bottom-bar").append(b_nav);
-
-	llab.moveAlonzo(llab.url_list.length, llab.step,
-		       Number($("#full-bottom-bar").css("width").slice(0, -2)), 
-		       Number(b_backButton.css("width").slice(0, -2)) +
-		       Number(b_forwardButton.css("width").slice(0, -2)));
+    // FIXME -- shouldn't special case this
+    if (document.URL.indexOf("empty-curriculum-page.html") !== -1) {
+        llab.addFrame();
     }
 
+    llab.indicateProgress(llab.url_list.length, llab.step);
     
-}
+    llab.addFeedback(document.title, llab.file, course);
+} // end processLinks()
 
 
+// Create an iframe when loading from an empty curriculum page
+// Used for embedded content. (Videos, books, etc)
 llab.addFrame = function() {
     var source = getParameterByName("src");
-    $("#full").append('<a href=' + source + ' target="_">Open page in new window</a><br><br>');
-    $("#full").append('<div id="cont"></div>');
-    var frame = $(document.createElement("iframe")).attr({'src': source, 'class': 'step_frame'});
+    
+    $(FULL).append('<a href=' + source + 
+        ' target="_">Open page in new window</a><br /><br />');
+    $(FULL).append('<div id="cont"></div>');
+    
+    var frame = $(document.createElement("iframe")).attr(
+        {'src': source, 'class': 'step_frame'} );
+    
     $("#cont").append(frame);
+};
+
+// Setup the entire page title. This includes creating any HTML elements.
+// This should be called EARLY in the load process!
+llab.setupTitle = function() {
+    
+    // TODO -- set the mobile viewport, but the display needs to look right
+    // Don't enable yet!
+    // $(document.head).append('<meta name="viewport" content="width=device-width, initial-scale=1">');
+    
+    if (typeof llab.titleSet !== 'undefined' && llab.titleSet) {
+        return;
+    }
+    
+    // Create .full before adding stuff.
+    if ($(FULL).length === 0) {
+        $(document.body).wrapInner('<div class="full"></div>');
+    }
+    
+    // Work around when things are oddly loaded...
+    if ($(llab.selectors.NAVSELECT).length !== 0) {
+        $(llab.selectors.NAVSELECT).remove();
+    }
+    
+    // Create the header section and nav buttons
+    llab.createTitleNav();
+    
+    // create Title tag, yo
+    if (getParameterByName("title") != "") {
+        document.title = decodeURIComponent(getParameterByName("title"));
+    }
+    
+    // Set the header title to the page title.
+    var titleText = document.title;
+    if (titleText) {
+        $('.navbar-brand').html(titleText);
+    }
+    
+    // Clean up document title if it contains HTML
+    document.title = $(".navbar-brand").text();
+    
+    // FIXME -- Not great on widnow resize
+    $(document.body).css('padding-top', $('.llab-nav').height());
+    llab.titleSet = true;
 }
 
-llab.goBack = function() {
-    window.location.href = llab['url_list'][llab.step - 1];
+// Create the 'sticky' title header at the top of each page.
+llab.createTitleNav = function() {
+    // FIXME -- clean up!!
+    var topHTML = ('' +
+        '<nav class="llab-nav navbar navbar-default navbar-fixed-top" role="navigation">' +
+        '<div class="nav navbar-nav navbar-left navbar-brand"></div></nav>'),
+        botHTML = "<div class='full-bottom-bar'><div class='bottom-nav " +
+                      "btn-group'></div></div>",
+        navHTML = '<div class="nav navbar-nav navbar-right">' +
+                  '<ul class="nav-btns btn-group"></ul></div>',
+        topNav = $(llab.selectors.NAVSELECT),
+        buttons = "<a class='btn btn-default backbutton arrow'>back</a>" +
+                   "<a class='btn btn-default forwardbutton arrow'>forward</a>";
+    
+    if (topNav.length === 0) {
+        $(document.body).prepend(topHTML);
+        topNav = $(llab.selectors.NAVSELECT);
+        topNav.append(navHTML);
+    }
+    
+    // Don't add anything else if we don't know the step...
+    // FIXME -- this requires a step as a URL param currently.
+    // FUTURE - We should separate the rest of this function if necessary.
+    if (isNaN(llab.step)) {
+        return;
+    }
+    
+    $('.nav-btns').append(buttons);
+    if ($(llab.selectors.PROGRESS).length === 0) {
+        $(document.body).append(botHTML);
+    }
+
+    llab.setButtonURLs();
+};
+
+
+// Create the navigation dropdown
+llab.buildDropdown = function() {
+    // TODO -- cleanup use selectors for classes
+
+    var dropwon, list_header, nav_text;
+    // Container div for the whole menu (title + links)
+    dropdown = $(document.createElement("div")).attr(
+        {'class': 'dropdown inline'});
+    
+    // span not completely necessary, but might help with width issues.
+    // nav_text = $(document.createElement('span')).html(llab.clickNav);
+    
+    // build the list header
+    list_header = $(document.createElement("button")).attr(
+        {'class': 'navbar-toggle btn btn-default dropdown-toggle list_header',
+         'type' : 'button', 'data-toggle' : "dropdown" }); 
+    // list_header.append(nav_text);
+    // list_header.append(llab.bootstrapCaret);
+    list_header.append(hamburger);
+    
+    // Add Header to dropdown 
+    dropdown.append(list_header);
+    // Insert into the top div AFTER the backbutton.
+    dropdown.insertAfter($('.navbar-default .navbar-right .backbutton'));
 }
+
+/** Build an item for the navigation dropdown
+ *  Takes in TEXT and a URL and reutrns a list item to be added
+ *  too an existing dropdown */
+llab.dropdownItem = function(text, url) {
+    var link, item;
+    // li container
+    item = $(document.createElement("li")).attr(
+        {'class': 'list_item', 'role' : 'presentation'});
+    link = $(document.createElement("a")).attr(
+        {'href': url, 'role' : 'menuitem'});
+    link.html(text);
+    item.append(link);
+    return item;
+}
+
+// Create the Forward and Backward buttons, properly disabling them when needed
+llab.setButtonURLs = function() {
+
+    // No dropdowns for places that don't have a step.
+    if (isNaN(llab.step)) {
+        return;
+    }
+    
+    // TODO REFACTOR THIS
+    var forward = $('.forwardbutton'),
+        back    = $('.backbutton');
+        
+    var buttonsExist = forward.length !== 0 && back.length !== 0;
+    
+    if (!buttonsExist) {
+        if ($(llab.selectors.NAVSELECT) !== 0) {
+            llab.createTitleNav();
+        }
+        // Grab the freshly minted buttons. MMM, tasty!
+        forward = $('.forwardbutton');
+        back    = $('.backbutton');
+    }
+    
+    // Disable the back button
+    if (llab.step === 0) {
+        back.each(function(i, item) {
+            $(this).addClass('disabled');
+            $(this).attr('href', '#');
+        });
+    } else {
+        back.each(function(i, item) {
+            $(this).removeClass('disabled');
+            $(this).attr('href', llab.url_list[llab.step - 1]);
+            $(this).click(llab.goBack);
+        });
+    }
+    
+    // Disable the forward button
+    if (llab.step >= llab.url_list.length - 1) {
+        forward.each(function(i, item) {
+            $(this).addClass('disabled');
+            $(this).attr('href', '#');
+        });
+    } else {
+        forward.each(function(i, item) {
+            $(this).removeClass('disabled');
+            $(this).attr('href', llab.url_list[llab.step + 1]);
+            $(this).click(llab.goForward);
+        });
+    }
+};
+
+// TODO: Update page content and push URL onto browser back button
+llab.goBack = function() {
+    window.location.href = llab.url_list[llab.step - 1];
+};
 
 llab.goForward = function() {
-    window.location.href = llab['url_list'][llab.step + 1];
+    window.location.href = llab.url_list[llab.step + 1];
+};
+
+llab.addFeedback = function(title, topic, course) {
+    // Prevent Button on small devices
+    if (screen.width < 1024) {
+        return;
+    }
+
+
+    // TODO: Make this config
+    var surveyURL = 'https://getfeedback.com/r/sPesM45m?PAGE=pageRep&TOPIC=topicRep&COURSE=courseRep';
+    surveyURL = surveyURL.replace(/pageRep/g, encodeURIComponent(title))
+                          .replace(/topicRep/g, encodeURIComponent(topic))
+                          .replace(/courseRep/g, encodeURIComponent(course));
+
+    var button = $(document.createElement('button')).attr(
+            {   'class': 'btn btn-primary feedback-button',
+                'type': 'button',
+                'data-toggle': "collapse",
+                'data-target': "#fdbk" }).text('Feedback'),
+        innerDiv = $(document.createElement('div')).attr(
+            {   'id': "fdbk",
+                'class': "collapse feedback-panel well"
+            }),
+        feedback = $(document.createElement('div')).attr(
+            {'class' : 'page-feedback'}).append(button, innerDiv);
+
+    // Delay inserting a frame until the button is clicked.
+    // Reason 1: Performance
+    // Reason 2: GetFeedback tracks "opens" and each load is an open
+    button.click('click', function(event) {
+        if ($('#feedback-frame').length === 0) {
+            var frame = $(document.createElement('iframe')).attr( 
+            {   
+                'frameborder': "0",
+                'id': 'feedback-frame',
+                'width': "300",
+                'height': "200",
+                'src': surveyURL
+            });
+            $('#fdbk').append(frame);
+        }
+    });
+    $(document.body).append(feedback);
 }
 
-/* Hides the dropdown when a user clicks somewhere else. */
-$('html').click(function(event) {
-    if (!$(event.target).is($('.list_header')[0])) {
-	$($(".steps")[0]).slideUp(300);
-    }
-});
-
-
-/* Positions alonzo along the bottom of the lab page, signifying the student's progress.
- * numSteps is the total number of steps in the lab, currentStep is the number of the
- * current step, totalWidth is the width of the entire bottom bar, and buttonWidth is
- * the combined width of the two nav buttons.
+/** 
+ *  Positions an image along the bottom of the lab page, signifying progress.
+ *  numSteps is the total number of steps in the lab
+ *  currentStep is the number of the current step
+ *  totalWidth is the width of the entire bottom bar
+ *  buttonWidth is the combined width of the two nav buttons.
  */
-llab.moveAlonzo = function(numSteps, currentStep, totalWidth, buttonWidth) {
-    var width = totalWidth - Number($('.bottom-nav').css('width').slice(0, -2));
-    var result;
+llab.indicateProgress = function(numSteps, currentStep) {
+    var width = $(llab.selectors.PROGRESS).width(),
+        result; // result stores left-offset of background image.
+
     if (currentStep < numSteps - 1) {
-	width *= .98
-	result = Math.round((currentStep * (width / (numSteps - 1)) + 1) / totalWidth * 100) + "%";
+        result = (currentStep * (width / (numSteps - 1)) + 1) / (width - 10);
+        // Result is always a min of 1%.
+        result = (result < .01) ? 1 : (result * 100);
+        result = result + "%";
     } else {
-	var picWidth = $("#full-bottom-bar").css("background-size");
-	picWidth = picWidth.slice(0, picWidth.indexOf("px"));
-	result = width - Number(picWidth) - 4 + "px"; // the 4 is just to add a bit of space
+        var picWidth = $(llab.selectors.PROGRESS).css("background-size");
+        picWidth = Number(picWidth.slice(0, picWidth.indexOf("px")));
+        // the 4 is just to add a bit of space
+        result = width - picWidth - 4 + "px"; 
     }
+    
     result = result + " 2px";
-    $("#full-bottom-bar").css("background-position", result)
-}
+    $(llab.selectors.PROGRESS).css("background-position", result);
+};
 
-
+// Setup the nav and parse the topic file. 
 $(document).ready(llab.secondarySetUp);
+

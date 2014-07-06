@@ -18,191 +18,80 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-/* THESE STYLES ARE USED GLOBALLY WITHIN ALL UCCP PROJECTS  */
-
-.color1 {color:#164CBA;}   /* vibrant blue */
-.color2 {color:#6883BA;}   /* mid blue */
-.color3 {color:#919EBA;}   /* light blue */
-.color4 {color:#334B7B;}   /* dark blue */
-.color5 {color:#19253D;}   /* very dark blue */
-.color6 {color:#4E628B;}  /* mid gray blue */
-.color7 {color:#FF9D1E;}  /* bold orange */
-.color8 {color:#FFCE8E;}  /* mid tan */
-.color9 {color:#FFE6C6;}  /* light tan */
-.color10 {color:#a97e46;}  /* brown */
-.color11 {color:#543f23;}  /* dark red */
-.color12 {color:#bf9a6b;}  /* light brown */
-
-.bg1 {background-color:#164CBA;color:#FFF;}
-.bg2 {background-color:#6883BA;color:#000;}
-.bg3 {background-color:#919EBA;color:#000;}
-.bg4 {background-color:#334B7B;color:#FFF;}
-.bg5 {background-color:#19253D;color:#FFF;}
-.bg6 {background-color:#4E628B;color:#FFF;}
-.bg7 {background-color:#FFCE8E;color:#000;}
-.bg8 {background-color:#FF9D1E;color:#000;}
-.bg9 {background-color:#FFE6C6;color:#000;}
-.bg10 {background-color:#a97e46;color:#000;}
-.bg11 {background-color:#543f23;color:#FFF;}
-.bg12 {background-color:#bf9a6b;color:#000;}
-.bg13{background-color:#3399ff;color:#000;}
-
-/*   brought in normalize.css to help with this?
- *
-* {padding:0px; margin:0px;}
-img {border:0px;}
-
-*/
-
 a:visited {color:#36BBCE;}
 
-#full {
-    padding: 1em;
-    /* moved margin stuff to body */
-}
-
-#full-bottom-bar {
-    background-color:#ccc;
-    background-image: url("../img/alonzo.gif"); /* FIXME */
-    background-repeat:no-repeat;
-    background-position: 1px 2px;
-    background-size:20px;
-    height:25px;
-    position:relative;
-    bottom:0px;
-    left:0px;
-    width:100%;
-    z-index:9998;
-    margin-top:30px;
-    clear:both;
+html {
+  font-size: 1em; /* Fix for weird bootstrap */
 }
 
 body {
-    font-family: "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;
-    /* font-family: "Times New Roman", Times, serif; */
-    font-size: 100%;
+    font-family: "Helvetica Neue", Helvetica, "Gill Sans", Arial;
+    font-size: 1em;
     text-align: left;
-    background-color:#FFF;
-    /* font-color: black;       ?property doesn't exist */
-
-    margin-top: 110px;
-    /* top margin should be 60, but is higher to account for .header that will get added later, so adding it
-     * doesn't flash the page downward
-     * body top margin gets set to 60 in bjc-curriculum.js when .header gets added  */
-    margin-right: 0px;
-    margin-bottom: 0px;
-    margin-left: 85px;
-    width: 90%;
-}
-
-/* from mvle.css
-body {
-    font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Verdana,
-        "Gill Sans", sans-serif;
-    font-size: 100%;
     background-color: #FFF;
-    margin: 4px 5px;
+    margin: 0;
+    padding: 60px 0 0 0; /* paddingTop is reset by JS on title load. */
+    width: 100%;
 }
-*/
 
+.full, .full {
+    padding: 1em;
+    width: 90%;
+    margin: 1em auto 1em;
+}
+nav {
+    padding: 1% 5% 1% 5%;
+}
 
 form li div {
     font:500 15px/1.7 "Times New Roman", Times, serif;
 }
 
-form>h2, form>ol>li {
+form > h2, form > ol > li {
     color:#999;
     font:500 30px Tahoma, Geneva, sans-serif;
 }
 
-.faint {
-    color:#777;
-    font:12px Tahoma, Geneva, sans-serif;
-}
-
 em {
-    color:#000;
-    font-weight:900;
-    font-style:italic;
+    font-weight: 900;
+    font-style: italic;
 }
 
 /* Should try to avoid tt; deprecated & unsupported tag */
 tt {
-    font-size:120%;
-    font-weight:580;
-    line-height:100%;
+    font-size: 120%;
+    font-weight: 600;
+    line-height: 100%;
     font-family: monospace;
 }
 
 code {
-    font-size:120%;
-    font-weight:580;
-    line-height:100%;
+    font-weight: 600;
+    line-height: 100%;
 }
 
 p {
     /*font:1.1em "Times New Roman", Times, serif;*/
-    font:1em Arial, Helvetica, sans-serif;
+    font: 1em Helvetica, Arial, sans-serif;
     color: black;
-    line-height:120%;
-
-    /* vertical-align: bottom;   nate took this out so inline images do the right thing?*/
-
-}
-
-/* from mvle.css
-p {
     line-height: 120%;
-    padding: 0px;
-    margin: 0px 0 12px 0;
 }
-*/
 
-
-p.right {text-align:right;}
+p.right {
+  text-align:right;
+}
 
 .vocab {
-    font-style:italic;
-    color:#0000CC;
+    font-style: italic;
+    color: #00C;
 }
-
-.help {
-    color:#DC143C;
-    font-style:italic;
-}
-
-.width40 {width:40%;}
-.width50 {width:50%;}
-.width60 {width:60%;}
-.width70 {width:70%;}
-.width80 {width:80%;}
-.width90 {width:90%;}
-
-.marginleft25 {margin-left:25px;}
-.marginleft50 {margin-left:50px;}
-.marginleft75 {margin-left:75px;}
-.marginleft100 {margin-left:100px;}
-.marginleft125 {margin-left:125px;}
-.marginleft150 {margin-left:150px;}
-.marginleft200 {margin-left:200px;}
 
 form label {
-    font-family:Tahoma, Geneva, sans-serif;
+    font-family: Tahoma, Geneva, sans-serif;
 }
-
-/***** made this the same as tt
-code {
-    font:700 .9em "Courier New", Courier, monospace;
-}
-*/
 
 input[type=text], input[type=password], textarea {
     font: 12px "Courier New", Courier, monospace;
-}
-
-#class_nav_bar {
-    font:17px Helvetica, Arial, sans-serif;
-    color:#e3e3e3;
 }
 
 /* Quiz Page Buttons */
@@ -219,24 +108,23 @@ input[type=submit] {
             border-radius: 9px;
 }
 
-ul, ol {
-    font:.9em "Palatino Linotype", "Book Antiqua", Palatino, serif;
-    border-bottom:1px dotted #999;
+/* FIXME --- poorly performant. */
+.full ul, .full ol {
+    font: .9em "Palatino Linotype", "Book Antiqua", 'Palatino', serif;
     font-weight:inherit;
     /* width:85%; */
     display:inline-block;
     color:#000033;
     line-height:130%;
-    padding:5px 15px 5px 5px;
-    margin:15px 15px 15px 0px; /* Added */
-    border:1px solid #3399ff;
+    padding: 5px 15px 5px 5px;
+    margin: 15px 15px 15px  0; /* Added */
+    border: 1px solid #3399ff;
 }
 
 ul li, ol li {
-    padding:5px;
-    margin-left:35px;
+    padding: 5px;
+    margin-left: 35px; /* WHY? This causes problems in some places... */
 }
-
 
 li ul, li ol {
     margin-top: 5px;
@@ -250,30 +138,253 @@ th {
     font-size:16px;
 }
 
-h1 {padding:10px 0px; color: #000000; }
-h2 {font:900 26px "Palatino Linotype", "Book Antiqua", Palatino, serif;padding:10px 0px;    color: #000000;}
-h3 {font:900 18px "Palatino Linotype", "Book Antiqua", Palatino, serif;padding:10px 0px;    color: #000000;}
-h4 {padding:10px 15px;    color: #000000;}
-h5 {padding:10px 15px;    color: #000000;}
-h6 {padding:10px 15px;    color: #000000;}
+h1 {
+  padding: 10px 0;
+  color: #000;
+}
 
+h2, h3 {
+  font: 900 26px "Palatino Linotype", "Book Antiqua", "Palatino", serif;
+  padding:10px 0;
+  color: #000;
+}
 
+h4, h5, h6 {
+  padding: 10px 15px;
+  color: #000;
+}
 
+blockquote {
+    background: #fbfbac;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-style: italic;
+    width: 880px;
+    padding: 15px;
+}
+
+/* Physically disables clicking on a link which LOOKS disabled. */
+a[disabled] {
+  pointer-events: none;
+}
+
+.inline {
+  display: inline;
+}
+
+/** PAGE NAV (TOP AND BOTTOM) ************************************************/
+.llab-nav {
+  background: #FFF;
+  position: fixed;
+  top: 0;
+  margin: 0 0 1em 0;
+  box-shadow: 0 5px 10px #CCC;
+  width: 100%;
+  padding: .5em;
+  min-height: 3em;
+  height: auto;
+  vertical-align: middle;
+}
+
+.full-bottom-bar {
+    background: #CCC;
+    background-image: url("../img/progress.gif"); /* FIXME */
+    background-repeat: no-repeat;
+    background-position: 2px 2px;
+    border-radius: 20px;
+    background-size: 26px;
+    height: 2em;
+    width: 90%;
+    /* note extra bottom height is for the feedback button */
+    margin: 1em 5% 3.5em 5%;
+    padding: 5px;
+}
+
+/* Contains the page title text */
+.navbar-brand,
 .header {
-    font:normal 1.5em Georgia, serif;
-    font-variant:small-caps;
-    font-weight:bold;
-    color:#666;
-    border-bottom:3px solid #ccc;
-    width:99.5%;
-    margin:0px 0px 20px 0px;
-    text-align:left;
-    letter-spacing:1.2px;
+    font: bold 1.5em Georgia, serif;
+    font-variant: small-caps;
+    color: #666;
+    text-align: left;
+    letter-spacing: 1.5px;
+    max-width: 60%;
+    min-width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
+.navbar-left {
+  width: 70%; /* For setting title width */
+}
+
+.navbar-right {
+  width: 30%; /* For setting title width */
+}
+
+.navbar-toggle {
+  border-radius: 0;
+  display: inline;
+  position: inherit;
+  float: none;
+  margin: 0;
+  border: #888;
+}
+
+/* Contains Nav Buttons and Dropdown Menu */
+.navbar-right {
+  padding-right: 5%;
+}
+.navbar-default .navbar-toggle,
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  border: 1px solid #888 !important; /* FIXME */
+}
+
+.nav-btns {
+    float: right;
+    z-index: 9999;
+    max-width: 40%;
+    min-width: 15em;
+    padding: 4px;
+}
+
+.header, .nav-btns {
+  line-height: 1em;
+  font-weight: 900;
+  position: relative;
+}
+
+/** Buttons at the bottom right */
+.bottom-nav {
+    float: right;
+    margin: 5px;
+    vertical-align: middle;
+    text-align: right;
+}
+
+/* BUTTON CLASSES */
+/* Overrides default bootstrap which conflicts with right float dropdown. */
+.btn-group > .btn {
+    float: none;
+}
+
+/* Add arrows to each button */
+/*.backbutton:before {
+    content: '\2190 ';
+}
+.forwardbutton:after {
+    content: ' \2192';
+}*/
+
+/* END NAV SECTION ***********************************************************/
+
+/* PAGE DROPDOWN SECTION ******************************************************/
+/* Give space to caret in dropdown menus */
+.caret {
+    margin-left: 15px; /* FIXME, hacky. */
+}
+.dropdown-menu {
+    margin-top: 8px; /* should be equal to padding on list_header */
+}
+.list_item {
+    font-size: 10pt;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.list_header, .arrow {
+    height: 2em;
+    margin: 0;
+    text-align: center;
+    font-size: 12pt;
+    font-weight: 900;
+    border-color: #888;
+}
+
+.arrow { /* For Buttons with arrows instead of words. */
+    border-radius: 4px;
+    font-variant: small-caps;
+    width: 5em;
+    padding: 3px; /* center text in buttons */
+}
+
+.list_header {
+    border-radius: 0; /* No round coners on dropdowns between buttons */
+}
+
+/* TODO: Create a real .list-bg class */
+.list-bg {
+    font-weight: bold;
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    font-size: 100%;
+}
+
+.course-link-list {
+    font-size: 100%;
+    font-weight: bold;
+    background-image: url("../img/globe.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
+.main-topic-link {
+      font-size: 100%;
+      text-decoration: underline;
+      font-weight: bold;
+      background-image: url("../img/toolbar_home.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      padding-left: 20px;
+}
+.current-step-link {
+      font-weight: bold;
+      background-image: url("../img/forward.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      padding-left: 20px;
+}
+/* END PAGE DROPDWON SECTION *************************************************/
+/******* FEEDBACK BUTTON ON BOTTOM RIGHT */
+.page-feedback {
+    padding: 4px;
+    float: right;
+    right: 1%;
+    bottom: 0;
+    z-index: 100;
+    text-align: right;
+    position: fixed;
+}
+
+.feedback-button {
+    margin: .5em 1em;
+}
+
+
+
+.course_link {
+    display: block;
+    margin-bottom: 10px;
+    font-size: large;
+    background-image: url("../img/globe.png");
+    background-size:contain;
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+
+.help {
+    color:#DC143C;
+    font-style:italic;
 }
 
 /* arg. not image please... */
-.center {text-align:center;margin:0 auto;}
+.center {
+    text-align: center;
+    margin: 0 auto;
+}
 
 .redFlag {
     font-size:.95em;
@@ -281,7 +392,7 @@ h6 {padding:10px 15px;    color: #000000;}
     text-align:left; /* Added/Updated */
     line-height:1.4em;
     width: 500px; /* Added */
-    margin:20px 0px 20px 0px; /* Added */
+    margin:20px  0 20px  0; /* Added */
     padding:6px;
     background-color:#FFCCCC;
     color:#660000;
@@ -315,7 +426,7 @@ h6 {padding:10px 15px;    color: #000000;}
     clear:left;
 }
 
-.strike{
+.strike {
     text-decoration: line-through;
 }
 
@@ -342,19 +453,6 @@ pre.tightText, pre .tightText {
 pre.veryTightText, pre .veryTightText {
     letter-spacing:-1px;
 }
-
-
-pre.width20 {width:20%;margin-left:75px;}
-pre.width30 {width:30%; margin-left:75px;}
-pre.width40 {width:40%; margin-left:75px;}
-pre.width50 {width:50%; margin-left:75px;}
-pre.width60 {width:60%; margin-left:75px;}
-pre.width70 {width:70%; margin-left:75px;}
-pre.width80 {width:80%; margin-left:75px;}
-
-
-
-
 
 #summaryTable {
     border-collapse:collapse;
@@ -417,7 +515,7 @@ pre.width80 {width:80%; margin-left:75px;}
 
 #tableBlue ul {
     border:none;
-    margin:0px;
+    margin: 0;
 }
 
 #tableCenter {
@@ -456,7 +554,7 @@ pre.width80 {width:80%; margin-left:75px;}
     padding:5px;
 }
 
-#tableClear    pre {
+#tableClear pre {
     font:400 .85em "Courier New", Courier, monospace;
     white-space:pre;
     padding:10px;
@@ -476,10 +574,10 @@ pre.width80 {width:80%; margin-left:75px;}
 #tableTight td {
     border:0;
     vertical-align:top;
-    padding:0px;
+    padding: 0;
 }
 
-#tableTight    pre {
+#tableTight pre {
     font:.85em Courier, monospace;
     color:#000;
     letter-spacing:-1px;
@@ -544,8 +642,8 @@ div.indent {
 
 .tryit {
     width:500px;
-    margin: 20px 0px 20px 0px; /* Added/Updated */
-    background-image:url(../img/doit_background.png); /* FIXME */
+    margin: 20px  0 20px  0; /* Added/Updated */
+    background-image:url('../img/doit_background.png');
     background-position:-10px -3px;
     background-color:#164CBA;
     border:1px solid #000099;
@@ -579,23 +677,23 @@ div.indent {
 .instructionsIcon {
     width: 16px;
     height: 16px;
-    background-image:url(../img/infoIcon.png); /* FIXME */
+    background-image:url('../img/infoIcon.png');
     background-repeat: no-repeat;
     text-decoration:none;
     outline:none;
 }
 
 .instructionsIcon:hover {
-    background-image:url(../img/infoIconRollover.png); /* FIXME */
+    background-image:url('../img/infoIconRollover.png');
     background-repeat: no-repeat;
 }
 
 .step {
     margin-left:35px;
-    padding: 0px 50px 5px 30px;
-    background-image:url(../img/lightning.png); /* FIXME */
+    padding:  0 50px 5px 30px;
+    background-image:url('../img/lightning.png');
     background-repeat:no-repeat;
-    background-position:0px 0px;
+    background-position: 0  0;
 }
 
 #selfCheckIntro {
@@ -618,14 +716,6 @@ div.indent {
     margin:10px 0 15px 0 ;
     color:#0000FF;
     line-height:120%;
-}
-
-blockquote {
-    background: #fbfbac;
-    font-family: Georgia, "Times New Roman", Times, serif;
-    font-style: italic;
-    width: 880px;
-    padding: 15px;
 }
 
 #brainstorm p {
@@ -720,156 +810,6 @@ blockquote {
     padding-right:22px;
 }
 
-/* STYLES FOR MARGINALIA ELEMENTS IN RIGHT COLUMN*/
-
-
-#mainCol {
-    margin-right:20%;
-    text-align:left;
-}
-
-#marginCol {
-    float:right;
-    text-align:left;
-    width:17%;
-    min-height:540px;
-    background-color:#9999FF; /* Added */
-    border-top-left-radius:12px; /* Added and modified */
-    border-bottom-left-radius:12px; /* Added */
-    -moz-border-radius-topleft:12px; /* Added */
-    -moz-border-radius-bottomleft:12px; /* Added */
-    padding-bottom:8px; /* Added */
-    background-position:10px 10px;
-    /* Testing out image stuff: */
-    background-image:url(../img/sys/Alonzo-BYOB.jpg); /* FIXME */
-    background-size:25%;
-    background-repeat:no-repeat;
-}
-
-#marginCol a:hover {
-    background-color:#FFFF33;
-}
-
-#marginCol .top25 {margin-top:25px;}
-#marginCol .top50 {margin-top:50px;}
-#marginCol .top75 {margin-top:75px;}
-#marginCol .top100 {margin-top:100px;}
-#marginCol .top125 {margin-top:125px;}
-#marginCol .top150 {margin-top:150px;}
-#marginCol .top175 {margin-top:175px;}
-#marginCol .top200 {margin-top:200px;}
-#marginCol .top225 {margin-top:225px;}
-#marginCol .top250 {margin-top:250px;}
-#marginCol .top275 {margin-top:275px;}
-#marginCol .top300 {margin-top:300px;}
-#marginCol .top325 {margin-top:325px;}
-#marginCol .top350 {margin-top:350px;}
-#marginCol .top375 {margin-top:375px;}
-#marginCol .top400 {margin-top:400px;}
-#marginCol .top425 {margin-top:425px;}
-#marginCol .top450 {margin-top:450px;}
-#marginCol .top475 {margin-top:475px;}
-#marginCol .top500 {margin-top:500px;}
-
-#marginCol div { /*Added to make margin elements more general */
-    border-radius:8px;
-    -moz-border-radius:8px;
-    -webkit-border-radius:8px;
-    margin-left:10px;
-    margin-right:8px;
-    margin-bottom:6px;
-    border-style:solid;
-    border-width:2px;
-    background-color: #C7C7FF;
-}
-
-#marginCol .key {
-    /* border-color: #990000;*/
-    border-color:#164CBA;
-    color:#000;
-    font-size:.8em;
-    padding:45px 5px 5px 5px;
-    font-weight:bold;
-    background-image:url(../img/special-key-32.png); /* FIXME */
-    background-repeat:no-repeat;
-    /* background-color:#C7C7FF; /* Added */
-    background-position:10px 10px;
-}
-
-#marginCol .vocab {
-    border-color: #666;
-    color:#0000CC;
-    font-size:.8em;
-    padding:40px 0 10px 0;
-    font-weight:bold;
-    background-image:url(../img/special-dictionary-32.png); /* FIXME */
-    background-repeat:no-repeat;
-    background-position:10px 10px;
-    /* background-color:#C7C7C7; /* Added */
-}
-
-#marginCol .vocab a:link, #marginCol .vocab a:visited {
-    display:block;
-    padding:2px;
-    margin:10px 4px 8px 10px;
-    border-right:3px solid transparent;
-}
-
-#marginCol .vocab a:hover {
-    background-color:#FFFF33;
-    border-right:3px solid #666;
-}
-
-#marginCol .help {
-    font-family:Tahoma, Geneva, serif;
-    border-color:#666;
-    color:#0000CC;
-    font-size:.82em;
-    font-weight:normal;
-    padding:36px 0 12px 0;
-    background-image:url(../img/helpicon22.png); /* FIXME */
-    background-repeat:no-repeat;
-    background-position:10px 10px;
-    /* background-color:#FFCE8E;*/
-}
-
-#marginCol .help p {
-    font-size:inherit;
-    color:#333;
-    font-size:inherit;
-    padding:0;
-    margin:10px 4px 6px 5px;
-}
-
-#marginCol .help a:link, #marginCol .help a:visited {
-    display:block;
-    padding:2px;
-    margin:2px 4px 5px 5px;
-    border-right:3px solid transparent;
-}
-
-#marginCol .help a:hover {
-    background-color:#FFFF33;
-    border-right:3px solid #666;
-}
-
-#marginCol .warning {
-    border-color:#330033;
-    color:#000;
-    font-size:.8em;
-    padding:40px 0 0px 0;
-    font-weight:bold;
-    background-image:url(../img/special-warning-32.png);
-    background-repeat:no-repeat;
-    background-position:10px 10px;
-    /* background-color:#BF9A6B; */
-}
-
-#marginCol .warning p {
-    padding:0;
-    margin:10px 4px 8px 10px;
-}
-
 #buttonClose {
     text-align:center;
     margin:30px auto;
@@ -904,20 +844,21 @@ blockquote {
  */
 
 .topic {
-    margin-bottom:60px;
-    border: 2px solid #ccc;
+    margin-bottom: 30px;
+    border: 2px solid #CCC;
+    border-radius: 4px;
     padding:20px;
     display:inline-block;
 }
 
-/* Most items in the syllabus page */
+/* Most items in the course page */
 .topic div {
     background-repeat:no-repeat;
     background-position:left;
     /*background-size:18px 18px;*/
     background-size: contain;
     padding-left:35px;
-    margin:5px 0px 5px 0px;
+    margin:5px  0 5px  0;
 }
 
 /* Begin items controlled primarily by .topic div */
@@ -938,15 +879,15 @@ blockquote {
     font-weight:bold;
     font-size:large;
     text-decoration:underline;
-    padding-left:0px;
+    padding-left: 0;
 }
 
 
 .topic .label {
     margin-top:20px;
     margin-bottom:12px;
-    padding-left:0px;
-    padding-left:0px;
+    padding-left: 0;
+    padding-left: 0;
 }
 
 /* List-related items
@@ -954,17 +895,17 @@ blockquote {
  */
 .topic .bigideas {
     font-weight:bold;
-    padding-left:0px;
-    margin:0px;
+    padding-left: 0;
+    margin: 0;
 }
 
 .topic .learninggoals {
     font-weight:bold;
-    padding-left:0px;
+    padding-left: 0;
 }
 
 /* Formatting stuff */
-.topic .indent0 {margin-left:0px}
+.topic .indent0 {margin-left: 0}
 .topic .indent1 {margin-left:20px}
 .topic .indent2 {margin-left:40px}
 .topic .indent3 {margin-left:60px}
@@ -976,14 +917,13 @@ blockquote {
     font-weight:bold;
     font-size:large;
     text-decoration:underline;
-    padding-left:0px;
+    padding-left: 0;
     padding-top: 10px;
 }
 
 /* Inserts the logo using the proper formatting.
  * Insert using "<span class="snap">snap</span>"
  */
-
 .snap:first-letter {
     font-variant: normal;
 }
@@ -991,89 +931,13 @@ blockquote {
 .snap {
     text-transform: capitalize;
     font-variant: small-caps;
+    font-style: normal;
     font-family: "Times New Roman", Times, serif;
 }
 
 .snap:after {
     content:"!";
     font-style: italic;
-}
-
-.nav {
-    float:right;
-    right:5px;
-    min-width:100px;
-    position:relative;
-    z-index: 9999;
-    margin-left:10px;
-    /*border:solid;
-    border-radius:5px;
-    background-color:black;    */
-}
-
-.bottom-nav {
-    float:right;
-    right:5px;
-    min-width:100px;
-    position:relative;
-    z-index: 9998;
-    bottom:0px;
-}
-
-.nav_background {
-    visibility: hidden;   /* nate screwed this up, so then he hid it, lol */
-    border:solid;
-    border-radius:5px;
-    background-color:black;
-    z-index:-8;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width:100%;
-    height:20px;
-}
-
-/*.nav:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}*/
-
-
-.backbutton {
-    font-size:7pt;
-    vertical-align: top;
-    margin: 2px;
-}
-
-.forwardbutton {
-    font-size:7pt;
-    vertical-align: top;
-    margin: 2px;
-}
-
-.steps {
-    margin-left:64px;
-    margin-right:88px;
-    padding:0px;
-    line-height:1.2;
-    position: absolute;
-    min-width: 250px;
-}
-
-.list_item {
-    font-size:10pt;
-}
-
-.list_header {
-    margin-left:10px;
-    margin-right:10px;
-    margin-top:2px;
-    font-size:10pt;
-    display: inline-block;
-    font-weight: bold;
 }
 
 /* This is a container element for the iframe */
@@ -1083,58 +947,18 @@ blockquote {
     height: 80%;
     position: absolute;
 }
+
 /* iframe at the beginning of labs. */
 .step_frame {
     width:100%;
     height: 100%;
     display: block;
-/*    position:relative;*/
-    /*z-index:-1;*/
-
 }
 
-.main-topic-link {
-    font-size:100%;
-    text-decoration:underline;
-    font-weight:bold;
-    background-image: url("../img/toolbar_home.png"); /* FIXME */
-    background-size: contain;
-    background-repeat:no-repeat;
-    padding-left:20px;
-}
-
-.current-step-link {
-    font-weight:bold;
-    background-image: url("../img/forward.png"); /* FIXME */
-    background-size:contain;
-    background-repeat:no-repeat;
-    padding-left:20px;
-}
-
-
-
-a.run {
+.run {
     background: url("../img/external-link.png") center right no-repeat; /* FIXME */
     padding-right: 13px;
 }
-
-li .course_link {
-    font-size:100%;
-    display:inline;
-    font-weight:bold;
-    padding-left:20px;
-}
-
-.course_link {
-    display:block;
-    margin-bottom: 10px;
-    font-size:large;
-    background-image: url("../img/globe.png"); /* FIXME */
-    background-size:contain;
-    background-repeat:no-repeat;
-    padding-left:25px;
-}
-
 
 .truthtable {
     display:inline-block;
@@ -1159,4 +983,19 @@ li .course_link {
   font-size: .8em;
   font-style: italic;
   color: #808080;
+}
+/******** SMALLL DEVICE STUFF *****/
+@media (max-width: 1024px) {
+  .full {
+    width: 98%;
+  }
+  .navbar-header {
+    font-size: 1em;
+  }
+  .llab-nav {
+    position: static;
+  }
+  .page-feedback {
+    display: none;
+  }
 }
