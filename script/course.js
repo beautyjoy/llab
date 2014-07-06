@@ -35,5 +35,5 @@ llab.editURLs = function() {
 };
 
 $(document).ready(function() {
-    lab.editURLs();
+    llab.editURLs();
 });
