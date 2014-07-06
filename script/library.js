@@ -25,8 +25,8 @@ if (typeof llab === 'undefined') {
 llab.CORSproxy = "www.corsproxy.com";
 
 llab.CORSCompliantServers = [];
-llab.CORSCompliantServers.push("llab.berkeley.edu");
-llab.CORSCompliantServers.push("llab.eecs.berkeley.edu");
+llab.CORSCompliantServers.push("bjc.berkeley.edu");
+llab.CORSCompliantServers.push("bjc.eecs.berkeley.edu");
 llab.CORSCompliantServers.push("snap.berkeley.edu");
 llab.CORSCompliantServers.push("inst.eecs.berkeley.edu");
 llab.CORSCompliantServers.push("cs10.berkeley.edu");
@@ -39,8 +39,8 @@ llab.snapRunURLBase = "http://snap.berkeley.edu/snapsource/snap.html#open:";
 // returns the current domain with a cors proxy if needed
 
 llab.getSnapRunURL = function(targeturl) {
-
-	if (targeturl != null) {   
+    
+    if (targeturl !== null) {   
 
 		if (targeturl.substring(0, 7) == "http://") {
 			// pointing to some non-local resource... maybe a published cloud project?  do nothing!!
@@ -61,7 +61,7 @@ llab.getSnapRunURL = function(targeturl) {
 			if (targeturl.indexOf("..") != -1 || targeturl.indexOf(llab.rootURL) == -1) {
 				var path = window.location.pathname;
 				path = path.split("?")[0];
-				path = path.substring(0, path.lastIndexOf("/") + 1)
+				path = path.substring(0, path.lastIndexOf("/") + 1);
 				currdom = currdom + path;
 			}
 			finalurl = finalurl + currdom + targeturl;
@@ -70,8 +70,8 @@ llab.getSnapRunURL = function(targeturl) {
 		}
 	}
 
-	return currdom;
-
+    // FIXME -- This is most surely buggy
+    return currdom;
 }
 
 
@@ -134,8 +134,11 @@ llab.GA = function() {
         llab.GAfun(window,document,'script','//www.google-analytics.com/analytics.js','ga');
     }
 // GA Function Calls -- these do the real work!: 
-// ga('create', llab.GACode, llab.GAUrl);
-// ga('send', 'pageview');
+if (llab.GAuse) {
+    llab.GA();
+    ga('create', llab.GACode, llab.GAUrl);
+    ga('send', 'pageview');
+}
 
 
 
