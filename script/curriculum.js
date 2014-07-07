@@ -359,7 +359,7 @@ llab.buildDropdown = function() {
     list_header.append(hamburger);
     
     // Add Header to dropdown 
-    dropdown.append(list_item);
+    dropdown.append(list_header);
     // Insert into the top div AFTER the backbutton.
     dropdown.insertAfter($('.navbar-default .navbar-right .backbutton'));
 }
