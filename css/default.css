@@ -378,8 +378,6 @@ content: ' \2192';
   margin: .5em 1em;
 }
 
-
-
 .course_link {
   display: block;
   margin-bottom: 10px;
@@ -401,6 +399,10 @@ content: ' \2192';
   margin: 0 auto;
 }
 
+/** FIXME -- replace this with bootstrap warning -- then delete
+ * Only use is recursive reporters intro page
+ * https://inst.eecs.berkeley.edu/~cs10/labs/cur/programming/recur/recursive-reporters/recursive-reporters-intro.html?topic=berkeley_bjc/recur/recursive-reporters.topic&step=0&novideo=true&noreading=true&noassignment=true&course=cs10_sp14.html 
+ */
 .redFlag {
   font-size: .95em;
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
