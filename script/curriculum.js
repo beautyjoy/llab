@@ -295,6 +295,7 @@ llab.setupTitle = function() {
     // Set the header title to the page title.
     var titleText = document.title;
     if (titleText) {
+        // FIXME this needs to be a selector
         $('.navbar-brand').html(titleText);
     }
     
@@ -336,7 +337,7 @@ llab.createTitleNav = function() {
     
     $('.nav-btns').append(buttons);
     if ($(llab.selectors.PROGRESS).length === 0) {
-        $(document.body).append(botHTML);
+        $(FULL).append(botHTML);
     }
 
     llab.setButtonURLs();

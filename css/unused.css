@@ -349,3 +349,18 @@
 input[type=text], input[type=password], textarea {
   font: 12px "Courier New", Courier, monospace;
 }
+
+/* Quiz Page Buttons */
+/* FIXME -- this is just bad */
+input[type=submit] {
+  font-family: "Helvetic Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1.3em;
+  border: 1px solid #000;
+  background-color: #36F;
+  color: #FFF;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  -o-border-radius: 9px;
+  border-radius: 9px;
+}

@@ -30,13 +30,16 @@ body {
   font-family: "Helvetica Neue", Helvetica, "Gill Sans", Arial;
   font-size: 1em;
   text-align: left;
-  background-color: #FFF;
-  margin: 0;
+  margin: 1em auto;
   padding: 60px 0 0 0; /* paddingTop is reset by JS on title load. */
-  width: 100%;
+  width: 80%;
+  background-color: whitesmoke;
 }
 
 .full {
+  border: 1px solid blue;
+  border-radius: 4px;
+  background-color: white;
   padding: 1em;
   width: 90%;
   margin: 1em auto 1em;
@@ -93,20 +96,6 @@ form label {
   font-family: Tahoma, Geneva, sans-serif;
 }
 
-
-/* Quiz Page Buttons */
-input[type=submit] {
-  font-family: "Helvetic Neue", Helvetica, Arial, sans-serif;
-  font-weight: 400;
-  font-size: 1.3em;
-  border: 1px solid #000;
-  background-color: #36F;
-  color: #FFF;
-  -webkit-border-radius: 9px;
-  -moz-border-radius: 9px;
-  -o-border-radius: 9px;
-  border-radius: 9px;
-}
 
 /* FIXME --- poorly performant. */
 .full ul, .full ol {
@@ -199,16 +188,16 @@ a[disabled] {
 
 .full-bottom-bar {
   background: #CCC;
-  background-image: url("../img/progress.gif"); /* FIXME */
+  background-image: url(../img/progress.gif);
   background-repeat: no-repeat;
   background-position: 2px 2px;
   border-radius: 20px;
   background-size: 26px;
   height: 2em;
-  width: 90%;
+  width: 100%;
   /* note extra bottom height is for the feedback button */
-  margin: 1em 5% 3.5em 5%;
-  padding: 5px;
+  margin: 2em auto;
+  padding: 1em;
 }
 
 /* Contains the page title text */

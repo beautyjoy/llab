@@ -470,10 +470,10 @@ MC.prototype.postRender = function() {
 
 // BEAUTIOUS
 MC.prototype.getTemplate = function() {
-    return "<div class='MultipleChoice Question bg7'>" +
-	"			<div class='questionCountBox bg8'>" +
+    return "<div class='MultipleChoice Question panel'>" +
+	"			<div class='questionCountBox'>" +
 	"				<div class='questionTable'>" +
-	"					<div class='questionType color1'>" +
+	"					<div class='questionType panel-header panel-primary'>" +
 	"						Multiple Choice" +
 	"					</div>" +
 	"				</div>" +
@@ -499,10 +499,10 @@ MC.prototype.getTemplate = function() {
 	"						<tr>" +
 	"							<td>" +
 	"							<div class='buttonDiv'>" +
-	"								<a class='checkAnswerButton  ui-button'>Check Answer</a>" +
+	"								<a class='checkAnswerButton btn btn-default'>Check Answer</a>" +
 	"							</div></td><td>" +
 	"							<div class='buttonDiv'>" +
-	"								<a class='tryAgainButton ui-button'>Try Again</a>" +
+	"								<a class='tryAgainButton btn btn-default'>Try Again</a>" +
 	"							</div></td>" +
 	"						</tr>" +
 	"					</table>" +
