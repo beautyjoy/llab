@@ -285,8 +285,6 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
 }
 
 
-
-
 /* multiple choice question specific styling */
 
 .MultipleChoice .instructionsReminder {
@@ -318,7 +316,6 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
     color: white;
     min-height: 300px;
 }
-
 
 
 .MultipleChoice .itemLabel {
@@ -411,10 +408,6 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
 	width:25px;
 }
 
-.MultipleChoice .radiobuttondiv table td + td + td {
-
-}
-
 .MultipleChoice .radiobuttondiv table td + td + td div[name="feedbacks"]{
 	font-style:italic;
 	font-size:.9em;
@@ -469,6 +462,3 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
     display: inline-block;
 }
 
-.InlineMultipleChoice .inline-prompt {
-
-}
