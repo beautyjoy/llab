@@ -36,11 +36,12 @@ body {
   width: 100%;
 }
 
-.full, .full {
+.full {
   padding: 1em;
   width: 90%;
   margin: 1em auto 1em;
 }
+
 nav {
   padding: 1% 5% 1% 5%;
 }
