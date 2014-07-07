@@ -432,11 +432,6 @@ content: ' \2192';
   margin-left: 10px;
 }
 
-.floatClear {
-  clear: both;
-  margin: 0;
-}
-
 .floatClearLeft {
   clear: left;
 }
