@@ -106,12 +106,6 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
 	color: red;
 }
 
-.clearBoth {
-	clear: both;
-	margin: 0px;
-	padding: 0px;
-}
-
 /* Anchor-Based Button Layout using TABLE */
 
 .buttonDiv {
