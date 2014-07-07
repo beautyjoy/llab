@@ -216,3 +216,15 @@
   font-weight: normal;
   line-height: 80%;
 }
+
+#selfCheckIntro {
+  width: 650px;
+}
+
+#selfCheckIntro .Intro1 {
+  color: red;
+}
+
+#selfCheckIntro .Intro2 {
+  font-size: 90%;
+}
