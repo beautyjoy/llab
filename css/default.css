@@ -821,40 +821,12 @@ div.indent {
 }
 
 .pageLink {
-  background-image: url(../img/pageLink.png); /* FIXME */
+  background-image: url(../img/pageLink.png);
   background-position:top right;
   background-repeat: no-repeat;
   margin-right: 4px;
   margin-left: 2px;
   padding-right: 22px;
-}
-
-#buttonClose {
-  text-align: center;
-  margin: 30px auto;
-}
-
-#buttonClose a {
-  display: block;
-  margin: 0 auto;
-  width: 9em;
-  padding: 3px 0;
-  font: bold 80% Verdana,Arial,sans-serif;
-  text-transform: uppercase;
-  background: #6883BA;
-  color: #333;
-  text-decoration: none;
-  text-align: center;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  border: 1px solid #666;
-  outline: none;
-}
-
-#buttonClose a:hover {
-  background: #FFCC00;
-  color: #333;
 }
 
 
@@ -871,6 +843,7 @@ div.indent {
 }
 
 /* Most items in the course page */
+/** FIXME -- poorly performant, applies to all divs within */
 .topic div {
   background-repeat: no-repeat;
   background-position: left;

@@ -153,3 +153,31 @@
     color:#e3e3e3;
 }
 
+#buttonClose {
+  text-align: center;
+  margin: 30px auto;
+}
+
+#buttonClose a {
+  display: block;
+  margin: 0 auto;
+  width: 9em;
+  padding: 3px 0;
+  font: bold 80% Verdana,Arial,sans-serif;
+  text-transform: uppercase;
+  background: #6883BA;
+  color: #333;
+  text-decoration: none;
+  text-align: center;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #666;
+  outline: none;
+}
+
+#buttonClose a:hover {
+  background: #FFCC00;
+  color: #333;
+}
+
