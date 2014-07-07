@@ -247,7 +247,7 @@ a[disabled] {
 
 /* Contains Nav Buttons and Dropdown Menu */
 .navbar-right {
-  padding-right: 5%;
+  padding-right: 8%;
 }
 .navbar-default .navbar-toggle,
 .navbar-default .navbar-toggle:hover,
@@ -261,21 +261,20 @@ a[disabled] {
   max-width: 40%;
   min-width: 15em;
   padding: 4px;
-}
-
-.header, .nav-btns {
   line-height: 1em;
   font-weight: 900;
   position: relative;
 }
 
-/** Buttons at the bottom right */
+/** Buttons at the bottom right
+ *  Currently not used!
 .bottom-nav {
   float: right;
   margin: 5px;
   vertical-align: middle;
   text-align: right;
 }
+*/
 
 /* BUTTON CLASSES */
 /* Overrides default bootstrap which conflicts with right float dropdown. */
@@ -296,9 +295,7 @@ content: ' \2192';
 
 /* PAGE DROPDOWN SECTION ******************************************************/
 /* Give space to caret in dropdown menus */
-.caret {
-  margin-left: 15px; /* FIXME, hacky. */
-}
+/* FIXME -- standardize class names! */
 .dropdown-menu {
   margin-top: 8px; /* should be equal to padding on list_header */
 }
