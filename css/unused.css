@@ -346,3 +346,6 @@
   padding: 6px;
 }
 
+input[type=text], input[type=password], textarea {
+  font: 12px "Courier New", Courier, monospace;
+}

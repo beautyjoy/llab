@@ -92,9 +92,6 @@ form label {
   font-family: Tahoma, Geneva, sans-serif;
 }
 
-input[type=text], input[type=password], textarea {
-  font: 12px "Courier New", Courier, monospace;
-}
 
 /* Quiz Page Buttons */
 input[type=submit] {
@@ -214,8 +211,7 @@ a[disabled] {
 }
 
 /* Contains the page title text */
-.navbar-brand,
-.header {
+.navbar-brand {
   font: bold 1.5em Georgia, serif;
   font-variant: small-caps;
   color: #666;
