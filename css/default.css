@@ -880,39 +880,41 @@ div.indent {
   margin: 5px  0 5px  0;
 }
 
+/** ICON CLASSES **/
 /* Begin items controlled primarily by .topic div */
 .quiz {
   background-image: url(../img/multiplechoice28.png);
 }
-/* FIXME */
+
 .assignment, .homework {
   background-image: url(../img/note28.png);
 }
-/* FIXME */
+
 .resource {
   background-image: url(../img/course-resources-32.png);
 }
-/* FIXME */
+
 .forum {
   background-image: url(../img/pageLink.png);
 }
-/* FIXME */
+
 .video {
   background-image: url(../img/slideshowIcon.png);
 }
-/* FIXME */
+
 .extresource {
   background-image: url(../img/display28.png);
 }
-/* FIXME */
+
+/* http://findicons.com/icon/93370/emblem_library?id=274277 */
 .reading {
   background-image: url(../img/emblem_library.png);
 }
-/* http://findicons.com/icon/93370/emblem_library?id=274277 */
+
+/* http://findicons.com/icon/66444/user_group?id=66460 */
 .group {
   background-image: url(../img/user_group.png);
 }
-/* http://findicons.com/icon/66444/user_group?id=66460 */
 /* End items controlled by .topic div */
 
 /* Other items, which partially override .topic div */
