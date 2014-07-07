@@ -737,42 +737,6 @@ div.indent {
   line-height: 120%;
 }
 
-#brainstorm p {
-  margin: 5px auto;
-  padding: 0;
-  color: #000099;
-  font-size: 110%;
-  line-height: 100%;
-}
-
-#brainstorm table {
-  border-collapse: collapse;
-  border: 2px solid #000066;
-  color: #CCFFCC;
-  background-color: #333;
-  margin: 10px auto;
-}
-
-#brainstorm strong {
-  text-transform: uppercase;
-  color: #CCFFCC;
-}
-
-#brainstorm td {
-  font-size: 80%;
-  vertical-align: top;
-  padding: 5px 10px;
-  border: 1px solid #666;
-}
-
-#brainstorm table code {
-  display: block;
-  margin: 10px 0 0 0;
-  font-size: 95%;
-  font-weight: normal;
-  line-height: 80%;
-}
-
 .quoteOrange {
   padding: 10px 15px;
   margin: 15px;
