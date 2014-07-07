@@ -715,16 +715,6 @@ div.indent {
   background-position: 0  0;
 }
 
-.selfCheckQuestion {
-  font-size: 14px;
-  font-family: Verdana, Arial,Helvetica;
-  text-align: left;
-  width: 650px;
-  margin: 10px 0 15px 0 ;
-  color: #0000FF;
-  line-height: 120%;
-}
-
 /* FIXME, name needed */
 .quoteOrange {
   padding: 10px 15px;
