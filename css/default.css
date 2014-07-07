@@ -648,8 +648,8 @@ div.indent {
     margin: 0 10px;
 }
 
-.clearFloats {
-    clear:both;
+.clearFloat {
+    clear: both;
 }
 
 .tryit {
