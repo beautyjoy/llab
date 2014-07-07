@@ -936,15 +936,9 @@ div.indent {
 /* List-related items
 * bigIdeas and learninggoals are being treated identically at the moment.
 */
-.topic .bigideas {
+.bigideas,
+.learninggoals {
   font-weight: bold;
-  padding-left: 0;
-  margin: 0;
-}
-
-.topic .learninggoals {
-  font-weight: bold;
-  padding-left: 0;
 }
 
 /* Formatting stuff */
@@ -1037,6 +1031,7 @@ div.indent {
   font-style: italic;
   color: #808080;
 }
+
 /******** SMALLL DEVICE STUFF *****/
 @media (max-width: 1024px) {
   .full {
