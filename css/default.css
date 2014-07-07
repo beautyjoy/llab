@@ -737,6 +737,7 @@ div.indent {
   line-height: 120%;
 }
 
+/* FIXME, name needed */
 .quoteOrange {
   padding: 10px 15px;
   margin: 15px;
@@ -744,7 +745,7 @@ div.indent {
   border-left: 12px solid #FF9D1E;
   background-color: #FFCE8E;
 }
-
+/* FIXME, name needed */
 .quoteBlue {
   padding: 10px 15px;
   margin: 15px;
@@ -753,6 +754,7 @@ div.indent {
   background-color: #9999FF;
 }
 
+/* FIXME, name needed */
 .quoteBrown {
   padding: 10px 15px;
   margin: 15px;
@@ -761,6 +763,7 @@ div.indent {
   background-color: #ddc8ad;
 }
 
+/* FIXME, name needed */
 .quoteGreen {
   padding: 10px 15px;
   margin: 15px;
