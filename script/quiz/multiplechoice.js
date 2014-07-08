@@ -1,3 +1,8 @@
+// TODO: Make sure all display elements can use bootstrap
+// TODO: Dry Code -- lots of repetition
+// TODO: Selectors for button states and buttons
+// TODO: Bind click events to google analytics
+
 /* Represents a multiple choice question. */
 
 function MC(data, location, questionNumber) {
@@ -36,11 +41,7 @@ function MC(data, location, questionNumber) {
     */
     //boolean to prevent shuffling after each answer submit
     this.previouslyRendered = false;
-
-
-
 }
-
 
 
 MC.prototype.loadContent = function() {
@@ -99,7 +100,9 @@ MC.prototype.displayNumberAttempts = function(part1, part2, states) {
 };
 
 MC.prototype.tryAgain = function(e) {
-    if (this.multipleChoice.find(".tryAgainButton").hasClass("disabledLink")) {
+    // TODO: Google Analytics Push
+    // Capture Question + Correctness + Attempts
+    if (this.multipleChoice.find(".tryAgainButton").hasClass("disabled")) {
         return;
     }
     this.render();
@@ -174,8 +177,8 @@ MC.prototype.render = function() {
         });
     }
 
-    this.multipleChoice.find('.tryAgainButton').addClass('disabledLink');
-    this.enableCheckAnswerButton('true');
+    this.multipleChoice.find('.tryAgainButton').addClass('disabled');
+    this.enableCheckAnswerButton('true'); // ? Why not pass a boolean?
     // should this be here??? TODO
     this.clearFeedbackDiv();
 
@@ -196,7 +199,7 @@ MC.prototype.render = function() {
         var resultMessage = this.getResultMessage(latestState.isCorrect);
         this.multipleChoice.find('.resultMessageDiv').html(resultMessage);
         if (latestState.isCorrect) {
-            this.multipleChoice.find('.tryAgainButton').addClass('disabledLink');
+            this.multipleChoice.find('.tryAgainButton').addClass('disabled');
         }
 
     }
@@ -284,7 +287,9 @@ MC.prototype.isCorrect = function(id) {
  * Disables "Check Answer" button and enables "Try Again" button
  */
 MC.prototype.checkAnswer = function() {
-    if (this.multipleChoice.find('.checkAnswerButton').hasClass('disabledLink')) {
+    // TODO: Google Analytics Push
+    // Capture Question + Correctness + Attempts
+    if (this.multipleChoice.find('.checkAnswerButton').hasClass('disabled')) {
         return;
     }
 
@@ -305,9 +310,9 @@ MC.prototype.checkAnswer = function() {
 
     this.enableRadioButtons(false);
     // disable radiobuttons
-    this.multipleChoice.find('.checkAnswerButton').addClass('disabledLink');
+    this.multipleChoice.find('.checkAnswerButton').addClass('disabled');
     // disable checkAnswerButton
-    this.multipleChoice.find('.tryAgainButton').removeClass('disabledLink');
+    this.multipleChoice.find('.tryAgainButton').removeClass('disabled');
     // show try again button
     for (i = 0; i < inputbuttons.length; i++) {
         checked = inputbuttons[i].checked;
@@ -333,6 +338,8 @@ MC.prototype.checkAnswer = function() {
                 mcState.text = choice.text;
             } else {
                 //this.node.view.notificationManager('error retrieving choice by choiceIdentifier', 3);
+                // FIXME -- we shouldn't do this
+                // However if critical we should track the events
                 alert('error retrieving choice by choiceIdentifier');
             }
         } else {
@@ -349,8 +356,8 @@ MC.prototype.checkAnswer = function() {
 
         //get the congratulations message and display it
         this.multipleChoice.find('.resultMessageDiv').html(this.getResultMessage(isCorrect));
-        this.multipleChoice.find('.checkAnswerButton').addClass('disabledLink');
         // disable checkAnswerButton
+        this.multipleChoice.find('.checkAnswerButton').addClass('disabled');
 
     }
 
@@ -409,7 +416,7 @@ MC.prototype.getResultMessage = function(isCorrect) {
     return message;
 };
 
-/**
+/** FIXME -- reusable
  * Returns a string of the given string with all spaces removed.
  */
 MC.prototype.removeSpace = function(text) {
@@ -422,7 +429,7 @@ MC.prototype.removeSpace = function(text) {
  * disable checkAnswerButton
  */
 MC.prototype.enableCheckAnswerButton = function(doEnable) {
-    if (doEnable == 'true') {
+    if (doEnable == 'true') { // FIXME
         this.multipleChoice.find('.checkAnswerButton').removeClass('disabled');
         // disable checkAnswerButton
     } else {
@@ -468,16 +475,14 @@ MC.prototype.postRender = function() {
 // BEAUTIOUS
 MC.prototype.getTemplate = function() {
     return "<div class='MultipleChoice Question panel panel-primary'>" +
-        "			<div class='questionCountBox panel-primary'>" +
-        "				<div class='questionTable panel-primary'>" +
-        "					<div class='questionType panel-header panel-primary'>" +
-        "						Multiple Choice" +
-        "					</div>" +
-        "				</div>" +
+        "			<div class='questionTable panel-heading'>" +
+        "				<h1 class='questionType panel-title'>" +
+        "					Multiple Choice" +
+        "				</h1>" +
         "			</div>" +
         "			<!-- end of questionCountBox -->" +
-        "			<div class='currentQuestionBox'>" +
-        "				<div class='leftColumn' class='bg8'>" +
+        "			<div class='currentQuestionBox panel-body'>" +
+        "				<div class='leftColumn'>" +
         "					<div class='promptDiv'></div>" +
         "					<div class='radiobuttondiv'></div>" +
         "					<div class='feedbackdiv'></div>" +
