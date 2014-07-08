@@ -1,11 +1,10 @@
-
-/* Represents a multiple choice question. */ 
+/* Represents a multiple choice question. */
 
 function MC(data, location, questionNumber) {
     //data = data[0];
     this.myClass = "MultipleChoice";
-    
-    
+
+
     // questionNumber is the index of the question -- hopefully goes away?
     this.num = questionNumber;
 
@@ -20,15 +19,15 @@ function MC(data, location, questionNumber) {
     //this.responseDec = $($(".responseDeclaration")[this.num]);
     var rii = this.interaction.attr("responseIdentifier");
     this.responseDec = $('.responseDeclaration[identifier="' + rii + '"]');
-    
+
 
     // save this MC dom element
     this.multipleChoice = $(location);
-    
+
     // make a copy of the template
     var template = this.getTemplate();
     this.multipleChoice = $(template).insertAfter(location);
-    
+
     // save this MC dom element
     // this.multipleChoice = $($(".MultipleChoice")[this.num]);
     /*
@@ -37,9 +36,9 @@ function MC(data, location, questionNumber) {
     */
     //boolean to prevent shuffling after each answer submit
     this.previouslyRendered = false;
-    
 
-    
+
+
 }
 
 
@@ -48,13 +47,13 @@ MC.prototype.loadContent = function() {
     var choices = this.choices;
     var i;
     this.interaction.find('.choice').each(function() {
-	var elem = $(this);
-	var choice = {
-	    identifier : elem.attr('identifier'),
-	    text : elem.find('.text').html(),
-	    feedback : elem.find('.feedback').html()
-	};
-	choices.push(choice);
+        var elem = $(this);
+        var choice = {
+            identifier: elem.attr('identifier'),
+            text: elem.find('.text').html(),
+            feedback: elem.find('.feedback').html()
+        };
+        choices.push(choice);
     });
 
     // get user interaction information
@@ -65,8 +64,8 @@ MC.prototype.loadContent = function() {
     // get the list of correct responses
     var corrResponses = this.responseDec.find('.correctResponse');
 
-    for ( i = 0; i !== corrResponses.length; i++) {
-	this.correctResponse.push($(corrResponses[i]).attr('identifier'));
+    for (i = 0; i !== corrResponses.length; i++) {
+        this.correctResponse.push($(corrResponses[i]).attr('identifier'));
     }
 
 };
@@ -74,10 +73,10 @@ MC.prototype.loadContent = function() {
 //gets and returns a choice object given the choice's identifier
 MC.prototype.getChoiceByIdentifier = function(identifier) {
     var i;
-    for ( i = 0; i < this.choices.length; i++) {
-	if (this.removeSpace(this.choices[i].identifier) == identifier) {
-	    return this.choices[i];
-	}
+    for (i = 0; i < this.choices.length; i++) {
+        if (this.removeSpace(this.choices[i].identifier) == identifier) {
+            return this.choices[i];
+        }
     }
     return null;
 };
@@ -86,22 +85,22 @@ MC.prototype.displayNumberAttempts = function(part1, part2, states) {
     var nextAttemptNum = states.length + 1;
     var nextAttemptString = "";
     if (Math.floor(nextAttemptNum / 10) == 1) {
-	nextAttemptString = nextAttemptNum + "th";
+        nextAttemptString = nextAttemptNum + "th";
     } else if (nextAttemptNum % 10 == 1) {
-	nextAttemptString = nextAttemptNum + "st";
+        nextAttemptString = nextAttemptNum + "st";
     } else if (nextAttemptNum % 10 == 2) {
-	nextAttemptString = nextAttemptNum + "nd";
+        nextAttemptString = nextAttemptNum + "nd";
     } else if (nextAttemptNum % 10 == 3) {
-	nextAttemptString = nextAttemptNum + "rd";
+        nextAttemptString = nextAttemptNum + "rd";
     } else {
-	nextAttemptString = nextAttemptNum + "th";
+        nextAttemptString = nextAttemptNum + "th";
     }
     this.multipleChoice.find('.numberAttemptsDiv').html(part1 + " " + nextAttemptString + " " + part2 + ".");
 };
 
 MC.prototype.tryAgain = function(e) {
     if (this.multipleChoice.find(".tryAgainButton").hasClass("disabledLink")) {
-	return;
+        return;
     }
     this.render();
 };
@@ -114,65 +113,65 @@ MC.prototype.tryAgain = function(e) {
 MC.prototype.render = function() {
     var i, type, choiceHTML;
     if (!this.previouslyRendered) {
-	//$('.MultipleChoice').html(pageTemplate);
+        //$('.MultipleChoice').html(pageTemplate);
 
-	/* set the question type title */
-	this.multipleChoice.find('.questionType').html('Question ' + (this.num + 1));
+        /* set the question type title */
+        this.multipleChoice.find('.questionType').html('Question ' + (this.num + 1));
     }
 
     /* render the prompt */
     this.multipleChoice.find('.promptDiv').html(this.content.prompt);
 
     /* remove buttons */
-    
+
     var radiobuttondiv = this.multipleChoice.find('.radiobuttondiv')[0];
     while (radiobuttondiv.hasChildNodes()) {
-	radiobuttondiv.removeChild(radiobuttondiv.firstChild);
+        radiobuttondiv.removeChild(radiobuttondiv.firstChild);
     }
-    
+
     /*
      * if shuffle is enabled, shuffle the choices when they enter the step
      * but not each time after they submit an answer
      */
     if (this.properties.shuffle && !this.previouslyRendered) {
-	this.choices.shuffle();
+        this.choices.shuffle();
     }
 
     /* set variable whether this multiplechoice should be rendered with radio buttons or checkboxes */
     if (this.properties.maxChoices == 1) {
-	type = 'radio';
+        type = 'radio';
     } else {
-	type = 'checkbox';
+        type = 'checkbox';
     }
 
     /* render the choices */
-    for ( i = 0; i < this.choices.length; i++) {
-	choiceHTML = '<table><tbody><tr><td>' + '<input type="' + type + '" name="radiobutton"' + ' id="' + this.removeSpace(this.choices[i].identifier) + '" value="' + this.removeSpace(this.choices[i].identifier) + '" class="' + type + '"/></td><td>' + '<div id="choicetext:' + this.removeSpace(this.choices[i].identifier) + '">' + this.choices[i].text + '</div></td><td><div id="feedback_' + this.removeSpace(this.choices[i].identifier) + '" name="feedbacks"></div></td></tr></tbody></table>';
+    for (i = 0; i < this.choices.length; i++) {
+        choiceHTML = '<table><tbody><tr><td>' + '<input type="' + type + '" name="radiobutton"' + ' id="' + this.removeSpace(this.choices[i].identifier) + '" value="' + this.removeSpace(this.choices[i].identifier) + '" class="' + type + '"/></td><td>' + '<div id="choicetext:' + this.removeSpace(this.choices[i].identifier) + '">' + this.choices[i].text + '</div></td><td><div id="feedback_' + this.removeSpace(this.choices[i].identifier) + '" name="feedbacks"></div></td></tr></tbody></table>';
 
-	this.multipleChoice.find('.radiobuttondiv').append(choiceHTML);
+        this.multipleChoice.find('.radiobuttondiv').append(choiceHTML);
 
-	// TODO -- what are these doing?  need to move from id's to classes eventually...
-	// Peter: I think this is actually okay
-	$('#' + this.removeSpace(this.choices[i].identifier)).bind('click', {
-	    myQuestion : this
-	}, function(args) {
-	    args.data.myQuestion.enableCheckAnswerButton('true');
-	});
-	if (this.selectedInSavedState(this.choices[i].identifier)) {
-	    $('#' + this.removeSpace(this.choices[i].identifier)).attr('checked', true);
-	}
+        // TODO -- what are these doing?  need to move from id's to classes eventually...
+        // Peter: I think this is actually okay
+        $('#' + this.removeSpace(this.choices[i].identifier)).bind('click', {
+            myQuestion: this
+        }, function(args) {
+            args.data.myQuestion.enableCheckAnswerButton('true');
+        });
+        if (this.selectedInSavedState(this.choices[i].identifier)) {
+            $('#' + this.removeSpace(this.choices[i].identifier)).attr('checked', true);
+        }
 
-	this.multipleChoice.find(".checkAnswerButton").bind('click', {
-	    myQuestion : this
-	}, function(args) {
-	    args.data.myQuestion.checkAnswer();
-	});
+        this.multipleChoice.find(".checkAnswerButton").bind('click', {
+            myQuestion: this
+        }, function(args) {
+            args.data.myQuestion.checkAnswer();
+        });
 
-	this.multipleChoice.find(".tryAgainButton").bind('click', {
-	    myQuestion : this
-	}, function(args) {
-	    args.data.myQuestion.tryAgain();
-	});
+        this.multipleChoice.find(".tryAgainButton").bind('click', {
+            myQuestion: this
+        }, function(args) {
+            args.data.myQuestion.tryAgain();
+        });
     }
 
     this.multipleChoice.find('.tryAgainButton').addClass('disabledLink');
@@ -181,24 +180,24 @@ MC.prototype.render = function() {
     this.clearFeedbackDiv();
 
     if (this.correctResponse.length < 1) {
-	// if there is no correct answer to this question (ie, when they're filling out a form),
-	// change button to say "save answer" and "edit answer" instead of "check answer" and "try again"
-	// and don't show the number of attempts.
-	this.multipleChoice.find(".checkAnswerButton").innerHTML = "Save Answer";
-	this.multipleChoice.find(".tryAgainButton").innerHTML = "Edit Answer";
+        // if there is no correct answer to this question (ie, when they're filling out a form),
+        // change button to say "save answer" and "edit answer" instead of "check answer" and "try again"
+        // and don't show the number of attempts.
+        this.multipleChoice.find(".checkAnswerButton").innerHTML = "Save Answer";
+        this.multipleChoice.find(".tryAgainButton").innerHTML = "Edit Answer";
     } else {
-	this.displayNumberAttempts("This is your", "attempt", this.attempts);
+        this.displayNumberAttempts("This is your", "attempt", this.attempts);
     };
 
     if (this.states.length > 0) {
-	//the student previously answered the question correctly
-	var latestState = this.states[this.states.length - 1];
-	//display the message that they correctly answered the question
-	var resultMessage = this.getResultMessage(latestState.isCorrect);
-	this.multipleChoice.find('.resultMessageDiv').html(resultMessage);
-	if (latestState.isCorrect) {
-	    this.multipleChoice.find('.tryAgainButton').addClass('disabledLink');
-	}
+        //the student previously answered the question correctly
+        var latestState = this.states[this.states.length - 1];
+        //display the message that they correctly answered the question
+        var resultMessage = this.getResultMessage(latestState.isCorrect);
+        this.multipleChoice.find('.resultMessageDiv').html(resultMessage);
+        if (latestState.isCorrect) {
+            this.multipleChoice.find('.tryAgainButton').addClass('disabledLink');
+        }
 
     }
     //turn this flag on so that the step does not shuffle again during this visit
@@ -221,10 +220,10 @@ MC.prototype.isChallengeScoringEnabled = function() {
     var result = false;
 
     if (this.properties.attempts != null) {
-	var scores = this.properties.attempts.scores;
+        var scores = this.properties.attempts.scores;
 
-	//check if there are scores
-	result = challengeScoringEnabled(scores);
+        //check if there are scores
+        result = challengeScoringEnabled(scores);
     }
 
     return result;
@@ -240,12 +239,12 @@ MC.prototype.isChallengeScoringEnabled = function() {
 MC.prototype.selectedInSavedState = function(choiceId) {
     var b, latestState;
     if (this.states && this.states.length > 0) {
-	latestState = this.states[this.states.length - 1];
-	for ( b = 0; b < latestState.length; b++) {
-	    if (latestState.choices[b] == choiceId) {
-		return true;
-	    }
-	}
+        latestState = this.states[this.states.length - 1];
+        for (b = 0; b < latestState.length; b++) {
+            if (latestState.choices[b] == choiceId) {
+                return true;
+            }
+        }
     }
 
     return false;
@@ -256,9 +255,8 @@ MC.prototype.selectedInSavedState = function(choiceId) {
  */
 if (!Array.shuffle) {
     Array.prototype.shuffle = function() {
-	var rnd, tmp, i;
-	for ( i = this.length; i; rnd = parseInt(Math.random() * i), tmp = this[--i], this[i] = this[rnd], this[rnd] = tmp) {
-	}
+        var rnd, tmp, i;
+        for (i = this.length; i; rnd = parseInt(Math.random() * i), tmp = this[--i], this[i] = this[rnd], this[rnd] = tmp) {}
     };
 }
 
@@ -269,14 +267,14 @@ MC.prototype.isCorrect = function(id) {
     var h;
     /* if no correct answers specified by author, then always return true */
     if (this.correctResponse.length == 0) {
-	return true;
+        return true;
     };
 
     /* otherwise, return true if the given id is specified as a correct response */
-    for ( h = 0; h < this.correctResponse.length; h++) {
-	if (this.correctResponse[h] == id) {
-	    return true;
-	}
+    for (h = 0; h < this.correctResponse.length; h++) {
+        if (this.correctResponse[h] == id) {
+            return true;
+        }
     }
     return false;
 };
@@ -287,7 +285,7 @@ MC.prototype.isCorrect = function(id) {
  */
 MC.prototype.checkAnswer = function() {
     if (this.multipleChoice.find('.checkAnswerButton').hasClass('disabledLink')) {
-	return;
+        return;
     }
 
     //clear the previous result message
@@ -311,48 +309,48 @@ MC.prototype.checkAnswer = function() {
     // disable checkAnswerButton
     this.multipleChoice.find('.tryAgainButton').removeClass('disabledLink');
     // show try again button
-    for ( i = 0; i < inputbuttons.length; i++) {
-	checked = inputbuttons[i].checked;
-	choiceIdentifier = inputbuttons[i].getAttribute('id');
-	// identifier of the choice that was selected
-	// use the identifier to get the correctness and feedback
-	choice = this.getChoiceByIdentifier(choiceIdentifier);
-	if (checked) {
-	    if (choice) {
-		this.multipleChoice.find('#feedback_' + choiceIdentifier).html(choice.feedback);
+    for (i = 0; i < inputbuttons.length; i++) {
+        checked = inputbuttons[i].checked;
+        choiceIdentifier = inputbuttons[i].getAttribute('id');
+        // identifier of the choice that was selected
+        // use the identifier to get the correctness and feedback
+        choice = this.getChoiceByIdentifier(choiceIdentifier);
+        if (checked) {
+            if (choice) {
+                this.multipleChoice.find('#feedback_' + choiceIdentifier).html(choice.feedback);
 
-		var choiceTextDiv = this.multipleChoice.find(".choicetext:" + choiceIdentifier);
-		if (this.isCorrect(choice.identifier)) {
-		    choiceTextDiv.attr("class", "correct");
-		} else {
-		    choiceTextDiv.attr("class", "incorrect");
-		    isCorrect = false;
-		}
+                var choiceTextDiv = this.multipleChoice.find(".choicetext:" + choiceIdentifier);
+                if (this.isCorrect(choice.identifier)) {
+                    choiceTextDiv.attr("class", "correct");
+                } else {
+                    choiceTextDiv.attr("class", "incorrect");
+                    isCorrect = false;
+                }
 
-		mcState.identifier = choice.identifier;
+                mcState.identifier = choice.identifier;
 
-		//add the human readable value of the choice chosen
-		mcState.text = choice.text;
-	    } else {
-		//this.node.view.notificationManager('error retrieving choice by choiceIdentifier', 3);
-		alert('error retrieving choice by choiceIdentifier');
-	    }
-	} else {
-	    if (this.isCorrect(choice.identifier)) {
-		isCorrect = false;
-	    }
-	}
+                //add the human readable value of the choice chosen
+                mcState.text = choice.text;
+            } else {
+                //this.node.view.notificationManager('error retrieving choice by choiceIdentifier', 3);
+                alert('error retrieving choice by choiceIdentifier');
+            }
+        } else {
+            if (this.isCorrect(choice.identifier)) {
+                isCorrect = false;
+            }
+        }
     }
 
     mcState.isCorrect = isCorrect;
 
     if (isCorrect) {
-	//the student answered correctly
+        //the student answered correctly
 
-	//get the congratulations message and display it
-	this.multipleChoice.find('.resultMessageDiv').html(this.getResultMessage(isCorrect));
-	this.multipleChoice.find('.checkAnswerButton').addClass('disabledLink');
-	// disable checkAnswerButton
+        //get the congratulations message and display it
+        this.multipleChoice.find('.resultMessageDiv').html(this.getResultMessage(isCorrect));
+        this.multipleChoice.find('.checkAnswerButton').addClass('disabledLink');
+        // disable checkAnswerButton
 
     }
 
@@ -370,24 +368,24 @@ MC.prototype.enforceMaxChoices = function(inputs) {
     var x, maxChoices;
     var maxChoices = parseInt(this.properties.maxChoices);
     if (maxChoices > 1) {
-	var countChecked = 0;
-	for ( x = 0; x < inputs.length; x++) {
-	    if (inputs[x].checked) {
-		countChecked += 1;
-	    }
-	}
+        var countChecked = 0;
+        for (x = 0; x < inputs.length; x++) {
+            if (inputs[x].checked) {
+                countChecked += 1;
+            }
+        }
 
-	if (countChecked > maxChoices) {
-	    //this.node.view.notificationManager.notify('You have selected too many. Please select only ' + maxChoices + ' choices.',3);
-	    //maxChoices = 3;
-	    alert('You have selected too many. Please select only ' + maxChoices + ' choices.');
-	    return false;
-	} else if (countChecked < maxChoices) {
-	    //this.node.view.notificationManager.notify('You have not selected enough. Please select ' + maxChoices + ' choices.',3);
-	    //maxChoices = 3;
-	    alert('You have not selected enough. Please select ' + maxChoices + ' choices.');
-	    return false;
-	}
+        if (countChecked > maxChoices) {
+            //this.node.view.notificationManager.notify('You have selected too many. Please select only ' + maxChoices + ' choices.',3);
+            //maxChoices = 3;
+            alert('You have selected too many. Please select only ' + maxChoices + ' choices.');
+            return false;
+        } else if (countChecked < maxChoices) {
+            //this.node.view.notificationManager.notify('You have not selected enough. Please select ' + maxChoices + ' choices.',3);
+            //maxChoices = 3;
+            alert('You have not selected enough. Please select ' + maxChoices + ' choices.');
+            return false;
+        }
     }
     return true;
 };
@@ -405,7 +403,7 @@ MC.prototype.getResultMessage = function(isCorrect) {
 
     /* if this attempt is correct, then we only need to return a msg */
     if (isCorrect) {
-	message = "You have successfully completed this question!";
+        message = "You have successfully completed this question!";
     }
 
     return message;
@@ -425,11 +423,11 @@ MC.prototype.removeSpace = function(text) {
  */
 MC.prototype.enableCheckAnswerButton = function(doEnable) {
     if (doEnable == 'true') {
-	this.multipleChoice.find('.checkAnswerButton').removeClass('disabledLink');
-	// disable checkAnswerButton
+        this.multipleChoice.find('.checkAnswerButton').removeClass('disabled');
+        // disable checkAnswerButton
     } else {
-	this.multipleChoice.find('.tryAgainButton').addClass('disabledLink');
-	// disable checkAnswerButton
+        this.multipleChoice.find('.tryAgainButton').addClass('disabled');
+        // disable checkAnswerButton
     }
 };
 /**
@@ -438,12 +436,12 @@ MC.prototype.enableCheckAnswerButton = function(doEnable) {
 MC.prototype.enableRadioButtons = function(doEnable) {
     var i;
     var radiobuttons = this.multipleChoice.find('[name="radiobutton"]');
-    for ( i = 0; i < radiobuttons.length; i++) {
-	if (doEnable == 'true') {
-	    radiobuttons[i].removeAttribute('disabled');
-	} else {
-	    radiobuttons[i].setAttribute('disabled', 'true');
-	}
+    for (i = 0; i < radiobuttons.length; i++) {
+        if (doEnable == 'true') {
+            radiobuttons[i].removeAttribute('disabled');
+        } else {
+            radiobuttons[i].setAttribute('disabled', 'true');
+        }
     }
 };
 
@@ -457,58 +455,57 @@ MC.prototype.clearFeedbackDiv = function() {
     feedbackdiv.innerHTML = "";
 
     var feedbacks = this.multipleChoice.find('[name="feedbacks"]');
-    for ( z = 0; z < feedbacks.length; z++) {
-	feedbacks[z].innerHTML = "";
+    for (z = 0; z < feedbacks.length; z++) {
+        feedbacks[z].innerHTML = "";
     }
 };
 
 MC.prototype.postRender = function() {
-
     //  var thetitle = document.title;
 };
 
 
 // BEAUTIOUS
 MC.prototype.getTemplate = function() {
-    return "<div class='MultipleChoice Question panel'>" +
-	"			<div class='questionCountBox'>" +
-	"				<div class='questionTable'>" +
-	"					<div class='questionType panel-header panel-primary'>" +
-	"						Multiple Choice" +
-	"					</div>" +
-	"				</div>" +
-	"			</div>" +
-	"			<!-- end of questionCountBox -->" +
-	"			<div class='currentQuestionBox'>" +
-	"				<div class='leftColumn' class='bg8'>" +
-	"					<div class='promptDiv'></div>" +
-	"					<div class='radiobuttondiv'></div>" +
-	"					<div class='feedbackdiv'></div>" +
-	"				</div>" +
-	"			</div>" +
-	"			<div class='clearBoth'></div>" +
-	"			<div ='interactionBox'>" +
-	"				<div class='statusMessages'>" +
-	"					<div class='numberAttemptsDiv'></div>" +
-	"					<div class='scoreDiv'></div>" +
-	"					<div class='resultMessageDiv' style='font-size:16px'></div>" +
-	"				</div>" +
-	"				<!-- Anchor-Based Button Layout using TABLE -->" +
-	"				<div class='buttonDiv'>" +
-	"					<table class='buttonTable'>" +
-	"						<tr>" +
-	"							<td>" +
-	"							<div class='buttonDiv'>" +
-	"								<a class='checkAnswerButton btn btn-default'>Check Answer</a>" +
-	"							</div></td><td>" +
-	"							<div class='buttonDiv'>" +
-	"								<a class='tryAgainButton btn btn-default'>Try Again</a>" +
-	"							</div></td>" +
-	"						</tr>" +
-	"					</table>" +
-	"				</div>" +
-	"			</div>" +
-	"		</div>";
+    return "<div class='MultipleChoice Question panel panel-primary'>" +
+        "			<div class='questionCountBox panel-primary'>" +
+        "				<div class='questionTable panel-primary'>" +
+        "					<div class='questionType panel-header panel-primary'>" +
+        "						Multiple Choice" +
+        "					</div>" +
+        "				</div>" +
+        "			</div>" +
+        "			<!-- end of questionCountBox -->" +
+        "			<div class='currentQuestionBox'>" +
+        "				<div class='leftColumn' class='bg8'>" +
+        "					<div class='promptDiv'></div>" +
+        "					<div class='radiobuttondiv'></div>" +
+        "					<div class='feedbackdiv'></div>" +
+        "				</div>" +
+        "			</div>" +
+        "			<div class='clearBoth'></div>" +
+        "			<div ='interactionBox'>" +
+        "				<div class='statusMessages'>" +
+        "					<div class='numberAttemptsDiv'></div>" +
+        "					<div class='scoreDiv'></div>" +
+        "					<div class='resultMessageDiv' style='font-size:16px'></div>" +
+        "				</div>" +
+        "				<!-- Anchor-Based Button Layout using TABLE -->" +
+        "				<div class='buttonDiv'>" +
+        "					<table class='buttonTable'>" +
+        "						<tr>" +
+        "							<td>" +
+        "							<div class='buttonDiv'>" +
+        "								<button class='checkAnswerButton btn btn-primary'>Check Answer</button>" +
+        "							</div></td><td>" +
+        "							<div class='buttonDiv'>" +
+        "								<button class='tryAgainButton btn btn-primary'>Try Again</button>" +
+        "							</div></td>" +
+        "						</tr>" +
+        "					</table>" +
+        "				</div>" +
+        "			</div>" +
+        "		</div>";
 
 
 };

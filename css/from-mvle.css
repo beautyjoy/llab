@@ -114,46 +114,36 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
 .buttonTable {
   border-collapse: collapse;
   margin: 8px auto 5px auto;
+  padding: 1em .5em;
 }
 
-.buttonTable a {
+.checkAnswerButton,
+.tryAgainButton {
   vertical-align: middle;
-  margin: 0px 10px;
-  padding: 5px 15px;
-  font-family: Verdana, Arial, sans-serif;
-  font-weight: bold;
-  font-size: .85em;
-  background-color: #1e69ff;
-  color: #FFF;
-  border: 1px solid #333;
-  text-decoration: none;
-  text-align: center;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
+  margin: 10px;
 }
 
-.buttonTable a.firstButton {
+buttonTable a.firstButton {
   margin-left: 15px;
 }
 
-.buttonTable a.tightened {
+buttonTable a.tightened {
   letter-spacing: -1px;
 }
 
-.buttonTable a:hover {
+buttonTable a:hover {
   background-color: #FFFF00;
   color: #000;
   cursor: pointer;
 }
 
-.buttonTable a.disabledLink:hover {
+buttonTable a.disabledLink:hover {
   background-color: #666;
   color: #999999;
   cursor: default;
 }
 
-.buttonTable .disabledLink {
+buttonTable .disabledLink {
   background-color: #666;
   color: #999999;
   outline: 0;
