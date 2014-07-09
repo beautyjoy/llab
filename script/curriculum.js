@@ -17,7 +17,7 @@ llab.strings = {};
 llab.strings.goMain = 'Go to the Course Page';
 // &#8230; is ellipsis
 llab.strings.clickNav = 'Click here to navigate&nbsp;&nbsp;';
-// 
+//
 llab.fragments.bootstrapSep = '<li class="divider list_item" role="presentation"></li>';
 llab.fragments.bootstrapCaret = '<span class="caret"></span>';
 llab.fragments.hamburger = '<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>';
@@ -34,8 +34,8 @@ llab.url_list = [];
 var FULL = llab.selectors.FULL,
     hamburger = llab.fragments.hamburger;
 
-llab.secondarySetUp = function() { 
-    
+llab.secondarySetUp = function() {
+
     llab.step = parseInt(getParameterByName("step"));
 
     // Currently title requires llab.step work work properly.
@@ -51,7 +51,7 @@ llab.secondarySetUp = function() {
     if ($("span.vocab").length > 0) {
         if ($("div.vocab").length === 0) {
             // it might already exist, in order to have a 'topX' class inserted.
-            $(".full").append('<div class="vocab"></div>');
+            $(FULL).append('<div class="vocab"></div>');
         }
         var vocabDiv = $("div.vocab");
         $("span.vocab").each(function(i) {
@@ -100,18 +100,18 @@ llab.secondarySetUp = function() {
     if (topicFile === "" || isNaN(llab.step)) {
         return;
     }
-    
+
     if (getParameterByName("step") === "") {
-        // TODO -- this shouldn't happen, but we could intelligently find 
+        // TODO -- this shouldn't happen, but we could intelligently find
         // which step this should be
     }
-    
+
     if (typeof topicFile == "object") {
         llab.file = topicFile[1];
     } else {
         llab.file = topicFile;
     }
-    
+
     $.ajax({
         url : llab.rootURL + "/topic/" + llab.file,
         type : "GET",
@@ -121,7 +121,7 @@ llab.secondarySetUp = function() {
     });
 }; // close secondarysetup();
 
-/** 
+/**
  *  Processes just the hyperlinked elements in the topic file,
  *  and creates navigation buttons.
  *  FIXME: This should share code with llab.topic!
@@ -129,10 +129,10 @@ llab.secondarySetUp = function() {
 llab.processLinks = function(data, ignored1, ignored2) {
     var hidden = [];
     var hiddenString = "";
-    
+
     // URL Options
     var temp = window.location.search.substring(1).split("&");
-    
+
     for (var i = 0; i < temp.length; i++) {
         var param = temp[i].split("="); // param = [OPTION, VALUE]
         if (param[0].substring(0, 2) == "no" && param[1] == "true") {
@@ -140,36 +140,36 @@ llab.processLinks = function(data, ignored1, ignored2) {
             hiddenString += ("&" + temp[i]);
         }
     } // end for loop
-    
+
     var textLength = 35,
         course = getParameterByName("course"),
         lines = data.split("\n"),
         num = 0,
         url = document.URL,
         list = $(document.createElement("ul")).attr(
-        { 'class': 'dropdown-menu dropdown-menu-right', 
+        { 'class': 'dropdown-menu dropdown-menu-right',
           'role' : "menu",  'aria-labelledby' : "Topic-Navigation-Meu"}),
         text,
         list_item,
         line,
         used;
-    
+
     for (var i = 0; i < lines.length; i++) {
         line = llab.stripComments($.trim(lines[i]));
-        
+
         // Skip is this line is hidden in URL params.
         used = hidden.indexOf(line.slice(0, line.indexOf(":"))) === -1;
         if (!used) { continue };
-        
+
         // Line is a title.
         if (line.indexOf("title:") !== -1) {
             /* Create a link back to the main topic. */
             url = (llab.topic_launch_page + "?topic=" + llab.file +
                   hiddenString + "&course=" + course);
-            
+
             text = line.slice(line.indexOf(":") + 1);
             text = llab.truncate($.trim(text), textLength);
-            
+
             // Create a special Title link and add a separator.
             text = "<span class='main-topic-link'>" + text + "</span>";
             list_item = llab.dropdownItem(text, url);
@@ -181,35 +181,37 @@ llab.processLinks = function(data, ignored1, ignored2) {
         }
 
         // TODO:  Check if we have a title for this link?
+        // This also isn't a very robust check...
         // If we don't have a link, skip this line.
         var hasLink = line.indexOf("[") !== -1 && line.indexOf("]") !== -1;
         if (!hasLink) {
-            continue; 
+            continue;
         }
-        
-        // Grab the link title between : and [ 
+
+        // Grab the link title between : [
         text = line.slice(line.indexOf(":") + 1, line.indexOf("["));
         text = llab.truncate($.trim(text), textLength);
         // Grab the link betweem [ and ]
         url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
-        
+
         // Content References an external resource
         if (url.indexOf("http") !== -1) {
-            url = (llab.empty_topic_page_path + "?" + "src=" +  url + "&" + 
+            url = (llab.empty_topic_page_path + "?" + "src=" +  url + "&" +
                   "topic=" + llab.file + "&step=" + num + "&title=" + text +
                   hiddenString + "&course=" + course);
         } else {
             if (url.indexOf(llab.rootURL) === -1 && url.indexOf("..") === -1) {
                 url = llab.rootURL + (url[0] === "/" ? '' : "/") + url;
             }
-            //TODO: Does this matter?
             url += url.indexOf("?") !== -1 ? "&" : "?";
             url += "topic=" + llab.file + "&step=" + num + hiddenString;
             url += "&course=" + course;
         }
-        
+
+        console.log('URL:');
+        console.log(url);
         llab.url_list.push(url);
-        
+
         // Make the current step have an arrow in the dropdown menu
         if (num === llab.step) {
             text = "<span class='current-step-link'>" + text + "</span>";
@@ -219,7 +221,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
         list.append(list_item);
         num += 1;
     } // end for loop
-    
+
     if (course !== "") {
         if (course.indexOf("http://") === -1) {
             course = llab.courses_path + course;
@@ -235,14 +237,15 @@ llab.processLinks = function(data, ignored1, ignored2) {
     // FIXME -- will break on pages with multiple dropdowns (future)
     var dropdown = $('.dropdown');
     dropdown.append(list);
-    
+
     // FIXME -- shouldn't special case this
     if (document.URL.indexOf(llab.empty_topic_page_path) !== -1) {
         llab.addFrame();
     }
 
     llab.indicateProgress(llab.url_list.length, llab.step);
-    
+
+    // FIXME -- not sure this really belongs here...
     llab.addFeedback(document.title, llab.file, course);
 } // end processLinks()
 
@@ -251,57 +254,58 @@ llab.processLinks = function(data, ignored1, ignored2) {
 // Used for embedded content. (Videos, books, etc)
 llab.addFrame = function() {
     var source = getParameterByName("src");
-    
-    $(FULL).append('<a href=' + source + 
+
+    $(FULL).append('<a href=' + source +
         ' target="_">Open page in new window</a><br /><br />');
     $(FULL).append('<div id="cont"></div>');
-    
+
     var frame = $(document.createElement("iframe")).attr(
         {'src': source, 'class': 'step_frame'} );
-    
+
     $("#cont").append(frame);
 };
 
 // Setup the entire page title. This includes creating any HTML elements.
 // This should be called EARLY in the load process!
+// FIXME: lots of stuff needs to be pulled out of this function
 llab.setupTitle = function() {
-    
     // TODO -- set the mobile viewport, but the display needs to look right
     // Don't enable yet!
+    // TODO: rename / refactor location
     // $(document.head).append('<meta name="viewport" content="width=device-width, initial-scale=1">');
-    
+
     if (typeof llab.titleSet !== 'undefined' && llab.titleSet) {
         return;
     }
-    
+
     // Create .full before adding stuff.
     if ($(FULL).length === 0) {
         $(document.body).wrapInner('<div class="full"></div>');
     }
-    
+
     // Work around when things are oddly loaded...
     if ($(llab.selectors.NAVSELECT).length !== 0) {
         $(llab.selectors.NAVSELECT).remove();
     }
-    
+
     // Create the header section and nav buttons
     llab.createTitleNav();
-    
+
     // create Title tag, yo
     if (getParameterByName("title") != "") {
         document.title = decodeURIComponent(getParameterByName("title"));
     }
-    
+
     // Set the header title to the page title.
     var titleText = document.title;
     if (titleText) {
         // FIXME this needs to be a selector
         $('.navbar-brand').html(titleText);
     }
-    
+
     // Clean up document title if it contains HTML
     document.title = $(".navbar-brand").text();
-    
+
     // FIXME -- Not great on widnow resize
     // Needs to be refactored, and window listener added
     $(document.body).css('padding-top', $('.llab-nav').height());
@@ -321,20 +325,21 @@ llab.createTitleNav = function() {
         topNav = $(llab.selectors.NAVSELECT),
         buttons = "<a class='btn btn-default backbutton arrow'>back</a>" +
                    "<a class='btn btn-default forwardbutton arrow'>next</a>";
-    
+
     if (topNav.length === 0) {
         $(document.body).prepend(topHTML);
         topNav = $(llab.selectors.NAVSELECT);
         topNav.append(navHTML);
     }
-    
+
     // Don't add anything else if we don't know the step...
     // FIXME -- this requires a step as a URL param currently.
     // FUTURE - We should separate the rest of this function if necessary.
     if (isNaN(llab.step)) {
         return;
     }
-    
+
+    // TODO: selector...
     $('.nav-btns').append(buttons);
     if ($(llab.selectors.PROGRESS).length === 0) {
         $(FULL).append(botHTML);
@@ -352,14 +357,14 @@ llab.buildDropdown = function() {
     // Container div for the whole menu (title + links)
     dropdown = $(document.createElement("div")).attr(
         {'class': 'dropdown inline'});
-    
+
     // build the list header
     list_header = $(document.createElement("button")).attr(
         {'class': 'navbar-toggle btn btn-default dropdown-toggle list_header',
-         'type' : 'button', 'data-toggle' : "dropdown" }); 
+         'type' : 'button', 'data-toggle' : "dropdown" });
     list_header.append(hamburger);
-    
-    // Add Header to dropdown 
+
+    // Add Header to dropdown
     dropdown.append(list_header);
     // Insert into the top div AFTER the backbutton.
     dropdown.insertAfter($('.navbar-default .navbar-right .backbutton'));
@@ -382,27 +387,27 @@ llab.dropdownItem = function(text, url) {
 
 // Create the Forward and Backward buttons, properly disabling them when needed
 llab.setButtonURLs = function() {
-
     // No dropdowns for places that don't have a step.
     if (isNaN(llab.step)) {
         return;
     }
-    
+
     // TODO REFACTOR THIS
-    var forward = $('.forwardbutton'),
+    var forward = $('.forwardbutton');
         back    = $('.backbutton');
-        
+
     var buttonsExist = forward.length !== 0 && back.length !== 0;
-    
-    if (!buttonsExist) {
-        if ($(llab.selectors.NAVSELECT) !== 0) {
-            llab.createTitleNav();
-        }
-        // Grab the freshly minted buttons. MMM, tasty!
+
+    if (!buttonsExist & $(llab.selectors.NAVSELECT) !== 0) {
+        // freshly minted buttons. MMM, tasty!
+        llab.createTitleNav();
         forward = $('.forwardbutton');
         back    = $('.backbutton');
     }
-    
+
+    forward = $('.forwardbutton');
+    back    = $('.backbutton');
+
     // Disable the back button
     if (llab.step === 0) {
         back.each(function(i, item) {
@@ -416,7 +421,7 @@ llab.setButtonURLs = function() {
             $(this).click(llab.goBack);
         });
     }
-    
+
     // Disable the forward button
     if (llab.step >= llab.url_list.length - 1) {
         forward.each(function(i, item) {
@@ -471,8 +476,8 @@ llab.addFeedback = function(title, topic, course) {
     // Reason 2: GetFeedback tracks "opens" and each load is an open
     button.click('click', function(event) {
         if ($('#feedback-frame').length === 0) {
-            var frame = $(document.createElement('iframe')).attr( 
-            {   
+            var frame = $(document.createElement('iframe')).attr(
+            {
                 'frameborder': "0",
                 'id': 'feedback-frame',
                 'width': "300",
@@ -485,7 +490,7 @@ llab.addFeedback = function(title, topic, course) {
     $(document.body).append(feedback);
 }
 
-/** 
+/**
  *  Positions an image along the bottom of the lab page, signifying progress.
  *  numSteps is the total number of steps in the lab
  *  currentStep is the number of the current step
@@ -505,13 +510,13 @@ llab.indicateProgress = function(numSteps, currentStep) {
         var picWidth = $(llab.selectors.PROGRESS).css("background-size");
         picWidth = Number(picWidth.slice(0, picWidth.indexOf("px")));
         // the 4 is just to add a bit of space
-        result = width - picWidth - 4 + "px"; 
+        result = width - picWidth - 4 + "px";
     }
-    
+
     result = result + " 2px";
     $(llab.selectors.PROGRESS).css("background-position", result);
 };
 
-// Setup the nav and parse the topic file. 
+// Setup the nav and parse the topic file.
 $(document).ready(llab.secondarySetUp);
 

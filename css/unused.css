@@ -440,4 +440,41 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
   display: inline-block;
 }
 
+.MultipleChoice .buttonTable {
+  margin-top: 10px;
+}
+
+.MultipleChoice .buttonDiv {
+  min-height: 31px;
+  background-color: #FFFFFF;
+}
+
+.helpIcon {
+  width: 16px;
+  height: 16px;
+  background-image: url(images/infoIcon.png);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  padding: 0px;
+}
+
+.helpIcon a {
+  outline: 0px;
+  text-decoration: none;
+}
+
+.helpIcon :hover {
+  background-image: url(images/infoIconRollover.png);
+}
+
+.helpTextLink {
+  font-size: .7em;
+  color: #333;
+  padding: 2px 5px;
+}
+
+.helpTextLink:hover {
+  background-color: #FFFF00;
+}
+
 /********** FROM MVLE STUFF ********/
