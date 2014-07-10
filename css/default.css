@@ -49,20 +49,6 @@ nav {
   padding: 1% 5% 1% 5%;
 }
 
-form li div {
-  font: 500 15px/1.7 "Times New Roman", Times, serif;
-}
-
-form > h2, form > ol > li {
-  color: #999;
-  font: 500 30px Tahoma, Geneva, sans-serif;
-}
-
-em {
-  font-weight: 900;
-  font-style: italic;
-}
-
 /* Should try to avoid tt; deprecated & unsupported tag */
 tt {
   font-size: 120%;
@@ -77,8 +63,7 @@ code {
 }
 
 p {
-  /*font:1.1em "Times New Roman", Times, serif;*/
-  font: 1em Helvetica, Arial, sans-serif;
+  font: 1em 'Helvetica', Arial, sans-serif;
   color: black;
   line-height: 120%;
 }
@@ -91,11 +76,6 @@ p.right {
   font-style: italic;
   color: #00C;
 }
-
-form label {
-  font-family: Tahoma, Geneva, sans-serif;
-}
-
 
 /* FIXME --- poorly performant. */
 .full ul, .full ol {
@@ -144,7 +124,7 @@ h1 {
   color: #000;
 }
 
-h2, h3 {
+h2, h3 { /* FIXME -- fonts */
   font: 900 26px "Palatino Linotype", "Book Antiqua", "Palatino", serif;
   padding: 10px 0;
   color: #000;
@@ -200,7 +180,7 @@ a[disabled] {
   padding: 1em;
 }
 
-/* Contains the page title text */
+/* Contains the page title text, truncates text with '…' */
 .navbar-brand {
   font: bold 1.5em Georgia, serif;
   font-variant: small-caps;
@@ -252,31 +232,11 @@ a[disabled] {
   position: relative;
 }
 
-/** Buttons at the bottom right
- *  Currently not used!
-.bottom-nav {
-  float: right;
-  margin: 5px;
-  vertical-align: middle;
-  text-align: right;
-}
-*/
-
 /* BUTTON CLASSES */
 /* Overrides default bootstrap which conflicts with right float dropdown. */
 .btn-group > .btn {
   float: none;
 }
-
-/* Add arrows to each button */
-/*.backbutton:before {
-content: '\2190 ';
-}
-.forwardbutton:after {
-content: ' \2192';
-}
-*/
-
 /* END NAV SECTION ***********************************************************/
 
 /* PAGE DROPDOWN SECTION ******************************************************/
@@ -312,8 +272,8 @@ content: ' \2192';
   border-radius: 0; /* No round coners on dropdowns between buttons */
 }
 
-/* TODO: Create a real .list-bg class */
-.list-bg {
+/* Dropdown menu items with icons */
+.course-link-list, .main-topic-link {
   font-weight: bold;
   background-size: contain;
   background-repeat: no-repeat;
@@ -322,30 +282,18 @@ content: ' \2192';
 }
 
 .course-link-list {
-  font-size: 100%;
-  font-weight: bold;
-  background-image: url("../img/globe.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  padding-left: 20px;
+  background-image: url(../img/globe.png);
 }
 .main-topic-link {
-  font-size: 100%;
-  text-decoration: underline;
-  font-weight: bold;
-  background-image: url("../img/toolbar_home.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  padding-left: 20px;
+  text-decoration: underline; /* only topic page link is underlined */
+  background-image: url(../img/toolbar_home.png);
 }
+
 .current-step-link {
-  font-weight: bold;
-  background-image: url("../img/forward.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  padding-left: 20px;
+  background-image: url(../img/forward.png);
 }
 /* END PAGE DROPDWON SECTION *************************************************/
+
 /******* FEEDBACK BUTTON ON BOTTOM RIGHT */
 .page-feedback {
   padding: 4px;
@@ -360,12 +308,13 @@ content: ' \2192';
 .feedback-button {
   margin: .5em 1em;
 }
+/***********/
 
 .course_link {
   display: block;
   margin-bottom: 10px;
   font-size: large;
-  background-image: url("../img/globe.png");
+  background-image: url(../img/globe.png);
   background-size: contain;
   background-repeat: no-repeat;
   padding-left: 25px;
@@ -380,41 +329,6 @@ content: ' \2192';
 .center {
   text-align: center;
   margin: 0 auto;
-}
-
-/** FIXME -- replace this with bootstrap warning -- then delete
- * Only use is recursive reporters intro page
- * https://inst.eecs.berkeley.edu/~cs10/labs/cur/programming/recur/recursive-reporters/recursive-reporters-intro.html?topic=berkeley_bjc/recur/recursive-reporters.topic&step=0&novideo=true&noreading=true&noassignment=true&course=cs10_sp14.html
- */
-.redFlag {
-  font-size: .95em;
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  text-align: left; /* Added/Updated */
-  line-height:1.4em;
-  width: 500px; /* Added */
-  margin:20px  0 20px  0; /* Added */
-  padding:6px;
-  background-color: #FFCCCC;
-  color: #660000;
-  border-top-left-radius: 8px; /* Added */
-  border-bottom-right-radius:8px;
-  -moz-border-radius-topleft: 8px;
-  -moz-border-radius-bottomright: 8px;
-  border: 1px solid #666;
-}
-
-.redFlag p {
-  font-size: inherit
-}
-
-.redFlag.right {
-  float: right;
-  margin-right: 10px;
-}
-
-.redFlag.left {
-  float: left;
-  margin-left: 10px;
 }
 
 .floatClearLeft {
@@ -449,37 +363,6 @@ pre.veryTightText, pre .veryTightText {
   letter-spacing: -1px;
 }
 
-/* THESE ARE USED IN TWO FILES
- * We should move these to those two locations, or try to fix them
- */
-#tableBlue {
-  border-collapse: collapse;
-  margin: 10px 15px;
-  background-color: #ccccff;
-}
-
-#tableBlue th {
-  border: 1px solid #6666FF;
-  vertical-align: top;
-  text-align: left;
-  font: .8em "Times New Roman", Times;
-  padding: 2px 10px;
-  font-weight: 600;
-}
-
-#tableBlue td {
-  border: 1px solid #6666FF;
-  vertical-align: top;
-  font: 1em "Times New Roman", Times;
-  padding: 5px 10px;
-  vertical-align: top;
-}
-
-#tableBlue ul {
-  border: none;
-  margin: 0;
-}
-
 .imageRight {
   float: right;
   margin: 0 20px 15px 15px;
@@ -490,32 +373,25 @@ pre.veryTightText, pre .veryTightText {
   margin: 0 15px 15px 20px;
 }
 
-.imageCenter {
-  text-align: center;
-  margin: 0 auto;
-}
-
-
+.imageCenter,
 img.center {
   margin-left: auto;
   margin-right: auto;
-  display: block;
 }
 
 img.inline {
   /* this works if the text isn't also vertical-align'ed!  */
   vertical-align: middle;
+  display: inline;
 }
 
 img.indent {
   margin-left: 10%;
-  /* display: block;  */
 }
 
 div.indent {
   margin-left: 10%;
 }
-
 
 .centeredImages {
   text-align: center;
@@ -534,7 +410,7 @@ div.indent {
 .instructionsIcon {
   width: 16px;
   height: 16px;
-  background-image: url('../img/infoIcon.png');
+  background-image: url(../img/infoIcon.png);
   background-repeat: no-repeat;
   text-decoration: none;
   outline: none;
@@ -548,50 +424,41 @@ div.indent {
 .step {
   margin-left: 35px;
   padding: 0 50px 5px 30px;
-  background-image: url('../img/lightning.png');
+  background-image: url(../img/lightning.png);
   background-repeat: no-repeat;
-  background-position: 0  0;
+  background-position: 0 0;
 }
 
-/* FIXME, name needed */
-.quoteOrange {
+/** Common Styling to highlighted sections */
+.quoteOrange, .quoteGreen, .quoteBrown, .quoteBlue {
   padding: 10px 15px;
   margin: 15px;
   width: 80%;
+}
+
+.quoteOrange { /* FIXME, name needed */
   border-left: 12px solid #FF9D1E;
   background-color: #FFCE8E;
 }
-/* FIXME, name needed */
-.quoteBlue {
-  padding: 10px 15px;
-  margin: 15px;
-  width: 80%;
+
+.quoteBlue { /* FIXME, name needed */
   border-left: 12px solid #164cba;
   background-color: #9999FF;
 }
 
-/* FIXME, name needed */
-.quoteBrown {
-  padding: 10px 15px;
-  margin: 15px;
-  width: 80%;
+.quoteBrown { /* FIXME, name needed */
   border-left: 12px solid #bf9a6b;
   background-color: #ddc8ad;
 }
 
-/* FIXME, name needed */
-.quoteGreen {
-  padding: 10px 15px;
-  margin: 15px;
-  width: 80%;
+.quoteGreen { /* FIXME, name needed */
   border-left: 12px solid #669933;
   background-color: #99CC66;
 }
 
 /* New classes from the original_bjc file.
-* All items below pertain to the "topic" class.
-*/
-
+ *  items below pertain to the "topic" class.
+ */
 .topic {
   margin-bottom: 30px;
   border: 2px solid #CCC;
@@ -605,10 +472,9 @@ div.indent {
 .topic div {
   background-repeat: no-repeat;
   background-position: left;
-  /*background-size:18px 18px;*/
   background-size: contain;
   padding-left: 35px;
-  margin: 5px  0 5px  0;
+  margin: 5px 0;
 }
 
 /** ICON CLASSES **/
@@ -701,25 +567,6 @@ div.indent {
   padding-top: 10px;
 }
 
-/* Inserts the logo using the proper formatting.
-* Insert using "<span class="snap">snap</span>"
-*/
-.snap:first-letter {
-  font-variant: normal;
-}
-
-.snap {
-  text-transform: capitalize;
-  font-variant: small-caps;
-  font-style: normal;
-  font-family: "Times New Roman", Times, serif;
-}
-
-.snap:after {
-  content: "!";
-  font-style: italic;
-}
-
 /* This is a container element for the iframe */
 #cont {
   width: 90%;
@@ -735,9 +582,31 @@ div.indent {
   display: block;
 }
 
+/* Image added to all clickable program file links
+ * Indicates a new window will open */
 .run {
-  background: url("../img/external-link.png") center right no-repeat; /* FIXME */
+  background: url(../img/external-link.png) center right no-repeat;s
   padding-right: 13px;
+}
+
+/**** SPECIAL CONTENT CLASSES ***/
+/* .snap inserts the logo using the proper formatting.
+* Insert using "<span class="snap">snap</span>"
+*/
+.snap:first-letter {
+  font-variant: normal;
+}
+
+.snap {
+  text-transform: capitalize;
+  font-variant: small-caps;
+  font-style: normal;
+  font-family: "Times New Roman", Times, serif; /* FIXME */
+}
+
+.snap:after {
+  content: "!";
+  font-style: italic;
 }
 
 .truthtable {
@@ -766,7 +635,185 @@ div.indent {
   font-style: italic;
   color: #808080;
 }
+/***************************************/
+/** LLAB QUIZ STYLING */
+.feedbackDiv {
+  width: 85%;
+  margin: 10px auto 0px auto;
+  text-align: center;
+  color: #19253D;
+}
 
+.buttonDiv {
+  text-align: center;
+}
+
+.buttonTable {
+  border-collapse: collapse;
+  margin: 8px auto 5px auto;
+  padding: 1em .5em;
+}
+
+.checkAnswerButton,
+.tryAgainButton {
+  vertical-align: middle;
+  margin: 10px;
+}
+
+/* multiple choice question specific styling */
+/* FIXME, these need descendant ( > ) selectors! */
+.MultipleChoice .currentQuestionBox {
+  margin: 0px auto;
+  padding: 10px 0px;
+  text-align: left;
+}
+
+.MultipleChoice .currentQuestionBox .leftColumn {
+  float: left;
+  width: 85%;
+  padding: 10px 0px 10px 15px;
+  min-height: 300px;
+}
+
+.MultipleChoice .currentQuestionBox .rightColumn {
+  float: right;
+  width: 12%;
+  padding: 10px 0px;
+  text-align: center;
+  color: white;
+  min-height: 300px;
+}
+
+.MultipleChoice .itemLabel {
+  font-size: .7em;
+  text-transform: uppercase;
+  margin: 5px 0px 0px 15px;
+}
+
+.MultipleChoice .promptdiv {
+  font-size: .9em;
+  color: #000;
+  margin: 3px 10px 15px 15px;
+  font-weight: bold;
+  line-height: 150%;
+}
+
+.MultipleChoice .radiobuttondiv {
+  margin: 10px;
+}
+
+.MultipleChoice .radiobuttondiv table td {
+  font-size: .85em;
+  vertical-align: top;
+  padding: 3px 3px 8px 3px;
+}
+
+.MultipleChoice .radiobuttondiv input {
+  margin-top: 2px;
+}
+
+.MultipleChoice .radiobuttondiv table p {
+  font-size: inherit;
+}
+
+.MultipleChoice .radiobuttondiv table tt {
+  font-size: 110%;
+  font-weight: bold;
+}
+
+.MultipleChoice .radiobuttondiv .correct {
+  color: green;
+  font-weight: bold;
+}
+
+.MultipleChoice .radiobuttondiv .incorrect {
+  color: red;
+  font-weight: bold;
+}
+
+.MultipleChoice .radiobuttondiv table td:first-child {
+  width: 25px;
+}
+
+.MultipleChoice .radiobuttondiv table td + td + td div[name="feedbacks"] {
+  font-style: italic;
+  font-size: .9em;
+  border-left: 4px solid #999;
+  padding-left: 6px;
+  margin-left: 30px;
+}
+
+.MultipleChoice .statusMessages {
+  text-align: center;
+  margin: 5px auto;
+  padding: 5px;
+}
+
+.MultipleChoice .numberAttemptsDiv, .lastAttemptDiv {
+  display: inline;
+  font-size: .8em;
+  margin: 0px;
+  padding: 0px;
+}
+
+/** QUIZ CLASSES OF QUESTIONABLE USE */
+
+.MultipleChoice .promptdiv p {
+  font-size: inherit;
+  font-weight: normal;
+}
+
+.MultipleChoice .promptdiv a:link, .promptdiv a:visited {
+  color: #000;
+}
+
+.MultipleChoice .promptdiv a:hover {
+  background-color: #FFFF00;
+}
+
+.MultipleChoice .promptdiv tt {
+  /* looks OK in IE, too small in firefox, ug.  Firefox at 150% is about right, 130% in IE is right */
+  font-size: 135%;
+  font-weight: 500;
+}
+
+.MultipleChoice .promptdiv ol {
+  font-size: .8em;
+  text-transform: uppercase;
+  margin-left: 25px;
+}
+
+.MultipleChoice .promptdiv pre {
+  font-size: .8em;
+  font: .9em "Courier New", Courier, monospace;
+  font-weight: bold;
+  color: #333;
+  white-space: pre;
+  padding: 10px;
+  margin: 15px;
+  border-top: 2px solid #999;
+  border-right: 2px solid #999;
+  border-bottom: 2px solid #999;
+  border-left: 12px solid #999;
+}
+
+.feedbackDiv.correct {
+  color: green;
+}
+
+.feedbackDiv.incorrect {
+  color: red;
+}
+
+.questionType tt {
+  /* looks OK in IE, too small in firefox, ug.  Firefox at 150% is about right, 130% in IE is right */
+  font-size: 135%;
+  font-weight: 500;
+}
+/** END QUESTIONABLE STUFF */
+/********************************/
+/*** END QUIZ CSS               */
+/********************************/
 /******** SMALLL DEVICE STUFF *****/
 @media (max-width: 1024px) {
   body {
@@ -784,5 +831,103 @@ div.indent {
   .page-feedback {
     display: none;
   }
-
 }
+
+/**************** TO BE REMOVED OR REFACTORED ************/
+/* THESE ARE USED IN TWO FILES
+ * We should move these to those two locations, or try to fix them
+ */
+#tableBlue {
+  border-collapse: collapse;
+  margin: 10px 15px;
+  background-color: #ccccff;
+}
+
+#tableBlue th {
+  border: 1px solid #6666FF;
+  vertical-align: top;
+  text-align: left;
+  font: .8em "Times New Roman", Times;
+  padding: 2px 10px;
+  font-weight: 600;
+}
+
+#tableBlue td {
+  border: 1px solid #6666FF;
+  vertical-align: top;
+  font: 1em "Times New Roman", Times;
+  padding: 5px 10px;
+  vertical-align: top;
+}
+
+#tableBlue ul {
+  border: none;
+  margin: 0;
+}
+
+
+/** FIXME -- replace this with bootstrap warning -- then delete
+ * Only use is recursive reporters intro page
+ * https://inst.eecs.berkeley.edu/~cs10/labs/cur/programming/recur/recursive-reporters/recursive-reporters-intro.html?topic=berkeley_bjc/recur/recursive-reporters.topic&step=0&novideo=true&noreading=true&noassignment=true&course=cs10_sp14.html
+ */
+.redFlag {
+  font-size: .95em;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  text-align: left; /* Added/Updated */
+  line-height:1.4em;
+  width: 500px; /* Added */
+  margin:20px  0 20px  0; /* Added */
+  padding:6px;
+  background-color: #FFCCCC;
+  color: #660000;
+  border-top-left-radius: 8px; /* Added */
+  border-bottom-right-radius:8px;
+  -moz-border-radius-topleft: 8px;
+  -moz-border-radius-bottomright: 8px;
+  border: 1px solid #666;
+}
+
+.redFlag p {
+  font-size: inherit
+}
+
+.redFlag.right {
+  float: right;
+  margin-right: 10px;
+}
+
+.redFlag.left {
+  float: left;
+  margin-left: 10px;
+}
+form li div {
+  font: 500 15px/1.7 "Times New Roman", Times, serif;
+}
+
+form > h2, form > ol > li {
+  color: #999;
+  font: 500 30px Tahoma, Geneva, sans-serif;
+}
+
+form label {
+  font-family: Tahoma, Geneva, sans-serif;
+}
+
+/* Add arrows to each button */
+/*.backbutton:before {
+content: '\2190 ';
+}
+.forwardbutton:after {
+content: ' \2192';
+}
+*/
+
+/** Buttons at the bottom right
+ *  Currently not used!
+.bottom-nav {
+  float: right;
+  margin: 5px;
+  vertical-align: middle;
+  text-align: right;
+}
+*/
