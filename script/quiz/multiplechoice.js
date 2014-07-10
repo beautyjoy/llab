@@ -85,6 +85,7 @@ MC.prototype.getChoiceByIdentifier = function(identifier) {
 MC.prototype.displayNumberAttempts = function(part1, part2, states) {
     var nextAttemptNum = states.length + 1;
     var nextAttemptString = "";
+    // TODO: Make this switch / case and refactor to a function (for clarity)
     if (Math.floor(nextAttemptNum / 10) == 1) {
         nextAttemptString = nextAttemptNum + "th";
     } else if (nextAttemptNum % 10 == 1) {

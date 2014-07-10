@@ -122,8 +122,8 @@ li > ul, li > ol {
   display: block;
 }
 
-/* 
-Removes borders from nested lists. 
+/*
+Removes borders from nested lists.
 NOTE: Generally the child selector ( > ) is preferred due to specificity and
 performance.
 However, .full is needed because the class reference is more specific and the
@@ -384,7 +384,7 @@ content: ' \2192';
 
 /** FIXME -- replace this with bootstrap warning -- then delete
  * Only use is recursive reporters intro page
- * https://inst.eecs.berkeley.edu/~cs10/labs/cur/programming/recur/recursive-reporters/recursive-reporters-intro.html?topic=berkeley_bjc/recur/recursive-reporters.topic&step=0&novideo=true&noreading=true&noassignment=true&course=cs10_sp14.html 
+ * https://inst.eecs.berkeley.edu/~cs10/labs/cur/programming/recur/recursive-reporters/recursive-reporters-intro.html?topic=berkeley_bjc/recur/recursive-reporters.topic&step=0&novideo=true&noreading=true&noassignment=true&course=cs10_sp14.html
  */
 .redFlag {
   font-size: .95em;
@@ -449,7 +449,7 @@ pre.veryTightText, pre .veryTightText {
   letter-spacing: -1px;
 }
 
-/* THESE ARE USED IN TWO FILES 
+/* THESE ARE USED IN TWO FILES
  * We should move these to those two locations, or try to fix them
  */
 #tableBlue {
@@ -531,44 +531,6 @@ div.indent {
   clear: both;
 }
 
-.tryit {
-  width: 500px;
-  margin: 20px 0 20px 0; /* Added/Updated */
-  background-image:url('../img/doit_background.png');
-  background-position: -10px -3px;
-  background-color: #164CBA;
-  border: 1px solid #000099;
-  border-top-left-radius: 16px; /* Added */
-  border-bottom-right-radius:16px;
-  -moz-border-radius-topleft: 16px;
-  -moz-border-radius-bottomright: 16px;
-  /* border-radius:10px; */
-}
-
-.tryit .vocab {
-  font-style: italic;
-  letter-spacing: .6px;
-  padding: 0 2px;
-  font-weight: bold;
-}
-
-.tryit p {
-  padding: 22px 22px 8px 8px;
-  text-align: left;
-  font-size: .8em;
-  line-height: 135%;
-  letter-spacing: .5px;
-  color: #FFF;
-  font-family: Arial, Helvetica, Arial;
-}
-
-.tryit a:link, .tryit a:visited {
-  color: #FFE6C6;
-}
-.tryit a:hover {
-  color: #919EBA;
-}
-
 .instructionsIcon {
   width: 16px;
   height: 16px;
@@ -625,31 +587,6 @@ div.indent {
   border-left: 12px solid #669933;
   background-color: #99CC66;
 }
-
-.slideshowLink {
-  margin: 0 5px;
-  padding-left: 20px;
-  padding-right: 2px;
-  color: #CC3333;
-  text-decoration: none;
-  background-image: url(../img/slideshowIcon.png); /* FIXME */
-  background-repeat:no-repeat;
-  font-weight: bold;
-}
-
-.slideshowLink:hover {
-  background-color: #FFFF00;
-}
-
-.pageLink {
-  background-image: url(../img/pageLink.png);
-  background-position:top right;
-  background-repeat: no-repeat;
-  margin-right: 4px;
-  margin-left: 2px;
-  padding-right: 22px;
-}
-
 
 /* New classes from the original_bjc file.
 * All items below pertain to the "topic" class.
@@ -738,6 +675,8 @@ div.indent {
 }
 
 /* Formatting stuff */
+/* FIXME -- selectors need improvement.
+ * Can we just delete the .topic? */
 .topic .indent0 {
   margin-left: 0
 }
@@ -830,6 +769,9 @@ div.indent {
 
 /******** SMALLL DEVICE STUFF *****/
 @media (max-width: 1024px) {
+  body {
+    width: 100%;
+  }
   .full {
     width: 98%;
   }

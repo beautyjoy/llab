@@ -1,45 +1,4 @@
-/* STYLING FOR ALL ASSESSMENT ITEM TYPES  (StudentCheck, Student Quiz, Teacher Check, TeacherQuiz, Brainstorm) */
-
-
-.centeredDiv {
-  text-align: left;
-  padding: 1%;
-  margin: 0px auto;
-}
-
-.questionType tt {
-  /* looks OK in IE, too small in firefox, ug.  Firefox at 150% is about right, 130% in IE is right */
-  font-size: 135%;
-  font-weight: 500;
-}
-
-.helpIcon {
-  width: 16px;
-  height: 16px;
-  background-image: url(images/infoIcon.png);
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  padding: 0px;
-}
-
-.helpIcon a {
-  outline: 0px;
-  text-decoration: none;
-}
-
-.helpIcon :hover {
-  background-image: url(images/infoIconRollover.png);
-}
-
-.helpTextLink {
-  font-size: .7em;
-  color: #333;
-  padding: 2px 5px;
-}
-
-.helpTextLink:hover {
-  background-color: #FFFF00;
-}
+/** LLAB QUIZ STYLING */
 
 .feedbackDiv {
   width: 85%;
@@ -48,28 +7,8 @@
   color: #19253D;
 }
 
-.feedbackDiv.correct {
-  color: green;
-}
-
-.feedbackDiv.incorrect {
-  color: red;
-}
-
-/* Anchor-Based Button Layout using TABLE */
-
 .buttonDiv {
   text-align: center;
-}
-
-.statusDiv {
-  width: 80%;
-  margin: 0px auto 10px auto;
-  padding: 2px;
-  text-align: center;
-  font-size: .75em;
-  color: #19253D;
-  color: #333;
 }
 
 .buttonTable {
@@ -84,130 +23,8 @@
   margin: 10px;
 }
 
-/* STYLING FOR ALL POP-UP STEP INFORMATION WINDOWS */
-
-.stepBody, .assessmentBody {
-  background-color: #666699;
-}
-
-.infoBoxCenteredDiv, .assessmentTypeCenteredDiv {
-  background-image: url(images/BackgroundBlue600.png);
-  background-position: 0px -400px;
-  background-repeat: repeat-x;
-  background-color: #FFF;
-  width: 640px;
-  text-align: left;
-  padding: 5px 15px;
-  margin: 10px auto;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-}
-
-.stepTitle, .assessmentTitle {
-  font-size: 1.4em;
-  font-weight: bold;
-  color: #19253D;
-  margin: 25px 10px 0px 10px;
-  border-bottom: 1px ridge #CCFFFF;
-}
-
-.stepTitle .subtitle, .assessmentTitle .subtitle {
-  font-size: .5em;
-  margin-left: 5px;
-}
-
-.assessmentDescription p {
-  text-transform: uppercase;
-  color: #fff;
-  font-weight: bold;
-  font-size: .7em;
-  margin: 15px 0px 0px 10px;
-  background-color: #999;
-  width: 95%;
-  padding: 2px 6px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-}
-
-.assessmentDescription p.tips {
-  text-transform: capitalize;
-  font-weight: normal;
-  letter-spacing: 1px;
-}
-
-.stepDescription ul, .assessmentDescription ul, .assessmentDescription ol {
-  font-size: .8em;
-  line-height: 135%;
-  padding: 0px;
-  margin: 15px 0px 20px 40px;
-}
-
-.stepDescription li, .assessmentDescription li, .assessmentDescription ol li {
-  color: #19253D;
-  margin-bottom: 10px;
-}
-
-.InfoBoxClose {
-  text-align: center;
-  margin: 30px auto;
-}
-
-.InfoBoxClose a {
-  display: block;
-  margin: 0px auto;
-  width: 9em;
-  padding: 5px 0px;
-  font: bold 100% Verdana, Arial, sans-serif;
-  text-transform: uppercase;
-  background: #6883BA;
-  color: #333;
-  border: 1px solid #999;
-  text-decoration: none;
-  text-align: center;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-}
-
-.InfoBoxClose a:hover {
-  background: #FFCC00;
-  color: #333
-}
-
-.red {
-  background-color: #CC0000;
-  color: #FFF;
-  padding: 0px 3px 1px 3px;
-  margin: 0px;
-}
-
-.yellow {
-  background-color: #FFFF33;
-  color: #999;
-  padding: 0px 3px 1px 3px;
-  margin: 0px;
-}
-
-.green {
-  background-color: #009900;
-  color: #FFF;
-  padding: 0px 3px 1px 3px;
-  margin: 0px;
-}
-
-
 /* multiple choice question specific styling */
-
-.MultipleChoice .instructionsReminder {
-  float: right;
-  text-align: right;
-  margin: 2px 15px 0px 0px;
-  color: #333;
-  vertical-align: middle;
-}
-
+/* FIXME, these need descendant ( > ) selectors! */
 .MultipleChoice .currentQuestionBox {
   margin: 0px auto;
   padding: 10px 0px;
@@ -230,7 +47,6 @@
   min-height: 300px;
 }
 
-
 .MultipleChoice .itemLabel {
   font-size: .7em;
   text-transform: uppercase;
@@ -243,45 +59,6 @@
   margin: 3px 10px 15px 15px;
   font-weight: bold;
   line-height: 150%;
-}
-
-.MultipleChoice .promptdiv p {
-  font-size: inherit;
-  font-weight: normal;
-}
-
-.MultipleChoice .promptdiv a:link, .promptdiv a:visited {
-  color: #000;
-}
-
-.MultipleChoice .promptdiv a:hover {
-  background-color: #FFFF00;
-}
-
-.MultipleChoice .promptdiv tt {
-  /* looks OK in IE, too small in firefox, ug.  Firefox at 150% is about right, 130% in IE is right */
-  font-size: 135%;
-  font-weight: 500;
-}
-
-.MultipleChoice .promptdiv ol {
-  font-size: .8em;
-  text-transform: uppercase;
-  margin-left: 25px;
-}
-
-.MultipleChoice .promptdiv pre {
-  font-size: .8em;
-  font: .9em "Courier New", Courier, monospace;
-  font-weight: bold;
-  color: #333;
-  white-space: pre;
-  padding: 10px;
-  margin: 15px;
-  border-top: 2px solid #999;
-  border-right: 2px solid #999;
-  border-bottom: 2px solid #999;
-  border-left: 12px solid #999;
 }
 
 .MultipleChoice .radiobuttondiv {
@@ -329,20 +106,6 @@
   margin-left: 30px;
 }
 
-.MultipleChoice input * {
-  color: red
-}
-
-.MultipleChoice .submitbuttonDiv {
-  text-align: center;
-  margin: 5px;
-}
-
-.MultipleChoice .submitbuttonDiv input * {
-  font-size: .8em;
-  font-weight: bold;
-}
-
 .MultipleChoice .statusMessages {
   text-align: center;
   margin: 5px auto;
@@ -356,5 +119,61 @@
   padding: 0px;
 }
 
+/** QUIZ CLASSES OF QUESTIONABLE USE */
 
+.MultipleChoice .promptdiv p {
+  font-size: inherit;
+  font-weight: normal;
+}
 
+.MultipleChoice .promptdiv a:link, .promptdiv a:visited {
+  color: #000;
+}
+
+.MultipleChoice .promptdiv a:hover {
+  background-color: #FFFF00;
+}
+
+.MultipleChoice .promptdiv tt {
+  /* looks OK in IE, too small in firefox, ug.  Firefox at 150% is about right, 130% in IE is right */
+  font-size: 135%;
+  font-weight: 500;
+}
+
+.MultipleChoice .promptdiv ol {
+  font-size: .8em;
+  text-transform: uppercase;
+  margin-left: 25px;
+}
+
+.MultipleChoice .promptdiv pre {
+  font-size: .8em;
+  font: .9em "Courier New", Courier, monospace;
+  font-weight: bold;
+  color: #333;
+  white-space: pre;
+  padding: 10px;
+  margin: 15px;
+  border-top: 2px solid #999;
+  border-right: 2px solid #999;
+  border-bottom: 2px solid #999;
+  border-left: 12px solid #999;
+}
+
+.feedbackDiv.correct {
+  color: green;
+}
+
+.feedbackDiv.incorrect {
+  color: red;
+}
+
+.questionType tt {
+  /* looks OK in IE, too small in firefox, ug.  Firefox at 150% is about right, 130% in IE is right */
+  font-size: 135%;
+  font-weight: 500;
+}
+/** END QUESTIONABLE STUFF */
+/********************************/
+/*** END QUIZ CSS               */
+/********************************/

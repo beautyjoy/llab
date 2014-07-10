@@ -477,4 +477,267 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
   background-color: #FFFF00;
 }
 
-/********** FROM MVLE STUFF ********/
+
+.red {
+  background-color: #CC0000;
+  color: #FFF;
+  padding: 0px 3px 1px 3px;
+  margin: 0px;
+}
+
+.yellow {
+  background-color: #FFFF33;
+  color: #999;
+  padding: 0px 3px 1px 3px;
+  margin: 0px;
+}
+
+.green {
+  background-color: #009900;
+  color: #FFF;
+  padding: 0px 3px 1px 3px;
+  margin: 0px;
+}
+
+/* STYLING FOR ALL POP-UP STEP INFORMATION WINDOWS */
+
+.stepBody, .assessmentBody {
+  background-color: #666699;
+}
+
+.infoBoxCenteredDiv, .assessmentTypeCenteredDiv {
+  background-image: url(images/BackgroundBlue600.png);
+  background-position: 0px -400px;
+  background-repeat: repeat-x;
+  background-color: #FFF;
+  width: 640px;
+  text-align: left;
+  padding: 5px 15px;
+  margin: 10px auto;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.stepTitle, .assessmentTitle {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #19253D;
+  margin: 25px 10px 0px 10px;
+  border-bottom: 1px ridge #CCFFFF;
+}
+
+.stepTitle .subtitle, .assessmentTitle .subtitle {
+  font-size: .5em;
+  margin-left: 5px;
+}
+
+.assessmentDescription p {
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: bold;
+  font-size: .7em;
+  margin: 15px 0px 0px 10px;
+  background-color: #999;
+  width: 95%;
+  padding: 2px 6px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.assessmentDescription p.tips {
+  text-transform: capitalize;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+
+.stepDescription ul, .assessmentDescription ul, .assessmentDescription ol {
+  font-size: .8em;
+  line-height: 135%;
+  padding: 0px;
+  margin: 15px 0px 20px 40px;
+}
+
+.stepDescription li, .assessmentDescription li, .assessmentDescription ol li {
+  color: #19253D;
+  margin-bottom: 10px;
+}
+
+.InfoBoxClose {
+  text-align: center;
+  margin: 30px auto;
+}
+
+.InfoBoxClose a {
+  display: block;
+  margin: 0px auto;
+  width: 9em;
+  padding: 5px 0px;
+  font: bold 100% Verdana, Arial, sans-serif;
+  text-transform: uppercase;
+  background: #6883BA;
+  color: #333;
+  border: 1px solid #999;
+  text-decoration: none;
+  text-align: center;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.InfoBoxClose a:hover {
+  background: #FFCC00;
+  color: #333
+}
+
+.helpIcon {
+  width: 16px;
+  height: 16px;
+  background-image: url(images/infoIcon.png);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  padding: 0px;
+}
+
+.helpIcon a {
+  outline: 0px;
+  text-decoration: none;
+}
+
+.helpIcon :hover {
+  background-image: url(images/infoIconRollover.png);
+}
+
+
+.helpTextLink {
+  font-size: .7em;
+  color: #333;
+  padding: 2px 5px;
+}
+
+.helpTextLink:hover {
+  background-color: #FFFF00;
+}
+
+.statusDiv {
+  width: 80%;
+  margin: 0px auto 10px auto;
+  padding: 2px;
+  text-align: center;
+  font-size: .75em;
+  color: #19253D;
+  color: #333;
+}
+
+.centeredDiv {
+  text-align: left;
+  padding: 1%;
+  margin: 0px auto;
+}
+
+.MultipleChoice .instructionsReminder {
+  float: right;
+  text-align: right;
+  margin: 2px 15px 0px 0px;
+  color: #333;
+  vertical-align: middle;
+}
+
+.MultipleChoice input * {
+  color: red
+}
+
+.MultipleChoice .submitbuttonDiv {
+  text-align: center;
+  margin: 5px;
+}
+
+.MultipleChoice .submitbuttonDiv input * {
+  font-size: .8em;
+  font-weight: bold;
+}
+
+
+/********** END FROM MVLE STUFF ********/
+
+/********** DEFAULT.CSS STUFF ********/
+
+.instructionsIcon {
+  width: 16px;
+  height: 16px;
+  background-image: url(../img/infoIcon.png);
+  background-repeat: no-repeat;
+  text-decoration: none;
+  outline: none;
+}
+
+.instructionsIcon:hover {
+  background-image: url(../img/infoIconRollover.png);
+  background-repeat: no-repeat;
+}
+
+.tryit {
+  width: 500px;
+  margin: 20px 0 20px 0; /* Added/Updated */
+  background-image:url( ../img/doit_background.png);
+  background-position: -10px -3px;
+  background-color: #164CBA;
+  border: 1px solid #000099;
+  border-top-left-radius: 16px; /* Added */
+  border-bottom-right-radius:16px;
+  -moz-border-radius-topleft: 16px;
+  -moz-border-radius-bottomright: 16px;
+  /* border-radius:10px; */
+}
+
+.tryit .vocab {
+  font-style: italic;
+  letter-spacing: .6px;
+  padding: 0 2px;
+  font-weight: bold;
+}
+
+.tryit p {
+  padding: 22px 22px 8px 8px;
+  text-align: left;
+  font-size: .8em;
+  line-height: 135%;
+  letter-spacing: .5px;
+  color: #FFF;
+  font-family: Arial, Helvetica, Arial;
+}
+
+.tryit a:link, .tryit a:visited {
+  color: #FFE6C6;
+}
+.tryit a:hover {
+  color: #919EBA;
+}
+
+.slideshowLink {
+  margin: 0 5px;
+  padding-left: 20px;
+  padding-right: 2px;
+  color: #CC3333;
+  text-decoration: none;
+  background-image: url(../img/slideshowIcon.png); /* FIXME */
+  background-repeat:no-repeat;
+  font-weight: bold;
+}
+
+.slideshowLink:hover {
+  background-color: #FFFF00;
+}
+
+.pageLink {
+  background-image: url(../img/pageLink.png);
+  background-position:top right;
+  background-repeat: no-repeat;
+  margin-right: 4px;
+  margin-left: 2px;
+  padding-right: 22px;
+}
+
+
+/********** END DEFAULT.CSS STUFF ********/

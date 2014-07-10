@@ -127,6 +127,9 @@ llab.secondarySetUp = function() {
  *  FIXME: This should share code with llab.topic!
  */
 llab.processLinks = function(data, ignored1, ignored2) {
+    // FIXME----- THERE IS A MAJOR BUG WHERE THE TOPIC IS SOMETIMES NOT DEFINED
+    // THIS LEADS TO LINKS NOT WORKING
+    // Also we are missing and encodeURI() are a title somewhere...
     var hidden = [];
     var hiddenString = "";
 
