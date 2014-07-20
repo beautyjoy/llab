@@ -35,33 +35,33 @@ llab.getSnapRunURL = function(targeturl) {
     
     if (targeturl !== null) {   
 
-		if (targeturl.substring(0, 7) == "http://") {
-			// pointing to some non-local resource... maybe a published cloud project?  do nothing!!
-			return targeturl;
+        if (targeturl.substring(0, 7) == "http://") {
+            // pointing to some non-local resource... maybe a published cloud project?  do nothing!!
+            return targeturl;
 
-		} else {
-			// internal resource!
-			var finalurl = llab.snapRunURLBase + "http://";
-			var currdom = document.domain;
-			console.log(currdom);
-			// why not, for the devs out there...
-			if (currdom == "localhost") {
-				currdom = "llab.berkeley.edu";
-			}
-			if (llab.CORSCompliantServers.indexOf(currdom) == -1) {
-				finalurl = finalurl + llab.CORSproxy + "/";
-			}
-			if (targeturl.indexOf("..") != -1 || targeturl.indexOf(llab.rootURL) == -1) {
-				var path = window.location.pathname;
-				path = path.split("?")[0];
-				path = path.substring(0, path.lastIndexOf("/") + 1);
-				currdom = currdom + path;
-			}
-			finalurl = finalurl + currdom + targeturl;
+        } else {
+            // internal resource!
+            var finalurl = llab.snapRunURLBase + "http://";
+            var currdom = document.domain;
+            console.log(currdom);
+            // why not, for the devs out there...
+            if (currdom == "localhost") {
+                currdom = "llab.berkeley.edu";
+            }
+            if (llab.CORSCompliantServers.indexOf(currdom) == -1) {
+                finalurl = finalurl + llab.CORSproxy + "/";
+            }
+            if (targeturl.indexOf("..") != -1 || targeturl.indexOf(llab.rootURL) == -1) {
+                var path = window.location.pathname;
+                path = path.split("?")[0];
+                path = path.substring(0, path.lastIndexOf("/") + 1);
+                currdom = currdom + path;
+            }
+            finalurl = finalurl + currdom + targeturl;
 
-			return finalurl;
-		}
-	}
+            return finalurl;
+        }
+    }
 
     // FIXME -- This is most surely buggy
     return currdom;
@@ -72,25 +72,25 @@ llab.getSnapRunURL = function(targeturl) {
 //TODO put this in the llab namespace
 /** Returns the value of the URL parameter associated with NAME. */
 function getParameterByName(name) {
-	/*name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-	var regexS = "[\\?&]" + name + "=([^&#]*)";
-	var regex = new RegExp(regexS);
-	var results = regex.exec(window.location.search);
-	var results = window.location.search.match(regex);
-	console.log(results);*/
-	var results = [];
-	var strings = window.location.search.substring(1).split("&");
+    /*name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regexS = "[\\?&]" + name + "=([^&#]*)";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(window.location.search);
+    var results = window.location.search.match(regex);
+    console.log(results);*/
+    var results = [];
+    var strings = window.location.search.substring(1).split("&");
     for (var i = 0; i < strings.length; i++) {
         var temp = strings[i].split("=");
         if (temp[0] == name) {
             results.push(temp[1]);
         }
     }
-	if (results.length == 0)
+    if (results.length == 0)
         return "";
-	else if (results.length == 1) {
+    else if (results.length == 1) {
         return results[0];
-	} else {
+    } else {
         //console.log(decodeURIComponent(results[1].replace(/\+/g, " ")));
         //return decodeURIComponent(results[1].replace(/\+/g, " "));
         return results;
@@ -101,11 +101,11 @@ function getParameterByName(name) {
 
 /** Strips comments off the line. */
 llab.stripComments = function(line) {
-	var index = line.indexOf("//");
-	if (index != -1 && line[index - 1] != ":") {
-		line = line.slice(0, index);
-	}
-	return line;
+    var index = line.indexOf("//");
+    if (index != -1 && line[index - 1] != ":") {
+        line = line.slice(0, index);
+    }
+    return line;
 }
 
 
@@ -148,6 +148,67 @@ llab.truncate = function(str, n) {
     
     return str; // return the HTML content if possible.
 };
+
+
+/*!
+    query-string
+    Parse and stringify URL query strings
+    https://github.com/sindresorhus/query-string
+    by Sindre Sorhus
+    MIT License
+*/
+// Modiefied for LLAB. Inlined to reduce requests
+var queryString = {};
+
+queryString.parse = function (str) {
+    if (typeof str !== 'string') {
+        return {};
+    }
+
+    str = str.trim().replace(/^(\?|#)/, '');
+
+    if (!str) {
+        return {};
+    }
+
+    return str.trim().split('&').reduce(function (ret, param) {
+        var parts = param.replace(/\+/g, ' ').split('=');
+        var key = parts[0];
+        var val = parts[1];
+
+        key = decodeURIComponent(key);
+        // missing `=` should be `null`:
+        // http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+        val = val === undefined ? null : decodeURIComponent(val);
+
+        if (!ret.hasOwnProperty(key)) {
+            ret[key] = val;
+        } else if (Array.isArray(ret[key])) {
+            ret[key].push(val);
+        } else {
+            ret[key] = [ret[key], val];
+        }
+
+        return ret;
+    }, {});
+};
+
+queryString.stringify = function (obj) {
+    return obj ? Object.keys(obj).map(function (key) {
+        var val = obj[key];
+
+        if (Array.isArray(val)) {
+            return val.map(function (val2) {
+                return encodeURIComponent(key) + '=' + encodeURIComponent(val2);
+            }).join('&');
+        }
+
+        return encodeURIComponent(key) + '=' + encodeURIComponent(val);
+    }).join('&') : '';
+};
+llab.queryString = queryString;
+// End Query String
+
 
 /////////////////////  END
 llab.loaded['library'] = true;
