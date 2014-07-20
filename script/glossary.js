@@ -1,5 +1,5 @@
 
-var termParam = getParameterByName("term");
+var termParam = getQueryParameter("term");
 var termWord = "";
 console.log("yoyo")
 

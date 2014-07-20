@@ -85,7 +85,7 @@ function buildQuestion(qdata, location, questionNum, fetched)  {
 /** FIXME -- this shouldn't be here!!
  * Will eventually not reside here.
  */
-getParameterByName = function(name) {
+getQueryParameter = function(name) {
 	name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
 	var regexS = "[\\?&]" + name + "=([^&#]*)";
 	var regex = new RegExp(regexS);

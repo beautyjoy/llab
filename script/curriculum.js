@@ -36,7 +36,7 @@ var FULL = llab.selectors.FULL,
 
 llab.secondarySetUp = function() {
 
-    llab.step = parseInt(getParameterByName("step"));
+    llab.step = parseInt(getQueryParameter("step"));
 
     // Currently title requires llab.step work work properly.
     llab.setupTitle();
@@ -94,14 +94,14 @@ llab.secondarySetUp = function() {
     }
 
     // Get the topic file and step from the URL
-    var topicFile = getParameterByName("topic");
+    var topicFile = getQueryParameter("topic");
 
     // We don't have a topic file, so we should exit.
     if (topicFile === "" || isNaN(llab.step)) {
         return;
     }
 
-    if (getParameterByName("step") === "") {
+    if (getQueryParameter("step") === "") {
         // TODO -- this shouldn't happen, but we could intelligently find
         // which step this should be
     }
@@ -129,7 +129,7 @@ llab.secondarySetUp = function() {
 llab.processLinks = function(data, ignored1, ignored2) {
     // FIXME----- THERE IS A MAJOR BUG WHERE THE TOPIC IS SOMETIMES NOT DEFINED
     // THIS LEADS TO LINKS NOT WORKING
-    // Also we are missing and encodeURI() are a title somewhere...
+    // Also we are missing and encodeURI() are a title somewhere...a
     var hidden = [];
     var hiddenString = "";
 
@@ -145,7 +145,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
     } // end for loop
 
     var textLength = 35,
-        course = getParameterByName("course"),
+        course = getQueryParameter("course"),
         lines = data.split("\n"),
         num = 0,
         url = document.URL,
@@ -211,8 +211,6 @@ llab.processLinks = function(data, ignored1, ignored2) {
             url += "&course=" + course;
         }
 
-        console.log('URL:');
-        console.log(url);
         llab.url_list.push(url);
 
         // Make the current step have an arrow in the dropdown menu
@@ -238,8 +236,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
     llab.setButtonURLs();
     llab.buildDropdown();
     // FIXME -- will break on pages with multiple dropdowns (future)
-    var dropdown = $('.dropdown');
-    dropdown.append(list);
+    $('.dropdown').append(list);
 
     // FIXME -- shouldn't special case this
     if (document.URL.indexOf(llab.empty_topic_page_path) !== -1) {
@@ -256,7 +253,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
 // Create an iframe when loading from an empty curriculum page
 // Used for embedded content. (Videos, books, etc)
 llab.addFrame = function() {
-    var source = getParameterByName("src");
+    var source = getQueryParameter("src");
 
     $(FULL).append('<a href=' + source +
         ' target="_">Open page in new window</a><br /><br />');
@@ -295,8 +292,8 @@ llab.setupTitle = function() {
     llab.createTitleNav();
 
     // create Title tag, yo
-    if (getParameterByName("title") != "") {
-        document.title = decodeURIComponent(getParameterByName("title"));
+    if (getQueryParameter("title") != "") {
+        document.title = decodeURIComponent(getQueryParameter("title"));
     }
 
     // Set the header title to the page title.

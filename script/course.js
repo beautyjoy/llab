@@ -13,11 +13,13 @@
 
  /* Create the Query string for links to each topic within a course. */
 llab.editURLs = function() {
-    var query = {};
+    var query = {},
+        docPath = document.location.pathname;
 
     // Set the 'course' attribute
-    if (document.location.pathname.indexOf(llab.courses_path) !== -1) {
-        query['course'] = document.location.pathname;
+    if (docPath.indexOf(llab.courses_path) !== -1) {
+        // Exclude the path to the course file because it gets added back later…
+        query['course'] = docPath.replace(llab.courses_path, '');
     }
 
     // TODO: only really supports one container per file.
@@ -27,7 +29,6 @@ llab.editURLs = function() {
             i = 0;
         for (; i < attrs.length; i++) {
             if (attrs[i].name != "class") {
-                console.log(attrs[i]);
                 query[attrs[i].name] = query[attrs[i].value];
             }
         }
@@ -35,9 +36,9 @@ llab.editURLs = function() {
 
     // FIXME -- this is most surely buggy
     $(".topic_link a").each(function() {
-        console.log(this);
-        this.href += '?' + llab.queryString.stringify(query);
-        console.log(this);
+        // FIXME - this shouldn't be necessary...
+        var str = this.href.indexOf('?') === -1 ? '?' : '&';
+        this.href += str + llab.queryString.stringify(query);
     });
 };
 

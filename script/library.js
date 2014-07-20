@@ -71,28 +71,21 @@ llab.getSnapRunURL = function(targeturl) {
 
 //TODO put this in the llab namespace
 /** Returns the value of the URL parameter associated with NAME. */
-function getParameterByName(name) {
-    /*name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regexS = "[\\?&]" + name + "=([^&#]*)";
-    var regex = new RegExp(regexS);
-    var results = regex.exec(window.location.search);
-    var results = window.location.search.match(regex);
-    console.log(results);*/
+function getQueryParameter(paramName) {
     var results = [];
-    var strings = window.location.search.substring(1).split("&");
-    for (var i = 0; i < strings.length; i++) {
-        var temp = strings[i].split("=");
-        if (temp[0] == name) {
-            results.push(temp[1]);
+    var query = llab.queryString.parse(window.location.search.substring(1));
+    for (var prop in query) {
+        // TODO: filter
+        if (prop === paramName) {
+            results.push(query[prop]);
         }
     }
+
     if (results.length == 0)
         return "";
     else if (results.length == 1) {
         return results[0];
-    } else {
-        //console.log(decodeURIComponent(results[1].replace(/\+/g, " ")));
-        //return decodeURIComponent(results[1].replace(/\+/g, " "));
+    } else { // technically, this shouldn't happen...
         return results;
     }
 }
@@ -114,7 +107,7 @@ llab.stripComments = function(line) {
  * To make use of this code, the two ga() functions need to be called
  * on each page that is loaded, which means this file must be loaded.
  */
-llab.GAfun =  function(i,s,o,g,r,a,m) { i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) };
+llab.GAfun = function(i,s,o,g,r,a,m) { i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) };
 
 llab.GA = function() {
     llab.GAfun(window,document,'script','//www.google-analytics.com/analytics.js','ga');
