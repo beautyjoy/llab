@@ -1,6 +1,6 @@
 /*
  * Common functions for any llab page
- * 
+ *
  * CANNOT RELY ON JQUERY OR ANY OTHER LLAB LIBRARY
  */
 
@@ -32,8 +32,8 @@ llab.snapRunURLBase = "http://snap.berkeley.edu/snapsource/snap.html#open:";
 // returns the current domain with a cors proxy if needed
 
 llab.getSnapRunURL = function(targeturl) {
-    
-    if (targeturl !== null) {   
+
+    if (targeturl !== null) {
 
         if (targeturl.substring(0, 7) == "http://") {
             // pointing to some non-local resource... maybe a published cloud project?  do nothing!!
@@ -112,7 +112,7 @@ llab.stripComments = function(line) {
 
 /* Google Analytics Tracking
  * To make use of this code, the two ga() functions need to be called
- * on each page that is loaded, which means this file must be loaded. 
+ * on each page that is loaded, which means this file must be loaded.
  */
 llab.GAfun =  function(i,s,o,g,r,a,m) { i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) };
 
@@ -121,7 +121,7 @@ llab.GA = function() {
 }
 
 // FIXME -- this should be wrapped in some proper call
-// GA Function Calls -- these do the real work!: 
+// GA Function Calls -- these do the real work!:
 if (llab.GAuse) {
     llab.GA();
     ga('create', llab.GACode, llab.GAUrl);
@@ -136,7 +136,7 @@ llab.truncate = function(str, n) {
     var clean = document.createElement('div');
     clean.innerHTML = str;
     clean = clean.textContent || clean.innerText || '';
-    
+
     // TODO: Shorten string to end on whole words?
     // TODO: Be smarter about stripping from HTML content
     // This, don't factor HTML into the removed length
@@ -145,7 +145,7 @@ llab.truncate = function(str, n) {
     if (clean.length > n) {
         return clean.slice(0, n - 1) + '&#8230;';
     }
-    
+
     return str; // return the HTML content if possible.
 };
 
