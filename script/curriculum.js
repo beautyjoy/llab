@@ -112,6 +112,9 @@ llab.secondarySetUp = function() {
         llab.file = topicFile;
     }
 
+    console.log('LLAB FILE');
+    console.log(llab.file);
+
     $.ajax({
         url : llab.rootURL + "/topic/" + llab.file,
         type : "GET",

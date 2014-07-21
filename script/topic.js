@@ -101,10 +101,10 @@ llab.renderFull = function(data, ignored1, ignored2) {
     for (var i = 0; i < lines.length; i++) {
         line = lines[i];
         line = llab.stripComments(line);
-        var process? = (line.length > 0 && !raw &&
+        var process = (line.length > 0 && !raw &&
             (hidden.indexOf($.trim(line.slice(0, line.indexOf(":")))) == -1));
-        
-        if (!process?) {
+
+        if (!process) {
             continue;
         }
         if (line.slice(0, 6) == "title:") {
