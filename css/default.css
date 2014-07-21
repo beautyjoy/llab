@@ -37,11 +37,11 @@ body {
 }
 
 .full {
-  border: 1px solid blue;
+  border: 1px solid #003A70;
   border-radius: 4px;
   background-color: white;
   padding: 1em;
-  width: 90%;
+  width: 95%;
   margin: 1em auto 1em;
 }
 
@@ -153,6 +153,16 @@ a[disabled] {
 }
 
 /** PAGE NAV (TOP AND BOTTOM) ************************************************/
+/* Show a special div on small screens that isn't in the nav bar */
+.title-small-screen {
+  font-family: Georgia;
+  font-size: 1.5em;
+  padding-top: 2em;
+  font-weight: bold;
+  margin: 5%;
+  display: none;
+}
+
 .llab-nav {
   background: #FFF;
   position: fixed;
@@ -835,11 +845,31 @@ div.indent {
   .full {
     width: 98%;
   }
-  .navbar-header {
-    font-size: 1em;
+  .navbar-right > .btn-group > .arrow {
+    display: none;
+  }
+  .navbar-right {
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  .navbar-right > .btn-group {
+    float: left;
+  }
+  .dropdown-menu-right {
+    width: 100%;
+  }
+  .navbar-left {
+    display: none;
+    width: 0;
+  }
+  /* Override display only, all other properties are set above */
+  .title-small-screen {
+    display: block;
   }
   .llab-nav {
-    position: static;
+    position: fixed;
   }
   .page-feedback {
     display: none;
@@ -935,12 +965,3 @@ content: ' \2192';
 }
 */
 
-/** Buttons at the bottom right
- *  Currently not used!
-.bottom-nav {
-  float: right;
-  margin: 5px;
-  vertical-align: middle;
-  text-align: right;
-}
-*/

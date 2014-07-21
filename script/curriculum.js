@@ -303,6 +303,7 @@ llab.setupTitle = function() {
     if (titleText) {
         // FIXME this needs to be a selector
         $('.navbar-brand').html(titleText);
+        $('.title-small-screen').html(titleText);
     }
 
     // Clean up document title if it contains HTML
@@ -322,7 +323,8 @@ llab.createTitleNav = function() {
     // FIXME -- clean up!!
     var topHTML = ('' +
         '<nav class="llab-nav navbar navbar-default navbar-fixed-top" role="navigation">' +
-        '<div class="nav navbar-nav navbar-left navbar-brand"></div></nav>'),
+        '<div class="nav navbar-nav navbar-left navbar-brand"></div></nav>' +
+        '<div class="title-small-screen"></div>'),
         botHTML = "<div class='full-bottom-bar'><div class='bottom-nav " +
                       "btn-group'></div></div>",
         navHTML = '<div class="nav navbar-nav navbar-right">' +
