@@ -98,8 +98,9 @@ llab.renderFull = function(data, ignored1, ignored2) {
         if (line.length > 0 && !raw && (hidden.indexOf($.trim(line.slice(0, line.indexOf(":")))) == -1)) {
             if (line.slice(0, 6) == "title:") {
                 //TODO pull out the html tags for the page title
-                $("div .header").html(line.slice(6));
-                document.title = $("div .header").text();
+                document.head.title = line.slice(6);
+                document.title = line.slice(6);
+                $('.navbar-brand').html(line.slice(6));
                 learningGoal = false;
                 bigIdea = false;
             } else if (line.slice(0, 8) == "raw-html") {
@@ -171,23 +172,23 @@ llab.renderFull = function(data, ignored1, ignored2) {
                     url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
                     if (url.indexOf("http") != -1) {
                         url = llab.empty_topic_page_path + "?" + "src=" + url + "&" + "topic=" + llab.file
-			    + "&step=" + num + "&title=" + text;
+                + "&step=" + num + "&title=" + text;
                     } else {
-			if (url.indexOf(llab.rootURL) == -1 && url.indexOf("..") == -1) {
-			    if (url[0] == "/") {
-				url = llab.rootURL + url;
-			    } else {
-				url = llab.rootURL + "/" + url;
-			    }
-			}
-			if (url.indexOf("?") != -1) {
+            if (url.indexOf(llab.rootURL) == -1 && url.indexOf("..") == -1) {
+                if (url[0] == "/") {
+                url = llab.rootURL + url;
+                } else {
+                url = llab.rootURL + "/" + url;
+                }
+            }
+            if (url.indexOf("?") != -1) {
                             url += "&" + "topic=" + llab.file + "&step=" + num;
-			} else {
+            } else {
                             url += "?" + "topic=" + llab.file + "&step=" + num;
-			}
-		    }
-		    
-		    url += hiddenString + "&course=" + course;
+            }
+            }
+            
+            url += hiddenString + "&course=" + course;
                     num += 1;
                     temp.attr({'href': url});
                     item.append(temp);
