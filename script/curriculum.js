@@ -504,9 +504,10 @@ llab.addFeedback = function(title, topic, course) {
  */
 llab.indicateProgress = function(numSteps, currentStep) {
     var width = $(llab.selectors.PROGRESS).width(),
-        btns = $(''),
+        btns = $('bottom-nav').width(),
         result; // result stores left-offset of background image.
-
+    
+    width -= btns;
     if (currentStep < numSteps - 1) {
         result = (currentStep * (width / (numSteps - 1)) + 1) / (width - 10);
         // Result is always a min of 1%.
