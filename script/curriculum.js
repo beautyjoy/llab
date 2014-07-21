@@ -56,7 +56,7 @@ llab.secondarySetUp = function() {
         var vocabDiv = $("div.vocab");
         $("span.vocab").each(function(i) {
             if (!(this.getAttribute('term'))) {
-                this.setAttribute('term', this.innerHTML)
+                this.setAttribute('term', this.innerHTML);
             }
             vocabDiv.append('<a href="' + llab.rootURL +
                 '/glossary/view.html?term=' + this.getAttribute('term')
@@ -312,6 +312,9 @@ llab.setupTitle = function() {
     // FIXME -- Not great on widnow resize
     // Needs to be refactored, and window listener added
     $(document.body).css('padding-top', $('.llab-nav').height());
+    window.onresize = function(event) {
+        $(document.body).css('padding-top', $('.llab-nav').height());
+    };
     llab.titleSet = true;
 }
 
