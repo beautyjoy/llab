@@ -112,9 +112,6 @@ llab.secondarySetUp = function() {
         llab.file = topicFile;
     }
 
-    console.log('LLAB FILE');
-    console.log(llab.file);
-
     $.ajax({
         url : llab.rootURL + "/topic/" + llab.file,
         type : "GET",
@@ -349,6 +346,7 @@ llab.createTitleNav = function() {
     $('.nav-btns').append(buttons);
     if ($(llab.selectors.PROGRESS).length === 0) {
         $(FULL).append(botHTML);
+        $('.bottom-nav').append(buttons)
     }
 
     llab.setButtonURLs();
@@ -463,7 +461,7 @@ llab.addFeedback = function(title, topic, course) {
     var surveyURL = 'https://getfeedback.com/r/sPesM45m?PAGE=pageRep&TOPIC=topicRep&COURSE=courseRep&URL=urlRep';
     surveyURL = surveyURL.replace(/pageRep/g, encodeURIComponent(title))
                           .replace(/topicRep/g, encodeURIComponent(topic))
-                          .replace(/courseRep/g, encodeURIComponent(course)
+                          .replace(/courseRep/g, encodeURIComponent(course))
                           .replace(/urlRep/g, encodeURIComponent(document.URL));
 
     var button = $(document.createElement('button')).attr(
