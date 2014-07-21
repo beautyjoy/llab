@@ -59,8 +59,8 @@ llab.secondarySetUp = function() {
                 this.setAttribute('term', this.innerHTML);
             }
             vocabDiv.append('<a href="' + llab.rootURL +
-                '/glossary/view.html?term=' + this.getAttribute('term')
-                + '" target="_vocab">' + this.getAttribute('term') + '</a>');
+                '/glossary/view.html?term=' + this.getAttribute('term') +
+                '" target="_vocab">' + this.getAttribute('term') + '</a>');
         });
     }
 
@@ -74,8 +74,9 @@ llab.secondarySetUp = function() {
             if (!(this.getAttribute('topic'))) {
                 this.setAttribute('topic', this.innerHTML);
             }
-            helpDiv.append('<p><a href="' + llab.rootURL + '/help/view.html?topic=' + this.getAttribute('topic')
-            + '" target="_help">' + this.getAttribute('topic') + '</a></p>');
+            helpDiv.append('<p><a href="' + llab.rootURL +
+            '/help/view.html?topic=' + this.getAttribute('topic') +
+            '" target="_help">' + this.getAttribute('topic') + '</a></p>');
         });
     }
 
@@ -136,7 +137,8 @@ llab.processLinks = function(data, ignored1, ignored2) {
     // URL Options
     var temp = window.location.search.substring(1).split("&");
 
-    for (var i = 0; i < temp.length; i++) {
+    var i;
+    for (i = 0; i < temp.length; i++) {
         var param = temp[i].split("="); // param = [OPTION, VALUE]
         if (param[0].substring(0, 2) == "no" && param[1] == "true") {
             hidden.push(param[0].substring(2));
@@ -157,12 +159,12 @@ llab.processLinks = function(data, ignored1, ignored2) {
         line,
         used;
 
-    for (var i = 0; i < lines.length; i++) {
+    for (i = 0; i < lines.length; i++) {
         line = llab.stripComments($.trim(lines[i]));
 
         // Skip is this line is hidden in URL params.
         used = hidden.indexOf(line.slice(0, line.indexOf(":"))) === -1;
-        if (!used) { continue };
+        if (!used) { continue; }
 
         // Line is a title.
         if (line.indexOf("title:") !== -1) {
@@ -247,7 +249,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
 
     // FIXME -- not sure this really belongs here...
     llab.addFeedback(document.title, llab.file, course);
-} // end processLinks()
+}; // end processLinks()
 
 
 // Create an iframe when loading from an empty curriculum page
@@ -292,7 +294,7 @@ llab.setupTitle = function() {
     llab.createTitleNav();
 
     // create Title tag, yo
-    if (getQueryParameter("title") != "") {
+    if (getQueryParameter("title") !== "") {
         document.title = decodeURIComponent(getQueryParameter("title"));
     }
 
@@ -313,7 +315,7 @@ llab.setupTitle = function() {
         $(document.body).css('padding-top', $('.llab-nav').height());
     };
     llab.titleSet = true;
-}
+};
 
 // Create the 'sticky' title header at the top of each page.
 llab.createTitleNav = function() {
@@ -346,7 +348,7 @@ llab.createTitleNav = function() {
     $('.nav-btns').append(buttons);
     if ($(llab.selectors.PROGRESS).length === 0) {
         $(FULL).append(botHTML);
-        $('.bottom-nav').append(buttons)
+        $('.bottom-nav').append(buttons);
     }
 
     llab.setButtonURLs();
@@ -372,7 +374,7 @@ llab.buildDropdown = function() {
     dropdown.append(list_header);
     // Insert into the top div AFTER the backbutton.
     dropdown.insertAfter($('.navbar-default .navbar-right .backbutton'));
-}
+};
 
 /** Build an item for the navigation dropdown
  *  Takes in TEXT and a URL and reutrns a list item to be added
@@ -387,7 +389,7 @@ llab.dropdownItem = function(text, url) {
     link.html(text);
     item.append(link);
     return item;
-}
+};
 
 // Create the Forward and Backward buttons, properly disabling them when needed
 llab.setButtonURLs = function() {
@@ -493,7 +495,7 @@ llab.addFeedback = function(title, topic, course) {
         }
     });
     $(document.body).append(feedback);
-}
+};
 
 /**
  *  Positions an image along the bottom of the lab page, signifying progress.
@@ -511,7 +513,7 @@ llab.indicateProgress = function(numSteps, currentStep) {
     if (currentStep < numSteps - 1) {
         result = (currentStep * (width / (numSteps - 1)) + 1) / (width - 10);
         // Result is always a min of 1%.
-        result = (result < .01) ? 1 : (result * 100);
+        result = (result < 0.01) ? 1 : (result * 100);
         result = result + "%";
     } else {
         var picWidth = $(llab.selectors.PROGRESS).css("background-size");
