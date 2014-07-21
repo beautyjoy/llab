@@ -32,7 +32,7 @@ body {
   text-align: left;
   margin: 1em auto;
   padding: 60px 0 0 0; /* paddingTop is reset by JS on title load. */
-  width: 80%;
+  width: 82%;
   background-color: WhiteSmoke;
 }
 
@@ -45,6 +45,10 @@ body {
   margin: 1em auto 1em;
 }
 
+img {
+  /* Better resizing of images for mobile devices */
+  max-width: 100%;
+}
 nav {
   padding: 1% 5% 1% 5%;
 }
@@ -167,12 +171,10 @@ a[disabled] {
   background: #FFF;
   position: fixed;
   top: 0;
-  margin: 0 0 1em 0;
+  margin: 0 0 .5em 0;
   box-shadow: 0 5px 10px #CCC;
   width: 100%;
   padding: .5em;
-  min-height: 3em;
-  height: auto;
   vertical-align: middle;
 }
 
@@ -191,13 +193,15 @@ a[disabled] {
 }
 
 /* Contains the page title text, truncates text with '…' */
+/* First line is stupid bootstrap stuff....*/
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus,
+.navbar-default .navbar-brand,
 .navbar-brand {
   font: bold 1.5em Georgia, serif;
   font-variant: small-caps;
-  color: #666;
+  color: #003A70;
   text-align: left;
   letter-spacing: 1.5px;
-  max-width: 60%;
   min-width: 50%;
   white-space: nowrap;
   overflow: hidden;
@@ -205,11 +209,11 @@ a[disabled] {
 }
 
 .navbar-left {
-  width: 70%; /* For setting title width */
+  width: 75%; /* For setting title width */
 }
 
 .navbar-right {
-  width: 30%; /* For setting title width */
+  width: 25%; /* For setting title width */
 }
 
 .navbar-toggle {
@@ -218,7 +222,7 @@ a[disabled] {
   position: inherit;
   float: none;
   margin: 0;
-  border: #888;
+  border-color: #888;
 }
 
 /* Contains Nav Buttons and Dropdown Menu */
@@ -608,7 +612,7 @@ div.indent {
 /* Image added to all clickable program file links
  * Indicates a new window will open */
 .run {
-  background: url(../img/external-link.png) center right no-repeat;s
+  background: url(../img/external-link.png) center right no-repeat;
   padding-right: 13px;
 }
 
@@ -838,7 +842,7 @@ div.indent {
 /*** END QUIZ CSS               */
 /********************************/
 /******** SMALLL DEVICE STUFF *****/
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   body {
     width: 100%;
   }
@@ -854,6 +858,9 @@ div.indent {
     padding: 0;
     width: 100%;
   }
+  .navbar-toggle {
+    border: 6px;
+  }
   .navbar-right > .btn-group {
     float: left;
   }
@@ -863,6 +870,10 @@ div.indent {
   .navbar-left {
     display: none;
     width: 0;
+  }
+  /* FIXME -- this shouldn't be this way, but it works. */
+  .list_item {
+    color: #000;
   }
   /* Override display only, all other properties are set above */
   .title-small-screen {

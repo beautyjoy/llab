@@ -274,7 +274,7 @@ llab.setupTitle = function() {
     // TODO -- set the mobile viewport, but the display needs to look right
     // Don't enable yet!
     // TODO: rename / refactor location
-    // $(document.head).append('<meta name="viewport" content="width=device-width, initial-scale=1">');
+    $(document.head).append('<meta name="viewport" content="width=device-width, initial-scale=1">');
 
     if (typeof llab.titleSet !== 'undefined' && llab.titleSet) {
         return;

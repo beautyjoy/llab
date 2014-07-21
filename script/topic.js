@@ -101,6 +101,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 document.head.title = line.slice(6);
                 document.title = line.slice(6);
                 $('.navbar-brand').html(line.slice(6));
+                $('.title-small-screen').html(line.slice(6));
                 learningGoal = false;
                 bigIdea = false;
             } else if (line.slice(0, 8) == "raw-html") {
