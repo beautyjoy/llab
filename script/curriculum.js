@@ -457,10 +457,11 @@ llab.addFeedback = function(title, topic, course) {
 
 
     // TODO: Make this config
-    var surveyURL = 'https://getfeedback.com/r/sPesM45m?PAGE=pageRep&TOPIC=topicRep&COURSE=courseRep';
+    var surveyURL = 'https://getfeedback.com/r/sPesM45m?PAGE=pageRep&TOPIC=topicRep&COURSE=courseRep&URL=urlRep';
     surveyURL = surveyURL.replace(/pageRep/g, encodeURIComponent(title))
                           .replace(/topicRep/g, encodeURIComponent(topic))
-                          .replace(/courseRep/g, encodeURIComponent(course));
+                          .replace(/courseRep/g, encodeURIComponent(course)
+                          .replace(/urlRep/g, encodeURIComponent(document.URL));
 
     var button = $(document.createElement('button')).attr(
             {   'class': 'btn btn-primary feedback-button',
@@ -502,6 +503,7 @@ llab.addFeedback = function(title, topic, course) {
  */
 llab.indicateProgress = function(numSteps, currentStep) {
     var width = $(llab.selectors.PROGRESS).width(),
+        btns = $(''),
         result; // result stores left-offset of background image.
 
     if (currentStep < numSteps - 1) {
