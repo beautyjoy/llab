@@ -160,6 +160,7 @@ a[disabled] {
 /* Show a special div on small screens that isn't in the nav bar */
 .title-small-screen {
   font-family: Georgia;
+  color: #003A70;
   font-size: 1.5em;
   padding-top: 2em;
   font-weight: bold;
