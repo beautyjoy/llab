@@ -110,8 +110,8 @@ if (llab.GAuse) {
 llab.truncate = function(str, n) {
     // Ensure string is 'proper' HTML by putting it in a div, then extracting.
     var clean = document.createElement('div');
-    clean.innerHTML = str;
-    clean = clean.textContent || clean.innerText || '';
+        clean.innerHTML = str;
+        clean = clean.textContent || clean.innerText || '';
 
     // TODO: Shorten string to end on whole words?
     // TODO: Be smarter about stripping from HTML content
@@ -134,6 +134,7 @@ llab.truncate = function(str, n) {
     MIT License
 */
 // Modiefied for LLAB. Inlined to reduce requests
+// LLAB users: Please don't delete the above comment!
 var queryString = {};
 
 queryString.parse = function (str) {
@@ -182,21 +183,22 @@ queryString.stringify = function (obj) {
         return encodeURIComponent(key) + '=' + encodeURIComponent(val);
     }).join('&') : '';
 };
+/*! End Query String */
 
 llab.queryString = queryString;
-// End Query String
+
 
 // Return a new object with the combined properties of A and B.
 // Desgined for merging query strings
 // B will clobber A if the fields are the same.
 llab.mergeObjects = function(objA, objB) {
     var result = {};
-    for(var prop in objA) {
+    for (var prop in objA) {
         if (objA.hasOwnProperty(prop)) {
             result.prop = objA.prop;
         }
     }
-    for(prop in objB) {
+    for (prop in objB) {
         if (objB.hasOwnProperty(prop)) {
             result.prop = objB.prop;
         }
