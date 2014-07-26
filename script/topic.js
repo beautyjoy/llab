@@ -55,17 +55,17 @@ llab.tags = ["h1", "h2", "h3", "h4", "h5", "h6"];
 llab.renderFull = function(data, ignored1, ignored2) {
     var FULL = llab.selectors.FULL;
     
-    if (getQueryParameter("course") != "") {
-        var course_link = getQueryParameter("course");
+    if (llab.getQueryParameter("course") != "") {
+        var course_link = llab.getQueryParameter("course");
         if (course_link.indexOf("http://") == -1) {
             course_link = llab.courses_path + course_link;
         }
         $(FULL).append($(document.createElement("a")).attr({"class":"course_link", "href": course_link}).html("Go to Main Course Page"));
     }
-    if (typeof getQueryParameter("topic") == "object") {
-        llab.file = getQueryParameter("topic")[0];
+    if (typeof llab.getQueryParameter("topic") == "object") {
+        llab.file = llab.getQueryParameter("topic")[0];
     } else {
-        llab.file = getQueryParameter("topic");
+        llab.file = llab.getQueryParameter("topic");
     }
     var hidden = [];
     var hiddenString = "";
@@ -91,7 +91,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
     var num = 0;
     var indent = "";
     var url = document.URL;
-    var course = getQueryParameter("course");
+    var course = llab.getQueryParameter("course");
     for (var i = 0; i < lines.length; i++) {
         line = lines[i];
         line = llab.stripComments(line);
@@ -183,21 +183,20 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 }
             }
             if (url.indexOf("?") != -1) {
-                            url += "&" + "topic=" + llab.file + "&step=" + num;
+                url += "&" + "topic=" + llab.file + "&step=" + num;
             } else {
-                            url += "?" + "topic=" + llab.file + "&step=" + num;
+                url += "?" + "topic=" + llab.file + "&step=" + num;
             }
-            }
-            
-            url += hiddenString + "&course=" + course;
-                    num += 1;
-                    temp.attr({'href': url});
-                    item.append(temp);
-                } else {
-                    item.append(line.slice(line.indexOf(":") + 1));
-                }
-                topic.append(item);
-            }
+        }
+        url += hiddenString + "&course=" + course;
+        num += 1;
+        temp.attr({'href': url});
+        item.append(temp);
+    } else {
+        item.append(line.slice(line.indexOf(":") + 1));
+    }
+    topic.append(item);
+    }
         } else if (line.length == 1) {
             learningGoal = false;
             bigIdea = false;
@@ -245,11 +244,11 @@ llab.isTag = function(s) {
 }
 
 llab.displayTopic = function() {
-    if (getQueryParameter("topic") != "") {
-        if (typeof getQueryParameter("topic") == "object") {
-            llab.file = getQueryParameter("topic")[0];
+    if (llab.getQueryParameter("topic") != "") {
+        if (typeof llab.getQueryParameter("topic") == "object") {
+            llab.file = llab.getQueryParameter("topic")[0];
         } else {
-            llab.file = getQueryParameter("topic");
+            llab.file = llab.getQueryParameter("topic");
         }
         $.ajax({
             url : llab.topics_path + llab.file,

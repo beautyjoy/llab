@@ -1,5 +1,5 @@
 
-var termParam = getQueryParameter("term");
+var termParam = llab.getQueryParameter("term");
 var termWord = "";
 console.log("yoyo")
 

@@ -36,7 +36,7 @@ var FULL = llab.selectors.FULL,
 
 llab.secondarySetUp = function() {
 
-    llab.step = parseInt(getQueryParameter("step"));
+    llab.step = parseInt(llab.getQueryParameter("step"));
 
     // Currently title requires llab.step work work properly.
     llab.setupTitle();
@@ -95,14 +95,14 @@ llab.secondarySetUp = function() {
     }
 
     // Get the topic file and step from the URL
-    var topicFile = getQueryParameter("topic");
+    var topicFile = llab.getQueryParameter("topic");
 
     // We don't have a topic file, so we should exit.
     if (topicFile === "" || isNaN(llab.step)) {
         return;
     }
 
-    if (getQueryParameter("step") === "") {
+    if (llab.getQueryParameter("step") === "") {
         // TODO -- this shouldn't happen, but we could intelligently find
         // which step this should be
     }
@@ -147,7 +147,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
     } // end for loop
 
     var textLength = 35,
-        course = getQueryParameter("course"),
+        course = llab.getQueryParameter("course"),
         lines = data.split("\n"),
         num = 0,
         url = document.URL,
@@ -255,7 +255,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
 // Create an iframe when loading from an empty curriculum page
 // Used for embedded content. (Videos, books, etc)
 llab.addFrame = function() {
-    var source = getQueryParameter("src");
+    var source = llab.getQueryParameter("src");
 
     $(FULL).append('<a href=' + source +
         ' target="_">Open page in new window</a><br /><br />');
@@ -294,8 +294,8 @@ llab.setupTitle = function() {
     llab.createTitleNav();
 
     // create Title tag, yo
-    if (getQueryParameter("title") !== "") {
-        document.title = decodeURIComponent(getQueryParameter("title"));
+    if (llab.getQueryParameter("title") !== "") {
+        document.title = decodeURIComponent(llab.getQueryParameter("title"));
     }
 
     // Set the header title to the page title.

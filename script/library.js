@@ -32,46 +32,43 @@ llab.snapRunURLBase = "http://snap.berkeley.edu/snapsource/snap.html#open:";
 // returns the current domain with a cors proxy if needed
 
 llab.getSnapRunURL = function(targeturl) {
-
-    if (targeturl !== null) {
-
-        if (targeturl.substring(0, 7) == "http://") {
-            // pointing to some non-local resource... maybe a published cloud project?  do nothing!!
-            return targeturl;
-
-        } else {
-            // internal resource!
-            var finalurl = llab.snapRunURLBase + "http://";
-            var currdom = document.domain;
-            console.log(currdom);
-            // why not, for the devs out there...
-            if (currdom == "localhost") {
-                currdom = "llab.berkeley.edu";
-            }
-            if (llab.CORSCompliantServers.indexOf(currdom) == -1) {
-                finalurl = finalurl + llab.CORSproxy + "/";
-            }
-            if (targeturl.indexOf("..") != -1 || targeturl.indexOf(llab.rootURL) == -1) {
-                var path = window.location.pathname;
-                path = path.split("?")[0];
-                path = path.substring(0, path.lastIndexOf("/") + 1);
-                currdom = currdom + path;
-            }
-            finalurl = finalurl + currdom + targeturl;
-
-            return finalurl;
-        }
+    // FIXME -- this check shouldn't be needed!
+    if (targerurl == null) {
+        return '';
     }
+    
+    // FIXME -- HTTPS URLS!!!
+    if (targeturl.substring(0, 7) == "http://") {
+        // pointing to some non-local resource...  do nothing!!
+        return targeturl;
+    } else {
+        // internal resource!
+        var finalurl = llab.snapRunURLBase + "http://";
+        var currdom = document.domain;
+        // why not, for the devs out there...
+        if (currdom == "localhost") {
+            currdom = "bjc.berkeley.edu";
+        }
+        if (llab.CORSCompliantServers.indexOf(currdom) == -1) {
+            finalurl += llab.CORSproxy + "/";
+        }
+        if (targeturl.indexOf("..") != -1 || targeturl.indexOf(llab.rootURL) == -1) {
+            var path = window.location.pathname;
+            path = path.split("?")[0];
+            path = path.substring(0, path.lastIndexOf("/") + 1);
+            currdom += path;
+        }
+        finalurl = finalurl + currdom + targeturl;
 
-    // FIXME -- This is most surely buggy
-    return currdom;
+        return finalurl;
+    }
 }
 
 
 
 //TODO put this in the llab namespace
 /** Returns the value of the URL parameter associated with NAME. */
-function getQueryParameter(paramName) {
+llab.getQueryParameter = function(paramName) {
     var params = llab.getURLParameters();
     if (params.hasOwnProperty(paramName)) {
         return params[paramName]
