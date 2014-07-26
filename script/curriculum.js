@@ -311,9 +311,9 @@ llab.setupTitle = function() {
 
     // FIXME -- Not great on widnow resize
     // Needs to be refactored, and window listener added
-    $(document.body).css('padding-top', $('.llab-nav').height());
+    $(document.body).css('padding-top', $('.llab-nav').height() + 15);
     window.onresize = function(event) {
-        $(document.body).css('padding-top', $('.llab-nav').height());
+        $(document.body).css('padding-top', $('.llab-nav').height() + 15);
     };
     llab.titleSet = true;
 };

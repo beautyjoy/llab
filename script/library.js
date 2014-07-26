@@ -72,21 +72,11 @@ llab.getSnapRunURL = function(targeturl) {
 //TODO put this in the llab namespace
 /** Returns the value of the URL parameter associated with NAME. */
 function getQueryParameter(paramName) {
-    var results = [];
-    var query = llab.queryString.parse(window.location.search.substring(1));
-    for (var prop in query) {
-        // TODO: filter
-        if (prop === paramName) {
-            results.push(query[prop]);
-        }
-    }
-
-    if (results.length == 0)
-        return "";
-    else if (results.length == 1) {
-        return results[0];
-    } else { // technically, this shouldn't happen...
-        return results;
+    var params = llab.getURLParameters();
+    if (params.hasOwnProperty(paramName)) {
+        return params[paramName]
+    } else {
+        return '';
     }
 }
 
@@ -202,6 +192,31 @@ queryString.stringify = function (obj) {
 llab.queryString = queryString;
 // End Query String
 
+// Return a new object with the combined properties of A and B.
+// Desgined for merging query strings
+// B will clobber A if the fields are the same.
+llab.mergeObjects = function(objA, objB) {
+    var result = {};
+    for(var prop in objA) {
+        if (objA.hasOwnProperty(prop)) {
+            result.prop = objA.prop;
+        }
+    }
+    for(var prop in objB) {
+        if (objB.hasOwnProperty(prop)) {
+            result.prop = objB.prop;
+        }
+    }
+    return result;
+}
 
+llab.getURLParameters = function() {
+    var query = window.location.search;
+    return llab.querystring.parse(query);
+}
+
+llab.getAttributesForElement = function(elm) {
+    
+}
 /////////////////////  END
 llab.loaded['library'] = true;

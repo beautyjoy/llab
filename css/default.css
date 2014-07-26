@@ -445,7 +445,7 @@ div.indent {
 }
 
 .instructionsIcon:hover {
-  background-image: url('../img/infoIconRollover.png');
+  background-image: url(../img/infoIconRollover.png);
   background-repeat: no-repeat;
 }
 
@@ -875,6 +875,10 @@ div.indent {
   /* FIXME -- this shouldn't be this way, but it works. */
   .list_item {
     color: #000;
+  }
+  /** Rounded corners for hamburger when it's the only button */
+  .list_header {
+    border-radius: 6px;
   }
   /* Override display only, all other properties are set above */
   .title-small-screen {
