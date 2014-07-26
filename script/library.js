@@ -33,12 +33,12 @@ llab.snapRunURLBase = "http://snap.berkeley.edu/snapsource/snap.html#open:";
 
 llab.getSnapRunURL = function(targeturl) {
     // FIXME -- this check shouldn't be needed!
-    if (targerurl == null) {
+    if (targeturl === null) {
         return '';
     }
     
     // FIXME -- HTTPS URLS!!!
-    if (targeturl.substring(0, 7) == "http://") {
+    if (targeturl.substring(0, 7) === "http://") {
         // pointing to some non-local resource...  do nothing!!
         return targeturl;
     } else {
@@ -62,7 +62,7 @@ llab.getSnapRunURL = function(targeturl) {
 
         return finalurl;
     }
-}
+};
 
 
 
@@ -71,13 +71,11 @@ llab.getSnapRunURL = function(targeturl) {
 llab.getQueryParameter = function(paramName) {
     var params = llab.getURLParameters();
     if (params.hasOwnProperty(paramName)) {
-        return params[paramName]
+        return params[paramName];
     } else {
         return '';
     }
-}
-
-
+};
 
 /** Strips comments off the line. */
 llab.stripComments = function(line) {
@@ -86,9 +84,7 @@ llab.stripComments = function(line) {
         line = line.slice(0, index);
     }
     return line;
-}
-
-
+};
 
 /* Google Analytics Tracking
  * To make use of this code, the two ga() functions need to be called
@@ -98,7 +94,7 @@ llab.GAfun = function(i,s,o,g,r,a,m) { i['GoogleAnalyticsObject']=r;i[r]=i[r]||f
 
 llab.GA = function() {
     llab.GAfun(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-}
+};
 
 // FIXME -- this should be wrapped in some proper call
 // GA Function Calls -- these do the real work!:
@@ -186,6 +182,7 @@ queryString.stringify = function (obj) {
         return encodeURIComponent(key) + '=' + encodeURIComponent(val);
     }).join('&') : '';
 };
+
 llab.queryString = queryString;
 // End Query String
 
@@ -199,21 +196,23 @@ llab.mergeObjects = function(objA, objB) {
             result.prop = objA.prop;
         }
     }
-    for(var prop in objB) {
+    for(prop in objB) {
         if (objB.hasOwnProperty(prop)) {
             result.prop = objB.prop;
         }
     }
     return result;
-}
+};
 
 llab.getURLParameters = function() {
     var query = window.location.search;
-    return llab.querystring.parse(query);
-}
+    return llab.queryString.parse(query);
+};
 
 llab.getAttributesForElement = function(elm) {
     
-}
+};
+
 /////////////////////  END
+
 llab.loaded['library'] = true;
