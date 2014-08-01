@@ -41,7 +41,7 @@ llab.paths.scripts[0].push(CONFIG_FILE_PATH);
 
 llab.loaded['config'] = false;
 llab.paths.stage_complete_functions[0] = function() {
-	return ( llab.loaded['config'] );
+    return ( llab.loaded['config'] );
 }
 
 
@@ -76,9 +76,9 @@ llab.paths.scripts[2].push("script/topic.js");
 
 llab.loaded['multiplechoice'] = false;
 llab.paths.stage_complete_functions[2] = function() {
-	return ((llab.loaded['multiplechoice'] ) &&
-	        (true) // FIXME -- proper bootstrap check
-	);
+    return ((llab.loaded['multiplechoice'] ) &&
+            (true) // FIXME -- proper bootstrap check
+    );
 }
 
 
@@ -92,8 +92,8 @@ llab.paths.scripts[3].push("script/quiz.js");
 
 
 llab.paths.stage_complete_functions[3] = function() {
-	// the last stage, no need to wait
-	return true;
+    // the last stage, no need to wait
+    return true;
 }
 
 
@@ -102,71 +102,71 @@ llab.paths.stage_complete_functions[3] = function() {
 //////////////
 
 llab.initialSetUp = function() {
-	var headElement = document.getElementsByTagName('HEAD').item(0);
-	var apath;
-	var tag;
-	var i;
-	var src;
+    var headElement = document.getElementsByTagName('HEAD').item(0);
+    var apath;
+    var tag;
+    var i;
+    var src;
 
 
-	// start the process
-	loadScriptsAndLinks(0);
+    // start the process
+    loadScriptsAndLinks(0);
 
 
 
-	function getTag(name, src, type) {
-		var tag;
-		//console.log("Dealing with tag " + name + " with src " + src + " of type " + type);
+    function getTag(name, src, type) {
+        var tag;
+        //console.log("Dealing with tag " + name + " with src " + src + " of type " + type);
 
-		tag = document.createElement(name);
-		if (src.substring(0, 7) !== "http://") {
-			src = llab.rootURL + llab.install_directory + src;
-		}
-		if (name === "link") {
-			tag.href = src;
-		} else {
-			tag.src = src;
-		}
-		tag.type = type;
-		return tag;
-	}
+        tag = document.createElement(name);
+        if (src.substring(0, 7) !== "http://") {
+            src = llab.rootURL + llab.install_directory + src;
+        }
+        if (name === "link") {
+            tag.href = src;
+        } else {
+            tag.src = src;
+        }
+        tag.type = type;
+        return tag;
+    }
 
 
-	function loadScriptsAndLinks(stage_num) {
-		var i;
-		var tag;
+    function loadScriptsAndLinks(stage_num) {
+        var i;
+        var tag;
 
-		//console.log("starting script load stage " + stage_num);
+        //console.log("starting script load stage " + stage_num);
 
-		// load css files
-		while (llab.paths.css_files.length != 0) {
-			tag = getTag("link", llab.paths.css_files.shift(), "text/css");
-			tag.rel = "stylesheet";
-			tag.media = "screen";
-			headElement.appendChild(tag);
-		}
+        // load css files
+        while (llab.paths.css_files.length != 0) {
+            tag = getTag("link", llab.paths.css_files.shift(), "text/css");
+            tag.rel = "stylesheet";
+            tag.media = "screen";
+            headElement.appendChild(tag);
+        }
 
-		// load scripts
-		llab.paths.scripts[stage_num].forEach(function(scriptfile) {
-			var tag;
-			tag = getTag("script", scriptfile, "text/javascript");
-			headElement.appendChild(tag);
-		});
-		if ((stage_num + 1) < llab.paths.scripts.length) {
-			proceedWhenComplete(stage_num);
-		}
-	}
+        // load scripts
+        llab.paths.scripts[stage_num].forEach(function(scriptfile) {
+            var tag;
+            tag = getTag("script", scriptfile, "text/javascript");
+            headElement.appendChild(tag);
+        });
+        if ((stage_num + 1) < llab.paths.scripts.length) {
+            proceedWhenComplete(stage_num);
+        }
+    }
 
-	function proceedWhenComplete(stage_num) {
-		if (llab.paths.stage_complete_functions[stage_num]()) {
-			if ((stage_num + 1) < llab.paths.scripts.length) {
-				loadScriptsAndLinks(stage_num + 1);
-			}
-		} else {
-			//console.log("waiting on stage " + stage_num);
-			setTimeout(function() {proceedWhenComplete(stage_num)}, 50);
-		}
-	}
+    function proceedWhenComplete(stage_num) {
+        if (llab.paths.stage_complete_functions[stage_num]()) {
+            if ((stage_num + 1) < llab.paths.scripts.length) {
+                loadScriptsAndLinks(stage_num + 1);
+            }
+        } else {
+            //console.log("waiting on stage " + stage_num);
+            setTimeout(function() {proceedWhenComplete(stage_num)}, 50);
+        }
+    }
 
 };
 

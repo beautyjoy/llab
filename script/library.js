@@ -212,7 +212,16 @@ llab.getURLParameters = function() {
 };
 
 llab.getAttributesForElement = function(elm) {
-    
+    var attrsMap = elm.attributes;
+    var attrs;
+    // Attributes we should ignore...
+    var ignore = ['class', 'id', 'style'];
+    for (var i = 0; i < attrsMap.length; i += 1) {
+        if (ignore.indexOf(attrsMap[i].name) !== -1) {
+            attrs[attrsMap[i].name] = attrsMap[i].value;
+        }
+    }
+    return attrs;
 };
 
 /////////////////////  END

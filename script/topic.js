@@ -171,32 +171,34 @@ llab.renderFull = function(data, ignored1, ignored2) {
                     text = line.slice(line.indexOf(":") + 1, line.indexOf("["))
                     temp.append(text);
                     url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
+                    // FIXME -- QueryString
                     if (url.indexOf("http") != -1) {
-                        url = llab.empty_topic_page_path + "?" + "src=" + url + "&" + "topic=" + llab.file
-                + "&step=" + num + "&title=" + text;
+                        url = llab.empty_topic_page_path + "?" + "src=" + url + 
+                        "&" + "topic=" + llab.file + "&step=" + num +
+                        "&title=" + text;
                     } else {
-            if (url.indexOf(llab.rootURL) == -1 && url.indexOf("..") == -1) {
-                if (url[0] == "/") {
-                url = llab.rootURL + url;
+                        if (url.indexOf(llab.rootURL) == -1 && url.indexOf("..") == -1) {
+                            if (url[0] == "/") {
+                                url = llab.rootURL + url;
+                            } else {
+                                url = llab.rootURL + "/" + url;
+                            }
+                        }
+                        if (url.indexOf("?") != -1) {
+                            url += "&" + "topic=" + llab.file + "&step=" + num;
+                        } else {
+                            url += "?" + "topic=" + llab.file + "&step=" + num;
+                        }
+                    }
+                    url += hiddenString + "&course=" + course;
+                    num += 1;
+                    temp.attr({'href': url});
+                    item.append(temp);
                 } else {
-                url = llab.rootURL + "/" + url;
+                    item.append(line.slice(line.indexOf(":") + 1));
                 }
+                topic.append(item);
             }
-            if (url.indexOf("?") != -1) {
-                url += "&" + "topic=" + llab.file + "&step=" + num;
-            } else {
-                url += "?" + "topic=" + llab.file + "&step=" + num;
-            }
-        }
-        url += hiddenString + "&course=" + course;
-        num += 1;
-        temp.attr({'href': url});
-        item.append(temp);
-    } else {
-        item.append(line.slice(line.indexOf(":") + 1));
-    }
-    topic.append(item);
-    }
         } else if (line.length == 1) {
             learningGoal = false;
             bigIdea = false;
