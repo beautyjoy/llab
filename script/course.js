@@ -25,23 +25,18 @@ llab.editURLs = function() {
     // TODO: only really supports one container per file.
     // Build the Query string from container attributes
     $(".topic_container").each(function() {
-        var attrs = this.attributes,
-            i = 0;
-        for (; i < attrs.length; i++) {
-            if (attrs[i].name != "class") {
-                query[attrs[i].name] = query[attrs[i].value];
-            }
-        }
+        $.extend(query, llab.getAttributesForElement(this));
+        // query = llab.mergeObjects(query, llab.getAttributesForElement(this));
     });
 
     // FIXME -- this is most surely buggy
     $(".topic_link a").each(function() {
-        // FIXME - this shouldn't be necessary...
+        // Need a better way to check URLs.
         var str = this.href.indexOf('?') === -1 ? '?' : '&';
         this.href += str + llab.queryString.stringify(query);
     });
 };
 
-$(document).ready(function() {
+$(document).ready(function() {2
     llab.editURLs();
 });

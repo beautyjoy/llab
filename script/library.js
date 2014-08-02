@@ -36,7 +36,7 @@ llab.getSnapRunURL = function(targeturl) {
     if (targeturl === null) {
         return '';
     }
-    
+
     // FIXME -- HTTPS URLS!!!
     if (targeturl.substring(0, 7) === "http://") {
         // pointing to some non-local resource...  do nothing!!
@@ -191,6 +191,7 @@ llab.queryString = queryString;
 // Return a new object with the combined properties of A and B.
 // Desgined for merging query strings
 // B will clobber A if the fields are the same.
+// THIS IS CURRENTLY VERY BROKEN
 llab.mergeObjects = function(objA, objB) {
     var result = {};
     for (var prop in objA) {
@@ -212,13 +213,16 @@ llab.getURLParameters = function() {
 };
 
 llab.getAttributesForElement = function(elm) {
-    var attrsMap = elm.attributes;
-    var attrs;
-    // Attributes we should ignore...
-    var ignore = ['class', 'id', 'style'];
-    for (var i = 0; i < attrsMap.length; i += 1) {
-        if (ignore.indexOf(attrsMap[i].name) !== -1) {
-            attrs[attrsMap[i].name] = attrsMap[i].value;
+    var map = elm.attributes,
+        ignore = ['class', 'id', 'style'],
+        attrs = {},
+        item,
+        i = 0;
+
+    for (; i < map.length; i += 1) {
+        item = map.item(i);
+        if (ignore.indexOf(item.name) === -1) {
+            attrs[item.name] = item.value;
         }
     }
     return attrs;

@@ -313,7 +313,8 @@ llab.setupTitle = function() {
     // Needs to be refactored, and window listener added
     $(document.body).css('padding-top', $('.llab-nav').height() + 15);
     window.onresize = function(event) {
-        $(document.body).css('padding-top', $('.llab-nav').height() + 15);
+        $(document.body).css('padding-top', $('.llab-nav').height() + 
+        15);
     };
     llab.titleSet = true;
 };
