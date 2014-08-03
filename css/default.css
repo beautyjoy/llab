@@ -159,12 +159,12 @@ a[disabled] {
 /** PAGE NAV (TOP AND BOTTOM) ************************************************/
 /* Show a special div on small screens that isn't in the nav bar */
 .title-small-screen {
-  font-family: Georgia;
+  font-family: Georgia; /* FIXME */
   color: #003A70;
   font-size: 1.5em;
-  padding-top: 2em;
+  padding-top: .2 em;
   font-weight: bold;
-  margin: 5%;
+  margin: 1% 3%;
   display: none;
 }
 
@@ -209,16 +209,17 @@ a[disabled] {
   text-overflow: ellipsis;
 }
 
+/* WIDTH OF THESE TWO MUST NOT BE > 100%!! */
 .navbar-left {
-  width: 75%; /* For setting title width */
+  width: 80%; /* For setting title width */
 }
-
-.navbar-right {
-  width: 25%; /* For setting title width */
+.navbar-right { /* Contains Nav Buttons and Dropdown Menu */
+  width: 20%; /* For setting title width */
+  padding-right: 8%;
 }
 
 .navbar-toggle {
-  border-radius: 0;
+  border-radius: 4px;
   display: inline;
   position: inherit;
   float: none;
@@ -226,10 +227,6 @@ a[disabled] {
   border-color: #888;
 }
 
-/* Contains Nav Buttons and Dropdown Menu */
-.navbar-right {
-  padding-right: 8%;
-}
 .navbar-default .navbar-toggle,
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
@@ -242,6 +239,7 @@ a[disabled] {
   max-width: 40%;
   min-width: 15em;
   padding: 4px;
+  margin-bottom: 0; /* Bootstrap override for ul, defaults 10 otherwise */
   line-height: 1em;
   font-weight: 900;
   position: relative;
@@ -843,6 +841,9 @@ div.indent {
 /*** END QUIZ CSS               */
 /********************************/
 /******** SMALLL DEVICE STUFF *****/
+/* NOTE: Bootstrap....
+ * Only include different attributes.
+ */
 @media (max-width: 768px) {
   body {
     width: 100%;
