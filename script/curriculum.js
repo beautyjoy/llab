@@ -313,7 +313,7 @@ llab.setupTitle = function() {
     // Needs to be refactored, and window listener added
     $(document.body).css('padding-top', $('.llab-nav').height() + 15);
     window.onresize = function(event) {
-        $(document.body).css('padding-top', $('.llab-nav').height() + 
+        $(document.body).css('padding-top', $('.llab-nav').height() +
         15);
     };
     llab.titleSet = true;
@@ -470,7 +470,7 @@ llab.addFeedback = function(title, topic, course) {
                           .replace(/urlRep/g, encodeURIComponent(document.URL));
 
     var button = $(document.createElement('button')).attr(
-            {   'class': 'btn btn-primary feedback-button',
+            {   'class': 'btn btn-primary btn-xs feedback-button',
                 'type': 'button',
                 'data-toggle': "collapse",
                 'data-target': "#fdbk" }).text('Feedback'),
@@ -511,7 +511,7 @@ llab.indicateProgress = function(numSteps, currentStep) {
     var width = $(llab.selectors.PROGRESS).width(),
         btns = $('bottom-nav').width(),
         result; // result stores left-offset of background image.
-    
+
     width -= btns;
     if (currentStep < numSteps - 1) {
         result = (currentStep * (width / (numSteps - 1)) + 1) / (width - 10);
