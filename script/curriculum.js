@@ -508,7 +508,8 @@ llab.addFeedback = function(title, topic, course) {
  *  buttonWidth is the combined width of the two nav buttons.
  */
 llab.indicateProgress = function(numSteps, currentStep) {
-    var width = $(llab.selectors.PROGRESS).width(),
+    var progress = $(llab.selectors.PROGRESS),
+        width = progress.width(),
         btns = $('bottom-nav').width(),
         result; // result stores left-offset of background image.
 
@@ -519,14 +520,14 @@ llab.indicateProgress = function(numSteps, currentStep) {
         result = (result < 0.01) ? 1 : (result * 100);
         result = result + "%";
     } else {
-        var picWidth = $(llab.selectors.PROGRESS).css("background-size");
+        var picWidth = progress.css("background-size");
         picWidth = Number(picWidth.slice(0, picWidth.indexOf("px")));
         // the 4 is just to add a bit of space
         result = width - picWidth - 4 + "px";
     }
 
     result = result + " 2px";
-    $(llab.selectors.PROGRESS).css("background-position", result);
+    progress.css("background-position", result);
 };
 
 // Setup the nav and parse the topic file.
