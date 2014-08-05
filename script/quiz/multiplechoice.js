@@ -10,7 +10,7 @@ function MC(data, location, questionNumber) {
     this.myClass = "MultipleChoice";
 
 
-    // questionNumber is the index of the question -- hopefully goes away?
+    // questionNumber is the index of the question
     this.num = questionNumber;
 
     this.content = {};
@@ -30,7 +30,7 @@ function MC(data, location, questionNumber) {
     this.multipleChoice = $(location);
 
     // make a copy of the template
-    var template = this.getTemplate();
+    var template = this.getTemplate(this.num);
     this.multipleChoice = $(template).insertAfter(location);
 
     // save this MC dom element
@@ -154,8 +154,8 @@ MC.prototype.render = function() {
 
         this.multipleChoice.find('.radiobuttondiv').append(choiceHTML);
 
-        // TODO -- what are these doing?  need to move from id's to classes eventually...
-        // Peter: I think this is actually okay
+        // TODO -- explain this...
+        // TODO -- too much duplication!
         $('#' + this.removeSpace(this.choices[i].identifier)).bind('click', {
             myQuestion: this
         }, function(args) {
@@ -352,14 +352,21 @@ MC.prototype.checkAnswer = function() {
 
     mcState.isCorrect = isCorrect;
 
+    var outerdiv = this.multipleChoice.find('.panel-heading').parent();
+    outerdiv.removeClass('panel-primary');
+    // Remove the confirmation classes if previously added.
+    outerdiv.removeClass('panel-success');
+    outerdiv.removeClass('panel-danger');
     if (isCorrect) {
+        outerdiv.addClass('panel-success');
         //the student answered correctly
 
         //get the congratulations message and display it
         this.multipleChoice.find('.resultMessageDiv').html(this.getResultMessage(isCorrect));
         // disable checkAnswerButton
         this.multipleChoice.find('.checkAnswerButton').addClass('disabled');
-
+    } else {
+        outerdiv.addClass('panel-danger');
     }
 
     //push the state object into this mc object's own copy of states
@@ -474,8 +481,8 @@ MC.prototype.postRender = function() {
 
 
 // BEAUTIOUS
-MC.prototype.getTemplate = function() {
-    return "<div class='MultipleChoice Question panel panel-primary'>" +
+MC.prototype.getTemplate = function(num) {
+    return "<div class='MultipleChoice Question panel panel-primary' id='Quest-"+ num +"-header'>" +
         "		<div class='questionType panel-heading'>" +
         "			Multiple Choice" +
         "		</div>" +

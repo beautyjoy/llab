@@ -138,7 +138,7 @@ llab.secondarySetUp = function() {
 llab.processLinks = function(data, ignored1, ignored2) {
     // FIXME----- THERE IS A MAJOR BUG WHERE THE TOPIC IS SOMETIMES NOT DEFINED
     // THIS LEADS TO LINKS NOT WORKING
-    // Also we are missing and encodeURI() are a title somewhere...a
+    // Also we are missing and encodeURI() are a title somewhere...
     var hidden = [];
     var hiddenString = "";
 
@@ -153,6 +153,15 @@ llab.processLinks = function(data, ignored1, ignored2) {
             hiddenString += ("&" + temp[i]);
         }
     } // end for loop
+
+    // Get the URL parameters as an object
+    var params = llab.getURLParameters();
+    // Filter only the hidden ones.
+    for (var opt in params) {
+        if (opt.substring(0, 2) !== "no" && params[opt] !== 'true') {
+            delete opt;
+        }
+    }
 
     var textLength = 35,
         course = llab.getQueryParameter("course"),
