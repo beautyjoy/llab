@@ -48,6 +48,7 @@ llab.secondarySetUp = function() {
     });
 
     // make the vocab box if necessary
+    // FIXME -- performance
     if ($("span.vocab").length > 0) {
         if ($("div.vocab").length === 0) {
             // it might already exist, in order to have a 'topX' class inserted.
@@ -65,6 +66,7 @@ llab.secondarySetUp = function() {
     }
 
     // make the help box if necessary
+    // FIXME -- performance
     var helpSpans = $("span.help");
     if (helpSpans.length > 0) {
         // TODO clean this up
@@ -82,6 +84,7 @@ llab.secondarySetUp = function() {
 
     // move anything that belongs in to the margin there, if necessary
     // these are the 4 class of divs that matter.
+    // FIXME -- poor performace
     var marginSelector = ["div.key", "div.warning", "div.help", "div.vocab"];
     if ($(marginSelector.join(',')).length > 0) {
         // add the two columns.
@@ -118,7 +121,12 @@ llab.secondarySetUp = function() {
         type : "GET",
         dataType : "text",
         cache : true, // cache the topic page.
-        success: llab.processLinks
+        success: llab.processLinks,
+        error: function(jqXHR, status, error) {
+            console.log('Error Accessing Topic: ' + llab.file);
+            console.log('Error: ' + error);
+            console.log('Status: ' + status);
+        }
     });
 }; // close secondarysetup();
 
@@ -153,12 +161,13 @@ llab.processLinks = function(data, ignored1, ignored2) {
         url = document.URL,
         list = $(document.createElement("ul")).attr(
         { 'class': 'dropdown-menu dropdown-menu-right',
-          'role' : "menu",  'aria-labelledby' : "Topic-Navigation-Meu"}),
+          'role' : "menu",  'aria-labelledby' : "Topic-Navigation-Menu"}),
         text,
         list_item,
         line,
         used;
 
+    // FIXME -- cache length
     for (i = 0; i < lines.length; i++) {
         line = llab.stripComments($.trim(lines[i]));
 
@@ -257,6 +266,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
 llab.addFrame = function() {
     var source = llab.getQueryParameter("src");
 
+    // FIXME -- Performace + Cleanup
     $(FULL).append('<a href=' + source +
         ' target="_">Open page in new window</a><br /><br />');
     $(FULL).append('<div id="cont"></div>');
@@ -271,8 +281,6 @@ llab.addFrame = function() {
 // This should be called EARLY in the load process!
 // FIXME: lots of stuff needs to be pulled out of this function
 llab.setupTitle = function() {
-    // TODO -- set the mobile viewport, but the display needs to look right
-    // Don't enable yet!
     // TODO: rename / refactor location
     $(document.head).append('<meta name="viewport" content="width=device-width, initial-scale=1">');
 
