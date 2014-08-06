@@ -334,6 +334,26 @@ a[disabled] {
 .feedback-button {
   margin: .5em 1em;
 }
+
+/* These control the look of the embedded suvery.
+ * ALL override the bootstrap .panel class
+ * box-shadow: default panel shadow is too light
+ * No border-radius because the embed is rectangular,
+ * and border-radius doesn't work in an iframe
+ * Margin 0 moves the whole thing closer to the bottom of the page
+ */
+#fdbk {
+  border-radius: 0px;
+  margin: 0px;
+  box-shadow: 2px 2px 4px #888;
+}
+
+/* For whatever reason the iframe has some whitespace around it
+ * and this fixes the whitespace  */
+#feedback-frame {
+  margin-bottom: -5px;
+  margin-right: -1px;
+}
 /***********/
 
 .course_link {

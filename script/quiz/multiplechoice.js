@@ -30,15 +30,9 @@ function MC(data, location, questionNumber) {
     this.multipleChoice = $(location);
 
     // make a copy of the template
-    var template = this.getTemplate(this.num);
+    var template = this.getTemplate();
     this.multipleChoice = $(template).insertAfter(location);
 
-    // save this MC dom element
-    // this.multipleChoice = $($(".MultipleChoice")[this.num]);
-    /*
-      var myDom = $("." + this.myClass).last();
-      this.multipleChoice = myDom;
-    */
     //boolean to prevent shuffling after each answer submit
     this.previouslyRendered = false;
 }
@@ -59,7 +53,7 @@ MC.prototype.loadContent = function() {
 
     // get user interaction information
     this.content.prompt = this.interaction.find('.prompt').html();
-    this.properties.shuffle = (this.interaction.attr('shuffle') == "true");
+    this.properties.shuffle = this.interaction.attr('shuffle') == "true";
     this.properties.maxChoices = this.interaction.attr('maxchoices');
 
     // get the list of correct responses
@@ -149,6 +143,7 @@ MC.prototype.render = function() {
     }
 
     /* render the choices */
+    // FIXME -- WRITE TO DOM OUTSIDE OF LOOPm
     for (i = 0; i < this.choices.length; i++) {
         choiceHTML = '<table><tbody><tr><td>' + '<input type="' + type + '" name="radiobutton"' + ' id="' + this.removeSpace(this.choices[i].identifier) + '" value="' + this.removeSpace(this.choices[i].identifier) + '" class="' + type + '"/></td><td>' + '<div id="choicetext:' + this.removeSpace(this.choices[i].identifier) + '">' + this.choices[i].text + '</div></td><td><div id="feedback_' + this.removeSpace(this.choices[i].identifier) + '" name="feedbacks"></div></td></tr></tbody></table>';
 
@@ -287,6 +282,7 @@ MC.prototype.isCorrect = function(id) {
  * Checks Answer and updates display with correctness and feedback
  * Disables "Check Answer" button and enables "Try Again" button
  */
+// FIXME --- CACHE THE $ SELECTORS!!
 MC.prototype.checkAnswer = function() {
     // TODO: Google Analytics Push
     // Capture Question + Correctness + Attempts
@@ -303,11 +299,6 @@ MC.prototype.checkAnswer = function() {
     var mcState = {};
     var isCorrect = true;
     var i, checked, choiceIdentifier, choice;
-
-    /*
-      if (!this.enforceMaxChoices(inputbuttons)) {
-      return;
-      }*/
 
     this.enableRadioButtons(false);
     // disable radiobuttons
@@ -338,7 +329,6 @@ MC.prototype.checkAnswer = function() {
                 //add the human readable value of the choice chosen
                 mcState.text = choice.text;
             } else {
-                //this.node.view.notificationManager('error retrieving choice by choiceIdentifier', 3);
                 // FIXME -- we shouldn't do this
                 // However if critical we should track the events
                 alert('error retrieving choice by choiceIdentifier');
@@ -357,10 +347,8 @@ MC.prototype.checkAnswer = function() {
     // Remove the confirmation classes if previously added.
     outerdiv.removeClass('panel-success');
     outerdiv.removeClass('panel-danger');
-    if (isCorrect) {
+    if (isCorrect) { //the student answered correctly
         outerdiv.addClass('panel-success');
-        //the student answered correctly
-
         //get the congratulations message and display it
         this.multipleChoice.find('.resultMessageDiv').html(this.getResultMessage(isCorrect));
         // disable checkAnswerButton
@@ -482,7 +470,7 @@ MC.prototype.postRender = function() {
 
 // BEAUTIOUS
 MC.prototype.getTemplate = function(num) {
-    return "<div class='MultipleChoice Question panel panel-primary' id='Quest-"+ num +"-header'>" +
+    return "<div class='MultipleChoice Question panel panel-primary'>" +
         "		<div class='questionType panel-heading'>" +
         "			Multiple Choice" +
         "		</div>" +
@@ -498,7 +486,8 @@ MC.prototype.getTemplate = function(num) {
         "		<div ='interactionBox'>" +
         "			<div class='statusMessages'>" +
         "				<div class='numberAttemptsDiv'></div>" +
-        "				<div class='scoreDiv'></div>" + // FIXME -- vvvvvvv
+        "				<div class='scoreDiv'></div>" +
+        // FIXME -- inline styles.
         "				<div class='resultMessageDiv' style='font-size:16px'></div>" +
         "			</div>" +
         "			<!-- Anchor-Based Button Layout using TABLE -->" +
