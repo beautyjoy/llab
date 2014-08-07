@@ -29,7 +29,6 @@ Object.observe(llab, function(changes) {
             console.log(change); // all changes
             if (change.type == 'update' && change.oldValue.length > 1) {
                 console.log( new Error().stack );
-                debugger;
             }
         }
     });

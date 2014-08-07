@@ -106,12 +106,10 @@ llab.secondarySetUp = function() {
     }
 
     // Get the topic file and step from the URL
-    var topicFile = llab.getQueryParameter("topic");
-    console.log('TOPIC:');
-    console.log(topicFile);
+    llab.file = llab.getQueryParameter("topic");
 
     // We don't have a topic file, so we should exit.
-    if (topicFile === "" || isNaN(llab.step)) {
+    if (llab.file === "" || isNaN(llab.step)) {
         return;
     }
 
@@ -120,12 +118,6 @@ llab.secondarySetUp = function() {
         // which step this should be
     }
 
-    if (typeof topicFile == "object") {
-        // FIXME -- does this case happen??
-        llab.file = topicFile[1];
-    } else {
-        llab.file = topicFile;
-    }
     console.log('file set');
     var ajaxURL = llab.rootURL + "topic/" + llab.file;
     console.log(ajaxURL);
@@ -157,7 +149,7 @@ llab.processLinks = function(data, status, jqXHR) {
     console.log('Processing....');
     if (llab.file === '') {
         alert('WAT');
-        debugger;
+        llab.file = llab.getQueryParameter("topic");
     }
     // FIXME----- THERE IS A MAJOR BUG WHERE THE TOPIC IS SOMETIMES NOT DEFINED
     // THIS LEADS TO LINKS NOT WORKING
