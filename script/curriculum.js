@@ -36,10 +36,18 @@ var FULL = llab.selectors.FULL,
 
 llab.secondarySetUp = function() {
 
+    // FIXME -- this needs to be called on EVERY page.
+    llab.setupTitle();
+
+    // Beyond this stuff should only happen on curriculum pages
+
     llab.step = parseInt(llab.getQueryParameter("step"));
 
-    // Currently title requires llab.step work work properly.
-    llab.setupTitle();
+    if (!llab.step) {
+        console.log('No Step');
+        console.log(llab.step);
+        //2return;
+    }
 
     // fix snap links so they run snap
     $("a.run").each(function(i) {
@@ -99,6 +107,8 @@ llab.secondarySetUp = function() {
 
     // Get the topic file and step from the URL
     var topicFile = llab.getQueryParameter("topic");
+    console.log('TOPIC:');
+    console.log(topicFile);
 
     // We don't have a topic file, so we should exit.
     if (topicFile === "" || isNaN(llab.step)) {
@@ -111,21 +121,29 @@ llab.secondarySetUp = function() {
     }
 
     if (typeof topicFile == "object") {
+        // FIXME -- does this case happen??
         llab.file = topicFile[1];
     } else {
         llab.file = topicFile;
     }
-
+    console.log('file set');
+    var ajaxURL = llab.rootURL + "topic/" + llab.file;
+    console.log(ajaxURL);
     $.ajax({
-        url : llab.rootURL + "/topic/" + llab.file,
-        type : "GET",
-        dataType : "text",
-        cache : true, // cache the topic page.
+        url: ajaxURL,
+        type: "GET",
+        contentType: 'text/plain; charset=UTF-8',
+        dataType: "text",
+        cache: true,
         success: llab.processLinks,
         error: function(jqXHR, status, error) {
             console.log('Error Accessing Topic: ' + llab.file);
             console.log('Error: ' + error);
             console.log('Status: ' + status);
+        },
+        complete: function(a, b, c) {
+            console.log('complete...');
+            console.log(llab.file);
         }
     });
 }; // close secondarysetup();
@@ -135,123 +153,124 @@ llab.secondarySetUp = function() {
  *  and creates navigation buttons.
  *  FIXME: This should share code with llab.topic!
  */
-llab.processLinks = function(data, ignored1, ignored2) {
+llab.processLinks = function(data, status, jqXHR) {
+    console.log('Processing....');
+    if (llab.file === '') {
+        alert('WAT');
+        debugger;
+    }
     // FIXME----- THERE IS A MAJOR BUG WHERE THE TOPIC IS SOMETIMES NOT DEFINED
     // THIS LEADS TO LINKS NOT WORKING
-    // Also we are missing and encodeURI() are a title somewhere...
-    var hidden = [];
-    var hiddenString = "";
-
-    // URL Options
-    var temp = window.location.search.substring(1).split("&");
-
-    var i;
-    for (i = 0; i < temp.length; i++) {
-        var param = temp[i].split("="); // param = [OPTION, VALUE]
-        if (param[0].substring(0, 2) == "no" && param[1] == "true") {
-            hidden.push(param[0].substring(2));
-            hiddenString += ("&" + temp[i]);
-        }
-    } // end for loop
 
     // Get the URL parameters as an object
-    var params = llab.getURLParameters();
-    // Filter only the hidden ones.
-    for (var opt in params) {
-        if (opt.substring(0, 2) !== "no" && params[opt] !== 'true') {
-            delete opt;
-        }
-    }
-
-    var textLength = 35,
-        course = llab.getQueryParameter("course"),
-        lines = data.split("\n"),
-        num = 0,
+    var params = llab.getURLParameters(),
+        course = params.course,
+        // TODO: Replace this with CSS.
+        maxItemLen = 35,
+        topicArray = data.split("\n"),
+        pageStep = 0,
         url = document.URL,
         list = $(document.createElement("ul")).attr(
         { 'class': 'dropdown-menu dropdown-menu-right',
-          'role' : "menu",  'aria-labelledby' : "Topic-Navigation-Menu"}),
-        text,
-        list_item,
+          'role' : "menu",  'aria-labeledby' : "Topic-Navigation-Menu"}),
+        itemContent,
+        ddItem,
         line,
-        used;
+        isHidden,
+        lineClass;
 
-    // FIXME -- cache length
-    for (i = 0; i < lines.length; i++) {
-        line = llab.stripComments($.trim(lines[i]));
+    // This is necessary to make sure that each new URL has the right
+    // step number. (We don't need to delete / re-create other properties)
+    delete params.step;
+
+    var i = 0, len = topicArray.length;
+    for (; i < len; i+= 1) {
+        line = llab.stripComments($.trim(topicArray[i]));
 
         // Skip is this line is hidden in URL params.
-        used = hidden.indexOf(line.slice(0, line.indexOf(":"))) === -1;
-        if (!used) { continue; }
+        lineClass = line.slice(0, line.indexOf(":"));
+        isHidden = params.hasOwnProperty('no' + lineClass) &&
+            params['no' + lineClass];
+        if (isHidden) { continue; }
 
         // Line is a title.
         if (line.indexOf("title:") !== -1) {
             /* Create a link back to the main topic. */
-            url = (llab.topic_launch_page + "?topic=" + llab.file +
-                  hiddenString + "&course=" + course);
+            url = llab.topic_launch_page + "?";
+            url += llab.QS.stringify(params);
+            if (!llab.file) {
+                console.log('DAMMIT');
+            }
 
-            text = line.slice(line.indexOf(":") + 1);
-            text = llab.truncate($.trim(text), textLength);
+            itemContent = line.slice(line.indexOf(":") + 1);
+            itemContent = llab.truncate($.trim(itemContent), maxItemLen);
 
             // Create a special Title link and add a separator.
-            text = "<span class='main-topic-link'>" + text + "</span>";
-            list_item = llab.dropdownItem(text, url);
+            itemContent = "<span class='main-topic-link'>" + itemContent + "</span>";
+            ddItem = llab.dropdownItem(itemContent, url);
             // Note: Add to top of list!
             list.prepend(llab.fragments.bootstrapSep);
-            list.prepend(list_item);
+            list.prepend(ddItem);
 
             continue;
         }
 
-        // TODO:  Check if we have a title for this link?
-        // This also isn't a very robust check...
         // If we don't have a link, skip this line.
-        var hasLink = line.indexOf("[") !== -1 && line.indexOf("]") !== -1;
-        if (!hasLink) {
-            continue;
-        }
+        // FOR NOW -- eventually we should add these to the dropdown as well
+        hasLink = line.indexOf("[") !== -1 && line.indexOf("]") !== -1;
+        if (!hasLink) { continue; }
 
         // Grab the link title between : [
-        text = line.slice(line.indexOf(":") + 1, line.indexOf("["));
-        text = llab.truncate($.trim(text), textLength);
+        itemContent = line.slice(line.indexOf(":") + 1, line.indexOf("["));
+        itemContent = llab.truncate($.trim(itemContent), maxItemLen);
         // Grab the link betweem [ and ]
         url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
 
         // Content References an external resource
-        if (url.indexOf("http") !== -1) {
-            url = (llab.empty_topic_page_path + "?" + "src=" +  url + "&" +
-                  "topic=" + llab.file + "&step=" + num + "&title=" + text +
-                  hiddenString + "&course=" + course);
+        if (url.indexOf("//") !== -1) {
+            url = llab.empty_topic_page_path + "?" + llab.QS.stringify(
+            $.extend({}, params, {
+                src: url,
+                step: pageStep,
+                title: itemContent
+            }));
+            if (!llab.file) {
+                console.log('DAMMIT 2');
+            }
         } else {
             if (url.indexOf(llab.rootURL) === -1 && url.indexOf("..") === -1) {
                 url = llab.rootURL + (url[0] === "/" ? '' : "/") + url;
             }
             url += url.indexOf("?") !== -1 ? "&" : "?";
-            url += "topic=" + llab.file + "&step=" + num + hiddenString;
-            url += "&course=" + course;
+            url += llab.QS.stringify($.extend({}, params, {
+                step: pageStep
+            }));
+            if (!llab.file) {
+                console.log('DAMMIT 3');
+            }
         }
 
         llab.url_list.push(url);
 
         // Make the current step have an arrow in the dropdown menu
-        if (num === llab.step) {
-            text = "<span class='current-step-link'>" + text + "</span>";
+        if (pageStep === llab.step) {
+            itemContent = "<span class='current-step-link'>" + itemContent + "</span>";
         }
 
-        list_item = llab.dropdownItem(text, url);
-        list.append(list_item);
-        num += 1;
+        ddItem = llab.dropdownItem(itemContent, url);
+        list.append(ddItem);
+        pageStep += 1;
     } // end for loop
 
     if (course !== "") {
-        if (course.indexOf("http://") === -1) {
+        // FIXME -- there could be more options
+        if (course.indexOf("://") === -1) {
             course = llab.courses_path + course;
         }
-        text = "<span class='course-link-list'>" + llab.strings.goMain + "</span>";
-        list_item = llab.dropdownItem(text, course);
-        list.prepend(list_item);
+        itemContent = "<span class='course-link-list'>" + llab.strings.goMain + "</span>";
+        ddItem = llab.dropdownItem(itemContent, course);
+        list.prepend(ddItem);
     }
-
     // Setup the nav button links and build the dropdown.
     llab.setButtonURLs();
     llab.buildDropdown();
@@ -263,6 +282,7 @@ llab.processLinks = function(data, ignored1, ignored2) {
         llab.addFrame();
     }
 
+    // FIXME -- this doesn't belong here.
     llab.indicateProgress(llab.url_list.length, llab.step);
 
     // FIXME -- not sure this really belongs here...
@@ -427,8 +447,6 @@ llab.setButtonURLs = function() {
     if (!buttonsExist & $(llab.selectors.NAVSELECT) !== 0) {
         // freshly minted buttons. MMM, tasty!
         llab.createTitleNav();
-        forward = $('.forwardbutton');
-        back    = $('.backbutton');
     }
 
     forward = $('.forwardbutton');
@@ -437,28 +455,28 @@ llab.setButtonURLs = function() {
     // Disable the back button
     if (llab.step === 0) {
         back.each(function(i, item) {
-            $(this).addClass('disabled');
-            $(this).attr('href', '#');
+            $(item).addClass('disabled')
+                   .attr('href', '#');
         });
     } else {
         back.each(function(i, item) {
-            $(this).removeClass('disabled');
-            $(this).attr('href', llab.url_list[llab.step - 1]);
-            $(this).click(llab.goBack);
+            $(item).removeClass('disabled')
+                   .attr('href', llab.url_list[llab.step - 1])
+                   .click(llab.goBack);
         });
     }
 
     // Disable the forward button
     if (llab.step >= llab.url_list.length - 1) {
         forward.each(function(i, item) {
-            $(this).addClass('disabled');
-            $(this).attr('href', '#');
+            $(item).addClass('disabled')
+                   .attr('href', '#');
         });
     } else {
         forward.each(function(i, item) {
-            $(this).removeClass('disabled');
-            $(this).attr('href', llab.url_list[llab.step + 1]);
-            $(this).click(llab.goForward);
+            $(item).removeClass('disabled')
+                   .attr('href', llab.url_list[llab.step + 1])
+                   .click(llab.goForward);
         });
     }
 };

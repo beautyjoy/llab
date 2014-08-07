@@ -82,18 +82,4 @@ function buildQuestion(qdata, location, questionNum, fetched)  {
 	question.render();
 }
 
-/** FIXME -- this shouldn't be here!!
- * Will eventually not reside here.
- *
-llab.getQueryParameter = function(name) {
-	name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-	var regexS = "[\\?&]" + name + "=([^&#]*)";
-	var regex = new RegExp(regexS);
-	var results = regex.exec(window.location.search);
-	if (results == null)
-		return "";
-	else
-		return decodeURIComponent(results[1].replace(/\+/g, " "));
-};
-*/
 

@@ -3,44 +3,44 @@ llab['file'] = "";
 
 
 /*
-  
+
   Renders Topic pages
-  
-  Special lines start with 
-  
+
+  Special lines start with
+
   title:
   this replaces the page <title> and the main heading with the value
   { }
   this draws a box around the stuff in between the braces
-  
+
   topic: the title for each topic
-  
+
   heading: a smaller heading. may also use h1, h2, etc.
-  
-  learning-goal: 
-  puts values of adjacent lines that start with this as items in learning goals list.  
+
+  learning-goal:
+  puts values of adjacent lines that start with this as items in learning goals list.
   a blank line or other non learning-goal: line will end the list
 
   big-idea:
   same as above, for a big ideas list
-  
+
   <4 spaces>
-  if a line starts with four/eight/twelve spaces (tab characters also work), 
-  it will have an added class stuck in it called 'indent1', 'indent2', etc.  
+  if a line starts with four/eight/twelve spaces (tab characters also work),
+  it will have an added class stuck in it called 'indent1', 'indent2', etc.
   The line will be treated as any other line otherwise
-  
-  raw-html: 
+
+  raw-html:
   all following lines until a blank line are just raw html that stuck on the page.
-  
+
   other currently supported classes: quiz, assignment, resource, forum, video, extresource.
-  
+
   Other lines get their own <div> with the class as specified in the string before the colon
   Can also specify some actual html tags before the colon (e.g. h1)
   Anything in a [] is stuck as the target of a link
 
   You may hide particular classes by passing URL parameters.
   For instance, to hide all videos, simply add the parameter (without the quotes) "novideo=true".
-  It'll end up looking something like this: 
+  It'll end up looking something like this:
   topic.html?topic=berkeley_bjc/intro/broadcast-animations-music.topic&novideo=true&noreading=true
 
 */
@@ -54,7 +54,7 @@ llab.tags = ["h1", "h2", "h3", "h4", "h5", "h6"];
 
 llab.renderFull = function(data, ignored1, ignored2) {
     var FULL = llab.selectors.FULL;
-    
+
     if (llab.getQueryParameter("course") != "") {
         var course_link = llab.getQueryParameter("course");
         if (course_link.indexOf("http://") == -1) {
@@ -66,6 +66,9 @@ llab.renderFull = function(data, ignored1, ignored2) {
         llab.file = llab.getQueryParameter("topic")[0];
     } else {
         llab.file = llab.getQueryParameter("topic");
+    }
+    if (!llab.file) {
+        console.log('AHHHHHHHHH!!!!');
     }
     var hidden = [];
     var hiddenString = "";
@@ -129,7 +132,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
             } else if (line.slice(0, 13) == "learning-goal") {
                 bigIdea = false;
                 if (learningGoal) {
-                    list.append($(document.createElement("li")).append(line.slice(14)));    
+                    list.append($(document.createElement("li")).append(line.slice(14)));
                 } else {
                     indent = llab.indentString(line);
                     line = $.trim(line);
@@ -143,7 +146,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
             } else if (line.slice(0, 8) == "big-idea") {
                 learningGoal = false;
                 if (bigIdea) {
-                    list.append($(document.createElement("li")).append(line.slice(9)));     
+                    list.append($(document.createElement("li")).append(line.slice(9)));
                 } else {
                     indent = llab.indentString(line);
                     line = $.trim(line);
@@ -173,7 +176,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
                     url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
                     // FIXME -- QueryString
                     if (url.indexOf("http") != -1) {
-                        url = llab.empty_topic_page_path + "?" + "src=" + url + 
+                        url = llab.empty_topic_page_path + "?" + "src=" + url +
                         "&" + "topic=" + llab.file + "&step=" + num +
                         "&title=" + text;
                     } else {
@@ -280,8 +283,8 @@ $(document).ready(function() {
 /*
   Error checking (do this after building page, so it won't slow it down?)
 
-  Check the link targets if present - if they aren't there (give a 404), 
-  put a "broken" class on the link to render in red or something 
+  Check the link targets if present - if they aren't there (give a 404),
+  put a "broken" class on the link to render in red or something
 
   Maybe be smart about a mistyped youtube target?  dunno.
 
@@ -292,7 +295,7 @@ $(document).ready(function() {
   No error checking:
 
   No error checking on class name before the colon - it could be misspelled
-  
+
   if no colon at all, just put no class on the div
-  
+
 */

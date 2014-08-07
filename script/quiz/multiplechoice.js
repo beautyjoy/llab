@@ -1,7 +1,10 @@
 // TODO: Make sure all display elements can use bootstrap
 // TODO: Dry Code -- lots of repetition
-// TODO: Selectors for button states and buttons
+// TODO: Save Selectors for button states and buttons
 // TODO: Bind click events to google analytics
+// TODO: Namespace everything
+// TODO: Cache selections of elements
+// TODO: Delay writing to DOM until everything is fully rendered
 
 /* Represents a multiple choice question. */
 

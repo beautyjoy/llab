@@ -134,7 +134,7 @@ llab.truncate = function(str, n) {
     MIT License
 */
 // Modiefied for LLAB. Inlined to reduce requests
-// LLAB users: Please don't delete the above comment!
+// LLAB dev: Please don't delete the above comment!
 var queryString = {};
 
 queryString.parse = function (str) {
@@ -185,7 +185,7 @@ queryString.stringify = function (obj) {
 };
 /*! End Query String */
 
-llab.queryString = queryString;
+llab.QS = queryString;
 
 
 // Return a new object with the combined properties of A and B.
@@ -199,7 +199,7 @@ llab.mergeObjects = function(objA, objB) {
             result.prop = objA.prop;
         }
     }
-    for (prop in objB) {
+    for (var prop in objB) {
         if (objB.hasOwnProperty(prop)) {
             result.prop = objB.prop;
         }
@@ -209,7 +209,7 @@ llab.mergeObjects = function(objA, objB) {
 
 llab.getURLParameters = function() {
     var query = window.location.search;
-    return llab.queryString.parse(query);
+    return llab.QS.parse(query);
 };
 
 llab.getAttributesForElement = function(elm) {
@@ -217,9 +217,10 @@ llab.getAttributesForElement = function(elm) {
         ignore = ['class', 'id', 'style'],
         attrs = {},
         item,
-        i = 0;
+        i = 0,
+        len = map.length;
 
-    for (; i < map.length; i += 1) {
+    for (; i < len; i += 1) {
         item = map.item(i);
         if (ignore.indexOf(item.name) === -1) {
             attrs[item.name] = item.value;

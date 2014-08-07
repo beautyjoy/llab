@@ -4,8 +4,6 @@
 */
 
 
-
-
 /*
  * CONFIG
  */
@@ -23,6 +21,19 @@ CONFIG_FILE_PATH = "/bjc-r/llab/config.js";
 llab = {};
 llab.loaded = {};  // keys are true if that script file is loaded (script file should set key to true)
 
+Object.observe(llab, function(changes) {
+    changes.forEach(function(change, i) {
+        if (change.name == 'file') {
+            console.log('what property changed? ' + change.name);
+            console.log('how did it change? ' + change.type);
+            console.log(change); // all changes
+            if (change.type == 'update' && change.oldValue.length > 1) {
+                console.log( new Error().stack );
+                debugger;
+            }
+        }
+    });
+});
 
 llab.paths = {};
 llab.paths.stage_complete_functions = [];
@@ -51,7 +62,7 @@ llab.paths.stage_complete_functions[0] = function() {
 /////////////////
 ///////////////// stage 1
 llab.paths.scripts[1] = [];
-llab.paths.scripts[1].push("lib/jquery.min.js");
+llab.paths.scripts[1].push("lib/jquery.js");
 llab.paths.scripts[1].push("script/library.js");
 
 llab.loaded['library'] = false;
@@ -108,10 +119,8 @@ llab.initialSetUp = function() {
     var i;
     var src;
 
-
     // start the process
     loadScriptsAndLinks(0);
-
 
 
     function getTag(name, src, type) {

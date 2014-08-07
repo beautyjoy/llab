@@ -33,7 +33,7 @@ llab.editURLs = function() {
     $(".topic_link a").each(function() {
         // Need a better way to check URLs.
         var str = this.href.indexOf('?') === -1 ? '?' : '&';
-        this.href += str + llab.queryString.stringify(query);
+        this.href += str + llab.QS.stringify(query);
     });
 };
 
