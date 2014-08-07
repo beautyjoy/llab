@@ -61,7 +61,7 @@ llab.paths.stage_complete_functions[0] = function() {
 /////////////////
 ///////////////// stage 1
 llab.paths.scripts[1] = [];
-llab.paths.scripts[1].push("lib/jquery.js");
+llab.paths.scripts[1].push("lib/jquery.min.js");
 llab.paths.scripts[1].push("script/library.js");
 
 llab.loaded['library'] = false;
