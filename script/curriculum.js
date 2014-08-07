@@ -148,6 +148,7 @@ llab.secondarySetUp = function() {
 llab.processLinks = function(data, status, jqXHR) {
     console.log('Processing....');
     if (llab.file === '') {
+        console.log('crap is broken so reset file');
         alert('WAT');
         llab.file = llab.getQueryParameter("topic");
     }
