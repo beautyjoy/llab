@@ -8,7 +8,6 @@
  *      (Bootsrap) - optional, needed for looks, if missing code will still run
  */
 
-
 // TODO: These need to be moved to a better place:
 // These are common strings that need not be build and should be reused!
 llab.selectors = {};
@@ -45,8 +44,7 @@ llab.secondarySetUp = function() {
 
     if (!llab.step) {
         console.log('No Step');
-        console.log(llab.step);
-        //2return;
+        return;
     }
 
     // fix snap links so they run snap
@@ -118,9 +116,7 @@ llab.secondarySetUp = function() {
         // which step this should be
     }
 
-    console.log('file set');
     var ajaxURL = llab.rootURL + "topic/" + llab.file;
-    console.log(ajaxURL);
     $.ajax({
         url: ajaxURL,
         type: "GET",

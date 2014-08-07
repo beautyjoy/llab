@@ -5,16 +5,19 @@
  */
 
 
-if (typeof llab === 'undefined') {
-    // if loader.js wasn't used, we'll do this here in the first one
-    llab = {};
-    llab.loaded = {};
-}
+// retrieve llab or create an empty version.
+llab = llab || {};
+llab.loaded = llab.loaded || {};
+
+// if (typeof llab === 'undefined') {
+//     // if loader.js wasn't used, we'll do this here in the first one
+//     llab = {};
+//     llab.loaded = {};
+// }
 
 
 /////////////////
-
-// TODO: Move to config potentially
+// TODO: ALL CORS SETTINGS SHOULD BE MOVED TO THE CONFIG FILE.
 llab.CORSproxy = "www.corsproxy.com";
 
 llab.CORSCompliantServers = [];
@@ -46,10 +49,11 @@ llab.getSnapRunURL = function(targeturl) {
         var finalurl = llab.snapRunURLBase + "http://";
         var currdom = document.domain;
         // why not, for the devs out there...
+        // TODO: Move localhost and aliases to the CORS list.
         if (currdom == "localhost") {
             currdom = "bjc.berkeley.edu";
         }
-        if (llab.CORSCompliantServers.indexOf(currdom) == -1) {
+        if (llab.CORSCompliantServers.indexOf(currdom) === -1) {
             finalurl += llab.CORSproxy + "/";
         }
         if (targeturl.indexOf("..") != -1 || targeturl.indexOf(llab.rootURL) == -1) {
@@ -191,17 +195,16 @@ llab.QS = queryString;
 // Return a new object with the combined properties of A and B.
 // Desgined for merging query strings
 // B will clobber A if the fields are the same.
-// THIS IS CURRENTLY VERY BROKEN
-llab.mergeObjects = function(objA, objB) {
-    var result = {};
-    for (var prop in objA) {
+llab.merge = function(objA, objB) {
+    var result = {}, prop;
+    for (prop in objA) {
         if (objA.hasOwnProperty(prop)) {
-            result.prop = objA.prop;
+            result[prop] = objA[prop];
         }
     }
-    for (var prop in objB) {
+    for (prop in objB) {
         if (objB.hasOwnProperty(prop)) {
-            result.prop = objB.prop;
+            result[prop] = objB[prop];
         }
     }
     return result;

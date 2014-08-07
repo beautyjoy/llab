@@ -20,20 +20,6 @@ CONFIG_FILE_PATH = "/bjc-r/llab/config.js";
 // NOTE: this is built in library.js if not built here (because this file isn't used, say)
 llab = {};
 llab.loaded = {};  // keys are true if that script file is loaded (script file should set key to true)
-
-Object.observe(llab, function(changes) {
-    changes.forEach(function(change, i) {
-        if (change.name == 'file') {
-            console.log('what property changed? ' + change.name);
-            console.log('how did it change? ' + change.type);
-            console.log(change); // all changes
-            if (change.type == 'update' && change.oldValue.length > 1) {
-                console.log( new Error().stack );
-            }
-        }
-    });
-});
-
 llab.paths = {};
 llab.paths.stage_complete_functions = [];
 llab.paths.scripts = [];  // holds the scripts to load, in stages below
@@ -124,7 +110,6 @@ llab.initialSetUp = function() {
 
     function getTag(name, src, type) {
         var tag;
-        //console.log("Dealing with tag " + name + " with src " + src + " of type " + type);
 
         tag = document.createElement(name);
         if (src.substring(0, 7) !== "http://") {

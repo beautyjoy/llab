@@ -60,16 +60,13 @@ llab.renderFull = function(data, ignored1, ignored2) {
         if (course_link.indexOf("http://") == -1) {
             course_link = llab.courses_path + course_link;
         }
-        $(FULL).append($(document.createElement("a")).attr({"class":"course_link", "href": course_link}).html("Go to Main Course Page"));
+        $(FULL).append($(document.createElement("a")).attr(
+            {"class":"course_link", "href": course_link }
+            ).html("Go to Main Course Page"));
     }
-    if (typeof llab.getQueryParameter("topic") == "object") {
-        llab.file = llab.getQueryParameter("topic")[0];
-    } else {
-        llab.file = llab.getQueryParameter("topic");
-    }
-    if (!llab.file) {
-        console.log('AHHHHHHHHH!!!!');
-    }
+    
+    llab.file = llab.getQueryParameter("topic");
+
     var hidden = [];
     var hiddenString = "";
     temp = window.location.search.substring(1).split("&");
@@ -233,7 +230,7 @@ llab.indentString = function(s) {
     for (var i = 0; i < len; i++) {
         if (s[i] == " ") {
             count++;
-        } else if (s[i] == "\t"){
+        } else if (s[i] == "\t") {
             count += 4;
         } else {
             break;
@@ -249,12 +246,9 @@ llab.isTag = function(s) {
 }
 
 llab.displayTopic = function() {
-    if (llab.getQueryParameter("topic") != "") {
-        if (typeof llab.getQueryParameter("topic") == "object") {
-            llab.file = llab.getQueryParameter("topic")[0];
-        } else {
-            llab.file = llab.getQueryParameter("topic");
-        }
+    llab.file = llab.getQueryParameter("topic");
+
+    if (llab.file) !== "") {
         $.ajax({
             url : llab.topics_path + llab.file,
             type : "GET",
@@ -276,10 +270,12 @@ $(document).ready(function() {
         topicFile = (url.indexOf("topic.html") !== -1 ||
             url.indexOf("empty-topic-page.html") !== -1);
 
-    if (topicFile === true) {
+    if (topicFile) {
         llab.displayTopic();
     }
 });
+
+
 /*
   Error checking (do this after building page, so it won't slow it down?)
 
