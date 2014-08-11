@@ -64,7 +64,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
             {"class":"course_link", "href": course_link }
             ).html("Go to Main Course Page"));
     }
-    
+
     llab.file = llab.getQueryParameter("topic");
 
     var hidden = [];
@@ -248,7 +248,7 @@ llab.isTag = function(s) {
 llab.displayTopic = function() {
     llab.file = llab.getQueryParameter("topic");
 
-    if (llab.file) !== "") {
+    if (llab.file !== "") {
         $.ajax({
             url : llab.topics_path + llab.file,
             type : "GET",

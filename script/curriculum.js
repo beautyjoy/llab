@@ -38,14 +38,9 @@ llab.secondarySetUp = function() {
     // FIXME -- this needs to be called on EVERY page.
     llab.setupTitle();
 
-    // Beyond this stuff should only happen on curriculum pages
+    // This stuff should only happen on curriculum pages
 
     llab.step = parseInt(llab.getQueryParameter("step"));
-
-    if (!llab.step) {
-        console.log('No Step');
-        return;
-    }
 
     // fix snap links so they run snap
     $("a.run").each(function(i) {
@@ -109,11 +104,6 @@ llab.secondarySetUp = function() {
     // We don't have a topic file, so we should exit.
     if (llab.file === "" || isNaN(llab.step)) {
         return;
-    }
-
-    if (llab.getQueryParameter("step") === "") {
-        // TODO -- this shouldn't happen, but we could intelligently find
-        // which step this should be
     }
 
     var ajaxURL = llab.rootURL + "topic/" + llab.file;
