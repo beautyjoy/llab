@@ -524,7 +524,8 @@ llab.addFeedback = function(title, topic, course) {
 llab.indicateProgress = function(numSteps, currentStep) {
     var progress = $(llab.selectors.PROGRESS),
         width = progress.width(),
-        btns = $('bottom-nav').width(),
+        // TODO: This neeeds to be a global selector!!
+        btns = $('.bottom-nav').width(),
         result; // result stores left-offset of background image.
 
     width -= btns;
