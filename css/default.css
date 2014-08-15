@@ -128,7 +128,7 @@ h1 {
   color: #000;
 }
 
-h2, h3 { /* FIXME -- fonts */
+h2, h3 {/* FIXME -- fonts */
   font: 900 26px "Palatino Linotype", "Book Antiqua", "Palatino", serif;
   padding: 10px 0;
   color: #000;
@@ -212,7 +212,7 @@ a[disabled] {
 .navbar-left {
   width: 80%; /* For setting title width */
 }
-.navbar-right { /* Contains Nav Buttons and Dropdown Menu */
+.navbar-right {/* Contains Nav Buttons and Dropdown Menu */
   width: 20%; /* For setting title width */
   padding-right: 8%;
 }
@@ -335,12 +335,12 @@ a[disabled] {
 }
 
 /* These control the look of the embedded suvery.
- * ALL override the bootstrap .panel class
- * box-shadow: default panel shadow is too light
- * No border-radius because the embed is rectangular,
- * and border-radius doesn't work in an iframe
- * Margin 0 moves the whole thing closer to the bottom of the page
- */
+* ALL override the bootstrap .panel class
+* box-shadow: default panel shadow is too light
+* No border-radius because the embed is rectangular,
+* and border-radius doesn't work in an iframe
+* Margin 0 moves the whole thing closer to the bottom of the page
+*/
 #fdbk {
   border-radius: 0px;
   margin: 0px;
@@ -348,7 +348,7 @@ a[disabled] {
 }
 
 /* For whatever reason the iframe has some whitespace around it
- * and this fixes the whitespace  */
+* and this fixes the whitespace  */
 #feedback-frame {
   margin-bottom: -5px;
   margin-right: -1px;
@@ -481,29 +481,29 @@ div.indent {
   width: 80%;
 }
 
-.quoteOrange { /* FIXME, name needed */
+.quoteOrange {/* FIXME, name needed */
   border-left: 12px solid #FF9D1E;
   background-color: #FFCE8E;
 }
 
-.quoteBlue { /* FIXME, name needed */
+.quoteBlue {/* FIXME, name needed */
   border-left: 12px solid #164cba;
   background-color: #9999FF;
 }
 
-.quoteBrown { /* FIXME, name needed */
+.quoteBrown {/* FIXME, name needed */
   border-left: 12px solid #bf9a6b;
   background-color: #ddc8ad;
 }
 
-.quoteGreen { /* FIXME, name needed */
+.quoteGreen {/* FIXME, name needed */
   border-left: 12px solid #669933;
   background-color: #99CC66;
 }
 
 /* New classes from the original_bjc file.
- *  items below pertain to the "topic" class.
- */
+*  items below pertain to the "topic" class.
+*/
 .topic {
   margin-bottom: 30px;
   border: 2px solid #CCC;
@@ -587,7 +587,7 @@ div.indent {
 
 /* Formatting stuff */
 /* FIXME -- selectors need improvement.
- * Can we just delete the .topic? */
+* Can we just delete the .topic? */
 .topic .indent0 {
   margin-left: 0
 }
@@ -628,7 +628,7 @@ div.indent {
 }
 
 /* Image added to all clickable program file links
- * Indicates a new window will open */
+* Indicates a new window will open */
 .run {
   background: url(../img/external-link.png) center right no-repeat;
   padding-right: 13px;
@@ -861,8 +861,8 @@ div.indent {
 /********************************/
 /******** SMALLL DEVICE STUFF *****/
 /* NOTE: Bootstrap....
- * Only include different attributes.
- */
+* Only include different attributes.
+*/
 @media (max-width: 768px) {
   body {
     width: 100%;
@@ -910,12 +910,13 @@ div.indent {
   .page-feedback {
     display: none;
   }
+
 }
 
 /**************** TO BE REMOVED OR REFACTORED ************/
 /* THESE ARE USED IN TWO FILES
- * We should move these to those two locations, or try to fix them
- */
+* We should move these to those two locations, or try to fix them
+*/
 #tableBlue {
   border-collapse: collapse;
   margin: 10px 15px;
@@ -946,9 +947,9 @@ div.indent {
 
 
 /** FIXME -- replace this with bootstrap warning -- then delete
- * Only use is recursive reporters intro page
- * https://inst.eecs.berkeley.edu/~cs10/labs/cur/programming/recur/recursive-reporters/recursive-reporters-intro.html?topic=berkeley_bjc/recur/recursive-reporters.topic&step=0&novideo=true&noreading=true&noassignment=true&course=cs10_sp14.html
- */
+* Only use is recursive reporters intro page
+* https://inst.eecs.berkeley.edu/~cs10/labs/cur/programming/recur/recursive-reporters/recursive-reporters-intro.html?topic=berkeley_bjc/recur/recursive-reporters.topic&step=0&novideo=true&noreading=true&noassignment=true&course=cs10_sp14.html
+*/
 .redFlag {
   font-size: .95em;
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
