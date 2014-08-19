@@ -8,24 +8,6 @@
  *      (Bootsrap) - optional, needed for looks, if missing code will still run
  */
 
-// TODO: These need to be moved to a better place:
-// These are common strings that need not be build and should be reused!
-llab.selectors = {};
-llab.fragments = {};
-llab.strings = {};
-llab.strings.goMain = 'Go to the Course Page';
-// &#8230; is ellipsis
-llab.strings.clickNav = 'Click here to navigate&nbsp;&nbsp;';
-//
-llab.fragments.bootstrapSep = '<li class="divider list_item" role="presentation"></li>';
-llab.fragments.bootstrapCaret = '<span class="caret"></span>';
-llab.fragments.hamburger = '<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>';
-// LLAB selectors for common page elements
-llab.selectors.FULL = '.full';
-llab.selectors.NAVSELECT = '.llab-nav';
-llab.selectors.PROGRESS = '.full-bottom-bar';
-
-
 llab.file = "";
 llab.step = NaN;
 llab.url_list = [];
