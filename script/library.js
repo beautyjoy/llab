@@ -232,6 +232,27 @@ llab.getAttributesForElement = function(elm) {
     return attrs;
 };
 
+
+// These are STRINGS that are query selectors for selecting page elements
+// We want to store them in a single place because it's easier to update
+llab.selectors = {};
+// These are code fragments which are reusable components.
+llab.fragments = {};
+// These are common strings that need not be build and should be reused!
+llab.strings = {};
+llab.strings.goMain = 'Go to the Course Page';
+// &#8230; is ellipsis
+llab.strings.clickNav = 'Click here to navigate&nbsp;&nbsp;';
+//
+llab.fragments.bootstrapSep = '<li class="divider list_item" role="presentation"></li>';
+llab.fragments.bootstrapCaret = '<span class="caret"></span>';
+llab.fragments.hamburger = '<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>';
+// LLAB selectors for common page elements
+llab.selectors.FULL = '.full';
+llab.selectors.NAVSELECT = '.llab-nav';
+llab.selectors.PROGRESS = '.full-bottom-bar';
+
+
 /////////////////////  END
 
 llab.loaded['library'] = true;
