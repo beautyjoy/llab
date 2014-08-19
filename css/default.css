@@ -273,6 +273,7 @@ a[disabled] {
 /* FIXME -- standardize class names! */
 .dropdown-menu {
   margin-top: 8px; /* should be equal to padding on list_header */
+  max-height: 100%;
 }
 .list_item {
   font-size: 10pt;
