@@ -97,13 +97,10 @@ llab.secondarySetUp = function() {
         cache: true,
         success: llab.processLinks,
         error: function(jqXHR, status, error) {
+            // TODO: We should push errors to Google Analytics
             console.log('Error Accessing Topic: ' + llab.file);
             console.log('Error: ' + error);
             console.log('Status: ' + status);
-        },
-        complete: function(a, b, c) {
-            console.log('complete...');
-            console.log(llab.file);
         }
     });
 }; // close secondarysetup();
@@ -114,20 +111,17 @@ llab.secondarySetUp = function() {
  *  FIXME: This should share code with llab.topic!
  */
 llab.processLinks = function(data, status, jqXHR) {
-    console.log('Processing....');
+    /* NOTE: DO NOT REMOVE THIS CONDITIONAL WITHOUT SERIOUS TESTING
+     * FOR SOME REASON llab.file gets reset with the ajax call.
+     */
     if (llab.file === '') {
-        console.log('crap is broken so reset file');
-        alert('WAT');
         llab.file = llab.getQueryParameter("topic");
     }
-    // FIXME----- THERE IS A MAJOR BUG WHERE THE TOPIC IS SOMETIMES NOT DEFINED
-    // THIS LEADS TO LINKS NOT WORKING
 
     // Get the URL parameters as an object
     var params = llab.getURLParameters(),
         course = params.course,
-        // TODO: Replace this with CSS.
-        maxItemLen = 35,
+        maxItemLen = 35,  // TODO: Replace this with CSS.
         topicArray = data.split("\n"),
         pageStep = 0,
         url = document.URL,
@@ -193,7 +187,7 @@ llab.processLinks = function(data, status, jqXHR) {
                 step: pageStep,
                 title: itemContent
             }));
-        } else {
+        } else { // Content reference is local
             if (url.indexOf(llab.rootURL) === -1 && url.indexOf("..") === -1) {
                 url = llab.rootURL + (url[0] === "/" ? '' : "/") + url;
             }
@@ -213,6 +207,7 @@ llab.processLinks = function(data, status, jqXHR) {
         ddItem = llab.dropdownItem(itemContent, url);
         list.append(ddItem);
         pageStep += 1;
+
     } // end for loop
 
     if (course !== "") {
@@ -240,7 +235,7 @@ llab.processLinks = function(data, status, jqXHR) {
     // FIXME -- this doesn't belong here.
     llab.indicateProgress(llab.url_list.length, llab.step);
 
-    // FIXME -- not sure this really belongs here...
+    // FIXME -- not sure this really belongs here as well.
     llab.addFeedback(document.title, llab.file, course);
 }; // end processLinks()
 
