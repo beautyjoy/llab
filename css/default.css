@@ -273,7 +273,8 @@ a[disabled] {
 /* FIXME -- standardize class names! */
 .dropdown-menu {
   margin-top: 8px; /* should be equal to padding on list_header */
-  max-height: 100%;
+  overflow-y: scroll; /* scroll menu on small screens */
+  /* NOTE: max-height is set via jQuery when the dropdown is created. */
 }
 .list_item {
   font-size: 10pt;

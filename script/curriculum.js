@@ -131,6 +131,7 @@ llab.processLinks = function(data, status, jqXHR) {
         topicArray = data.split("\n"),
         pageStep = 0,
         url = document.URL,
+        // TODO: Move this to a dropdown function
         list = $(document.createElement("ul")).attr(
         { 'class': 'dropdown-menu dropdown-menu-right',
           'role' : "menu",  'aria-labeledby' : "Topic-Navigation-Menu"}),
@@ -159,9 +160,6 @@ llab.processLinks = function(data, status, jqXHR) {
             /* Create a link back to the main topic. */
             url = llab.topic_launch_page + "?";
             url += llab.QS.stringify(params);
-            if (!llab.file) {
-                console.log('DAMMIT');
-            }
 
             itemContent = line.slice(line.indexOf(":") + 1);
             itemContent = llab.truncate($.trim(itemContent), maxItemLen);
@@ -195,9 +193,6 @@ llab.processLinks = function(data, status, jqXHR) {
                 step: pageStep,
                 title: itemContent
             }));
-            if (!llab.file) {
-                console.log('DAMMIT 2');
-            }
         } else {
             if (url.indexOf(llab.rootURL) === -1 && url.indexOf("..") === -1) {
                 url = llab.rootURL + (url[0] === "/" ? '' : "/") + url;
@@ -206,9 +201,6 @@ llab.processLinks = function(data, status, jqXHR) {
             url += llab.QS.stringify($.extend({}, params, {
                 step: pageStep
             }));
-            if (!llab.file) {
-                console.log('DAMMIT 3');
-            }
         }
 
         llab.url_list.push(url);
@@ -237,8 +229,10 @@ llab.processLinks = function(data, status, jqXHR) {
     llab.buildDropdown();
     // FIXME -- will break on pages with multiple dropdowns (future)
     $('.dropdown').append(list);
+    // Set the max-height of the dropdown list to not exceed window height
+    // This is particularly important for smaller screens.
+    $('.dropdown-menu').height($(window).height() - 100);
 
-    // FIXME -- shouldn't special case this
     if (document.URL.indexOf(llab.empty_topic_page_path) !== -1) {
         llab.addFrame();
     }
