@@ -226,7 +226,7 @@ llab.processLinks = function(data, status, jqXHR) {
     $('.dropdown').append(list);
     // Set the max-height of the dropdown list to not exceed window height
     // This is particularly important for smaller screens.
-    $('.dropdown-menu').height($(window).height() - 100);
+    $('.dropdown-menu').css('max-height', $(window).height() - 100);
 
     if (document.URL.indexOf(llab.empty_topic_page_path) !== -1) {
         llab.addFrame();
