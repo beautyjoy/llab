@@ -1,48 +1,43 @@
 /*
  * course.js
- * 
- * loaded on course pages.
- * can depend on jquery and library.js
+ *
+ * loaded on course pages
+ * Modifies the links on a course page so that queries are properly passed along
+ *
+ * Depends on:
+ *      llab loader
+ *      jQuery
  */
 
- /* hide items and pass on course name. */
+'use strict';
+
+ /* Create the Query string for links to each topic within a course. */
 llab.editURLs = function() {
-	
-	
-	
+    var query = {},
+        docPath = document.location.pathname;
+
+    // Set the 'course' attribute
+    if (docPath.indexOf(llab.courses_path) !== -1) {
+        // Exclude the path to the course file because it gets added back later…
+        query['course'] = docPath.replace(llab.courses_path, '');
+    }
+
+    // TODO: only really supports one container per file.
+    // Build the Query string from container attributes
     $(".topic_container").each(function() {
-        var args = "";
-        var attributes = this.attributes;
-        for (var i = 0; i < attributes.length; i++) {
-            if (attributes[i].name != "class") {
-                args += "&" + attributes[i].name + "=" + attributes[i].value;
-            }
-        }
-        $(this).find(".topic_link").each(function(){
-            $(this).find("a")[0].href = $(this).find("a")[0].href + args;
-        });
+        $.extend(query, llab.getAttributesForElement(this));
+        // query = llab.merge(query, llab.getAttributesForElement(this));
+        // TODO: Nest the loop below within this container.
+        // Then only extent the query object temporarily
     });
-    $("a").each(function() {
-        if (document.location.href.indexOf(llab.courses_path) == -1) {
-            this.href + "&course=" + document.location.href;
-        } else {
-            this.href = this.href + "&course=" + document.location.href.split("?")[0].split("/").pop();
-        }
+
+    $(".topic_link a").each(function() {
+        // Need a better way to check URLs.
+        var str = this.href.indexOf('?') === -1 ? '?' : '&';
+        this.href += str + llab.QS.stringify(query);
     });
-}
+};
 
-llab.addTitle = function() {
-    // insert main div
-    if ($("#full").length == 0) {
-        $(document.body).wrapInner('<div id="full"></div>');
-	}
-
-    // add header div
-	$("#full").prepend($(document.createElement("div")).attr({"class":"header"}).html(document.title));
-
-}
- 
- $(document).ready(function() {
+$(document).ready(function() {
     llab.editURLs();
-    llab.addTitle();
- });
+});
