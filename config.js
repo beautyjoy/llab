@@ -17,24 +17,25 @@ if (typeof llab === 'undefined') {
 
 // if the website isn't at the root of the server, add the path here.
 // starting / means this is an absolute link, yo
-llab.rootURL = "/llab-website-test/";
-//llab.rootURL = "/bjc-r/";
+//llab.rootURL = "/llab-website-test/";
+llab.rootURL = "/bjc-r/";
 
 
-// change if llab scripts are installed in a different path *within* rootURL.  
+// change if llab scripts are installed in a different path *within* rootURL.
 llab.install_directory = "llab/";
 
 // absolute path to llab files -- don't change this
 llab.llab_path = llab.rootURL + llab.install_directory;
 
-// reference your custom CSS files, from within llab install directory.  
+// reference your custom CSS files, from within llab install directory.
 //  Multiple CSS files is fine, include a separate push for each
-llab.paths.css_files.push('http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.0/normalize.min.css');
-llab.paths.css_files.push('http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css');
+llab.paths.css_files.push('css/bootstrap.min.css');
+llab.paths.css_files.push('css/bootstrap-theme.min.css');
 llab.paths.css_files.push("css/default.css");
 llab.paths.css_files.push("css/from-mvle.css");  // TODO lose this one please
 llab.paths.css_files.push("css/brainstorm.css");
 llab.paths.css_files.push("css/user.css");
+// llab.paths.css_files.push("css/unused.css");
 
 
 
@@ -45,7 +46,7 @@ llab.courses_path = llab.rootURL + "course/";
 
 // TOPICS (old style) stuff.
 //  place where you put (oldstyle) X.topic files, used when building menus on curriculum pages
-llab.topics_path = llab.rootURL + "topic/";  
+llab.topics_path = llab.rootURL + "topic/";
 //  used when referring to a topic page -- you could change this location
 llab.topic_launch_page = llab.llab_path + "html/topic.html";
 //  template used when building a topic (in topic.js)
@@ -53,7 +54,7 @@ llab.empty_topic_page_path = llab.llab_path + "html/empty-topic-page.html";
 
 
 // google analytics tokens
-llab.GAuse = false;
+llab.GAuse = true;
 llab.GACode = 'UA-47210910-3';
 llab.GAurl = 'berkeley.edu';
 
