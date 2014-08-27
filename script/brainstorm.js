@@ -120,9 +120,9 @@ var BRAINSTORM = function(bsdata, i) {
 }
 
 BRAINSTORM.prototype.show = function() {
-	this.bsdata.animate({height : 0}, 125);
+	this.bsdata.hide(125);
 	this.bsdiv.css('display', 'block');
-	this.bsdiv.animate({height : "100%"}, 125);
+	this.bsdiv.show(125);
 }
 
 
@@ -138,7 +138,7 @@ BRAINSTORM.prototype.getContentTemplate = function() {
 		'   <div class="prompt"></div>' + 
 		'   <div class="input">' + 
 		'      <p>My Response: </p>' + 
-		'      <textarea class="inputarea" rows="5" cols="100">  </textarea>' + 
+		'      <textarea class="inputarea" rows="5" cols="100"></textarea>' + 
 		'      <input class="inputbutton" type="button" value="save" onclick="save()" />' + 
 		'      <div class="inputnotification"></div> ' + 
 		'   </div>' + 
