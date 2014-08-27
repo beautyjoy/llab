@@ -14,7 +14,7 @@
 	opacity: 0.6;
 }
 
-#user-dialog {
+#USER_NO_AUTH_DIALOG {
 
 	background-color: #FBF9EE;
 	position: absolute;
@@ -30,18 +30,18 @@
 }
 
 
-#user-dialog > p {
+#USER_NO_AUTH_DIALOG > p {
 	padding: 15px;
 	margin: 10px;
 }
 
 
-#user-dialog > .username, .section {
+#USER_NO_AUTH_DIALOG > .username, .section {
 	padding: 5px 15px;
 	margin: 5px 10px;
 }
 
-#user-dialog > .closebutton {
+#USER_NO_AUTH_DIALOG > .closebutton {
 	display: block;
 	margin-right: 10px;
 	float: right;

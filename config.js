@@ -59,6 +59,14 @@ llab.GAurl = 'berkeley.edu';
 
 
 
+// USER
+llab.user = {};
+//// Ug, this configuration needs to be done at end of load, after USER objects
+//// are defined.  Need a syntax for this.  For now just doing it in user.js
+// llab.user.user = new USER_NO_AUTH();  // simple user
+
+
+
 
 /*
  ******************************
