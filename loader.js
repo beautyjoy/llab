@@ -74,7 +74,7 @@ llab.paths.scripts[2].push("script/user.js");
 
 llab.loaded['multiplechoice'] = false;
 llab.paths.stage_complete_functions[2] = function() {
-	return ((llab.loaded['multiplechoice'] ) && 
+	return ((llab.loaded['multiplechoice'] ) &&
 	        (typeof jQuery.ui !== 'undefined') &&
 	        (llab.loaded['user'] )
 	);
@@ -104,14 +104,13 @@ llab.paths.stage_complete_functions[3] = function() {
 //////////////
 
 llab.initialSetUp = function() {
-<<<<<<< HEAD
 	var headElement = document.getElementsByTagName('HEAD').item(0);
 	var apath;
 	var tag;
 	var i;
 	var src;
 
-	
+
 	// start the process
 	loadScriptsAndLinks(0);
 
@@ -120,7 +119,7 @@ llab.initialSetUp = function() {
 	function getTag(name, src, type) {
 		var tag;
 		//console.log("Dealing with tag " + name + " with src " + src + " of type " + type);
-		 
+
 		tag = document.createElement(name);
 		if (src.substring(0, 7) !== "http://") {
 			src = llab.rootURL + llab.install_directory + src;
@@ -139,8 +138,8 @@ llab.initialSetUp = function() {
 		var i;
 		var tag;
 
-		//console.log("starting script load stage " + stage_num);		
-		
+		//console.log("starting script load stage " + stage_num);
+
 		// load css files
 		while (llab.paths.css_files.length != 0) {
 			tag = getTag("link", llab.paths.css_files.shift(), "text/css");
@@ -148,7 +147,7 @@ llab.initialSetUp = function() {
 			tag.media = "screen";
 			headElement.appendChild(tag);
 		}
-		
+
 		// load scripts
 		llab.paths.scripts[stage_num].forEach(function(scriptfile) {
 			var tag;
@@ -159,7 +158,7 @@ llab.initialSetUp = function() {
 			proceedWhenComplete(stage_num);
 		}
 	}
-	
+
 	function proceedWhenComplete(stage_num) {
 		if (llab.paths.stage_complete_functions[stage_num]()) {
 			if ((stage_num + 1) < llab.paths.scripts.length) {
