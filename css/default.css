@@ -52,6 +52,7 @@ body {
 img {
   /* Better resizing of images for mobile devices */
   max-width: 100%;
+  padding: 2px;
 }
 nav {
   padding: 1% 5% 1% 5%;
@@ -61,19 +62,19 @@ nav {
 tt {
   font-size: 120%;
   font-weight: 600;
-  line-height: 100%;
+  line-height: 1.3;
   font-family: monospace;
 }
 
 code {
   font-weight: 600;
-  line-height: 100%;
+  line-height: 1.6;
 }
 
 p {
-  font: 1em 'Helvetica', Arial, sans-serif;
+  font: 1em;
   color: black;
-  line-height: 120%;
+  line-height: 1.3;
 }
 
 p.right {
@@ -133,7 +134,8 @@ h1 {
 }
 
 h2, h3 {/* FIXME -- fonts */
-  font: 900 26px "Palatino Linotype", "Book Antiqua", "Palatino", serif;
+  font-weight: 900;
+  font-family: "Palatino Linotype", "Book Antiqua", "Palatino", serif;
   padding: 10px 0;
   color: #000;
 }
@@ -163,9 +165,10 @@ a[disabled] {
 /* Show a special div on small screens that isn't in the nav bar */
 .title-small-screen {
   font-family: Georgia; /* FIXME */
+  font-variant: small-caps;
   color: #003A70;
   font-size: 1.5em;
-  padding-top: .2 em;
+  padding-top: .2em;
   font-weight: bold;
   margin: 1% 3%;
   display: none;

@@ -269,7 +269,7 @@ llab.setupTitle = function() {
 
     // Create .full before adding stuff.
     if ($(FULL).length === 0) {
-        $(document.body).wrapInner('<div class="full"></div>');
+		$(document.body).wrapInner('<div class="full"></div>');
     }
 
     // Work around when things are oddly loaded...
