@@ -803,20 +803,6 @@ img.indent, div.indent {
   margin-left: 25px;
 }
 
-.MultipleChoice .promptdiv pre {
-  font-size: .8em;
-  font: .9em "Courier New", Courier, monospace;
-  font-weight: bold;
-  color: #333;
-  white-space: pre;
-  padding: 10px;
-  margin: 15px;
-  border-top: 2px solid #999;
-  border-right: 2px solid #999;
-  border-bottom: 2px solid #999;
-  border-left: 12px solid #999;
-}
-
 .feedbackDiv.correct {
   color: green;
 }
@@ -885,7 +871,14 @@ img.indent, div.indent {
   .page-feedback {
     display: none;
   }
-
+  .nav-btns.btn-group {
+    /* Buttons can take the whole top bar on small screens
+     * Main difference is for the dropdown menus to look nice when
+     * expanded */
+    width: 100%;
+    /* Override this setting so that width takes effect. */
+    max-width: 100%;
+  }
 }
 
 /**************** TO BE REMOVED OR REFACTORED ************/
