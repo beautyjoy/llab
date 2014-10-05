@@ -96,12 +96,16 @@ llab.renderFull = function(data, ignored1, ignored2) {
         line = lines[i];
         line = llab.stripComments(line);
         if (line.length > 0 && !raw && (hidden.indexOf($.trim(line.slice(0, line.indexOf(":")))) == -1)) {
-            if (line.slice(0, 6) == "title:") {
-                //TODO pull out the html tags for the page title
-                document.head.title = line.slice(6);
-                document.title = line.slice(6);
-                $('.navbar-brand').html(line.slice(6));
-                $('.title-small-screen').html(line.slice(6));
+            if (line.slice(0, 6) === "title:") {
+                var titleHTML = line.slice(6);
+                $('.navbar-brand').html(titleHTML);
+                $('.title-small-screen').html(titleHTML);
+                var titleText = $('.navbar-brand').text();
+                // SPECIAL-CASE for 'Snap' in titles.
+                titleText = titleText.replace('snap', 'Snap!');
+                // END SPECIAL-CASE
+                document.head.title = titleText;
+                document.title = titleText;
                 learningGoal = false;
                 bigIdea = false;
             } else if (line.slice(0, 8) == "raw-html") {
