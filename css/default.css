@@ -402,26 +402,6 @@ table .pre {
   line-height: 1em;
 }
 
-pre {
-  font: 600 .9em "Courier New", Courier, monospace;
-  color: #333;
-  white-space: pre;
-  padding: 10px;
-  margin: 15px;
-  border-top: 2px solid #999;
-  border-right: 2px solid #999;
-  border-bottom: 2px solid #999;
-  border-left: 12px solid #999;
-}
-
-pre.tightText, pre .tightText {
-  letter-spacing: -.8px;
-}
-
-pre.veryTightText, pre .veryTightText {
-  letter-spacing: -1px;
-}
-
 .imageRight {
   float: right;
   margin: 0 20px 15px 15px;
