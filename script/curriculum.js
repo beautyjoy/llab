@@ -497,7 +497,7 @@ llab.indicateProgress = function(numSteps, currentStep) {
         width = progress.width(),
         // TODO: This neeeds to be a global selector!!
         btns = $('.bottom-nav').width(),
-        result; // result stores left-offset of background image.
+        pctMargin, result; // result stores left-offset of background image.
 
     /* This works as long as the buttons are on the RIGHT of the image to be
      * moved. The image on the last step will be moved at most the % width of
