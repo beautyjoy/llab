@@ -489,8 +489,7 @@ llab.addFeedback = function(title, topic, course) {
  *  Positions an image along the bottom of the lab page, signifying progress.
  *  numSteps is the total number of steps in the lab
  *  currentStep is the number of the current step
- *  totalWidth is the width of the entire bottom bar
- *  buttonWidth is the combined width of the two nav buttons.
+ *  Note, these steps are 0 indexed!
  */
 llab.indicateProgress = function(numSteps, currentStep) {
     var progress = $(llab.selectors.PROGRESS),
@@ -504,8 +503,7 @@ llab.indicateProgress = function(numSteps, currentStep) {
      * the buttons.
      */
     pctMargin = (btns / width) * 100;
-    // Increment each by 1 because steps count from 0.
-    result = (currentStep + 1) /  (numSteps + 1);
+    result = (currentStep + 1) /  (numSteps + 1); // Handle 0 indexing
     result = result * (100 - pctMargin);
     result = result + "% 2px";
     progress.css("background-position", result);
