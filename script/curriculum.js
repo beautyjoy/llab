@@ -499,20 +499,15 @@ llab.indicateProgress = function(numSteps, currentStep) {
         btns = $('.bottom-nav').width(),
         result; // result stores left-offset of background image.
 
-    width -= btns;
-    if (currentStep < numSteps - 1) {
-        result = (currentStep * (width / (numSteps - 1)) + 1) / (width - 10);
-        // Result is always a min of 1%.
-        result = (result < 0.01) ? 1 : (result * 100);
-        result = result + "%";
-    } else {
-        var picWidth = progress.css("background-size");
-        picWidth = Number(picWidth.slice(0, picWidth.indexOf("px")));
-        // the 4 is just to add a bit of space
-        result = width - picWidth - 4 + "px";
-    }
-
-    result = result + " 2px";
+    /* This works as long as the buttons are on the RIGHT of the image to be
+     * moved. The image on the last step will be moved at most the % width of
+     * the buttons.
+     */
+    pctMargin = (btns / width) * 100;
+    // Increment each by 1 because steps count from 0.
+    result = (currentStep + 1) /  (numSteps + 1);
+    result = result * (100 - pctMargin);
+    result = result + "% 2px";
     progress.css("background-position", result);
 };
 
