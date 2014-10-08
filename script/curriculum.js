@@ -295,6 +295,8 @@ llab.setupTitle = function() {
 
     // Clean up document title if it contains HTML
     document.title = $(".navbar-brand").text();
+    // Special Case for Snap! in titles.
+    document.title = document.title.replace('snap', 'Snap!');
 
     // FIXME -- Not great on widnow resize
     // Needs to be refactored, and window listener added
