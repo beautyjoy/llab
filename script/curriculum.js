@@ -295,6 +295,8 @@ llab.setupTitle = function() {
 
     // Clean up document title if it contains HTML
     document.title = $(".navbar-brand").text();
+    // Special Case for Snap! in titles.
+    document.title = document.title.replace('snap', 'Snap!');
 
     // FIXME -- Not great on widnow resize
     // Needs to be refactored, and window listener added
@@ -489,30 +491,23 @@ llab.addFeedback = function(title, topic, course) {
  *  Positions an image along the bottom of the lab page, signifying progress.
  *  numSteps is the total number of steps in the lab
  *  currentStep is the number of the current step
- *  totalWidth is the width of the entire bottom bar
- *  buttonWidth is the combined width of the two nav buttons.
+ *  Note, these steps are 0 indexed!
  */
 llab.indicateProgress = function(numSteps, currentStep) {
     var progress = $(llab.selectors.PROGRESS),
         width = progress.width(),
         // TODO: This neeeds to be a global selector!!
         btns = $('.bottom-nav').width(),
-        result; // result stores left-offset of background image.
+        pctMargin, result; // result stores left-offset of background image.
 
-    width -= btns;
-    if (currentStep < numSteps - 1) {
-        result = (currentStep * (width / (numSteps - 1)) + 1) / (width - 10);
-        // Result is always a min of 1%.
-        result = (result < 0.01) ? 1 : (result * 100);
-        result = result + "%";
-    } else {
-        var picWidth = progress.css("background-size");
-        picWidth = Number(picWidth.slice(0, picWidth.indexOf("px")));
-        // the 4 is just to add a bit of space
-        result = width - picWidth - 4 + "px";
-    }
-
-    result = result + " 2px";
+    /* This works as long as the buttons are on the RIGHT of the image to be
+     * moved. The image on the last step will be moved at most the % width of
+     * the buttons.
+     */
+    pctMargin = (btns / width) * 100;
+    result = (currentStep + 1) /  (numSteps + 1); // Handle 0 indexing
+    result = result * (100 - pctMargin);
+    result = result + "% 2px";
     progress.css("background-position", result);
 };
 

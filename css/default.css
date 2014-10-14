@@ -53,6 +53,11 @@ img {
   /* Better resizing of images for mobile devices */
   max-width: 100%;
   padding: 2px;
+  /* drop shadows because we be fancy people */
+  -webkit-filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+  -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2,
+  Color='#444')";
+  filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2, Color='#444')";
 }
 nav {
   padding: 1% 5% 1% 5%;
@@ -397,26 +402,6 @@ table .pre {
   line-height: 1em;
 }
 
-pre {
-  font: 600 .9em "Courier New", Courier, monospace;
-  color: #333;
-  white-space: pre;
-  padding: 10px;
-  margin: 15px;
-  border-top: 2px solid #999;
-  border-right: 2px solid #999;
-  border-bottom: 2px solid #999;
-  border-left: 12px solid #999;
-}
-
-pre.tightText, pre .tightText {
-  letter-spacing: -.8px;
-}
-
-pre.veryTightText, pre .veryTightText {
-  letter-spacing: -1px;
-}
-
 .imageRight {
   float: right;
   margin: 0 20px 15px 15px;
@@ -439,11 +424,7 @@ img.inline {
   display: inline;
 }
 
-img.indent {
-  margin-left: 10%;
-}
-
-div.indent {
+img.indent, div.indent {
   margin-left: 10%;
 }
 
@@ -484,7 +465,7 @@ div.indent {
 }
 
 /** Common Styling to highlighted sections */
-.quoteOrange, .quoteGreen, .quoteBrown, .quoteBlue {
+.quoteOrange, .quoteGreen, .quoteBlue {
   padding: 10px 15px;
   margin: 15px;
   width: 80%;
@@ -500,16 +481,10 @@ div.indent {
   background-color: #9999FF;
 }
 
-.quoteBrown {/* FIXME, name needed */
-  border-left: 12px solid #bf9a6b;
-  background-color: #ddc8ad;
-}
-
 .quoteGreen {/* FIXME, name needed */
   border-left: 12px solid #669933;
   background-color: #99CC66;
 }
-
 
 /* Most items in the course page */
 /** FIXME -- poorly performant, applies to all divs within */
@@ -828,20 +803,6 @@ div.indent {
   margin-left: 25px;
 }
 
-.MultipleChoice .promptdiv pre {
-  font-size: .8em;
-  font: .9em "Courier New", Courier, monospace;
-  font-weight: bold;
-  color: #333;
-  white-space: pre;
-  padding: 10px;
-  margin: 15px;
-  border-top: 2px solid #999;
-  border-right: 2px solid #999;
-  border-bottom: 2px solid #999;
-  border-left: 12px solid #999;
-}
-
 .feedbackDiv.correct {
   color: green;
 }
@@ -910,7 +871,14 @@ div.indent {
   .page-feedback {
     display: none;
   }
-
+  .nav-btns.btn-group {
+    /* Buttons can take the whole top bar on small screens
+     * Main difference is for the dropdown menus to look nice when
+     * expanded */
+    width: 100%;
+    /* Override this setting so that width takes effect. */
+    max-width: 100%;
+  }
 }
 
 /**************** TO BE REMOVED OR REFACTORED ************/
@@ -945,6 +913,7 @@ div.indent {
   margin: 0;
 }
 
+<<<<<<< HEAD
 
 /** FIXME -- replace this with bootstrap warning -- then delete
 * Only use is recursive reporters intro page
@@ -980,6 +949,8 @@ div.indent {
   float: left;
   margin-left: 10px;
 }
+=======
+>>>>>>> 7719434548ec77eba7215a3b38726f1f67dd6218
 form li div {
   font: 500 15px/1.7 "Times New Roman", Times, serif;
 }
