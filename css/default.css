@@ -514,8 +514,9 @@ img.indent, div.indent {
   background-image: url(../img/pageLink.png);
 }
 
+/* http://findicons.com/icon/58541/movies */
 .video {
-  background-image: url(../img/slideshowIcon.png);
+  background-image: url(../img/movies.png);
 }
 
 .extresource {
