@@ -278,7 +278,8 @@ llab.setupTitle = function() {
     }
 
     // Create the header section and nav buttons
-    llab.createTitleNav();
+    console.log("attempting to create titles");
+    llab.createTitleNav(llab.url_list.length, llab.step);
 
     // create Title tag, yo
     if (llab.getQueryParameter("title") !== "") {
@@ -309,15 +310,27 @@ llab.setupTitle = function() {
 };
 
 // Create the 'sticky' title header at the top of each page.
-llab.createTitleNav = function() {
+llab.createTitleNav = function(numSteps, currentStep) {
     // FIXME -- clean up!!
+    var progress = Math.round(100 * ((currentStep + 1) / (numSteps)));
+    progress = progress.toString();
+        width = $(FULL).width(),
+        btns = 76,
+        multiplier = 1 - (btns / width);
+        console.log("mutli: " + multiplier);
+
     var topHTML = ('' +
         '<nav class="llab-nav navbar navbar-default navbar-fixed-top" role="navigation">' +
         '<div class="nav navbar-nav navbar-left navbar-brand"></div></nav>' +
         '<div class="title-small-screen"></div>'),
-        botHTML = "<div class='container-fluid'><div class='row'>" +
-        	   "<div class='col-xs-12 col-md-8 progress-bar-bottom progress-bar-info'><div class='.col-xs-6 .col-md-4 bottom-nav " +
-                      "btn-group'></div></div></div></div>",
+
+        botHTML = "<div class='container-fluid' style='max-height: 40px;'>" +
+        	       "<div class='progress-bar progress-bar-striped progress-bar-info active' " +
+                   "aria-valuenow='" + progress + "' aria-valuemin='0' aria-valuemax='100' " +
+                   "style='width:" + multiplier * progress + "%; max-height: 30px;'>" + progress + "% Complete!" +
+                    "</div></div></div><div class='bottom-nav " +
+                      "btn-group'></div>"
+
         navHTML = '<div class="nav navbar-nav navbar-right">' +
                   '<ul class="nav-btns btn-group"></ul></div>',
         topNav = $(llab.selectors.NAVSELECT),
@@ -399,7 +412,7 @@ llab.setButtonURLs = function() {
 
     if (!buttonsExist & $(llab.selectors.NAVSELECT) !== 0) {
         // freshly minted buttons. MMM, tasty!
-        llab.createTitleNav();
+        llab.createTitleNav(llab.url_list.length, llab.step);
     }
 
     forward = $('.forwardbutton');
