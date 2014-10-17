@@ -315,8 +315,9 @@ llab.createTitleNav = function() {
         '<nav class="llab-nav navbar navbar-default navbar-fixed-top" role="navigation">' +
         '<div class="nav navbar-nav navbar-left navbar-brand"></div></nav>' +
         '<div class="title-small-screen"></div>'),
-        botHTML = "<div class='full-bottom-bar'><div class='bottom-nav " +
-                      "btn-group'></div></div>",
+        botHTML = "<div class='container-fluid'><div class='row'>" +
+        	   "<div class='col-xs-12 col-md-8 progress-bar-bottom progress-bar-info'><div class='.col-xs-6 .col-md-4 bottom-nav " +
+                      "btn-group'></div></div></div></div>",
         navHTML = '<div class="nav navbar-nav navbar-right">' +
                   '<ul class="nav-btns btn-group"></ul></div>',
         topNav = $(llab.selectors.NAVSELECT),
