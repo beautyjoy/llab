@@ -587,17 +587,12 @@ img.indent, div.indent {
   padding-top: 10px;
 }
 
-/* This is a container element for the iframe */
-#cont {
-  width: 90%;
-  min-height: 500px;
-  height: 80%;
-  position: absolute;
-}
 
-/* iframe at the beginning of labs. */
-.step_frame {
+/* iframe at the beginning of labs, for embedded content. */
+.content-embed {
+  border: 0;
   width: 100%;
+  min-height: 500px;
   height: 100%;
   display: block;
 }

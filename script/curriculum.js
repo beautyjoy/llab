@@ -118,6 +118,10 @@ llab.processLinks = function(data, status, jqXHR) {
         llab.file = llab.getQueryParameter("topic");
     }
 
+    if (document.URL.indexOf(llab.empty_curriculum_page_path) !== -1) {
+        llab.addFrame();
+    }
+
     // Get the URL parameters as an object
     var params = llab.getURLParameters(),
         course = params.course,
@@ -181,7 +185,7 @@ llab.processLinks = function(data, status, jqXHR) {
 
         // Content References an external resource
         if (url.indexOf("//") !== -1) {
-            url = llab.empty_topic_page_path + "?" + llab.QS.stringify(
+            url = llab.empty_curriculum_page_path + "?" + llab.QS.stringify(
             $.extend({}, params, {
                 src: url,
                 step: pageStep,
@@ -193,8 +197,7 @@ llab.processLinks = function(data, status, jqXHR) {
             }
             url += url.indexOf("?") !== -1 ? "&" : "?";
             url += llab.QS.stringify($.extend({}, params, {
-                step: pageStep
-            }));
+                step: pageStep }));
         }
 
         llab.url_list.push(url);
@@ -228,9 +231,6 @@ llab.processLinks = function(data, status, jqXHR) {
     // This is particularly important for smaller screens.
     $('.dropdown-menu').css('max-height', $(window).height() - 100);
 
-    if (document.URL.indexOf(llab.empty_topic_page_path) !== -1) {
-        llab.addFrame();
-    }
 
     // FIXME -- this doesn't belong here.
     llab.indicateProgress(llab.url_list.length, llab.step);
@@ -245,15 +245,15 @@ llab.processLinks = function(data, status, jqXHR) {
 llab.addFrame = function() {
     var source = llab.getQueryParameter("src");
 
-    // FIXME -- Performace + Cleanup
-    $(FULL).append('<a href=' + source +
-        ' target="_">Open page in new window</a><br /><br />');
-    $(FULL).append('<div id="cont"></div>');
-
     var frame = $(document.createElement("iframe")).attr(
         {'src': source, 'class': 'step_frame'} );
+    
+    var conent = document.createElement('div');
+    $(conent).append(frame);
+    $(conent).append('<a href=' + source +
+        ' target="_">Open page in new window</a><br />');
 
-    $("#cont").append(frame);
+    $(FULL).append(conent);
 };
 
 // Setup the entire page title. This includes creating any HTML elements.
@@ -269,7 +269,7 @@ llab.setupTitle = function() {
 
     // Create .full before adding stuff.
     if ($(FULL).length === 0) {
-		$(document.body).wrapInner('<div class="full"></div>');
+        $(document.body).wrapInner('<div class="full"></div>');
     }
 
     // Work around when things are oddly loaded...
