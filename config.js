@@ -50,6 +50,7 @@ llab.topics_path = llab.rootURL + "topic/";
 llab.topic_launch_page = llab.llab_path + "html/topic.html";
 //  template used when building a topic (in topic.js)
 llab.empty_topic_page_path = llab.llab_path + "html/empty-topic-page.html";
+llab.empty_curriculum_page_path = llab.llab_path + "html/empty-curriculum-page.html";
 
 
 // google analytics tokens
@@ -74,4 +75,4 @@ llab.user = {};
  ******************************
  */
 
-llab.loaded['config']=true;
+llab.loaded['config'] = true;

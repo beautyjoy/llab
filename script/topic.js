@@ -1,5 +1,5 @@
 // FIXME -- documentation needed.
-llab['file'] = "";
+// llab['file'] = "";
 
 
 /*
@@ -55,9 +55,9 @@ llab.tags = ["h1", "h2", "h3", "h4", "h5", "h6"];
 llab.renderFull = function(data, ignored1, ignored2) {
     var FULL = llab.selectors.FULL;
 
-    if (llab.getQueryParameter("course") != "") {
+    if (llab.getQueryParameter("course") !== "") {
         var course_link = llab.getQueryParameter("course");
-        if (course_link.indexOf("http://") == -1) {
+        if (course_link.indexOf("://") === -1) {
             course_link = llab.courses_path + course_link;
         }
         $(FULL).append($(document.createElement("a")).attr(
@@ -69,6 +69,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
 
     var hidden = [];
     var hiddenString = "";
+    // FIXME
     temp = window.location.search.substring(1).split("&");
     for (var i = 0; i < temp.length; i++) {
         var temp2 = temp[i].split("=");
@@ -97,6 +98,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
         line = llab.stripComments(line);
         if (line.length > 0 && !raw && (hidden.indexOf($.trim(line.slice(0, line.indexOf(":")))) == -1)) {
             if (line.slice(0, 6) === "title:") {
+                // TODO: Refractor to a set title function!
                 var titleHTML = line.slice(6);
                 $('.navbar-brand').html(titleHTML);
                 $('.title-small-screen').html(titleHTML);
@@ -117,6 +119,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 learningGoal = false;
                 bigIdea = false;
             } else if (line.slice(0, 6) == "topic:") {
+                // FIXME -- style
                 item = $(document.createElement("div")).attr({'class': 'topic_header'}).append(line.slice(6));
                 topic.append(item);
                 learningGoal = false;
@@ -177,7 +180,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
                     url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
                     // FIXME -- QueryString
                     if (url.indexOf("http") != -1) {
-                        url = llab.empty_topic_page_path + "?" + "src=" + url +
+                        url = llab.empty_curriculum_page_path + "?" + "src=" + url +
                         "&" + "topic=" + llab.file + "&step=" + num +
                         "&title=" + text;
                     } else {
@@ -262,7 +265,7 @@ llab.displayTopic = function() {
         });
     } else {
         // TODO -- better error messge.  maybe show default course or topic?
-        document.getElementsByTagName('BODY').item(0).innerHTML = "Please specify a file in the URL.";
+        document.getElementsByTagName(llab.selectors.FULL).item(0).innerHTML = "Please specify a file in the URL.";
     }
 }
 
@@ -272,6 +275,7 @@ $(document).ready(function() {
     // FIXME -- refactor check
     var url = document.URL,
         topicFile = (url.indexOf("topic.html") !== -1 ||
+            // FIXME -- this may be broken. 
             url.indexOf("empty-topic-page.html") !== -1);
 
     if (topicFile) {
