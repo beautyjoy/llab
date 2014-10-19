@@ -246,8 +246,8 @@ llab.addFrame = function() {
     var source = llab.getQueryParameter("src");
 
     var frame = $(document.createElement("iframe")).attr(
-        {'src': source, 'class': 'step_frame'} );
-    
+        {'src': source, 'class': 'content-embed'} );
+
     var conent = document.createElement('div');
     $(conent).append(frame);
     $(conent).append('<a href=' + source +
@@ -289,12 +289,12 @@ llab.setupTitle = function() {
     var titleText = document.title;
     if (titleText) {
         // FIXME this needs to be a selector
-        $('.navbar-brand').html(titleText);
+        $('.navbar-title').html(titleText);
         $('.title-small-screen').html(titleText);
     }
 
     // Clean up document title if it contains HTML
-    document.title = $(".navbar-brand").text();
+    document.title = $(".navbar-title").text();
     // Special Case for Snap! in titles.
     document.title = document.title.replace('snap', 'Snap!');
 
@@ -313,7 +313,7 @@ llab.createTitleNav = function() {
     // FIXME -- clean up!!
     var topHTML = ('' +
         '<nav class="llab-nav navbar navbar-default navbar-fixed-top" role="navigation">' +
-        '<div class="nav navbar-nav navbar-left navbar-brand"></div></nav>' +
+        '<div class="nav navbar-nav navbar-left navbar-title"></div></nav>' +
         '<div class="title-small-screen"></div>'),
         botHTML = "<div class='full-bottom-bar'><div class='bottom-nav " +
                       "btn-group'></div></div>",
