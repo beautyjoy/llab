@@ -100,9 +100,9 @@ llab.renderFull = function(data, ignored1, ignored2) {
             if (line.slice(0, 6) === "title:") {
                 // TODO: Refractor to a set title function!
                 var titleHTML = line.slice(6);
-                $('.navbar-brand').html(titleHTML);
+                $('.navbar-title').html(titleHTML);
                 $('.title-small-screen').html(titleHTML);
-                var titleText = $('.navbar-brand').text();
+                var titleText = $('.navbar-title').text();
                 // SPECIAL-CASE for 'Snap' in titles.
                 titleText = titleText.replace('snap', 'Snap!');
                 // END SPECIAL-CASE
@@ -275,7 +275,7 @@ $(document).ready(function() {
     // FIXME -- refactor check
     var url = document.URL,
         topicFile = (url.indexOf("topic.html") !== -1 ||
-            // FIXME -- this may be broken. 
+            // FIXME -- this may be broken.
             url.indexOf("empty-topic-page.html") !== -1);
 
     if (topicFile) {
