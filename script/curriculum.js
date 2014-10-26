@@ -107,7 +107,7 @@ llab.secondarySetUp = function() {
     hljs.initHighlightingOnLoad();
     $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
-    }
+    });
 }; // close secondarysetup();
 
 /**
