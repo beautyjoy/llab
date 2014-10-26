@@ -105,6 +105,9 @@ llab.secondarySetUp = function() {
     });
     // Turn on Syntax Highlighting.
     hljs.initHighlightingOnLoad();
+    $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+    }
 }; // close secondarysetup();
 
 /**
