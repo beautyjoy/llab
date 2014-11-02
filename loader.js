@@ -50,7 +50,7 @@ llab.paths.scripts[1] = [];
 llab.paths.scripts[1].push("lib/jquery.min.js");
 llab.paths.scripts[1].push("script/library.js");
 // Syntax Highlighting
-llab.paths.scripts[1].push("//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js");
+llab.paths.scripts[1].push("//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"); 
 // llab.paths.scripts[1].push("script/lib/sha1.js");     // for brainstorm
 
 llab.loaded['library'] = false;
@@ -68,9 +68,9 @@ return ( typeof jQuery === 'function' &&
 llab.paths.scripts[2] = [];
 llab.paths.scripts[2].push("script/curriculum.js");
 llab.paths.scripts[2].push("script/course.js");
+llab.paths.scripts[2].push("script/topic.js");
 llab.paths.scripts[2].push("lib/bootstrap.min.js");
 llab.paths.scripts[2].push("script/quiz/multiplechoice.js");
-llab.paths.scripts[2].push("script/topic.js");
 // llab.paths.scripts[2].push("script/user.js");
 
 llab.loaded['multiplechoice'] = false;
@@ -164,7 +164,7 @@ llab.initialSetUp = function() {
             // console.log("waiting on stage " + stage_num);
             setTimeout(function() {
                 proceedWhenComplete(stage_num)
-            }, 20);
+            }, 10);
         }
     }
 };
