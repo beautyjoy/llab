@@ -32,7 +32,6 @@ llab.llab_path = llab.rootURL + llab.install_directory;
 llab.paths.css_files.push('css/bootstrap.min.css');
 llab.paths.css_files.push('css/bootstrap-theme.min.css');
 llab.paths.css_files.push("css/default.css");
-llab.paths.css_files.push("css/default.css");
 // Syntax Highlighting
 llab.paths.css_files.push("//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/default.min.css");
 // llab.paths.css_files.push("css/brainstorm.css");

@@ -104,8 +104,10 @@ llab.secondarySetUp = function() {
         }
     });
     // Turn on Syntax Highlighting.
-    hljs.initHighlightingOnLoad();
     $('pre code').each(function(i, block) {
+        // TODO: Why don't jQuery functions work?
+        // Trim the extra whitespace in HTML files.
+        block.innerHTML = block.innerHTML.trim();
         hljs.highlightBlock(block);
     });
 }; // close secondarysetup();
