@@ -103,6 +103,11 @@ llab.secondarySetUp = function() {
             console.log('Status: ' + status);
         }
     });
+    // Turn on Syntax Highlighting.
+    hljs.initHighlightingOnLoad();
+    $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+    });
 }; // close secondarysetup();
 
 /**
