@@ -335,17 +335,16 @@ pre code {
   margin: 0px;
   font-size: 125%;
   color: #000;
-  background: none;
 }
 
 pre {
   margin: 10px;
+  padding: 0; /* useful for code elements */
 }
 
 pre code.hljs {
-  margin: 0.1em;
-  background: none;
-  padding: 0.1em;
+  padding: 0.5em;
+  border-radius: 4px; /* match bootstrap */
 }
 
 /******* FEEDBACK BUTTON ON BOTTOM RIGHT */
