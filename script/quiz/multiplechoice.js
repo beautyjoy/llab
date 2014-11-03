@@ -5,6 +5,7 @@
 // TODO: Namespace everything
 // TODO: Cache selections of elements
 // TODO: Delay writing to DOM until everything is fully rendered
+// TODO: Reduce complexity of DOM for answer options
 
 /* Represents a multiple choice question. */
 
@@ -146,9 +147,10 @@ MC.prototype.render = function() {
     }
 
     /* render the choices */
-    // FIXME -- WRITE TO DOM OUTSIDE OF LOOPm
+    // FIXME -- WRITE TO DOM OUTSIDE OF LOOP
     for (i = 0; i < this.choices.length; i++) {
-        choiceHTML = '<table><tbody><tr><td>' + '<input type="' + type + '" name="radiobutton"' + ' id="' + this.removeSpace(this.choices[i].identifier) + '" value="' + this.removeSpace(this.choices[i].identifier) + '" class="' + type + '"/></td><td>' + '<div id="choicetext:' + this.removeSpace(this.choices[i].identifier) + '">' + this.choices[i].text + '</div></td><td><div id="feedback_' + this.removeSpace(this.choices[i].identifier) + '" name="feedbacks"></div></td></tr></tbody></table>';
+        // TODO: Reduce this duplication......
+        choiceHTML = '<table><tbody><tr class="table-middle"><td class="table-middle">' + '<input type="' + type + '" name="radiobutton"' + ' id="' + this.removeSpace(this.choices[i].identifier) + '" value="' + this.removeSpace(this.choices[i].identifier) + '" class="' + type + '"/></td><td class="table-middle">' + '<div id="choicetext:' + this.removeSpace(this.choices[i].identifier) + '">' + this.choices[i].text + '</div></td><td class="table-middle"><div id="feedback_' + this.removeSpace(this.choices[i].identifier) + '" name="feedbacks"></div></td></tr></tbody></table>';
 
         this.multipleChoice.find('.radiobuttondiv').append(choiceHTML);
 
@@ -473,12 +475,12 @@ MC.prototype.postRender = function() {
 
 // BEAUTIOUS
 MC.prototype.getTemplate = function(num) {
-    return "<div class='MultipleChoice Question panel panel-primary'>" +
-        "		<div class='questionType panel-heading'>" +
+    return "<div class='panel panel-primary MultipleChoice Question'>" +
+        "		<div class='panel-heading questionType'>" +
         "			Multiple Choice" +
         "		</div>" +
         "		<!-- end of questionCountBox -->" +
-        "		<div class='currentQuestionBox panel-body'>" +
+        "		<div class='panel-body currentQuestionBox'>" +
         "			<div class='leftColumn'>" +
         "				<div class='promptDiv'></div>" +
         "				<div class='radiobuttondiv'></div>" +
@@ -486,12 +488,11 @@ MC.prototype.getTemplate = function(num) {
         "			</div>" +
         "		</div>" +
         "		<div class='clearBoth'></div>" +
-        "		<div ='interactionBox'>" +
+        "		<div class='interactionBox'>" +
         "			<div class='statusMessages'>" +
         "				<div class='numberAttemptsDiv'></div>" +
         "				<div class='scoreDiv'></div>" +
-        // FIXME -- inline styles.
-        "				<div class='resultMessageDiv' style='font-size:16px'></div>" +
+        "				<div class='resultMessageDiv'></div>" +
         "			</div>" +
         "			<!-- Anchor-Based Button Layout using TABLE -->" +
         "			<div class='buttonDiv'>" +
