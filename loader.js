@@ -49,7 +49,9 @@ llab.paths.stage_complete_functions[0] = function() {
 llab.paths.scripts[1] = [];
 llab.paths.scripts[1].push("lib/jquery.min.js");
 llab.paths.scripts[1].push("script/library.js");
-llab.paths.scripts[1].push("script/lib/sha1.js");     // for brainstorm
+// Syntax Highlighting
+llab.paths.scripts[1].push("//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"); 
+// llab.paths.scripts[1].push("script/lib/sha1.js");     // for brainstorm
 
 llab.loaded['library'] = false;
 llab.paths.stage_complete_functions[1] = function() {
@@ -66,9 +68,9 @@ return ( typeof jQuery === 'function' &&
 llab.paths.scripts[2] = [];
 llab.paths.scripts[2].push("script/curriculum.js");
 llab.paths.scripts[2].push("script/course.js");
+llab.paths.scripts[2].push("script/topic.js");
 llab.paths.scripts[2].push("lib/bootstrap.min.js");
 llab.paths.scripts[2].push("script/quiz/multiplechoice.js");
-llab.paths.scripts[2].push("script/topic.js");
 // llab.paths.scripts[2].push("script/user.js");
 
 llab.loaded['multiplechoice'] = false;
@@ -111,14 +113,12 @@ llab.initialSetUp = function() {
     // start the process
     loadScriptsAndLinks(0);
 
-
-
     function getTag(name, src, type) {
         var tag;
         //console.log("Dealing with tag " + name + " with src " + src + " of type " + type);
 
         tag = document.createElement(name);
-        if (src.substring(0, 7) !== "http://") {
+        if (src.substring(0, 2) !== "//") {
             src = llab.rootURL + llab.install_directory + src;
         }
         if (name === "link") {
@@ -129,7 +129,6 @@ llab.initialSetUp = function() {
         tag.type = type;
         return tag;
     }
-
 
     function loadScriptsAndLinks(stage_num) {
         var i;
@@ -165,11 +164,9 @@ llab.initialSetUp = function() {
             // console.log("waiting on stage " + stage_num);
             setTimeout(function() {
                 proceedWhenComplete(stage_num)
-            }, 20);
+            }, 10);
         }
     }
-
-
 };
 
 llab.initialSetUp();

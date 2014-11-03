@@ -739,5 +739,15 @@ button  ::-moz-focus-inner,input[type="reset"]  ::-moz-focus-inner,input[type="b
   padding-right: 22px;
 }
 
+.vocab {
+  font-style: italic;
+  color: #00C;
+}
+
+.help {
+  color: #DC143C;
+  font-style: italic;
+}
+
 
 /********** END DEFAULT.CSS STUFF ********/

@@ -32,6 +32,8 @@ llab.llab_path = llab.rootURL + llab.install_directory;
 llab.paths.css_files.push('css/bootstrap.min.css');
 llab.paths.css_files.push('css/bootstrap-theme.min.css');
 llab.paths.css_files.push("css/default.css");
+// Syntax Highlighting
+llab.paths.css_files.push("//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/default.min.css");
 // llab.paths.css_files.push("css/brainstorm.css");
 // llab.paths.css_files.push("css/user.css");
 // llab.paths.css_files.push("css/unused.css");
@@ -50,6 +52,7 @@ llab.topics_path = llab.rootURL + "topic/";
 llab.topic_launch_page = llab.llab_path + "html/topic.html";
 //  template used when building a topic (in topic.js)
 llab.empty_topic_page_path = llab.llab_path + "html/empty-topic-page.html";
+llab.empty_curriculum_page_path = llab.llab_path + "html/empty-curriculum-page.html";
 
 
 // google analytics tokens
@@ -74,4 +77,4 @@ llab.user = {};
  ******************************
  */
 
-llab.loaded['config']=true;
+llab.loaded['config'] = true;
