@@ -347,6 +347,13 @@ pre code.hljs {
   border-radius: 4px; /* match bootstrap */
 }
 
+.table-middle {
+  vertical-align: middle;
+}
+
+.resultMessageDiv {
+  font-size: 1.2em;
+}
 /******* FEEDBACK BUTTON ON BOTTOM RIGHT */
 .page-feedback {
   padding: 4px;
@@ -728,8 +735,6 @@ img.indent, div.indent {
 }
 
 .MultipleChoice .radiobuttondiv table td {
-  font-size: .85em;
-  vertical-align: top;
   padding: 3px 3px 8px 3px;
 }
 
