@@ -60,6 +60,12 @@ img {
   filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2, Color='#444')";
 }
 
+.noblur { /* No blur for images */
+  -webkit-filter: none;
+  -ms-filter: none;
+  filter: none;
+}
+
 nav {
   padding: 1% 5% 1% 5%;
 }
