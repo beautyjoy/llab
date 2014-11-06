@@ -19,7 +19,13 @@
 */
 
 @font-face {
-
+  font-family: 'SourceCodePro Light';
+  src: url(../fonts/SourceCodePro/EOT/SourceCodePro-Light.eot);
+  src: url(../fonts/SourceCodePro/EOT/SourceCodePro-Light.eot?#iefix) format(embedded-opentype),
+       url(../fonts/SourceCodePro/WOFF/OTF/SourceCodePro-Light.otf.woff) format(woff),
+       url(../fonts/SourceCodePro/WOFF/TTF/SourceCodePro-Light.ttf.woff)  format(truetype),
+       url(../fonts/SourceCodePro/SVG/SourceCodePro-Light.svg) format(svg);
+  weight: 200;
 }
 
 a:visited {
@@ -28,6 +34,10 @@ a:visited {
 
 html {
   font-size: 1em; /* Fix for weird bootstrap */
+}
+
+code, pre, tt {
+  font-family: 'SourceCodePro Light', 'Menlo', 'Monaco', Courier, monospace;
 }
 
 body {
