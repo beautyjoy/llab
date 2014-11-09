@@ -6,10 +6,14 @@
 // TODO: Cache selections of elements
 // TODO: Delay writing to DOM until everything is fully rendered
 // TODO: Reduce complexity of DOM for answer options
+// TODO: Return messages for incorrect answers
+// TODO: Randomize the correct messages (need to randomly pick from an array)
+// TODO: Remove the alert() call for bad answer selections
 
 /* Represents a multiple choice question. */
 
 function MC(data, location, questionNumber) {
+    // FIXME: rename location variable
     //data = data[0];
     this.myClass = "MultipleChoice";
 
@@ -256,6 +260,7 @@ MC.prototype.selectedInSavedState = function(choiceId) {
 
 /**
  * If prototype 'shuffle' for array is not found, create it
+ * TODO: Move this to a generic place for LLAB (library?)
  */
 if (!Array.shuffle) {
     Array.prototype.shuffle = function() {
