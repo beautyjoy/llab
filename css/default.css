@@ -862,17 +862,19 @@ img.indent, div.indent {
   .navbar-right > .btn-group > .arrow {
     display: none;
   }
-  .navbar-right {
-    float: left;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-  }
   .navbar-toggle {
     border: 6px;
   }
   .navbar-right > .btn-group {
     float: left;
+    padding: 0;
+    width: 100%;
+  }
+  .navbar-right {
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
   }
   .dropdown-menu-right {
     width: 100%;
