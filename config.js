@@ -32,7 +32,6 @@ llab.llab_path = llab.rootURL + llab.install_directory;
 // llab.paths.css_files.push('css/3.3.0/bootstrap.min.css');
 // llab.paths.css_files.push('css/3.3.0/bootstrap-theme.min.css');
 llab.paths.css_files.push('css/3.3.0/bootstrap-compiled.min.css');
-
 llab.paths.css_files.push('css/default.css');
 // Syntax Highlighting
 llab.paths.css_files.push("css/tomorrow-night-blue.css");
