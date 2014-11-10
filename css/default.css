@@ -47,14 +47,14 @@ body {
   text-align: left;
   margin: 1em auto;
   padding: 60px 0 0 0; /* paddingTop is reset by JS on title load. */
-  width: 84%;
-  max-width: 1280px;
+  width: 90%;
+  max-width: 1600px;
   background-color: WhiteSmoke;
 }
 
 .full {
   border: 1px solid #003A70;
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: white;
   padding: 1em;
   width: 95%;
@@ -225,9 +225,10 @@ a[disabled] {
   border-radius: 20px;
   background-size: 26px;
   height: 2em;
-  width: 100%;
+  width: 92%;
+  box-shadow: 2px 2px 3px #888;
   /* note extra bottom height is for the feedback button */
-  margin: 2em auto;
+  margin: 1em auto 2em;
   padding: 1em;
 }
 
