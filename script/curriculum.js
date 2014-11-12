@@ -131,7 +131,7 @@ llab.processLinks = function(data, status, jqXHR) {
 
     // Get the URL parameters as an object
     var params = llab.getURLParameters(),
-        course = params.course,
+        course = params.course || '',
         maxItemLen = 35,  // TODO: Replace this with CSS.
         topicArray = data.split("\n"),
         pageStep = 0,
