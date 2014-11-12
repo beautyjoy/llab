@@ -103,12 +103,16 @@ llab.secondarySetUp = function() {
             console.log('Status: ' + status);
         }
     });
+    
+    // TODO: Load CSS and JS here if length isnt 0.
     // Turn on Syntax Highlighting.
     $('pre code').each(function(i, block) {
         // TODO: Why don't jQuery functions work?
         // Trim the extra whitespace in HTML files.
         block.innerHTML = block.innerHTML.trim();
-        hljs.highlightBlock(block);
+        if (typeof hljs !== 'undefined') {
+            hljs.highlightBlock(block);
+        }
     });
 }; // close secondarysetup();
 
@@ -222,7 +226,7 @@ llab.processLinks = function(data, status, jqXHR) {
 
     if (course !== "") {
         // FIXME -- there could be more options
-        if (course.indexOf("://") === -1) {
+        if (course.indexOf("//") === -1) {
             course = llab.courses_path + course;
         }
         itemContent = "<span class='course-link-list'>" + llab.strings.goMain + "</span>";
@@ -346,7 +350,7 @@ llab.createTitleNav = function() {
     // TODO: selector...
     $('.nav-btns').append(buttons);
     if ($(llab.selectors.PROGRESS).length === 0) {
-        $(FULL).append(botHTML);
+        $(document.body).append(botHTML);
         $('.bottom-nav').append(buttons);
     }
 
@@ -484,8 +488,8 @@ llab.addFeedback = function(title, topic, course) {
             {
                 'frameborder': "0",
                 'id': 'feedback-frame',
-                'width': "300",
-                'height': "200",
+                'width': "325",
+                'height': "250",
                 'src': surveyURL
             });
             $('#fdbk').append(frame);
