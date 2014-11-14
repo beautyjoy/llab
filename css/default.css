@@ -151,7 +151,7 @@ th {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin-top: 3px; /* Override Bootstrap */ 
+  margin-top: 3px; /* Override Bootstrap */
   padding: 10px 0;
   color: #000;
 }
@@ -218,17 +218,19 @@ a[disabled] {
 }
 
 .full-bottom-bar {
-  background: #CCC;
+  background: #003A70;
+  opacity: 0.85;
+  filter: alpha(opacity=85); /* For IE8 and earlier */
   background-image: url(../img/progress.gif);
   background-repeat: no-repeat;
-  background-position: 2px 2px;
-  border-radius: 20px;
   background-size: 26px;
-  height: 2em;
+  height: 32px;
+  background-position: 2% 3px; /* (32px - 26px) / 2 */
+  border-radius: 20px;
   width: 92%;
   box-shadow: 2px 2px 3px #888;
-  /* note extra bottom height is for the feedback button */
-  margin: 1em auto 2em;
+  /* 3em is extra padding for the feedback button */
+  margin: 1em auto 3em;
   padding: 1em;
 }
 
@@ -277,15 +279,17 @@ a[disabled] {
 /* Bottom nav buttons are slightly different */
 .bottom-nav {
   float: right;
-  margin-top: -.9em;
+  height: 26px;
+  margin-top: -13px; /* Height / 2 */
+  vertical-align: middle;
 }
 
 .bottom-nav > .btn {
-  vertical-align: middle;
-  height: 2em;
-  padding: 0;
-  font-size: .8em;
+  height: 26px; /* Same height as above */
+  padding: 2px; /* FIXME -- value is weird */
+  font-size: .76em;
 }
+
 /* END NAV SECTION ***********************************************************/
 
 /* PAGE DROPDOWN SECTION ******************************************************/
