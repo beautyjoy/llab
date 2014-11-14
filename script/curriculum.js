@@ -103,7 +103,7 @@ llab.secondarySetUp = function() {
             console.log('Status: ' + status);
         }
     });
-    
+
     // TODO: Load CSS and JS here if length isnt 0.
     // Turn on Syntax Highlighting.
     $('pre code').each(function(i, block) {
@@ -240,7 +240,7 @@ llab.processLinks = function(data, status, jqXHR) {
     $('.dropdown').append(list);
     // Set the max-height of the dropdown list to not exceed window height
     // This is particularly important for smaller screens.
-    $('.dropdown-menu').css('max-height', $(window).height() - 100);
+    $('.dropdown-menu').css('max-height', $(window).height() - 50);
 
 
     // FIXME -- this doesn't belong here.
@@ -311,10 +311,10 @@ llab.setupTitle = function() {
 
     // FIXME -- Not great on widnow resize
     // Needs to be refactored, and window listener added
-    $(document.body).css('padding-top', $('.llab-nav').height() + 15);
+    $(document.body).css('padding-top', $('.llab-nav').height() + 10);
     window.onresize = function(event) {
         $(document.body).css('padding-top', $('.llab-nav').height() +
-        15);
+        10);
     };
     llab.titleSet = true;
 };
@@ -518,7 +518,8 @@ llab.indicateProgress = function(numSteps, currentStep) {
     pctMargin = (btns / width) * 100;
     result = (currentStep + 1) /  (numSteps + 1); // Handle 0 indexing
     result = result * (100 - pctMargin);
-    result = result + "% 2px";
+    result = result + "% 3px";
+    // 3px == height of bottom-bar - image height (32px - 26px) / 2
     progress.css("background-position", result);
 };
 
