@@ -28,6 +28,8 @@
   weight: 200;
 }
 
+
+
 a:visited {
   color: #36BBCE;
 }
@@ -184,7 +186,7 @@ a[disabled] {
   margin: 0 0 .5em 0;
   box-shadow: 0 5px 10px #CCC;
   width: 100%;
-  padding: .5em;
+  padding: .5em 1em;
   vertical-align: middle;
 }
 
