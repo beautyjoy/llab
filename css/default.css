@@ -18,17 +18,85 @@
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-@font-face {
+/* * * * * FONTS * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* DO NOT LOAD EXTRA FONTS WE WONT USE */
+@font-face { /* Used for all code elements */
   font-family: 'SourceCodePro Light';
   src: url(../fonts/SourceCodePro/EOT/SourceCodePro-Light.eot);
   src: url(../fonts/SourceCodePro/EOT/SourceCodePro-Light.eot?#iefix) format(embedded-opentype),
        url(../fonts/SourceCodePro/WOFF/OTF/SourceCodePro-Light.otf.woff) format(woff),
        url(../fonts/SourceCodePro/WOFF/TTF/SourceCodePro-Light.ttf.woff)  format(truetype),
        url(../fonts/SourceCodePro/SVG/SourceCodePro-Light.svg) format(svg);
-  weight: 200;
+  font-weight: normal;
+  font-style: normal;
 }
 
+@font-face { /* Default Sans Font */
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans/OpenSans-Regular-webfont.eot');
+  src: url('../fonts/opensans/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/opensans/OpenSans-Regular-webfont.woff') format('woff'),
+       url('../fonts/opensans/OpenSans-Regular-webfont.ttf') format('truetype'),
+       url('../fonts/opensans/OpenSans-Regular-webfont.svg#open_sanslight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
 
+@font-face { /* Sans Headers */
+  font-family: 'VAG Rounded Light';
+  src: url(../fonts/vagrounded/VAGRoundedStd-Light.eot);
+  src: url(../fonts/vagrounded/VAGRoundedStd-Light.eot?#iefix) format(embedded-opentype),
+       url(../fonts/vagrounded/VAGRoundedStd-Light.woff) format(woff),
+       url(../fonts/vagrounded/VAGRoundedStd-Light.ttf)  format(truetype),
+       url(../fonts/vagrounded/VAGRoundedStd-Light.svg) format(svg);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face { /* All Serif Elements */
+  font-family: 'Freight Text Pro Book';
+  src: url(../fonts/FreightTextPro/FreightTextProBook.otf);
+/*  src: url(../fonts/FreightTextPro/FreightTextProBook.eot?#iefix) format(embedded-opentype),
+       url(../fonts/FreightTextPro/FreightTextProBook.otf.woff) format(woff),
+       url(../fonts/FreightTextPro/FreightTextProBook.ttf.woff)  format(truetype),
+       url(../fonts/FreightTextPro/FreightTextProBook.svg) format(svg);*/
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face { /* All Serif Elements */
+  font-family: 'Freight Text Pro Book';
+  src: url(../fonts/FreightTextPro/FreightTextProBold.otf);
+/*  src: url(../fonts/FreightTextPro/FreightTextProBook.eot?#iefix) format(embedded-opentype),
+       url(../fonts/FreightTextPro/FreightTextProBook.otf.woff) format(woff),
+       url(../fonts/FreightTextPro/FreightTextProBook.ttf.woff)  format(truetype),
+       url(../fonts/FreightTextPro/FreightTextProBook.svg) format(svg);*/
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* * * * END FONTS * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/* FONT STYLES FOR ELEMENTS */
+/* Override Bootstrap */
+code, pre, tt, kbd, samp {
+  font-family: 'SourceCodePro Light', 'Andale Mono', 'Menlo', 'Monaco', Courier, monospace;
+}
+
+h1, h4, h5, h6, .header-sans {
+  font-family: 'VAG Rounded Light', 'VAG Rounded', 'Helvetica Neue' Helvetica sans-serif;
+  font-weight: normal;
+}
+
+h2, h3, .full ul, .full ol, blockquote,
+.header-serif, .title, .navbar-title, .serif { /* Only One serif font */
+  font-family: 'Freight Text Pro Book', 'Baskerville', 'Georgia', 'Times', serif;
+}
+
+body { /* default Sans Serif Stack */
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* END FONT SETTINGS */
 
 a:visited {
   color: #36BBCE;
@@ -38,17 +106,11 @@ html {
   font-size: 1em; /* Fix for weird bootstrap */
 }
 
-/* Override Bootstrap */
-code, pre, tt, kbd, samp {
-  font-family: 'SourceCodePro Light', 'Andale Mono', 'Menlo', 'Monaco', Courier, monospace;
-}
-
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1em;
   text-align: left;
   margin: 1em auto;
-  padding: 60px 0 0 0; /* paddingTop is reset by JS on title load. */
+  padding: 45px 0 0 0; /* padding top is reset by JS on load. */
   width: 90%;
   max-width: 1600px;
   background-color: WhiteSmoke;
@@ -92,7 +154,7 @@ nav {
 tt {
   font-size: 120%;
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.4;
 }
 
 code {
@@ -112,27 +174,20 @@ p.right {
 
 /* FIXME --- poorly performant. */
 .full ul, .full ol {
-  font: 1em "Palatino Linotype", "Book Antiqua", 'Palatino', serif;
+  font-size: 1em;
   font-weight: inherit;
-  /* width:85%; */
   display:inline-block;
-  color: #003;
+  color: #004;
   line-height: 130%;
   padding: 5px 15px 5px 5px;
   margin: 15px 15px 15px  0; /* Added */
-  border: 1px solid #3399ff;
+  border: 1.5px solid #39F;
+  border-radius: 6px;
 }
 
 ul > li, ol > li {
   padding: 5px;
   margin-left: 35px; /* WHY? This causes problems in some places... */
-}
-
-li > ul, li > ol {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  border: none;
-  display: block;
 }
 
 /*
@@ -147,6 +202,12 @@ above rules override these without it.
   border: none;
 }
 
+li > ul, li > ol {
+  margin: 5px auto;
+  border: none;
+  display: block;
+}
+
 th {
   font-weight: normal;
   font-size: 16px;
@@ -154,17 +215,15 @@ th {
 
 h1, h2, h3, h4, h5, h6 {
   margin-top: 3px; /* Override Bootstrap */
-  padding: 10px 0;
+  padding: 8px 0;
   color: #000;
 }
 
-h2, h3 { /* FIXME -- fonts */
-  font-weight: 900;
-  font-family: "Palatino Linotype", "Book Antiqua", "Palatino", serif;
+h2, h3 {
+  font-weight: 800;
 }
 
 blockquote {
-  font-family: Georgia, "Times New Roman", Times, serif;
   font-style: italic;
   padding: 15px;
 }
@@ -197,11 +256,10 @@ a[disabled] {
 }
 
 .navbar-title, .title-small-screen {
-  font: bold 1.5em Georgia, serif;
+  font-size: 1.5em;
+  font-weight: bold;
   font-variant: small-caps;
   color: #003A70;
-  /* hacky. Pushes the text down to be more aligned with the buttons */
-  padding-top: .1em;
   text-align: left;
   letter-spacing: 1.5px;
 }
@@ -210,7 +268,7 @@ a[disabled] {
 /* First line is stupid bootstrap stuff....*/
 .navbar-default .navbar-title:hover, .navbar-default .navbar-title:focus,
 .navbar-default .navbar-title,
-.navbar-title {
+.navbar-title, a..navbar-title {
   vertical-align: middle;
   max-width: 80%;
   min-width: 50%;
@@ -435,6 +493,7 @@ pre > code.hljs {
   text-decoration: line-through;
 }
 
+/* TODO: Document THis.... */
 table .pre {
   line-height: 1em;
 }
@@ -517,7 +576,7 @@ img.indent, div.indent {
 }
 
 .quoteBlue { /* FIXME, name needed */
-  border-left: 12px solid #164cba;
+  border-left: 12px solid #164CBA;
   background-color: #99F;
 }
 
@@ -597,22 +656,20 @@ img.indent, div.indent {
 */
 .bigideas,
 .learninggoals {
-  font-weight: bold;
+  font-weight: 400;
 }
 
 /* Formatting stuff */
-/* FIXME -- selectors need improvement.
-* Can we just delete the .topic? */
-.topic .indent0 {
+.indent0 {
   margin-left: 0
 }
-.topic .indent1 {
+.indent1 {
   margin-left: 20px
 }
-.topic .indent2 {
+.indent2 {
   margin-left: 40px
 }
-.topic .indent3 {
+.indent3 {
   margin-left: 60px
 }
 
@@ -656,7 +713,6 @@ img.indent, div.indent {
   text-transform: capitalize;
   font-variant: small-caps;
   font-style: normal;
-  font-family: "Times New Roman", Times, serif; /* FIXME */
 }
 
 .snap:after {
@@ -822,7 +878,7 @@ img.indent, div.indent {
 }
 
 .MultipleChoice .promptdiv a:hover {
-  background-color: #FFFF00;
+  background-color: #FF0;
 }
 
 .MultipleChoice .promptdiv tt {
@@ -925,22 +981,21 @@ img.indent, div.indent {
 #tableBlue {
   border-collapse: collapse;
   margin: 10px 15px;
-  background-color: #ccccff;
+  background-color: #CCF;
 }
 
 #tableBlue th {
-  border: 1px solid #6666FF;
+  border: 1px solid #66F;
   vertical-align: top;
   text-align: left;
-  font: .8em "Times New Roman", Times;
+  font-size: .8em;
   padding: 2px 10px;
   font-weight: 600;
 }
 
 #tableBlue td {
-  border: 1px solid #6666FF;
+  border: 1px solid #66F;
   vertical-align: top;
-  font: 1em "Times New Roman", Times;
   padding: 5px 10px;
   vertical-align: top;
 }
@@ -956,11 +1011,11 @@ form li div {
 
 form > h2, form > ol > li {
   color: #999;
-  font: 500 30px Tahoma, Geneva, sans-serif;
+  font: 500 30px;
 }
 
 form label {
-  font-family: Tahoma, Geneva, sans-serif;
+  font-family: sans-serif;
 }
 
 /* Add arrows to each button */
