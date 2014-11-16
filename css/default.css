@@ -87,13 +87,13 @@ h1, h4, h5, h6, .header-sans {
   font-weight: normal;
 }
 
-h2, h3, .full ul, .full ol, blockquote,
-.header-serif, .title, .navbar-title, .serif { /* Only One serif font */
+h2, h3, .full ul, .full ol, blockquote,  /* Only One serif font */
+.title-small-screen, .header-serif, .title, .navbar-title, .serif {
   font-family: 'Freight Text Pro Book', 'Baskerville', 'Georgia', 'Times', serif;
 }
 
 body { /* default Sans Serif Stack */
-  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: "Open Sans", Helvetica, sans-serif;
 }
 
 /* END FONT SETTINGS */
@@ -165,10 +165,9 @@ code {
 p {
   font: 1em;
   color: black;
-  line-height: 1.4;
 }
 
-p.right {
+.right {
   text-align: right;
 }
 
@@ -181,7 +180,7 @@ p.right {
   line-height: 130%;
   padding: 5px 15px 5px 5px;
   margin: 15px 15px 15px  0; /* Added */
-  border: 1.5px solid #39F;
+  border: 2px solid #39F;
   border-radius: 6px;
 }
 
@@ -225,7 +224,7 @@ h2, h3 {
 
 blockquote {
   font-style: italic;
-  padding: 15px;
+  padding: 10px;
 }
 
 /* Physically disables clicking on a link which LOOKS disabled. */
