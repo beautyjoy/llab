@@ -104,10 +104,14 @@ a:visited {
 
 html {
   font-size: 1em; /* Fix for weird bootstrap */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   font-size: 1em;
+  line-height: 1.5;
+  color: #000; /* Why Bootstrap, why?! */
   text-align: left;
   margin: 1em auto;
   padding: 45px 0 0 0; /* padding top is reset by JS on load. */
@@ -150,23 +154,6 @@ nav {
   padding: 1% 5% 1% 5%;
 }
 
-/* Should try to avoid tt; deprecated & unsupported tag */
-tt {
-  font-size: 120%;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-code {
-  font-weight: 600;
-  line-height: 1.7;
-}
-
-p {
-  font: 1em;
-  color: black;
-}
-
 .right {
   text-align: right;
 }
@@ -177,7 +164,6 @@ p {
   font-weight: inherit;
   display:inline-block;
   color: #004;
-  line-height: 130%;
   padding: 5px 15px 5px 5px;
   margin: 15px 15px 15px  0; /* Added */
   border: 2px solid #39F;
@@ -238,9 +224,8 @@ a[disabled] {
 
 /** PAGE NAV (TOP AND BOTTOM) ************************************************/
 .llab-nav {
+  line-height: 1.38; /* Keep slightly smaller than normal to control centering the nav buttons */
   background: #FFF;
-  position: fixed;
-  top: 0;
   margin: 0 0 .5em 0;
   box-shadow: 0 5px 10px #CCC;
   width: 100%;
