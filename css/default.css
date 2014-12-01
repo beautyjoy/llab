@@ -54,7 +54,7 @@
 }
 
 @font-face { /* All Serif Elements */
-  font-family: 'Freight Text Pro Book';
+  font-family: 'Freight Text Pro';
   src: url(../fonts/FreightTextPro/FreightTextProBook.otf);
 /*  src: url(../fonts/FreightTextPro/FreightTextProBook.eot?#iefix) format(embedded-opentype),
        url(../fonts/FreightTextPro/FreightTextProBook.otf.woff) format(woff),
@@ -65,7 +65,7 @@
 }
 
 @font-face { /* All Serif Elements */
-  font-family: 'Freight Text Pro Book';
+  font-family: 'Freight Text Pro';
   src: url(../fonts/FreightTextPro/FreightTextProBold.otf);
 /*  src: url(../fonts/FreightTextPro/FreightTextProBook.eot?#iefix) format(embedded-opentype),
        url(../fonts/FreightTextPro/FreightTextProBook.otf.woff) format(woff),
@@ -89,7 +89,7 @@ h1, h4, h5, h6, .header-sans {
 
 h2, h3, .full ul, .full ol, blockquote,  /* Only One serif font */
 .title-small-screen, .header-serif, .title, .navbar-title, .serif {
-  font-family: 'Freight Text Pro Book', 'Baskerville', 'Georgia', 'Times', serif;
+  font-family: 'Freight Text Pro', 'Baskerville', 'Georgia', 'Times', serif;
 }
 
 body { /* default Sans Serif Stack */
@@ -245,7 +245,6 @@ a[disabled] {
   font-variant: small-caps;
   color: #003A70;
   text-align: left;
-  letter-spacing: 1.5px;
 }
 
 /* Contains the page title text, truncates text with '…' */
@@ -895,10 +894,7 @@ img.indent, div.indent {
 /********************************/
 /*** END QUIZ CSS               */
 /********************************/
-/******** SMALLL DEVICE STUFF *****/
-/* NOTE: Bootstrap....
-* Only include different attributes.
-*/
+/******* SMALL DEVICE STUFF *****/
 @media (max-width: 768px) {
   body {
     width: 100%;
@@ -1001,13 +997,4 @@ form > h2, form > ol > li {
 form label {
   font-family: sans-serif;
 }
-
-/* Add arrows to each button */
-/*.backbutton:before {
-content: '\2190 ';
-}
-.forwardbutton:after {
-content: ' \2192';
-}
-*/
 
