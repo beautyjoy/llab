@@ -84,7 +84,7 @@ llab.secondarySetUp = function() {
     llab.file = llab.getQueryParameter("topic");
 
     // We don't have a topic file, so we should exit.
-    if (llab.file === "") { // || isNaN(llab.step)
+    if (llab.file === '' || !llab.thisIsCurrPage()) {
         return;
     }
 
@@ -126,7 +126,7 @@ llab.processLinks = function(data, status, jqXHR) {
      * FOR SOME REASON llab.file gets reset with the ajax call.
      */
     if (llab.file === '') {
-        llab.file = llab.getQueryParameter("topic");
+        llab.file = llab.getQueryParameter('topic');
     }
 
     if (document.URL.indexOf(llab.empty_curriculum_page_path) !== -1) {
@@ -218,7 +218,7 @@ llab.processLinks = function(data, status, jqXHR) {
         list.append(ddItem);
     } // end for loop
 
-    if (course !== "") {
+    if (course !== '') {
         // FIXME -- there could be more options
         if (course.indexOf("//") === -1) {
             course = llab.courses_path + course;
@@ -268,7 +268,7 @@ llab.setupTitle = function() {
     // TODO: rename / refactor location
     $(document.head).append('<meta name="viewport" content="width=device-width, initial-scale=1">');
 
-    if (typeof llab.titleSet !== 'undefined' && llab.titleSet) {
+    if (llab.titleSet) {
         return;
     }
 
@@ -335,11 +335,10 @@ llab.createTitleNav = function() {
     }
 
     // Don't add anything else if we don't know the step...
-    // FIXME -- this requires a step as a URL param currently.
     // FUTURE - We should separate the rest of this function if necessary.
-    // if (isNaN(llab.step)) {
-    //     return;
-    // }
+    if (!llab.thisIsCurrPage()) {
+        return;
+    }
 
     // TODO: selector...
     $('.nav-btns').append(buttons);
@@ -388,17 +387,31 @@ llab.dropdownItem = function(text, url) {
     return item;
 };
 
+llab.thisIsCurrPage = function() {
+    console.log('curr page?');
+    if (llab.getQueryParameter('topic')) {
+        return window.location.pathname !== llab.empty_topic_page_path &&
+               window.location.pathname !== llab.topic_launch_page &&
+               window.location.pathname !== llab.alt_topic_page;
+    }
+    return false;
+}
+
+
+console.log(llab.thisIsCurrPage());
+
+
 // XXXXXX
-llab.getCurrentPageNum = function() {
+llab.thisPageNum = function() {
     return llab.url_list.indexOf(window.location.pathname + window.location.search);
 }
 
 // Create the Forward and Backward buttons, properly disabling them when needed
 llab.setButtonURLs = function() {
     // No dropdowns for places that don't have a step.
-    // if (isNaN(llab.step)) {
-    //     return;
-    // }
+    if (!llab.thisIsCurrPage()) {
+        return;
+    }
 
     // TODO REFACTOR THIS
     var forward = $('.forwardbutton');
@@ -415,7 +428,7 @@ llab.setButtonURLs = function() {
     back    = $('.backbutton');
 
     // Disable the back button
-    if (llab.getCurrentPageNum() === 0) {
+    if (llab.thisPageNum() === 0) {
         back.each(function(i, item) {
             $(item).addClass('disabled')
                    .attr('href', '#');
@@ -429,7 +442,7 @@ llab.setButtonURLs = function() {
     }
 
     // Disable the forward button
-    if (llab.getCurrentPageNum() === llab.url_list.length - 1) {
+    if (llab.thisPageNum() === llab.url_list.length - 1) {
         forward.each(function(i, item) {
             $(item).addClass('disabled')
                    .attr('href', '#');
@@ -445,11 +458,11 @@ llab.setButtonURLs = function() {
 
 // TODO: Update page content and push URL onto browser back button
 llab.goBack = function() {
-    window.location.href = llab.url_list[llab.getCurrentPageNum() - 1];
+    window.location.href = llab.url_list[llab.thisPageNum() - 1];
 };
 
 llab.goForward = function() {
-    window.location.href = llab.url_list[llab.getCurrentPageNum() + 1];
+    window.location.href = llab.url_list[llab.thisPageNum() + 1];
 };
 
 llab.addFeedback = function(title, topic, course) {
