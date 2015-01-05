@@ -488,8 +488,8 @@ llab.addFeedback = function(title, topic, course) {
             {
                 'frameborder': "0",
                 'id': 'feedback-frame',
-                'width': "325",
-                'height': "250",
+                'width': "300",
+                'height': "230",
                 'src': surveyURL
             });
             $('#fdbk').append(frame);
