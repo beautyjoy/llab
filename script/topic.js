@@ -255,7 +255,7 @@ llab.isTag = function(s) {
 llab.displayTopic = function() {
     llab.file = llab.getQueryParameter("topic");
 
-    if (llab.file !== "") {
+    if (llab.file !== '') {
         $.ajax({
             url : llab.topics_path + llab.file,
             type : "GET",

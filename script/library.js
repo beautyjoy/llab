@@ -211,8 +211,7 @@ llab.merge = function(objA, objB) {
 };
 
 llab.getURLParameters = function() {
-    var query = window.location.search;
-    return llab.QS.parse(query);
+    return llab.QS.parse(window.location.search);
 };
 
 llab.getAttributesForElement = function(elm) {
