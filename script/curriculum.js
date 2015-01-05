@@ -22,7 +22,7 @@ llab.secondarySetUp = function() {
 
     // This stuff should only happen on curriculum pages
 
-    llab.step = parseInt(llab.getQueryParameter("step"));
+    // llab.step = parseInt(llab.getQueryParameter("step"));
 
     // fix snap links so they run snap
     $("a.run").each(function(i) {
@@ -84,7 +84,7 @@ llab.secondarySetUp = function() {
     llab.file = llab.getQueryParameter("topic");
 
     // We don't have a topic file, so we should exit.
-    if (llab.file === "" || isNaN(llab.step)) {
+    if (llab.file === "") { // || isNaN(llab.step)
         return;
     }
 
@@ -138,7 +138,6 @@ llab.processLinks = function(data, status, jqXHR) {
         course = params.course || '',
         maxItemLen = 35,  // TODO: Replace this with CSS.
         topicArray = data.split("\n"),
-        pageStep = 0,
         url = document.URL,
         // TODO: Move this to a dropdown function
         list = $(document.createElement("ul")).attr(
@@ -154,14 +153,13 @@ llab.processLinks = function(data, status, jqXHR) {
     // step number. (We don't need to delete / re-create other properties)
     delete params.step;
 
-    var i = 0, len = topicArray.length;
-    for (; i < len; i+= 1) {
-        line = llab.stripComments($.trim(topicArray[i]));
+    var pageNum = 0, len = topicArray.length;
+    for (; pageNum < len; pageNum += 1) {
+        line = llab.stripComments($.trim(topicArray[pageNum]));
 
         // Skip is this line is hidden in URL params.
         lineClass = line.slice(0, line.indexOf(":"));
-        isHidden = params.hasOwnProperty('no' + lineClass) &&
-            params['no' + lineClass];
+        isHidden = params.hasOwnProperty('no' + lineClass);
         if (isHidden) { continue; }
 
         // Line is a title.
@@ -199,7 +197,6 @@ llab.processLinks = function(data, status, jqXHR) {
             url = llab.empty_curriculum_page_path + "?" + llab.QS.stringify(
             $.extend({}, params, {
                 src: url,
-                step: pageStep,
                 title: itemContent
             }));
         } else { // Content reference is local
@@ -207,21 +204,18 @@ llab.processLinks = function(data, status, jqXHR) {
                 url = llab.rootURL + (url[0] === "/" ? '' : "/") + url;
             }
             url += url.indexOf("?") !== -1 ? "&" : "?";
-            url += llab.QS.stringify($.extend({}, params, {
-                step: pageStep }));
+            url += llab.QS.stringify($.extend({}, params));
         }
 
         llab.url_list.push(url);
-
         // Make the current step have an arrow in the dropdown menu
-        if (pageStep === llab.step) {
+        if (url === (window.location.pathname + window.location.search)) {
+            llab.step = pageNum;
             itemContent = "<span class='current-step-link'>" + itemContent + "</span>";
         }
 
         ddItem = llab.dropdownItem(itemContent, url);
         list.append(ddItem);
-        pageStep += 1;
-
     } // end for loop
 
     if (course !== "") {
@@ -343,9 +337,9 @@ llab.createTitleNav = function() {
     // Don't add anything else if we don't know the step...
     // FIXME -- this requires a step as a URL param currently.
     // FUTURE - We should separate the rest of this function if necessary.
-    if (isNaN(llab.step)) {
-        return;
-    }
+    // if (isNaN(llab.step)) {
+    //     return;
+    // }
 
     // TODO: selector...
     $('.nav-btns').append(buttons);
@@ -394,12 +388,17 @@ llab.dropdownItem = function(text, url) {
     return item;
 };
 
+// XXXXXX
+llab.getCurrentPageNum = function() {
+    return llab.url_list.indexOf(window.location.pathname + window.location.search);
+}
+
 // Create the Forward and Backward buttons, properly disabling them when needed
 llab.setButtonURLs = function() {
     // No dropdowns for places that don't have a step.
-    if (isNaN(llab.step)) {
-        return;
-    }
+    // if (isNaN(llab.step)) {
+    //     return;
+    // }
 
     // TODO REFACTOR THIS
     var forward = $('.forwardbutton');
@@ -416,7 +415,7 @@ llab.setButtonURLs = function() {
     back    = $('.backbutton');
 
     // Disable the back button
-    if (llab.step === 0) {
+    if (llab.getCurrentPageNum() === 0) {
         back.each(function(i, item) {
             $(item).addClass('disabled')
                    .attr('href', '#');
@@ -430,7 +429,7 @@ llab.setButtonURLs = function() {
     }
 
     // Disable the forward button
-    if (llab.step >= llab.url_list.length - 1) {
+    if (llab.getCurrentPageNum() === llab.url_list.length - 1) {
         forward.each(function(i, item) {
             $(item).addClass('disabled')
                    .attr('href', '#');
@@ -446,11 +445,11 @@ llab.setButtonURLs = function() {
 
 // TODO: Update page content and push URL onto browser back button
 llab.goBack = function() {
-    window.location.href = llab.url_list[llab.step - 1];
+    window.location.href = llab.url_list[llab.getCurrentPageNum() - 1];
 };
 
 llab.goForward = function() {
-    window.location.href = llab.url_list[llab.step + 1];
+    window.location.href = llab.url_list[llab.getCurrentPageNum() + 1];
 };
 
 llab.addFeedback = function(title, topic, course) {
