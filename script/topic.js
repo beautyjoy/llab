@@ -73,9 +73,9 @@ llab.renderFull = function(data, ignored1, ignored2) {
     temp = window.location.search.substring(1).split("&");
     for (var i = 0; i < temp.length; i++) {
         var temp2 = temp[i].split("=");
-        if (temp2[0].substring(0, 2) == "no" && temp2[1] == "true") {
+        if (temp2[0].substring(0, 2) == "no") {
             hidden.push(temp2[0].substring(2));
-            hiddenString += ("&" + temp2[0] + "=" + temp2[1]);
+            hiddenString += ("&" + temp2[0]);
         }
     }
     data = data.replace(/(\r)/gm,"");    // remove crazy windows linefeed characters
