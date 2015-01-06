@@ -9,7 +9,6 @@
  */
 
 llab.file = "";
-llab.step = NaN;
 llab.url_list = [];
 
 var FULL = llab.selectors.FULL,
@@ -22,7 +21,7 @@ llab.secondarySetUp = function() {
 
     // This stuff should only happen on curriculum pages
 
-    llab.step = parseInt(llab.getQueryParameter("step"));
+    // llab.step = parseInt(llab.getQueryParameter("step"));
 
     // fix snap links so they run snap
     $("a.run").each(function(i) {
@@ -84,7 +83,7 @@ llab.secondarySetUp = function() {
     llab.file = llab.getQueryParameter("topic");
 
     // We don't have a topic file, so we should exit.
-    if (llab.file === "" || isNaN(llab.step)) {
+    if (llab.file === '' || !llab.isCurriculum()) {
         return;
     }
 
@@ -123,13 +122,13 @@ llab.secondarySetUp = function() {
  */
 llab.processLinks = function(data, status, jqXHR) {
     /* NOTE: DO NOT REMOVE THIS CONDITIONAL WITHOUT SERIOUS TESTING
-     * FOR SOME REASON llab.file gets reset with the ajax call.
+     * llab.file gets reset with the ajax call.
      */
     if (llab.file === '') {
-        llab.file = llab.getQueryParameter("topic");
+        llab.file = llab.getQueryParameter('topic');
     }
 
-    if (document.URL.indexOf(llab.empty_curriculum_page_path) !== -1) {
+    if (location.pathname === llab.empty_curriculum_page_path) {
         llab.addFrame();
     }
 
@@ -138,7 +137,6 @@ llab.processLinks = function(data, status, jqXHR) {
         course = params.course || '',
         maxItemLen = 35,  // TODO: Replace this with CSS.
         topicArray = data.split("\n"),
-        pageStep = 0,
         url = document.URL,
         // TODO: Move this to a dropdown function
         list = $(document.createElement("ul")).attr(
@@ -148,20 +146,23 @@ llab.processLinks = function(data, status, jqXHR) {
         ddItem,
         line,
         isHidden,
-        lineClass;
+        lineClass,
+        i = 0,
+        len = topicArray.length,
+        isExternal;
 
-    // This is necessary to make sure that each new URL has the right
-    // step number. (We don't need to delete / re-create other properties)
+    // Prevent src from being added to other URLS.
+    delete params.src;
+    // TODO -- verify that step isn't added to URLs anymore.
     delete params.step;
+    delete params.title;
 
-    var i = 0, len = topicArray.length;
-    for (; i < len; i+= 1) {
+    for (; i < len; i += 1) {
         line = llab.stripComments($.trim(topicArray[i]));
 
         // Skip is this line is hidden in URL params.
         lineClass = line.slice(0, line.indexOf(":"));
-        isHidden = params.hasOwnProperty('no' + lineClass) &&
-            params['no' + lineClass];
+        isHidden = params.hasOwnProperty('no' + lineClass);
         if (isHidden) { continue; }
 
         // Line is a title.
@@ -196,35 +197,33 @@ llab.processLinks = function(data, status, jqXHR) {
 
         // Content References an external resource
         if (url.indexOf("//") !== -1) {
+            isCurrentPage = llab.getQueryParameter('src') === decodeURIComponent(url);
             url = llab.empty_curriculum_page_path + "?" + llab.QS.stringify(
-            $.extend({}, params, {
-                src: url,
-                step: pageStep,
-                title: itemContent
-            }));
+                    $.extend({}, params, {
+                        src: url,
+                        title: itemContent
+                    }));
         } else { // Content reference is local
+            isCurrentPage = url.split('?')[0] === location.pathname;
             if (url.indexOf(llab.rootURL) === -1 && url.indexOf("..") === -1) {
                 url = llab.rootURL + (url[0] === "/" ? '' : "/") + url;
             }
             url += url.indexOf("?") !== -1 ? "&" : "?";
-            url += llab.QS.stringify($.extend({}, params, {
-                step: pageStep }));
+            url += llab.QS.stringify($.extend({}, params));
         }
 
         llab.url_list.push(url);
 
         // Make the current step have an arrow in the dropdown menu
-        if (pageStep === llab.step) {
-            itemContent = "<span class='current-step-link'>" + itemContent + "</span>";
+        if (isCurrentPage) {
+            itemContent = "<span class='current-page-arrow'>" + itemContent + "</span>";
         }
 
         ddItem = llab.dropdownItem(itemContent, url);
         list.append(ddItem);
-        pageStep += 1;
-
     } // end for loop
 
-    if (course !== "") {
+    if (course !== '') {
         // FIXME -- there could be more options
         if (course.indexOf("//") === -1) {
             course = llab.courses_path + course;
@@ -244,7 +243,7 @@ llab.processLinks = function(data, status, jqXHR) {
 
 
     // FIXME -- this doesn't belong here.
-    llab.indicateProgress(llab.url_list.length, llab.step);
+    llab.indicateProgress(llab.url_list.length, llab.thisPageNum() + 1);
 
     // FIXME -- not sure this really belongs here as well.
     llab.addFeedback(document.title, llab.file, course);
@@ -274,7 +273,7 @@ llab.setupTitle = function() {
     // TODO: rename / refactor location
     $(document.head).append('<meta name="viewport" content="width=device-width, initial-scale=1">');
 
-    if (typeof llab.titleSet !== 'undefined' && llab.titleSet) {
+    if (llab.titleSet) {
         return;
     }
 
@@ -292,7 +291,7 @@ llab.setupTitle = function() {
     llab.createTitleNav();
 
     // create Title tag, yo
-    if (llab.getQueryParameter("title") !== "") {
+    if (llab.getQueryParameter("title") !== '') {
         document.title = decodeURIComponent(llab.getQueryParameter("title"));
     }
 
@@ -312,7 +311,7 @@ llab.setupTitle = function() {
     // FIXME -- Not great on widnow resize
     // Needs to be refactored, and window listener added
     $(document.body).css('padding-top', $('.llab-nav').height() + 10);
-    window.onresize = function(event) {
+    onresize = function(event) {
         $(document.body).css('padding-top', $('.llab-nav').height() +
         10);
     };
@@ -341,9 +340,8 @@ llab.createTitleNav = function() {
     }
 
     // Don't add anything else if we don't know the step...
-    // FIXME -- this requires a step as a URL param currently.
     // FUTURE - We should separate the rest of this function if necessary.
-    if (isNaN(llab.step)) {
+    if (!llab.isCurriculum()) {
         return;
     }
 
@@ -394,10 +392,39 @@ llab.dropdownItem = function(text, url) {
     return item;
 };
 
+llab.isCurriculum = function() {
+    if (llab.getQueryParameter('topic')) {
+        return location.pathname !== llab.empty_topic_page_path &&
+               location.pathname !== llab.topic_launch_page &&
+               location.pathname !== llab.alt_topic_page;
+    }
+    return false;
+}
+
+
+/* Return the index value of this page in reference to the lab.
+ * Indicies are 0 based, and this excludes query parameters because
+ * they could become re-ordered. */
+llab.thisPageNum = function() {
+    var path = location.pathname;
+    var urls;
+    if (path === llab.empty_curriculum_page_path) {
+        urls = llab.url_list.map(function(item) {
+            return llab.QS.parse(item)['src'];
+        });
+        path = llab.getQueryParameter('src');
+    } else {
+        urls = llab.url_list.map(function(item) {
+            return item.split('?')[0];
+        });
+    }
+    return urls.indexOf(path);
+}
+
 // Create the Forward and Backward buttons, properly disabling them when needed
 llab.setButtonURLs = function() {
     // No dropdowns for places that don't have a step.
-    if (isNaN(llab.step)) {
+    if (!llab.isCurriculum()) {
         return;
     }
 
@@ -416,7 +443,8 @@ llab.setButtonURLs = function() {
     back    = $('.backbutton');
 
     // Disable the back button
-    if (llab.step === 0) {
+    var thisPage = llab.thisPageNum();
+    if (thisPage === 0) {
         back.each(function(i, item) {
             $(item).addClass('disabled')
                    .attr('href', '#');
@@ -424,13 +452,13 @@ llab.setButtonURLs = function() {
     } else {
         back.each(function(i, item) {
             $(item).removeClass('disabled')
-                   .attr('href', llab.url_list[llab.step - 1])
+                   .attr('href', llab.url_list[thisPage - 1])
                    .click(llab.goBack);
         });
     }
 
     // Disable the forward button
-    if (llab.step >= llab.url_list.length - 1) {
+    if (thisPage === llab.url_list.length - 1) {
         forward.each(function(i, item) {
             $(item).addClass('disabled')
                    .attr('href', '#');
@@ -438,7 +466,7 @@ llab.setButtonURLs = function() {
     } else {
         forward.each(function(i, item) {
             $(item).removeClass('disabled')
-                   .attr('href', llab.url_list[llab.step + 1])
+                   .attr('href', llab.url_list[thisPage + 1])
                    .click(llab.goForward);
         });
     }
@@ -446,11 +474,11 @@ llab.setButtonURLs = function() {
 
 // TODO: Update page content and push URL onto browser back button
 llab.goBack = function() {
-    window.location.href = llab.url_list[llab.step - 1];
+    location.href = llab.url_list[llab.thisPageNum() - 1];
 };
 
 llab.goForward = function() {
-    window.location.href = llab.url_list[llab.step + 1];
+    location.href = llab.url_list[llab.thisPageNum() + 1];
 };
 
 llab.addFeedback = function(title, topic, course) {
@@ -488,8 +516,8 @@ llab.addFeedback = function(title, topic, course) {
             {
                 'frameborder': "0",
                 'id': 'feedback-frame',
-                'width': "325",
-                'height': "250",
+                'width': "300",
+                'height': "230",
                 'src': surveyURL
             });
             $('#fdbk').append(frame);
@@ -516,10 +544,10 @@ llab.indicateProgress = function(numSteps, currentStep) {
      * the buttons.
      */
     pctMargin = (btns / width) * 100;
-    result = (currentStep + 1) /  (numSteps + 1); // Handle 0 indexing
+    result = currentStep /  (numSteps + 1);
     result = result * (100 - pctMargin);
     result = result + "% 3px";
-    // 3px == height of bottom-bar - image height (32px - 26px) / 2
+    // 3px == height of bottom-bar - image height == (32px - 26px)/ 2
     progress.css("background-position", result);
 };
 
