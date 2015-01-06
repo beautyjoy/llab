@@ -55,7 +55,7 @@ llab.tags = ["h1", "h2", "h3", "h4", "h5", "h6"];
 llab.renderFull = function(data, ignored1, ignored2) {
     var FULL = llab.selectors.FULL;
 
-    if (llab.getQueryParameter("course") !== "") {
+    if (llab.getQueryParameter("course") !== '') {
         var course_link = llab.getQueryParameter("course");
         if (course_link.indexOf("://") === -1) {
             course_link = llab.courses_path + course_link;
@@ -76,6 +76,10 @@ llab.renderFull = function(data, ignored1, ignored2) {
         if (temp2[0].substring(0, 2) == "no") {
             hidden.push(temp2[0].substring(2));
             hiddenString += ("&" + temp2[0]);
+            console.log(temp2);
+            if (temp2[1]) {
+                hiddenString += '=' + temp2[1];
+            }
         }
     }
     data = data.replace(/(\r)/gm,"");    // remove crazy windows linefeed characters
@@ -192,9 +196,9 @@ llab.renderFull = function(data, ignored1, ignored2) {
                             }
                         }
                         if (url.indexOf("?") != -1) {
-                            url += "&" + "topic=" + llab.file + "&step=" + num;
+                            url += "&" + "topic=" + llab.file;
                         } else {
-                            url += "?" + "topic=" + llab.file + "&step=" + num;
+                            url += "?" + "topic=" + llab.file;
                         }
                     }
                     url += hiddenString + "&course=" + course;
