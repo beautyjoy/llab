@@ -371,7 +371,7 @@ a[disabled] {
 }
 
 /* Dropdown menu items with icons */
-.course-link-list, .main-topic-link, .current-step-link {
+.course-link-list, .main-topic-link, .current-page-arrow {
   font-weight: bold;
   background-size: contain;
   background-repeat: no-repeat;
@@ -387,7 +387,7 @@ a[disabled] {
   background-image: url(../img/toolbar_home.png);
 }
 
-.current-step-link {
+.current-page-arrow {
   background-image: url(../img/forward.png);
 }
 /* END PAGE DROPDWON SECTION *************************************************/
