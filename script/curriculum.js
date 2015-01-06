@@ -154,7 +154,8 @@ llab.processLinks = function(data, status, jqXHR) {
     // Prevent src from being added to other URLS.
     delete params.src;
     // TODO -- verify that step isn't added to URLs anymore.
-    delete params.step
+    delete params.step;
+    delete params.title;
 
     for (; i < len; i += 1) {
         line = llab.stripComments($.trim(topicArray[i]));
