@@ -55,7 +55,8 @@ llab.tags = ["h1", "h2", "h3", "h4", "h5", "h6"];
 llab.renderFull = function(data, ignored1, ignored2) {
     var FULL = llab.selectors.FULL;
 
-    if (llab.getQueryParameter("course") !== "") {
+    // TODO: grab the params object only once!
+    if (llab.getQueryParameter("course") !== '') {
         var course_link = llab.getQueryParameter("course");
         if (course_link.indexOf("://") === -1) {
             course_link = llab.courses_path + course_link;
@@ -70,15 +71,18 @@ llab.renderFull = function(data, ignored1, ignored2) {
     var hidden = [];
     var hiddenString = "";
     // FIXME
-    temp = window.location.search.substring(1).split("&");
+    temp = location.search.substring(1).split("&");
     for (var i = 0; i < temp.length; i++) {
         var temp2 = temp[i].split("=");
-        if (temp2[0].substring(0, 2) == "no" && temp2[1] == "true") {
+        if (temp2[0].substring(0, 2) == "no") {
             hidden.push(temp2[0].substring(2));
-            hiddenString += ("&" + temp2[0] + "=" + temp2[1]);
+            hiddenString += ("&" + temp2[0]);
+            if (temp2[1]) {
+                hiddenString += '=' + temp2[1];
+            }
         }
     }
-    data = data.replace(/(\r)/gm,"");    // remove crazy windows linefeed characters
+    data = data.replace(/(\r)/gm,""); // normalize line endings
     var lines = data.split("\n");
     var line;
     var in_topic = false;
@@ -181,8 +185,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
                     // FIXME -- QueryString
                     if (url.indexOf("http") != -1) {
                         url = llab.empty_curriculum_page_path + "?" + "src=" + url +
-                        "&" + "topic=" + llab.file + "&step=" + num +
-                        "&title=" + text;
+                        "&topic=" + llab.file + "&title=" + text;
                     } else {
                         if (url.indexOf(llab.rootURL) == -1 && url.indexOf("..") == -1) {
                             if (url[0] == "/") {
@@ -192,9 +195,9 @@ llab.renderFull = function(data, ignored1, ignored2) {
                             }
                         }
                         if (url.indexOf("?") != -1) {
-                            url += "&" + "topic=" + llab.file + "&step=" + num;
+                            url += "&" + "topic=" + llab.file;
                         } else {
-                            url += "?" + "topic=" + llab.file + "&step=" + num;
+                            url += "?" + "topic=" + llab.file;
                         }
                     }
                     url += hiddenString + "&course=" + course;
@@ -255,7 +258,7 @@ llab.isTag = function(s) {
 llab.displayTopic = function() {
     llab.file = llab.getQueryParameter("topic");
 
-    if (llab.file !== "") {
+    if (llab.file !== '') {
         $.ajax({
             url : llab.topics_path + llab.file,
             type : "GET",
