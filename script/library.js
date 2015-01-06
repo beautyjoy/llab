@@ -180,8 +180,15 @@ queryString.stringify = function (obj) {
 
         if (Array.isArray(val)) {
             return val.map(function (val2) {
+                if (!val2) {
+                    return encodeURIComponent(key);
+                }
                 return encodeURIComponent(key) + '=' + encodeURIComponent(val2);
             }).join('&');
+        }
+
+        if (!val) {
+            return encodeURIComponent(key);
         }
 
         return encodeURIComponent(key) + '=' + encodeURIComponent(val);
