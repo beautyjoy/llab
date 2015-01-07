@@ -9,12 +9,6 @@
 llab = llab || {};
 llab.loaded = llab.loaded || {};
 
-// if (typeof llab === 'undefined') {
-//     // if loader.js wasn't used, we'll do this here in the first one
-//     llab = {};
-//     llab.loaded = {};
-// }
-
 
 /////////////////
 // TODO: ALL CORS SETTINGS SHOULD BE MOVED TO THE CONFIG FILE.
@@ -70,7 +64,6 @@ llab.getSnapRunURL = function(targeturl) {
 
 
 
-//TODO put this in the llab namespace
 /** Returns the value of the URL parameter associated with NAME. */
 llab.getQueryParameter = function(paramName) {
     var params = llab.getURLParameters();
@@ -84,7 +77,7 @@ llab.getQueryParameter = function(paramName) {
 /** Strips comments off the line. */
 llab.stripComments = function(line) {
     var index = line.indexOf("//");
-    if (index != -1 && line[index - 1] != ":") {
+    if (index !== -1 && line[index - 1] !== ":") {
         line = line.slice(0, index);
     }
     return line;
@@ -100,7 +93,6 @@ llab.GA = function() {
     llab.GAfun(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 };
 
-// FIXME -- this should be wrapped in some proper call
 // GA Function Calls -- these do the real work!:
 if (llab.GAuse) {
     llab.GA();
@@ -117,9 +109,8 @@ llab.truncate = function(str, n) {
         clean.innerHTML = str;
         clean = clean.textContent || clean.innerText || '';
 
-    // TODO: Shorten string to end on whole words?
     // TODO: Be smarter about stripping from HTML content
-    // This, don't factor HTML into the removed length
+    // This, doesn't factor HTML into the removed length
     // Perhaps match postion of nth character to the original string?
     // &#8230; is a unicode ellipses
     if (clean.length > n) {
@@ -138,7 +129,6 @@ llab.truncate = function(str, n) {
     MIT License
 */
 // Modiefied for LLAB. Inlined to reduce requests
-// LLAB dev: Please don't delete the above comment!
 var queryString = {};
 
 queryString.parse = function (str) {
@@ -180,14 +170,14 @@ queryString.stringify = function (obj) {
 
         if (Array.isArray(val)) {
             return val.map(function (val2) {
-                if (!val2) {
+                if (!val2) { // Mod: Don't have =null values in URL params
                     return encodeURIComponent(key);
                 }
                 return encodeURIComponent(key) + '=' + encodeURIComponent(val2);
             }).join('&');
         }
 
-        if (!val) {
+        if (!val) { // Mod: Don't have =null values in URL params
             return encodeURIComponent(key);
         }
 
@@ -195,7 +185,6 @@ queryString.stringify = function (obj) {
     }).join('&') : '';
 };
 /*! End Query String */
-
 llab.QS = queryString;
 
 
@@ -218,7 +207,7 @@ llab.merge = function(objA, objB) {
 };
 
 llab.getURLParameters = function() {
-    return llab.QS.parse(window.location.search);
+    return llab.QS.parse(location.search);
 };
 
 llab.getAttributesForElement = function(elm) {
@@ -286,7 +275,9 @@ llab.eraseCookie = function(name) {
 }
 
 
-
+llab.spanTag = function(content, className) {
+    return '<span class="' + className + '">' + content + '</span>'
+}
 
 
 /////////////////////  END
