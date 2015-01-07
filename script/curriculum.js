@@ -149,33 +149,35 @@ llab.processLinks = function(data, status, jqXHR) {
         lineClass,
         i = 0,
         len = topicArray.length,
-        isExternal;
+        isExternal,
+        sep, urlOpen, urlClose;
 
-    // Prevent src from being added to other URLS.
+    // Prevent src, title from being added to other URLS.
     delete params.src;
-    // TODO -- verify that step isn't added to URLs anymore.
-    delete params.step;
     delete params.title;
 
     for (; i < len; i += 1) {
         line = llab.stripComments($.trim(topicArray[i]));
 
-        // Skip is this line is hidden in URL params.
-        lineClass = line.slice(0, line.indexOf(":"));
-        isHidden = params.hasOwnProperty('no' + lineClass);
-        if (isHidden) { continue; }
+        sepIndex = line.indexOf(':');
+        urlOpen = line.indexOf('[');
+        urlClose = line.indexOf(']');
 
-        // Line is a title.
+        // Skip is this line is hidden in URL params.
+        lineClass = line.slice(0, sepIndex);
+        isHidden = params.hasOwnProperty('no' + lineClass);
+        if (isHidden || !line) { continue; }
+
+        // Line is a title; Create a link back to the main topic.
         if (line.indexOf("title:") !== -1) {
-            /* Create a link back to the main topic. */
             url = llab.topic_launch_page + "?";
             url += llab.QS.stringify(params);
 
-            itemContent = line.slice(line.indexOf(":") + 1);
+            itemContent = line.slice(sepIndex + 1);
             itemContent = llab.truncate($.trim(itemContent), maxItemLen);
 
             // Create a special Title link and add a separator.
-            itemContent = "<span class='main-topic-link'>" + itemContent + "</span>";
+            itemContent = llab.spanTag(itemContent, 'main-topic-link');
             ddItem = llab.dropdownItem(itemContent, url);
             // Note: Add to top of list!
             list.prepend(llab.fragments.bootstrapSep);
@@ -185,15 +187,14 @@ llab.processLinks = function(data, status, jqXHR) {
         }
 
         // If we don't have a link, skip this line.
-        // FOR NOW -- eventually we should add these to the dropdown as well
-        hasLink = line.indexOf("[") !== -1 && line.indexOf("]") !== -1;
+        hasLink = urlOpen !== -1 && urlClose !== -1;
         if (!hasLink) { continue; }
 
         // Grab the link title between : [
-        itemContent = line.slice(line.indexOf(":") + 1, line.indexOf("["));
+        itemContent = line.slice(sep + 1, urlOpen);
         itemContent = llab.truncate($.trim(itemContent), maxItemLen);
         // Grab the link betweem [ and ]
-        url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
+        url = line.slice(urlOpen + 1, urlClose);
 
         // Content References an external resource
         if (url.indexOf("//") !== -1) {
@@ -216,7 +217,7 @@ llab.processLinks = function(data, status, jqXHR) {
 
         // Make the current step have an arrow in the dropdown menu
         if (isCurrentPage) {
-            itemContent = "<span class='current-page-arrow'>" + itemContent + "</span>";
+            itemContent = llab.spanTag(itemContent, 'current-page-arrow');
         }
 
         ddItem = llab.dropdownItem(itemContent, url);
@@ -224,11 +225,10 @@ llab.processLinks = function(data, status, jqXHR) {
     } // end for loop
 
     if (course !== '') {
-        // FIXME -- there could be more options
         if (course.indexOf("//") === -1) {
             course = llab.courses_path + course;
         }
-        itemContent = "<span class='course-link-list'>" + llab.strings.goMain + "</span>";
+        itemContent = llab.spanTag(llab.strings.goMain, 'course-link-list');
         ddItem = llab.dropdownItem(itemContent, course);
         list.prepend(ddItem);
     }
@@ -258,10 +258,8 @@ llab.addFrame = function() {
     var frame = $(document.createElement("iframe")).attr(
         {'src': source, 'class': 'content-embed'} );
 
-    var conent = document.createElement('div');
-    $(conent).append(frame);
-    $(conent).append('<a href=' + source +
-        ' target="_">Open page in new window</a><br />');
+    var conent = $(document.createElement('div')).append(frame).append(
+    '<a href=' + source + ' target="blank">Open page in new window</a><br />');
 
     $(FULL).append(conent);
 };
@@ -291,12 +289,13 @@ llab.setupTitle = function() {
     llab.createTitleNav();
 
     // create Title tag, yo
-    if (llab.getQueryParameter("title") !== '') {
-        document.title = decodeURIComponent(llab.getQueryParameter("title"));
+    var titleText = llab.getQueryParameter("title");
+    if (titleText !== '') {
+        document.title = titleText;
     }
 
     // Set the header title to the page title.
-    var titleText = document.title;
+    titleText = document.title;
     if (titleText) {
         // FIXME this needs to be a selector
         $('.navbar-title').html(titleText);
@@ -308,20 +307,19 @@ llab.setupTitle = function() {
     // Special Case for Snap! in titles.
     document.title = document.title.replace('snap', 'Snap!');
 
-    // FIXME -- Not great on widnow resize
-    // Needs to be refactored, and window listener added
     $(document.body).css('padding-top', $('.llab-nav').height() + 10);
-    onresize = function(event) {
-        $(document.body).css('padding-top', $('.llab-nav').height() +
-        10);
+    document.body.onresize = function(event) {
+        $(document.body).css('padding-top', $('.llab-nav').height() + 10);
     };
+
     llab.titleSet = true;
 };
+
 
 // Create the 'sticky' title header at the top of each page.
 llab.createTitleNav = function() {
     // FIXME -- clean up!!
-    var topHTML = ('' +
+    var topHTML = (
         '<nav class="llab-nav navbar navbar-default navbar-fixed-top" role="navigation">' +
         '<div class="nav navbar-nav navbar-left navbar-title"></div></nav>' +
         '<div class="title-small-screen"></div>'),

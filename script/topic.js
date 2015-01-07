@@ -1,7 +1,3 @@
-// FIXME -- documentation needed.
-// llab['file'] = "";
-
-
 /*
 
   Renders Topic pages
@@ -53,35 +49,22 @@ llab.tags = ["h1", "h2", "h3", "h4", "h5", "h6"];
 
 
 llab.renderFull = function(data, ignored1, ignored2) {
-    var FULL = llab.selectors.FULL;
+    var FULL   = llab.selectors.FULL,
+        params = llab.getURLParameters(),
+        course = params.course;
 
-    // TODO: grab the params object only once!
-    if (llab.getQueryParameter("course") !== '') {
-        var course_link = llab.getQueryParameter("course");
-        if (course_link.indexOf("://") === -1) {
-            course_link = llab.courses_path + course_link;
+
+    if (course) {
+        if (course.indexOf("://") === -1) {
+            course = llab.courses_path + course;
         }
         $(FULL).append($(document.createElement("a")).attr(
-            {"class":"course_link", "href": course_link }
-            ).html("Go to Main Course Page"));
+            {"class":"course_link", "href": course }
+            ).html(llab.strings.goMain));
     }
 
-    llab.file = llab.getQueryParameter("topic");
+    llab.file = llab.topic;
 
-    var hidden = [];
-    var hiddenString = "";
-    // FIXME
-    temp = location.search.substring(1).split("&");
-    for (var i = 0; i < temp.length; i++) {
-        var temp2 = temp[i].split("=");
-        if (temp2[0].substring(0, 2) == "no") {
-            hidden.push(temp2[0].substring(2));
-            hiddenString += ("&" + temp2[0]);
-            if (temp2[1]) {
-                hiddenString += '=' + temp2[1];
-            }
-        }
-    }
     data = data.replace(/(\r)/gm,""); // normalize line endings
     var lines = data.split("\n");
     var line;
@@ -93,14 +76,15 @@ llab.renderFull = function(data, ignored1, ignored2) {
     var list;
     var raw = false;
     var text;
+    var isHidden;
     var num = 0;
     var indent = "";
     var url = document.URL;
-    var course = llab.getQueryParameter("course");
     for (var i = 0; i < lines.length; i++) {
         line = lines[i];
         line = llab.stripComments(line);
-        if (line.length > 0 && !raw && (hidden.indexOf($.trim(line.slice(0, line.indexOf(":")))) == -1)) {
+        isHidden = params.hasOwnProperty('no' + line.slice(line.indexOf(':')));
+        if (line.length > 0 && !raw && !isHidden) {
             if (line.slice(0, 6) === "title:") {
                 // TODO: Refractor to a set title function!
                 var titleHTML = line.slice(6);
@@ -110,13 +94,12 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 // SPECIAL-CASE for 'Snap' in titles.
                 titleText = titleText.replace('snap', 'Snap!');
                 // END SPECIAL-CASE
-                document.head.title = titleText;
                 document.title = titleText;
                 learningGoal = false;
                 bigIdea = false;
             } else if (line.slice(0, 8) == "raw-html") {
                 raw = true;
-            } else if (line.slice(0,1) == "{") {
+            } else if (line[0] == "{") {
                 in_topic = true;
                 topic = $(document.createElement("div")).attr({'class': 'topic'});
                 $(FULL).append(topic);
@@ -133,7 +116,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 topic.append(item);
                 learningGoal = false;
                 bigIdea = false;
-            } else if (line.slice(0,1) == "}") {
+            } else if (line[0] == "}") {
                 in_topic = false;
                 learningGoal = false;
                 bigIdea = false;
@@ -179,28 +162,18 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 }
                 if (line.indexOf("[") != -1) {
                     var temp = $(document.createElement("a"));
+                    var query = {};
                     text = line.slice(line.indexOf(":") + 1, line.indexOf("["))
-                    temp.append(text);
+                    temp.append($.trim(text));
                     url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
-                    // FIXME -- QueryString
                     if (url.indexOf("http") != -1) {
-                        url = llab.empty_curriculum_page_path + "?" + "src=" + url +
-                        "&topic=" + llab.file + "&title=" + text;
-                    } else {
-                        if (url.indexOf(llab.rootURL) == -1 && url.indexOf("..") == -1) {
-                            if (url[0] == "/") {
-                                url = llab.rootURL + url;
-                            } else {
-                                url = llab.rootURL + "/" + url;
-                            }
-                        }
-                        if (url.indexOf("?") != -1) {
-                            url += "&" + "topic=" + llab.file;
-                        } else {
-                            url += "?" + "topic=" + llab.file;
-                        }
+                        query = $.extend({}, params, { src: url, title: text });
+                        url = llab.empty_curriculum_page_path;
+                    } else if (url.indexOf(llab.rootURL) == -1 && url.indexOf("..") == -1) {
+                        var slash = url[0] == "/" ? '' : '/';
+                        url = llab.rootURL + slash + url;
                     }
-                    url += hiddenString + "&course=" + course;
+                    url += (url.indexOf('?') !== -1 ? '&' : '?') + llab.QS.stringify(query);
                     num += 1;
                     temp.attr({'href': url});
                     item.append(temp);
@@ -215,7 +188,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
             raw = false;
         } else if (raw) {
             var raw_html = "";
-            while (line.length > 1 && line.slice(0, 1) != "}") {
+            while (line.length > 1 && line.slice[0] != "}") {
                 raw_html += " " + line;
                 i++;
                 line = lines[i];
@@ -252,22 +225,21 @@ llab.indentString = function(s) {
 
 /* Returns true iff S is an allowed html tag. */
 llab.isTag = function(s) {
-    return llab.tags.indexOf(s) > -1;
+    return llab.tags.indexOf(s) !== -1;
 }
 
 llab.displayTopic = function() {
     llab.file = llab.getQueryParameter("topic");
 
-    if (llab.file !== '') {
+    if (llab.file) {
         $.ajax({
             url : llab.topics_path + llab.file,
             type : "GET",
             dataType : "text",
-            cache : false,
+            cache : true,
             success : llab.renderFull
         });
     } else {
-        // TODO -- better error messge.  maybe show default course or topic?
         document.getElementsByTagName(llab.selectors.FULL).item(0).innerHTML = "Please specify a file in the URL.";
     }
 }
@@ -275,13 +247,12 @@ llab.displayTopic = function() {
 // Make a call to build a topic page.
 // Be sure that content is set only on pages that it should be
 $(document).ready(function() {
-    // FIXME -- refactor check
     var url = document.URL,
-        topicFile = (url.indexOf("topic.html") !== -1 ||
+        isTopicFile = (url.indexOf("topic.html") !== -1 ||
             // FIXME -- this may be broken.
             url.indexOf("empty-topic-page.html") !== -1);
 
-    if (topicFile) {
+    if (isTopicFile) {
         llab.displayTopic();
     }
 });
