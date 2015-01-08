@@ -83,7 +83,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
     for (var i = 0; i < lines.length; i++) {
         line = lines[i];
         line = llab.stripComments(line);
-        isHidden = params.hasOwnProperty('no' + line.slice(line.indexOf(':')));
+        isHidden = params.hasOwnProperty('no' + $.trim(line.slice(0, line.indexOf(':'))));
         if (line.length > 0 && !raw && !isHidden) {
             if (line.slice(0, 6) === "title:") {
                 // TODO: Refractor to a set title function!
@@ -153,21 +153,23 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 line = $.trim(line);
                 learningGoal = false;
                 bigIdea = false;
-                if (line.indexOf(":") != -1 && llab.isTag(line.slice(0, line.indexOf(":")))) {
-                    item = $(document.createElement(line.slice(0, line.indexOf(":"))));
-                } else if (line.indexOf(":") != -1) {
+                var sepIdx = line.indexOf(":");
+                if (sepIdx != -1 && llab.isTag(line.slice(0, sepIdx))) {
+                    item = $(document.createElement(line.slice(0, sepIdx)));
+                } else if (sepIdx != -1) {
                     item = $(document.createElement("div")).attr({'class': line.split(":")[0] + indent});
                 } else {
                     item = $(document.createElement("div"));
                 }
                 if (line.indexOf("[") != -1) {
                     var temp = $(document.createElement("a"));
-                    var query = {};
-                    text = line.slice(line.indexOf(":") + 1, line.indexOf("["))
+                    var query = params;
+                    console.log(query);
+                    text = line.slice(sepIdx + 1, line.indexOf("["))
                     temp.append($.trim(text));
                     url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
                     if (url.indexOf("http") != -1) {
-                        query = $.extend({}, params, { src: url, title: text });
+                        query = $.extend({}, query, { src: url, title: text });
                         url = llab.empty_curriculum_page_path;
                     } else if (url.indexOf(llab.rootURL) == -1 && url.indexOf("..") == -1) {
                         var slash = url[0] == "/" ? '' : '/';
@@ -178,7 +180,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
                     temp.attr({'href': url});
                     item.append(temp);
                 } else {
-                    item.append(line.slice(line.indexOf(":") + 1));
+                    item.append(line.slice(sepIdx + 1));
                 }
                 topic.append(item);
             }
