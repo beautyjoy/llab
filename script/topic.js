@@ -83,8 +83,9 @@ llab.renderFull = function(data, ignored1, ignored2) {
     for (var i = 0; i < lines.length; i++) {
         line = lines[i];
         line = llab.stripComments(line);
+        // TODO: Refactor this line
         isHidden = params.hasOwnProperty('no' + $.trim(line.slice(0, line.indexOf(':'))));
-        if (line.length > 0 && !raw && !isHidden) {
+        if (line.length && !raw && !isHidden) {
             if (line.slice(0, 6) === "title:") {
                 // TODO: Refractor to a set title function!
                 var titleHTML = line.slice(6);
@@ -93,7 +94,6 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 var titleText = $('.navbar-title').text();
                 // SPECIAL-CASE for 'Snap' in titles.
                 titleText = titleText.replace('snap', 'Snap!');
-                // END SPECIAL-CASE
                 document.title = titleText;
                 learningGoal = false;
                 bigIdea = false;
@@ -164,7 +164,6 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 if (line.indexOf("[") != -1) {
                     var temp = $(document.createElement("a"));
                     var query = params;
-                    console.log(query);
                     text = line.slice(sepIdx + 1, line.indexOf("["))
                     temp.append($.trim(text));
                     url = (line.slice(line.indexOf("[") + 1, line.indexOf("]")));
