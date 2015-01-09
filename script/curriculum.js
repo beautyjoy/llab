@@ -165,13 +165,12 @@ llab.processLinks = function(data, status, jqXHR) {
 
         // Skip is this line is hidden in URL params.
         lineClass = line.slice(0, sepIndex);
-        isHidden = params.hasOwnProperty('no' + lineClass);
+        isHidden = params.hasOwnProperty('no' + $.trim(lineClass));
         if (isHidden || !line) { continue; }
 
         // Line is a title; Create a link back to the main topic.
         if (line.indexOf("title:") !== -1) {
-            url = llab.topic_launch_page + "?";
-            url += llab.QS.stringify(params);
+            url = llab.topic_launch_page + "?" + llab.QS.stringify(params);
 
             itemContent = line.slice(sepIndex + 1);
             itemContent = llab.truncate($.trim(itemContent), maxItemLen);
@@ -191,7 +190,8 @@ llab.processLinks = function(data, status, jqXHR) {
         if (!hasLink) { continue; }
 
         // Grab the link title between : [
-        itemContent = line.slice(sep + 1, urlOpen);
+        itemContent = line.slice(sepIndex + 1, urlOpen);
+        console.log(itemContent);
         itemContent = llab.truncate($.trim(itemContent), maxItemLen);
         // Grab the link betweem [ and ]
         url = line.slice(urlOpen + 1, urlClose);
@@ -224,7 +224,7 @@ llab.processLinks = function(data, status, jqXHR) {
         list.append(ddItem);
     } // end for loop
 
-    if (course !== '') {
+    if (course) {
         if (course.indexOf("//") === -1) {
             course = llab.courses_path + course;
         }
