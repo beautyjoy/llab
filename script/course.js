@@ -14,11 +14,11 @@
  /* Create the Query string for links to each topic within a course. */
 llab.editURLs = function() {
     var query = {},
-        docPath = document.location.pathname;
+        docPath = location.pathname;
 
     // Set the 'course' attribute
     if (docPath.indexOf(llab.courses_path) !== -1) {
-        // Exclude the path to the course file because it gets added back later…
+        // Exclude the path to the course file because it gets added back later
         query['course'] = docPath.replace(llab.courses_path, '');
     }
 
@@ -32,7 +32,6 @@ llab.editURLs = function() {
     });
 
     $(".topic_link a").each(function() {
-        // Need a better way to check URLs.
         var str = this.href.indexOf('?') === -1 ? '?' : '&';
         this.href += str + llab.QS.stringify(query);
     });
