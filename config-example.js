@@ -35,10 +35,6 @@ llab.paths.css_files.push('css/3.3.0/bootstrap-compiled.min.css');
 llab.paths.css_files.push('css/default.css');
 // Syntax Highlighting
 llab.paths.css_files.push("css/tomorrow-night-blue.css");
-// llab.paths.css_files.push("css/brainstorm.css");
-// llab.paths.css_files.push("css/user.css");
-// llab.paths.css_files.push("css/unused.css");
-
 
 
 
