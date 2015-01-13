@@ -191,7 +191,6 @@ llab.processLinks = function(data, status, jqXHR) {
 
         // Grab the link title between : [
         itemContent = line.slice(sepIndex + 1, urlOpen);
-        console.log(itemContent);
         itemContent = llab.truncate($.trim(itemContent), maxItemLen);
         // Grab the link betweem [ and ]
         url = line.slice(urlOpen + 1, urlClose);
