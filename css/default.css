@@ -87,9 +87,13 @@ h1, h4, h5, h6, .header-sans {
   font-weight: normal;
 }
 
-h2, h3, .full ul, .full ol, blockquote,  /* Only One serif font */
-.title-small-screen, .header-serif, .title, .navbar-title, .serif {
+h2, h3, .title-small-screen, .header-serif, .title, .navbar-title {
   font-family: 'Freight Text Pro', 'Baskerville', 'Georgia', 'Times', serif;
+}
+
+/* Freight isn't my favorite at small sizes */
+.full ul, .full ol, blockquote, .serif {
+  font-family: 'Baskerville', 'Georgia', 'Times', serif;
 }
 
 body { /* default Sans Serif Stack */
@@ -350,20 +354,13 @@ a[disabled] {
   text-align: left;
 }
 
-.list_header, .arrow {
+.list_header {
   height: 2em;
   margin: 0;
   text-align: center;
   font-size: 12pt;
   font-weight: 900;
   border-color: #888;
-}
-
-.arrow {/* For Buttons with arrows instead of words. */
-  border-radius: 8px;
-  font-variant: small-caps;
-  width: 3em;
-  padding: 3px; /* center text in buttons */
 }
 
 .list_header {
@@ -381,7 +378,9 @@ a[disabled] {
 
 .course-link-list {
   background-image: url(../img/globe.png);
+  padding-right: 5px;
 }
+
 .main-topic-link {
   text-decoration: underline; /* only topic page link is underlined */
   background-image: url(../img/toolbar_home.png);
