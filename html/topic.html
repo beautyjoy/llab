@@ -2,7 +2,7 @@
 
 <html>
     <!--
-        This is the template page for LLAB old-style topics rendered in html. 
+        This is the template page for LLAB old-style topics rendered in html.
         Copy this file to a suitable place in your content, fixing link references.
         Use the url form "topic.html?topic=/path/to/example.topic" to view specific topic pages
     -->
@@ -13,6 +13,10 @@
     </head>
 
     <body>
-        
+        <script type="text/javascript">
+          if (location.href.indexOf("topic=") === -1) {
+              document.body.innerHTML = "Please specify a file in the URL.";
+          }
+        </script>
     </body>
 </html>
