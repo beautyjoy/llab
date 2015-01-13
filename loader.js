@@ -8,7 +8,7 @@
  * CONFIG
  */
 
-CONFIG_FILE_PATH = "/bjc-r/llab/config.js";
+CONFIG_FILE_PATH = "../llab.js";
 
 /*
  * END CONFIG
