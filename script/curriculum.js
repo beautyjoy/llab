@@ -107,9 +107,9 @@ llab.secondarySetUp = function() {
         var cssFile = llab.paths.css_files.syntax_highlights;
         var jsFile  = llab.paths.syntax_highlights;
         var css = getTag('link', cssFile, 'text/css');
-        var js = getTag('script', jsFile, 'text/javascript',
-            'llab.highlightSyntax'); // onload function
-
+        css.rel = "stylesheet";
+        var js = getTag('script', jsFile, 'text/javascript'); // onload function
+        $(js).attr({'onload': 'llab.highlightSyntax()'});
         document.head.appendChild(css);
         document.head.appendChild(js);
     }

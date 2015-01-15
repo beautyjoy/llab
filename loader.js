@@ -105,17 +105,15 @@ llab.getPathToThisScript = function() {
     return '';
 };
 
-function getTag(name, src, type, funct) {
-    var thisPath = llab.getPathToThisScript();
+llab.thisPath = llab.getPathToThisScript();
 
+
+function getTag(name, src, type) {
     var tag = document.createElement(name);
 
     if (src.substring(0, 2) !== "//") {
-        src = thisPath.replace(THIS_FILE, src);
-    }
-
-    if (funct) {
-        tag.onload = funct;
+        src = llab.thisPath.replace(THIS_FILE, src);
+        console.log(src);
     }
 
     var link  = name === 'link' ? 'href' : 'src';
@@ -187,7 +185,6 @@ if (!String.prototype.endsWith) {
     }
   });
 }
-
 
 
 
