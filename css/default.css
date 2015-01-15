@@ -337,6 +337,13 @@ a[disabled] {
   font-size: .76em;
 }
 
+.arrow {/* For Buttons with arrows instead of words. */
+  border-radius: 8px;
+  font-variant: small-caps;
+  width: 3em;
+  padding: 3px; /* center text in buttons */
+}
+
 /* END NAV SECTION ***********************************************************/
 
 /* PAGE DROPDOWN SECTION ******************************************************/
@@ -354,7 +361,7 @@ a[disabled] {
   text-align: left;
 }
 
-.list_header {
+.list_header, .arrow {
   height: 2em;
   margin: 0;
   text-align: center;
