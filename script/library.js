@@ -94,7 +94,7 @@ llab.GA = function() {
 };
 
 // GA Function Calls -- these do the real work!:
-if (llab.GAuse) {
+if (llab.GACode) {
     llab.GA();
     ga('create', llab.GACode, llab.GAUrl);
     ga('send', 'pageview');

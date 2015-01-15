@@ -15,7 +15,6 @@ var FULL = llab.selectors.FULL,
     hamburger = llab.fragments.hamburger;
 
 llab.secondarySetUp = function() {
-
     // FIXME -- this needs to be called on EVERY page.
     llab.setupTitle();
 
@@ -549,5 +548,7 @@ llab.indicateProgress = function(numSteps, currentStep) {
 };
 
 // Setup the nav and parse the topic file.
-$(document).ready(llab.secondarySetUp);
+$(document).ready(function() {
+    llab.secondarySetUp();
+});
 
