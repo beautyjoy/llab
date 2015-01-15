@@ -102,17 +102,30 @@ llab.secondarySetUp = function() {
         }
     });
 
-    // TODO: Load CSS and JS here if length isnt 0.
-    // Turn on Syntax Highlighting.
+    var codeElements = $('pre code');
+    if (codeElements.length) {
+        var cssFile = llab.paths.css_files.syntax_highlights;
+        var jsFile  = llab.paths.syntax_highlights;
+        var css = getTag('link', cssFile, 'text/css');
+        var js = getTag('script', jsFile, 'text/javascript',
+            'llab.highlightSyntax'); // onload function
+
+        $(document.head).append(css);
+        $(document.head).append(js);
+    }
+
+}; // close secondarysetup();
+
+
+llab.highlightSyntax = function() {
     $('pre code').each(function(i, block) {
-        // TODO: Why don't jQuery functions work?
         // Trim the extra whitespace in HTML files.
         block.innerHTML = block.innerHTML.trim();
         if (typeof hljs !== 'undefined') {
             hljs.highlightBlock(block);
         }
     });
-}; // close secondarysetup();
+}
 
 /**
  *  Processes just the hyperlinked elements in the topic file,

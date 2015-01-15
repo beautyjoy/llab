@@ -19,14 +19,21 @@ llab.install_directory = "";  // to be overridden in config.js
 // This file must always be at the same level as the llab install directory
 llab.CONFIG_FILE_PATH = "../llab.js";
 
+// This file must always be at the same level as the llab install directory
+llab.BUILD_FILE_PATH = "./llab-complied.js";
+
+
+// Syntax Highlighting support
+llab.paths.syntax_highlights = "//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js";
+llab.paths.css_files.syntax_highlights = "css/tomorrow-night-blue.css";
+
+
+
 /////////////////////////
 ///////////////////////// stage 0
 llab.paths.scripts[0] = [];
 llab.paths.scripts[0].push(llab.CONFIG_FILE_PATH);
 llab.paths.scripts[0].push("lib/jquery.min.js");
-// Syntax Highlighting
-llab.paths.scripts[0].push("//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js");
-
 
 llab.loaded['config'] = false;
 llab.paths.stage_complete_functions[0] = function() {
@@ -82,8 +89,7 @@ llab.paths.scripts[3].push("script/quiz.js");
 
 
 llab.paths.stage_complete_functions[3] = function() {
-    // the last stage, no need to wait
-    return true;
+    return true; // the last stage, no need to wait
 }
 
 //////////////
@@ -98,34 +104,37 @@ llab.getPathToThisScript = function() {
     return '';
 };
 
+function getTag(name, src, type, funct) {
+    var thisPath = llab.getPathToThisScript();
+
+    var tag = document.createElement(name);
+
+    if (src.substring(0, 2) !== "//") {
+        src = thisPath.replace(THIS_FILE, src);
+    }
+
+    if (funct) {
+        tag.onload = funct;
+    }
+
+    var link  = name === 'link' ? 'href' : 'src';
+    tag[link] = src;
+    tag.type  = type;
+
+    return tag;
+}
+
+
 
 llab.initialSetUp = function() {
     var headElement = document.head;
-    var thisPath    = llab.getPathToThisScript();
-    var tag;
-    var i;
-    var src;
-
+    var tag, i, src;
 
     // start the process
     loadScriptsAndLinks(0);
 
-    function getTag(name, src, type) {
-        var tag = document.createElement(name);
-
-        if (src.substring(0, 2) !== "//") {
-            src = thisPath.replace(THIS_FILE, src);
-        }
-
-        var link = name === 'link' ? 'href' : 'src';
-        tag[link] = src;
-        tag.type = type;
-        return tag;
-    }
-
     function loadScriptsAndLinks(stage_num) {
-        var i;
-        var tag;
+        var i, tag;
 
         //console.log("starting script load stage " + stage_num);
 
@@ -139,10 +148,10 @@ llab.initialSetUp = function() {
 
         // load scripts
         llab.paths.scripts[stage_num].forEach(function(scriptfile) {
-            var tag;
             tag = getTag("script", scriptfile, "text/javascript");
             headElement.appendChild(tag);
         });
+
         if ((stage_num + 1) < llab.paths.scripts.length) {
             proceedWhenComplete(stage_num);
         }
@@ -156,7 +165,7 @@ llab.initialSetUp = function() {
         } else {
             // console.log("waiting on stage " + stage_num);
             setTimeout(function() {
-                proceedWhenComplete(stage_num)
+                proceedWhenComplete(stage_num);
             }, 5);
         }
     }
