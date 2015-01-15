@@ -110,14 +110,15 @@ llab.secondarySetUp = function() {
         var js = getTag('script', jsFile, 'text/javascript',
             'llab.highlightSyntax'); // onload function
 
-        $(document.head).append(css);
-        $(document.head).append(js);
+        document.head.appendChild(css);
+        document.head.appendChild(js);
     }
 
 }; // close secondarysetup();
 
 
 llab.highlightSyntax = function() {
+    console.log('highlight called');
     $('pre code').each(function(i, block) {
         // Trim the extra whitespace in HTML files.
         block.innerHTML = block.innerHTML.trim();
