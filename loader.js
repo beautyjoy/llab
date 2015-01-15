@@ -1,26 +1,14 @@
-/*
-* Single script reference for content pages
-*
-*/
-
-
-/*
- * CONFIG
- */
-
-CONFIG_FILE_PATH = "../llab.js";
-
-/*
- * END CONFIG
+/* LLAB Loader
+ * Lightweight Labs system.
+ * This file is the entry point for all llab pages.
  */
 
 
+var THIS_FILE = 'loader.js';
 
-
-// NOTE: this is built in library.js if not built here (because this file isn't used, say)
 llab = {};
-llab.loaded = {};  // keys are true if that script file is loaded (script file should set key to true)
-llab.paths = {};
+llab.loaded = {};  // keys are true if that script file is loaded
+llab.paths  = {};
 llab.paths.stage_complete_functions = [];
 llab.paths.scripts = [];  // holds the scripts to load, in stages below
 llab.paths.css_files = [];
@@ -28,16 +16,21 @@ llab.rootURL = "";  // to be overridden in config.js
 llab.install_directory = "";  // to be overridden in config.js
 
 
-
+// This file must always be at the same level as the llab install directory
+llab.CONFIG_FILE_PATH = "../llab.js";
 
 /////////////////////////
 ///////////////////////// stage 0
 llab.paths.scripts[0] = [];
-llab.paths.scripts[0].push(CONFIG_FILE_PATH);
+llab.paths.scripts[0].push(llab.CONFIG_FILE_PATH);
+llab.paths.scripts[0].push("lib/jquery.min.js");
+// Syntax Highlighting
+llab.paths.scripts[0].push("//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js");
+
 
 llab.loaded['config'] = false;
 llab.paths.stage_complete_functions[0] = function() {
-    return ( llab.loaded['config'] );
+    return ( typeof jQuery === 'function' && llab.loaded['config'] );
 }
 
 
@@ -47,16 +40,12 @@ llab.paths.stage_complete_functions[0] = function() {
 /////////////////
 ///////////////// stage 1
 llab.paths.scripts[1] = [];
-llab.paths.scripts[1].push("lib/jquery.min.js");
 llab.paths.scripts[1].push("script/library.js");
-// Syntax Highlighting
-llab.paths.scripts[1].push("//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"); 
 // llab.paths.scripts[1].push("script/lib/sha1.js");     // for brainstorm
 
 llab.loaded['library'] = false;
 llab.paths.stage_complete_functions[1] = function() {
-return ( typeof jQuery === 'function' &&
-         llab.loaded['library'] );
+    return ( llab.loaded['library'] );
 }
 
 
@@ -69,8 +58,8 @@ llab.paths.scripts[2] = [];
 llab.paths.scripts[2].push("script/curriculum.js");
 llab.paths.scripts[2].push("script/course.js");
 llab.paths.scripts[2].push("script/topic.js");
-llab.paths.scripts[2].push("lib/bootstrap.min.js");
 llab.paths.scripts[2].push("script/quiz/multiplechoice.js");
+llab.paths.scripts[2].push("lib/bootstrap.min.js");
 // llab.paths.scripts[2].push("script/user.js");
 
 llab.loaded['multiplechoice'] = false;
@@ -97,14 +86,22 @@ llab.paths.stage_complete_functions[3] = function() {
     return true;
 }
 
-
-
-
 //////////////
+llab.getPathToThisScript = function() {
+    var scripts = document.scripts;
+    for (var i = 0; i < scripts.length; i += 1) {
+        var src = scripts[i].src;
+        if (src.endsWith('/' + THIS_FILE)) {
+            return src;
+        }
+    }
+    return '';
+};
+
 
 llab.initialSetUp = function() {
-    var headElement = document.getElementsByTagName('HEAD').item(0);
-    var apath;
+    var headElement = document.head;
+    var thisPath    = llab.getPathToThisScript();
     var tag;
     var i;
     var src;
@@ -114,18 +111,14 @@ llab.initialSetUp = function() {
     loadScriptsAndLinks(0);
 
     function getTag(name, src, type) {
-        var tag;
-        //console.log("Dealing with tag " + name + " with src " + src + " of type " + type);
+        var tag = document.createElement(name);
 
-        tag = document.createElement(name);
         if (src.substring(0, 2) !== "//") {
-            src = llab.rootURL + llab.install_directory + src;
+            src = thisPath.replace(THIS_FILE, src);
         }
-        if (name === "link") {
-            tag.href = src;
-        } else {
-            tag.src = src;
-        }
+
+        var link = name === 'link' ? 'href' : 'src';
+        tag[link] = src;
         tag.type = type;
         return tag;
     }
@@ -164,7 +157,7 @@ llab.initialSetUp = function() {
             // console.log("waiting on stage " + stage_num);
             setTimeout(function() {
                 proceedWhenComplete(stage_num)
-            }, 10);
+            }, 5);
         }
     }
 };
