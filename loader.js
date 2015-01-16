@@ -1,3 +1,26 @@
+// Polyfills for older browsers
+if (!String.prototype.endsWith) {
+  Object.defineProperty(String.prototype, 'endsWith', {
+    value: function(searchString, position) {
+      var subjectString = this.toString();
+      if (position === undefined || position > subjectString.length) {
+        position = subjectString.length;
+      }
+      position -= searchString.length;
+      var lastIndex = subjectString.indexOf(searchString, position);
+      return lastIndex !== -1 && lastIndex === position;
+    }
+  });
+}
+
+
+
+/////////// FIXME -- put this in a better place.
+
+
+
+
+
 /* LLAB Loader
  * Lightweight Labs system.
  * This file is the entry point for all llab pages.
@@ -171,22 +194,6 @@ llab.initialSetUp = function() {
 };
 
 /////////////////////
-// Polyfills for older browsers
-if (!String.prototype.endsWith) {
-  Object.defineProperty(String.prototype, 'endsWith', {
-    value: function(searchString, position) {
-      var subjectString = this.toString();
-      if (position === undefined || position > subjectString.length) {
-        position = subjectString.length;
-      }
-      position -= searchString.length;
-      var lastIndex = subjectString.indexOf(searchString, position);
-      return lastIndex !== -1 && lastIndex === position;
-    }
-  });
-}
-
-
 
 llab.initialSetUp();
 
