@@ -146,6 +146,8 @@ llab.processLinks = function(data, status, jqXHR) {
     }
 
     // Get the URL parameters as an object
+    // FIXME -- Rename the url variable
+    // FIXME -- duplicate query parameters?
     var params = llab.getURLParameters(),
         course = params.course || '',
         maxItemLen = 35,  // TODO: Replace this with CSS.
@@ -163,6 +165,7 @@ llab.processLinks = function(data, status, jqXHR) {
         i = 0,
         len = topicArray.length,
         isExternal,
+        pageCount = -1,
         sep, urlOpen, urlClose;
 
     // Prevent src, title from being added to other URLS.
@@ -207,7 +210,7 @@ llab.processLinks = function(data, status, jqXHR) {
         itemContent = llab.truncate($.trim(itemContent), maxItemLen);
         // Grab the link betweem [ and ]
         url = line.slice(urlOpen + 1, urlClose);
-
+        pageCount += 1;
         // Content References an external resource
         if (url.indexOf("//") !== -1) {
             isCurrentPage = llab.getQueryParameter('src') === decodeURIComponent(url);
@@ -217,7 +220,7 @@ llab.processLinks = function(data, status, jqXHR) {
                         title: itemContent
                     }));
         } else { // Content reference is local
-            isCurrentPage = url.split('?')[0] === location.pathname;
+            isCurrentPage = document.URL.indexOf(url) !== -1;
             if (url.indexOf(llab.rootURL) === -1 && url.indexOf("..") === -1) {
                 url = llab.rootURL + (url[0] === "/" ? '' : "/") + url;
             }
@@ -229,6 +232,7 @@ llab.processLinks = function(data, status, jqXHR) {
 
         // Make the current step have an arrow in the dropdown menu
         if (isCurrentPage) {
+            llab.pageNum = pageCount;
             itemContent = llab.spanTag(itemContent, 'current-page-arrow');
         }
 
@@ -416,6 +420,9 @@ llab.isCurriculum = function() {
  * Indicies are 0 based, and this excludes query parameters because
  * they could become re-ordered. */
 llab.thisPageNum = function() {
+    return llab.pageNum;
+    /// This code below needs to be removed, pending some testing
+    // January 21, 2015 (If it hasn't been removed in a long while, chuck it)
     var path = location.pathname;
     var urls;
     if (path === llab.empty_curriculum_page_path) {
@@ -424,9 +431,16 @@ llab.thisPageNum = function() {
         });
         path = llab.getQueryParameter('src');
     } else {
-        urls = llab.url_list.map(function(item) {
-            return item.split('?')[0];
+        var result = -1;
+        llab.url_list.forEach(function(item, idx) {
+            console.log(item);
+            console.log(idx);
+            if (document.URL.indexOf(item) !== -1) {
+                result = idx;
+                return result;
+            }
         });
+        return result;
     }
     return urls.indexOf(path);
 }
