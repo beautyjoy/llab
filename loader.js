@@ -136,7 +136,6 @@ function getTag(name, src, type) {
 
     if (src.substring(0, 2) !== "//") {
         src = llab.thisPath.replace(THIS_FILE, src);
-        console.log(src);
     }
 
     var link  = name === 'link' ? 'href' : 'src';
