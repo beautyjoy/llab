@@ -406,6 +406,7 @@ llab.dropdownItem = function(text, url) {
     return item;
 };
 
+// FIXME
 llab.isCurriculum = function() {
     if (llab.getQueryParameter('topic')) {
         return location.pathname !== llab.empty_topic_page_path &&
