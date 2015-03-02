@@ -1,0 +1,31 @@
+{
+  "name": "llab",
+  "version": "1.0.0",
+  "description": "A light weight JS system for building a bunch of lab exercises",
+  "main": "llab.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beautyjoy/llab.git"
+  },
+  "keywords": [
+    "labs",
+    "curriculum",
+    "education",
+    "quiz"
+  ],
+  "author": "Michael Ball, Peter Sujan, Nate Titterton",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/beautyjoy/llab/issues"
+  },
+  "homepage": "https://github.com/beautyjoy/llab",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
