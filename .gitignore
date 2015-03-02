@@ -3,3 +3,6 @@
 .tm_properties
 .gitmodules
 *~
+.idea
+node_modules
+*.log
