@@ -350,7 +350,7 @@ a[disabled] {
 /* Give space to caret in dropdown menus */
 /* FIXME -- standardize class names! */
 .dropdown-menu {
-  margin-top: 8px; /* should be equal to padding on list_header */
+  margin-top: 6px; /* should be equal to padding on list_header */
   overflow-y: scroll; /* scroll menu on small screens */
   /* NOTE: max-height is set via jQuery when the dropdown is created. */
 }
@@ -359,6 +359,12 @@ a[disabled] {
   padding: 0;
   margin: 0;
   text-align: left;
+}
+
+.list_item.dropdown-header {
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .list_header, .arrow {

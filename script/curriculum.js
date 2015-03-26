@@ -111,6 +111,7 @@ llab.processLinks = function(data, status, jqXHR) {
         ddItem,
         line,
         isHidden,
+        isHeading,
         lineClass,
         i = 0,
         len = topicArray.length,
@@ -130,8 +131,8 @@ llab.processLinks = function(data, status, jqXHR) {
         urlClose = line.indexOf(']');
 
         // Skip is this line is hidden in URL params.
-        lineClass = line.slice(0, sepIndex);
-        isHidden = params.hasOwnProperty('no' + $.trim(lineClass));
+        lineClass = $.trim(line.slice(0, sepIndex));
+        isHidden = params.hasOwnProperty('no' + lineClass);
         if (isHidden || !line) { continue; }
 
         // Line is a title; Create a link back to the main topic.
@@ -149,6 +150,19 @@ llab.processLinks = function(data, status, jqXHR) {
             list.prepend(ddItem);
 
             continue;
+        }
+
+        // Line is a heading in a topic file, so create menu heading
+        isHeading = lineClass == 'heading' || (lineClass.length == 2 &&
+                    lineClass.indexOf('h') == 1);
+        if (isHeading) {
+            itemContent = line.slice(sepIndex + 1);
+            console.log(itemContent);
+            itemContent = llab.truncate($.trim(itemContent), maxItemLen);
+            ddItem = llab.dropdownItem(itemContent);
+            ddItem.addClass('dropdown-header');
+            list.append(ddItem);
+            console.log(list);
         }
 
         // If we don't have a link, skip this line.
@@ -188,6 +202,7 @@ llab.processLinks = function(data, status, jqXHR) {
 
         ddItem = llab.dropdownItem(itemContent, url);
         list.append(ddItem);
+        console.log(list);
     } // end for loop
 
     if (course) {
@@ -205,7 +220,7 @@ llab.processLinks = function(data, status, jqXHR) {
     $('.dropdown').append(list);
     // Set the max-height of the dropdown list to not exceed window height
     // This is particularly important for smaller screens.
-    $('.dropdown-menu').css('max-height', $(window).height() - 50);
+    $('.dropdown-menu').css('max-height', $(window).height() * 0.8);
 
 
     // FIXME -- this doesn't belong here.
@@ -345,14 +360,19 @@ llab.buildDropdown = function() {
  *  Takes in TEXT and a URL and reutrns a list item to be added
  *  too an existing dropdown */
 llab.dropdownItem = function(text, url) {
-    var link, item;
+    var item, link;
     // li container
     item = $(document.createElement("li")).attr(
         {'class': 'list_item', 'role' : 'presentation'});
-    link = $(document.createElement("a")).attr(
-        {'href': url, 'role' : 'menuitem'});
-    link.html(text);
-    item.append(link);
+    if (url) {
+        link = $(document.createElement("a")).attr(
+            {'href': url, 'role' : 'menuitem'});
+        link.html(text);
+        item.append(link);
+    } else {
+        item.html(text);
+    }
+
     return item;
 };
 
