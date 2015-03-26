@@ -6,3 +6,6 @@
 .idea
 node_modules
 *.log
+# Dreamweaver
+_notes
+dwsync.xml
