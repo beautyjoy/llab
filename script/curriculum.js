@@ -153,16 +153,13 @@ llab.processLinks = function(data, status, jqXHR) {
         }
 
         // Line is a heading in a topic file, so create menu heading
-        isHeading = lineClass == 'heading' || (lineClass.length == 2 &&
-                    lineClass.indexOf('h') == 1);
+        isHeading = lineClass == 'heading';
         if (isHeading) {
             itemContent = line.slice(sepIndex + 1);
-            console.log(itemContent);
             itemContent = llab.truncate($.trim(itemContent), maxItemLen);
             ddItem = llab.dropdownItem(itemContent);
             ddItem.addClass('dropdown-header');
             list.append(ddItem);
-            console.log(list);
         }
 
         // If we don't have a link, skip this line.
