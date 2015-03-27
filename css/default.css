@@ -1,23 +1,3 @@
-/**
-* based on:
-*
-* Copyright (c) 2006 Encore Research Group, University of Toronto
-*
-* This library is free software; you can redistribute it and/or
-* modify it under the terms of the GNU Lesser General Public
-* License as published by the Free Software Foundation; either
-* version 2.1 of the License, or (at your option) any later version.
-*
-* This library is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* Lesser General Public License for more details.
-*
-* You should have received a copy of the GNU Lesser General Public
-* License along with this library; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
 /* FONT STYLES FOR ELEMENTS */
 /* Override Bootstrap */
 code, pre, tt, kbd, samp {
@@ -29,7 +9,7 @@ h1, h4, h5, h6, .header-sans {
   font-weight: normal;
 }
 
-.full ul, .full ol, blockquote, .serif,
+.full ul, .full ol, blockquote, .serif, .dropdown-header,
 h2, h3, .title-small-screen, .header-serif, .title, .navbar-title {
   font-family: 'Freight Text Pro', 'Baskerville', 'Georgia', 'Times', serif;
 }
@@ -106,15 +86,13 @@ nav {
   font-weight: inherit;
   display:inline-block;
   color: #004;
-  padding: 5px 15px 5px 5px;
-  margin: 15px 15px 15px  0; /* Added */
+  margin: 18px;
   border: 2px solid #39F;
   border-radius: 6px;
 }
 
 ul > li, ol > li {
   padding: 5px;
-  margin-left: 35px; /* WHY? This causes problems in some places... */
 }
 
 /*
@@ -224,8 +202,8 @@ a[disabled] {
   width: 80%; /* For setting title width */
 }
 
-.navbar-right {/* Contains Nav Buttons and Dropdown Menu */
-  width: 20%; /* For setting title width */
+.navbar-right { /* Contains Nav Buttons and Dropdown Menu */
+  width: 20%;  /* For setting title width */
 }
 
 .navbar-toggle {
@@ -275,13 +253,6 @@ a[disabled] {
   font-size: .76em;
 }
 
-.arrow {/* For Buttons with arrows instead of words. */
-  border-radius: 8px;
-  font-variant: small-caps;
-  width: 3em;
-  padding: 3px; /* center text in buttons */
-}
-
 /* END NAV SECTION ***********************************************************/
 
 /* PAGE DROPDOWN SECTION ******************************************************/
@@ -305,6 +276,7 @@ a[disabled] {
   font-weight: 600;
 }
 
+/* Button to toggle the menu */
 .list_header, .arrow {
   height: 2em;
   margin: 0;
@@ -312,10 +284,18 @@ a[disabled] {
   font-size: 12pt;
   font-weight: 900;
   border-color: #888;
+  border-radius: 0; /* No round coners on dropdowns between buttons */
 }
 
 .list_header {
   border-radius: 0; /* No round coners on dropdowns between buttons */
+}
+
+.arrow {/* For Buttons with arrows instead of words. */
+  border-radius: 8px;
+  font-variant: small-caps;
+  width: 3em;
+  padding: 3px; /* center text in buttons */
 }
 
 /* Dropdown menu items with icons */
@@ -405,7 +385,7 @@ pre > code.hljs {
 .course_link {
   display: block;
   margin-bottom: 10px;
-  font-size: large;
+  font-size: 120%;
   background-image: url(../img/globe.png);
   background-size: contain;
   background-repeat: no-repeat;
@@ -416,10 +396,6 @@ pre > code.hljs {
 .center {
   text-align: center;
   margin: 0 auto;
-}
-
-.floatClearLeft {
-  clear: left;
 }
 
 .strike {
@@ -441,7 +417,6 @@ table .pre {
   margin: 0 15px 15px 20px;
 }
 
-.imageCenter,
 img.center {
   margin-left: auto;
   margin-right: auto;
@@ -455,34 +430,6 @@ img.inline {
 
 img.indent, div.indent {
   margin-left: 10%;
-}
-
-.centeredImages {
-  text-align: center;
-  margin: 0 auto;
-}
-
-.centeredImages img {
-  margin: 0 10px;
-}
-
-.floatClear,
-.clearFloat {
-  clear: both;
-}
-
-.instructionsIcon {
-  width: 16px;
-  height: 16px;
-  background-image: url(../img/infoIcon.png);
-  background-repeat: no-repeat;
-  text-decoration: none;
-  outline: none;
-}
-
-.instructionsIcon:hover {
-  background-image: url(../img/infoIconRollover.png);
-  background-repeat: no-repeat;
 }
 
 .step {
@@ -573,13 +520,11 @@ img.indent, div.indent {
 /* Other items, which partially override .topic div */
 
 /* Headings */
-.topic .topic_header {
-  font-weight: bold;
+.topic_header {
   font-size: large;
   text-decoration: underline;
   padding-left: 0;
 }
-
 
 .topic .label {
   margin-top: 20px;
@@ -589,8 +534,8 @@ img.indent, div.indent {
 }
 
 /* List-related items
-* bigIdeas and learninggoals are being treated identically at the moment.
-*/
+ * bigIdeas and learninggoals are being treated identically at the moment.
+ */
 .bigideas,
 .learninggoals {
   font-weight: 400;
@@ -620,7 +565,6 @@ img.indent, div.indent {
   padding-left: 0;
   padding-top: 10px;
 }
-
 
 /* iframe at the beginning of labs, for embedded content. */
 .content-embed {
@@ -679,11 +623,13 @@ img.indent, div.indent {
 }
 
 .code-vid {
+  max-width: 100%;
   text-align: center;
   font-size: .8em;
   font-style: italic;
   color: #808080;
 }
+
 /***************************************/
 /** LLAB QUIZ STYLING */
 .feedbackDiv {
@@ -910,9 +856,8 @@ img.indent, div.indent {
 }
 
 /* Identify "Retina" and High-Res Screens  */
-@media (-webkit-min-device-pixel-ratio: 2),
-        (min-resolution: 192dpi) {
-
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* use the lighter weight font */
   code, pre, tt, kbd, samp {
     font-weight: 100;
   }
@@ -922,8 +867,7 @@ img.indent, div.indent {
     src: url(../fonts/SourceCodePro/EOT/SourceCodePro-Light.eot);
     src: url(../fonts/SourceCodePro/EOT/SourceCodePro-Light.eot?#iefix) format(embedded-opentype),
          url(../fonts/SourceCodePro/WOFF/OTF/SourceCodePro-Light.otf.woff) format(woff),
-         url(../fonts/SourceCodePro/WOFF/TTF/SourceCodePro-Light.ttf.woff)  format(truetype),
-         url(../fonts/SourceCodePro/SVG/SourceCodePro-Light.svg) format(svg);
+         url(../fonts/SourceCodePro/WOFF/TTF/SourceCodePro-Light.ttf.woff)  format(truetype);
     font-weight: 100;
     font-style: normal;
   }
@@ -937,19 +881,17 @@ img.indent, div.indent {
   src: url(../fonts/SourceCodePro/EOT/SourceCodePro-Regular.eot);
   src: url(../fonts/SourceCodePro/EOT/SourceCodePro-Regular.eot?#iefix) format(embedded-opentype),
        url(../fonts/SourceCodePro/WOFF/OTF/SourceCodePro-Regular.otf.woff) format(woff),
-       url(../fonts/SourceCodePro/WOFF/TTF/SourceCodePro-Regular.ttf.woff)  format(truetype),
-       url(../fonts/SourceCodePro/SVG/SourceCodePro-Regular.svg) format(svg);
+       url(../fonts/SourceCodePro/WOFF/TTF/SourceCodePro-Regular.ttf.woff) format(truetype);
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face { /* Default Sans Font */
   font-family: 'Open Sans';
-  src: url('../fonts/opensans/OpenSans-Regular-webfont.eot');
-  src: url('../fonts/opensans/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/opensans/OpenSans-Regular-webfont.woff') format('woff'),
-       url('../fonts/opensans/OpenSans-Regular-webfont.ttf') format('truetype'),
-       url('../fonts/opensans/OpenSans-Regular-webfont.svg#open_sanslight') format('svg');
+  src: url(../fonts/opensans/OpenSans-Regular-webfont.eot);
+  src: url(../fonts/opensans/OpenSans-Regular-webfont.eot?#iefix) format(embedded-opentype),
+       url(../fonts/opensans/OpenSans-Regular-webfont.woff) format(woff),
+       url(../fonts/opensans/OpenSans-Regular-webfont.ttf) format(truetype);
   font-weight: normal;
   font-style: normal;
 }
@@ -959,8 +901,7 @@ img.indent, div.indent {
   src: url(../fonts/vagrounded/VAGRoundedStd-Light.eot);
   src: url(../fonts/vagrounded/VAGRoundedStd-Light.eot?#iefix) format(embedded-opentype),
        url(../fonts/vagrounded/VAGRoundedStd-Light.woff) format(woff),
-       url(../fonts/vagrounded/VAGRoundedStd-Light.ttf)  format(truetype),
-       url(../fonts/vagrounded/VAGRoundedStd-Light.svg) format(svg);
+       url(../fonts/vagrounded/VAGRoundedStd-Light.ttf)  format(truetype);
   font-weight: normal;
   font-style: normal;
 }
