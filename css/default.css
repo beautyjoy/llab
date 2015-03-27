@@ -252,7 +252,6 @@ a[disabled] {
   padding: 2px; /* FIXME -- value is weird */
   font-size: .76em;
 }
-
 /* END NAV SECTION ***********************************************************/
 
 /* PAGE DROPDOWN SECTION ******************************************************/
@@ -270,7 +269,10 @@ a[disabled] {
   text-align: left;
 }
 
+/* nested class necessary to override padding */
 .list_item.dropdown-header {
+  color: #222;
+  text-transform: capitalize;
   padding: 3px 10px;
   font-size: 13px;
   font-weight: 600;
