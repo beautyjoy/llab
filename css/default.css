@@ -260,7 +260,11 @@ a[disabled] {
 .dropdown-menu {
   margin-top: 6px; /* should be equal to padding on list_header */
   overflow-y: scroll; /* scroll menu on small screens */
-  /* NOTE: max-height is set via jQuery when the dropdown is created. */
+  width: auto;
+  white-space: nowrap;
+  overflow-x: hidden;  /* Text truncation */
+  text-overflow: ellipsis;
+  /* max- height + width set using JS on page load. */
 }
 .list_item {
   font-size: 10pt;
@@ -866,10 +870,10 @@ img.indent, div.indent {
 
   @font-face { /* Used for all code elements */
     font-family: 'Source Code Pro';
-    src: url(../fonts/SourceCodePro/EOT/SourceCodePro-Light.eot);
-    src: url(../fonts/SourceCodePro/EOT/SourceCodePro-Light.eot?#iefix) format(embedded-opentype),
-         url(../fonts/SourceCodePro/WOFF/OTF/SourceCodePro-Light.otf.woff) format(woff),
-         url(../fonts/SourceCodePro/WOFF/TTF/SourceCodePro-Light.ttf.woff)  format(truetype);
+    src: url('../fonts/SourceCodePro/EOT/SourceCodePro-Light.eot');
+    src: url('../fonts/SourceCodePro/EOT/SourceCodePro-Light.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/SourceCodePro/WOFF/OTF/SourceCodePro-Light.otf.woff') format('woff'),
+         url('../fonts/SourceCodePro/WOFF/TTF/SourceCodePro-Light.ttf.woff')  format('truetype');
     font-weight: 100;
     font-style: normal;
   }
@@ -880,44 +884,44 @@ img.indent, div.indent {
 /* DO NOT LOAD EXTRA FONTS WE WONT USE */
 @font-face { /* Used for all code elements */
   font-family: 'Source Code Pro';
-  src: url(../fonts/SourceCodePro/EOT/SourceCodePro-Regular.eot);
-  src: url(../fonts/SourceCodePro/EOT/SourceCodePro-Regular.eot?#iefix) format(embedded-opentype),
-       url(../fonts/SourceCodePro/WOFF/OTF/SourceCodePro-Regular.otf.woff) format(woff),
-       url(../fonts/SourceCodePro/WOFF/TTF/SourceCodePro-Regular.ttf.woff) format(truetype);
+  src: url('../fonts/SourceCodePro/EOT/SourceCodePro-Regular.eot');
+  src: url('../fonts/SourceCodePro/EOT/SourceCodePro-Regular.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/SourceCodePro/WOFF/OTF/SourceCodePro-Regular.otf.woff') format('woff'),
+       url('../fonts/SourceCodePro/WOFF/TTF/SourceCodePro-Regular.ttf.woff') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face { /* Default Sans Font */
   font-family: 'Open Sans';
-  src: url(../fonts/opensans/OpenSans-Regular-webfont.eot);
-  src: url(../fonts/opensans/OpenSans-Regular-webfont.eot?#iefix) format(embedded-opentype),
-       url(../fonts/opensans/OpenSans-Regular-webfont.woff) format(woff),
-       url(../fonts/opensans/OpenSans-Regular-webfont.ttf) format(truetype);
+  src: url('../fonts/opensans/OpenSans-Regular-webfont.eot');
+  src: url('../fonts/opensans/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/opensans/OpenSans-Regular-webfont.woff') format('woff'),
+       url('../fonts/opensans/OpenSans-Regular-webfont.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face { /* Sans Headers */
   font-family: 'VAG Rounded Light';
-  src: url(../fonts/vagrounded/VAGRoundedStd-Light.eot);
-  src: url(../fonts/vagrounded/VAGRoundedStd-Light.eot?#iefix) format(embedded-opentype),
-       url(../fonts/vagrounded/VAGRoundedStd-Light.woff) format(woff),
-       url(../fonts/vagrounded/VAGRoundedStd-Light.ttf)  format(truetype);
+  src: url('../fonts/vagrounded/VAGRoundedStd-Light.eot');
+  src: url('../fonts/vagrounded/VAGRoundedStd-Light.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/vagrounded/VAGRoundedStd-Light.woff') format('woff'),
+       url('../fonts/vagrounded/VAGRoundedStd-Light.ttf')  format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face { /* All Serif Elements */
   font-family: 'Freight Text Pro';
-  src: url(../fonts/FreightTextPro/FreightTextProBook.otf);
+  src: url('../fonts/FreightTextPro/FreightTextProBook.otf');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face { /* All Serif Elements */
   font-family: 'Freight Text Pro';
-  src: url(../fonts/FreightTextPro/FreightTextProBold.otf);
+  src: url('../fonts/FreightTextPro/FreightTextProBold.otf');
   font-weight: bold;
   font-style: normal;
 }
