@@ -100,7 +100,6 @@ llab.processLinks = function(data, status, jqXHR) {
     // FIXME -- duplicate query parameters?
     var params = llab.getURLParameters(),
         course = params.course || '',
-        maxItemLen = 35,  // TODO: Replace this with CSS.
         topicArray = data.split("\n"),
         url = document.URL,
         // TODO: Move this to a dropdown function
@@ -140,7 +139,7 @@ llab.processLinks = function(data, status, jqXHR) {
             url = llab.topic_launch_page + "?" + llab.QS.stringify(params);
 
             itemContent = line.slice(sepIndex + 1);
-            itemContent = llab.truncate($.trim(itemContent), maxItemLen);
+            itemContent = $.trim(itemContent);
 
             // Create a special Title link and add a separator.
             itemContent = llab.spanTag(itemContent, 'main-topic-link');
@@ -156,7 +155,7 @@ llab.processLinks = function(data, status, jqXHR) {
         isHeading = lineClass == 'heading';
         if (isHeading) {
             itemContent = line.slice(sepIndex + 1);
-            itemContent = llab.truncate($.trim(itemContent), maxItemLen);
+            itemContent = $.trim(itemContent);
             ddItem = llab.dropdownItem(itemContent);
             ddItem.addClass('dropdown-header');
             list.append(ddItem);
@@ -168,7 +167,7 @@ llab.processLinks = function(data, status, jqXHR) {
 
         // Grab the link title between : [
         itemContent = line.slice(sepIndex + 1, urlOpen);
-        itemContent = llab.truncate($.trim(itemContent), maxItemLen);
+        itemContent = $.trim(itemContent);
         // Grab the link betweem [ and ]
         url = line.slice(urlOpen + 1, urlClose);
         pageCount += 1;
@@ -218,6 +217,7 @@ llab.processLinks = function(data, status, jqXHR) {
     // Set the max-height of the dropdown list to not exceed window height
     // This is particularly important for smaller screens.
     $('.dropdown-menu').css('max-height', $(window).height() * 0.8);
+    $('.dropdown-menu').css('max-width', Math.min($(window).width() * 0.8, 450));
 
 
     // FIXME -- this doesn't belong here.
