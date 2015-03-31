@@ -89,26 +89,20 @@ nav {
   border-radius: 6px;
 }
 
-ul > li, ol > li {
-  padding: 5px;
-}
-
-/*
-Removes borders from nested lists.
-NOTE: Generally the child selector ( > ) is preferred due to specificity and
-performance.
-However, .full is needed because the class reference is more specific and the
+/* Handle Nested Lists
+.full is needed because the class reference is more specific and the
 above rules override these without it.
 */
-.full ul > ul, .full ol > ol,
-.full ul > ol, .full ol > ul {
-  border: none;
-}
-
-li > ul, li > ol {
-  margin: 5px auto;
+.full ul  ul, .full ol  ol,
+.full ul  ol, .full ol  ul {
   border: none;
   display: block;
+  margin: none;
+  border-radius: none;
+}
+
+li {
+  padding: 5px;
 }
 
 th {
