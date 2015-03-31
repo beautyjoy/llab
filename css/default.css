@@ -9,8 +9,11 @@ h1, h4, h5, h6, .header-sans {
   font-weight: normal;
 }
 
-.full ul, .full ol, blockquote, .serif, .dropdown-header,
-h2, h3, .title-small-screen, .header-serif, .title, .navbar-title {
+.full ul,
+.full ol,
+h2, h3,
+blockquote, .serif, .dropdown-header,
+.title-small-screen, .header-serif, .title, .navbar-title {
   font-family: 'Freight Text Pro', 'Baskerville', 'Georgia', 'Times', serif;
 }
 
@@ -65,11 +68,6 @@ img {
   -webkit-filter: none;
   -ms-filter: none;
   filter: none;
-}
-
-.alert {
-  margin-left: 2%;
-  width: 96%;
 }
 
 nav {
@@ -352,7 +350,9 @@ pre > code.hljs {
 .resultMessageDiv {
   font-size: 1.2em;
 }
-/******* FEEDBACK BUTTON ON BOTTOM RIGHT */
+/* FEEDBACK BUTTON ON BOTTOM RIGHT
+ * TODO: This section doesn't belong in llab. Bad Michael.
+ */
 .page-feedback {
   padding: 4px;
   float: right;
@@ -386,7 +386,7 @@ pre > code.hljs {
   margin-bottom: -5px;
   margin-right: -1px;
 }
-/***********/
+/*********************************/
 
 .course_link {
   display: block;
@@ -447,6 +447,7 @@ img.indent, div.indent {
 }
 
 /** Common Styling to highlighted sections */
+.alert, /* Bootstrap: which we make more like our .quote sections */
 .quoteOrange, .quoteRed, .quoteGreen, .quoteBlue, .quoteYellow {
   padding: 10px 15px;
   margin: 10px 2%;
@@ -458,6 +459,8 @@ img.indent, div.indent {
 
 .quoteRed { /* FIXME, name needed */
   border-left: 12px solid #C11;
+  background-image: none; /* override bootsrap, for now */
+  background-color: #e7c3c3;
 }
 
 .quoteOrange { /* FIXME, name needed */
