@@ -263,6 +263,8 @@ MC.prototype.selectedInSavedState = function(choiceId) {
  * TODO: Move this to a generic place for LLAB (library?)
  */
 if (!Array.shuffle) {
+    // FIXME -- wtf if with this for loop?
+    // Document sources
     Array.prototype.shuffle = function() {
         var rnd, tmp, i;
         for (i = this.length; i; rnd = parseInt(Math.random() * i), tmp = this[--i], this[i] = this[rnd], this[rnd] = tmp) {}
