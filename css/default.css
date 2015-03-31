@@ -17,7 +17,7 @@ blockquote, .serif, .dropdown-header,
   font-family: 'Freight Text Pro', 'Baskerville', 'Georgia', 'Times', serif;
 }
 
-body { /* default Sans Serif Stack */
+html, body { /* default Sans Serif Stack */
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
 
@@ -98,7 +98,7 @@ above rules override these without it.
   border: none;
   display: block;
   margin: none;
-  border-radius: none;
+  border-radius: 0;
 }
 
 li {
@@ -132,6 +132,12 @@ a[disabled] {
 
 .inline {
   display: inline;
+}
+
+code { /* Override bootstrap. */
+  background: none;
+  border-radius: 0; /* reset to not do calculations */
+  font-size: 1em;
 }
 
 /** PAGE NAV (TOP AND BOTTOM) ************************************************/
