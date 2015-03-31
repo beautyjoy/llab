@@ -9,10 +9,8 @@ h1, h4, h5, h6, .header-sans {
   font-weight: normal;
 }
 
-.full ul,
-.full ol,
-h2, h3,
-blockquote, .serif, .dropdown-header,
+h2, h3, blockquote,
+.serif, .dropdown-header,
 .title-small-screen, .header-serif, .title, .navbar-title {
   font-family: 'Freight Text Pro', 'Baskerville', 'Georgia', 'Times', serif;
 }
@@ -723,11 +721,6 @@ img.indent, div.indent {
   font-size: inherit;
 }
 
-.MultipleChoice .radiobuttondiv table tt {
-  font-size: 110%;
-  font-weight: bold;
-}
-
 .MultipleChoice .radiobuttondiv .correct {
   color: green;
   font-weight: bold;
@@ -778,32 +771,20 @@ img.indent, div.indent {
   background-color: #FF0;
 }
 
-.MultipleChoice .promptdiv tt {
-  /* looks OK in IE, too small in firefox, ug.  Firefox at 150% is about right, 130% in IE is right */
-  font-size: 135%;
-  font-weight: 500;
-}
-
 .MultipleChoice .promptdiv ol {
   font-size: .8em;
   text-transform: uppercase;
   margin-left: 25px;
 }
 
-.feedbackDiv.correct {
+.feedbackdiv.correct {
   color: green;
 }
 
-.feedbackDiv.incorrect {
+.feedbackdiv.incorrect {
   color: red;
 }
 
-/* FIXME -- this should be removed */
-.questionType tt {
-  /* looks OK in IE, too small in firefox, ug.  Firefox at 150% is about right, 130% in IE is right */
-  font-size: 135%;
-  font-weight: 500;
-}
 /** END QUESTIONABLE STUFF */
 /********************************/
 /*** END QUIZ CSS               */
@@ -868,6 +849,7 @@ img.indent, div.indent {
     max-width: 100%;
   }
 }
+
 
 /* * * * * FONTS * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /* DO NOT LOAD EXTRA FONTS WE WONT USE */
