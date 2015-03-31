@@ -483,9 +483,10 @@ img.indent, div.indent {
   background-color: #F1F1BC;
 }
 
-/* Most items in the course page */
-/** FIXME -- poorly performant, applies to all divs within */
-.topic > div {
+/** ICON CLASSES **/
+/*  These are resource icons for each item. */
+.group, .reading, .extresource, .video, .forum,
+.resource, .assignment, .homework, .quiz {
   background-repeat: no-repeat;
   background-position: left;
   background-size: 1em;
@@ -493,8 +494,6 @@ img.indent, div.indent {
   margin: 5px 0;
 }
 
-/** ICON CLASSES **/
-/* Begin items controlled primarily by .topic div */
 .quiz {
   background-image: url(../img/multiplechoice28.png);
 }
@@ -594,6 +593,7 @@ img.indent, div.indent {
 .run {
   background: url(../img/external-link.png) center right no-repeat;
   padding-right: 13px;
+  font-weight: bold;
 }
 
 /**** SPECIAL CONTENT CLASSES ***/
