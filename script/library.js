@@ -31,37 +31,31 @@ llab.snapRunURLBase = "http://snap.berkeley.edu/snapsource/snap.html#open:";
 // returns the current domain with a cors proxy if needed
 
 llab.getSnapRunURL = function(targeturl) {
-    // FIXME -- this check shouldn't be needed!
-    if (targeturl === null) {
-        return '';
-    }
+    if (!targeturl) { return ''; }
 
-    // FIXME -- HTTPS URLS!!!
-    if (targeturl.substring(0, 7) === "http://") {
+    if (targeturl.indexOf('http') == 0 || targeturl.indexOf('//') == 0) {
         // pointing to some non-local resource...  do nothing!!
         return targeturl;
-    } else {
-        // internal resource!
-        var finalurl = llab.snapRunURLBase + "http://";
-        var currdom = document.domain;
-        // why not, for the devs out there...
-        // TODO: Move localhost and aliases to the CORS list.
-        if (currdom == "localhost") {
-            currdom = "bjc.berkeley.edu";
-        }
-        if (llab.CORSCompliantServers.indexOf(currdom) === -1) {
-            finalurl += llab.CORSproxy + "/";
-        }
-        if (targeturl.indexOf("..") != -1 || targeturl.indexOf(llab.rootURL) == -1) {
-            var path = window.location.pathname;
-            path = path.split("?")[0];
-            path = path.substring(0, path.lastIndexOf("/") + 1);
-            currdom += path;
-        }
-        finalurl = finalurl + currdom + targeturl;
-
-        return finalurl;
     }
+    
+    // internal resource!
+    var finalurl = llab.snapRunURLBase;
+    var currdom = document.domain;
+    if (currdom == "localhost") {
+        currdom = 'http://' + curdom + ":" + window.location.port;
+    }
+    if (llab.CORSCompliantServers.indexOf(currdom) == -1) {
+        finalurl += llab.CORSproxy;
+    }
+    if (targeturl.indexOf("..") != -1 || targeturl.indexOf(llab.rootURL) == -1) {
+        var path = window.location.pathname;
+        path = path.split("?")[0];
+        path = path.substring(0, path.lastIndexOf("/") + 1);
+        currdom += path;
+    }
+    finalurl = finalurl + currdom + targeturl;
+
+    return finalurl;
 };
 
 
