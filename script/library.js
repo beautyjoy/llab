@@ -69,9 +69,10 @@ llab.getQueryParameter = function(paramName) {
     }
 };
 
-/** Strips comments off the line. */
+/** Strips comments off the line in a topic file. */
 llab.stripComments = function(line) {
     var index = line.indexOf("//");
+    // the second condition makes this ignore urls (http://...)
     if (index !== -1 && line[index - 1] !== ":") {
         line = line.slice(0, index);
     }
