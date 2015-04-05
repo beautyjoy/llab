@@ -59,7 +59,6 @@ llab.getSnapRunURL = function(targeturl) {
 };
 
 
-
 /** Returns the value of the URL parameter associated with NAME. */
 llab.getQueryParameter = function(paramName) {
     var params = llab.getURLParameters();
