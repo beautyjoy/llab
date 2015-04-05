@@ -46,10 +46,6 @@
  * e.g.   h1: Some Text [maybe/a/link/too]
  */
 llab.tags = ["h1", "h2", "h3", "h4", "h5", "h6"];
-llab.topicKeywords = {};
-llab.topicKeywords.resources = ["quiz", "assignment", "resource", "forum", "video", "extresource"];
-llab.topicKeywords.headings = ["h1", "h2", "h3", "h4", "h5", "h6", "heading"];
-llab.topicKeywords.info = ["big-idea", "learning-goal"]
 
 
 
@@ -59,16 +55,29 @@ llab.renderFull = function(data, ignored1, ignored2) {
         course = params.course;
 
 
+    if (course) {
+        if (course.indexOf("://") === -1) {
+            course = llab.courses_path + course;
+        }
+        $(FULL).append($(document.createElement("a")).attr(
+            {"class":"course_link", "href": course }
+            ).html(llab.strings.goMain));
+    }
+
     llab.file = llab.topic;
 
     data = data.replace(/(\r)/gm,""); // normalize line endings
     var lines = data.split("\n");
-    var topic_model = {};
-    var line, topic, item, list, text, isHidden;
+    var line;
     var in_topic = false;
+    var topic;
+    var item;
     var learningGoal = false;
     var bigIdea = false;
+    var list;
     var raw = false;
+    var text;
+    var isHidden;
     var num = 0;
     var indent = "";
     var url = document.URL;
@@ -249,19 +258,6 @@ $(document).ready(function() {
         llab.displayTopic();
     }
 });
-
-
-// Stuff I need to add later
-junk = function() {
-    if (course) {
-	if (course.indexOf("://") === -1) {
-            course = llab.courses_path + course;
-	}
-	$(FULL).append($(document.createElement("a")).attr(
-            {"class":"course_link", "href": course }
-	).html(llab.strings.goMain));
-    }
-}
 
 
 /*
