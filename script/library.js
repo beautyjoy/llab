@@ -42,7 +42,7 @@ llab.getSnapRunURL = function(targeturl) {
     var finalurl = llab.snapRunURLBase;
     var currdom = document.domain;
     if (currdom == "localhost") {
-        currdom = 'http://' + curdom + ":" + window.location.port;
+        currdom = 'http://' + currdom + ":" + window.location.port;
     }
     if (llab.CORSCompliantServers.indexOf(currdom) == -1) {
         finalurl += llab.CORSproxy;
