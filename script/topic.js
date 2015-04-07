@@ -47,7 +47,7 @@
  */
 llab.tags = ["h1", "h2", "h3", "h4", "h5", "h6"];
 llab.topicKeywords = {};
-llab.topicKeywords.resources = ["quiz", "assignment", "resource", "forum", "video", "extresource", "reading"];
+llab.topicKeywords.resources = ["quiz", "assignment", "resource", "forum", "video", "extresource", "reading", "group"];
 llab.topicKeywords.headings = ["h1", "h2", "h3", "h4", "h5", "h6", "heading"];
 llab.topicKeywords.info = ["big-idea", "learning-goal"]
 
@@ -119,7 +119,7 @@ llab.renderFull = function(data, ignored1, ignored2) {
 		indent = llab.indentLevel(line);
 		item = {type: tag, contents: content, indent: indent};
                 section.contents.push(item);
-            } else {
+            } else if (llab.matchesArray(line, llab.topicKeywords.info) || true) { // dumb way to handle lines without a known tag
 		tag = llab.getKeyword(line, llab.topicKeywords.resources);
                 indent = llab.indentLevel(line);
 		content = llab.getContent(line);
