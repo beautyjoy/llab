@@ -47,7 +47,7 @@
  */
 llab.tags = ["h1", "h2", "h3", "h4", "h5", "h6"];
 llab.topicKeywords = {};
-llab.topicKeywords.resources = ["quiz", "assignment", "resource", "forum", "video", "extresource"];
+llab.topicKeywords.resources = ["quiz", "assignment", "resource", "forum", "video", "extresource", "reading"];
 llab.topicKeywords.headings = ["h1", "h2", "h3", "h4", "h5", "h6", "heading"];
 llab.topicKeywords.info = ["big-idea", "learning-goal"]
 
@@ -64,7 +64,7 @@ llab.getKeyword = function(line, A) {
 llab.getContent = function(line) {
     var result = {};
     var sepIdx = line.indexOf(':');
-    var content = line.slice(0, sepIdx);
+    var content = line.slice(sepIdx + 1);
     var sliced = content.split(/\[|\]/);
     result.text = sliced[0];
     result.url = sliced[1];
@@ -83,30 +83,36 @@ llab.renderFull = function(data, ignored1, ignored2) {
     data = data.replace(/(\r)/gm,""); // normalize line endings
     var lines = data.split("\n");
     var topics = {topics: []};
-    var line, topic, item, list, text, content, section;
+    var line, topic_model, item, list, text, content, section, indent;
     var in_topic = false;
     var raw = false;
-    var indent = "";
     var url = document.URL;
     for (var i = 0; i < lines.length; i++) {
         line = llab.stripComments(lines[i]);
-        if (line.length && !raw && !isHidden) {
+	line = $.trim(line);
+        if (line.length && !raw) {
             if (line.slice(0, 6) === "title:") {
 		topics.title = line.slice(6);
             } else if (line.slice(0, 8) == "raw-html") {
                 raw = true;
             } else if (line[0] == "{") {
-                in_topic = true;
-		var topic_model = {type: 'topic', url: ''}; // TODO: Figure out url
+		topic_model = {type: 'topic', url: '', contents: []}; // TODO: Figure out url
 		topics.topics.push(topic_model);
-		section = {title: "", contents: [], type = 'section'};
+		section = {title: '', contents: [], type: 'section'};
+		topic_model.contents.push(section);
             } else if (line.slice(0, 6) == "topic:") {
 		topic_model.title = line.slice(6);
-            } else if (line.slice(0, 8) == "heading:") {
-		section = {title: line.slice(8), contents: [], type: 'section'};
-                topic.contents.push(section);
+            } else if (llab.matchesArray(line, llab.topicKeywords.headings)) {
+		headingType = llab.getKeyword(line, llab.topicKeywords.headings);
+		if (section.contents.length == 0) {
+		    section.title = llab.getContent(line)['text'];
+		} else {
+		    section = {title: llab.getContent(line)['text'], contents: [], type: 'section'};
+                    topic_model.contents.push(section);
+		}
+		section.headingType = headingType;
             } else if (line[0] == "}") {
-                in_topic = false;
+		// shouldn't matter
             } else if (llab.matchesArray(line, llab.topicKeywords.info)) {
 		tag = llab.getKeyword(line, llab.topicKeywords.info);
 		content = llab.getContent(line)['text'];
@@ -115,11 +121,15 @@ llab.renderFull = function(data, ignored1, ignored2) {
                 section.contents.push(item);
             } else {
 		tag = llab.getKeyword(line, llab.topicKeywords.resources);
-                indent = llab.indentString(line);
-                line = $.trim(line);
+                indent = llab.indentLevel(line);
 		content = llab.getContent(line);
 		item = {type: tag, indent: indent, contents: content.text, url: content.url};
 		section.contents.push(item);
+		if (item.type == undefined) {
+		    console.log("#################");
+		    console.log(line);
+		    console.log(line.length);
+		}
             }
         } else if (line.length == 1) {
             raw = false;
@@ -134,6 +144,8 @@ llab.renderFull = function(data, ignored1, ignored2) {
             raw = false;
 	}
     }
+    llab.topics = topics; // TODO: this is for testing purposes
+    document.write("<pre>\n" + JSON.stringify(llab.topics, null, '\t') + "\n</pre>") // testing
 }
 
 
