@@ -125,22 +125,23 @@ llab.renderFull = function(data, ignored1, ignored2) {
 		content = llab.getContent(line);
 		item = {type: tag, indent: indent, contents: content.text, url: content.url};
 		section.contents.push(item);
-		if (item.type == undefined) {
-		    console.log("#################");
-		    console.log(line);
-		    console.log(line.length);
-		}
             }
-        } else if (line.length == 1) {
+        } else if (line.length == 0) {
             raw = false;
-        } else if (raw) {
-            var raw_html = "";
-            while (line.length > 1 && line.slice[0] != "}") {
-                raw_html += " " + line;
-                i++;
-                line = lines[i];
+	}
+        if (raw) {
+            var raw_html = [];
+	    text = llab.getContent(line)['text']; // in case they start the raw html on the same line
+	    if (text) {
+		raw_html.push(text)
+	    }
+	    i++;
+            while (lines[i].length >= 1 && line.slice[0] != "}") {
+		line = lines[i];
+		raw_html.push(line);
+		i++;
             }
-            topic.append(raw_html);
+            topic_model.contents.push({type: 'raw_html', contents: raw_html});
             raw = false;
 	}
     }
