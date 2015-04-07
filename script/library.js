@@ -275,6 +275,24 @@ llab.spanTag = function(content, className) {
     return '<span class="' + className + '">' + content + '</span>'
 }
 
+// Cool array level operations
+llab.any = function(A) {
+    return A.reduce(function(x, y) {return x || y;});
+}
+
+llab.all = function(A) {
+    return A.reduce(function(x, y) {return x && y;});
+}
+
+llab.which = function(A) {
+    for (i = 0; i < A.length; i++) {
+	if (A[i]) {
+	    return i;
+	}
+    }
+    return -1;
+}
+
 
 /////////////////////  END
 
