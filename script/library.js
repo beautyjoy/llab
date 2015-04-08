@@ -1,3 +1,4 @@
+<<<<<<< Local Changes
 /*
  * Common functions for any llab page
  *
@@ -37,22 +38,21 @@ llab.getSnapRunURL = function(targeturl) {
         // pointing to some non-local resource...  do nothing!!
         return targeturl;
     }
-
+    
     // internal resource!
     var finalurl = llab.snapRunURLBase;
     var currdom = document.domain;
+    if (currdom == "localhost") {
+        currdom = 'http://' + currdom + ":" + window.location.port;
+    }
     if (llab.CORSCompliantServers.indexOf(currdom) == -1) {
         finalurl += llab.CORSproxy;
-    }
-    if (currdom == "localhost") {
-        // FIXME -- this is broken.
-        currdom = window.location.host;
     }
     if (targeturl.indexOf("..") != -1 || targeturl.indexOf(llab.rootURL) == -1) {
         var path = window.location.pathname;
         path = path.split("?")[0];
         path = path.substring(0, path.lastIndexOf("/") + 1);
-        currdom += path;
+        currdom = window.location.protocol + '//' + currdom + path;
     }
     finalurl = finalurl + currdom + targeturl;
 
@@ -70,9 +70,10 @@ llab.getQueryParameter = function(paramName) {
     }
 };
 
-/** Strips comments off the line. */
+/** Strips comments off the line in a topic file. */
 llab.stripComments = function(line) {
     var index = line.indexOf("//");
+    // the second condition makes this ignore urls (http://...)
     if (index !== -1 && line[index - 1] !== ":") {
         line = line.slice(0, index);
     }
@@ -237,7 +238,7 @@ llab.strings.clickNav = 'Click here to navigate&nbsp;&nbsp;';
 //
 llab.fragments.bootstrapSep = '<li class="divider list_item" role="presentation"></li>';
 llab.fragments.bootstrapCaret = '<span class="caret"></span>';
-llab.fragments.hamburger =  '<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>';
+llab.fragments.hamburger = '<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>';
 // LLAB selectors for common page elements
 llab.selectors.FULL = '.full';
 llab.selectors.NAVSELECT = '.llab-nav';
@@ -275,7 +276,27 @@ llab.spanTag = function(content, className) {
     return '<span class="' + className + '">' + content + '</span>'
 }
 
+// Cool array level operations
+llab.any = function(A) {
+    return A.reduce(function(x, y) {return x || y;});
+}
+
+llab.all = function(A) {
+    return A.reduce(function(x, y) {return x && y;});
+}
+
+llab.which = function(A) {
+    for (i = 0; i < A.length; i++) {
+	if (A[i]) {
+	    return i;
+	}
+    }
+    return -1;
+}
+
 
 /////////////////////  END
 
 llab.loaded['library'] = true;
+=======
+>>>>>>> External Changes
