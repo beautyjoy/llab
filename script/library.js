@@ -1,4 +1,3 @@
-<<<<<<< Local Changes
 /*
  * Common functions for any llab page
  *
@@ -298,5 +297,3 @@ llab.which = function(A) {
 /////////////////////  END
 
 llab.loaded['library'] = true;
-=======
->>>>>>> External Changes
