@@ -101,60 +101,60 @@ llab.parseTopicFile = function(data) {
     var url = document.URL;
     for (var i = 0; i < lines.length; i++) {
         line = llab.stripComments(lines[i]);
-	line = $.trim(line);
+    line = $.trim(line);
         if (line.length && !raw) {
             if (line.match(/^title:/)) {
-		topics.title = line.slice(6);
-	    } else if (line.match(/^topic:/)) {
-		topic_model.title = line.slice(6);
+        topics.title = line.slice(6);
+        } else if (line.match(/^topic:/)) {
+        topic_model.title = line.slice(6);
             } else if (line.match(/^raw-html/)) {
                 raw = true;
             } else if (line[0] == "{") {
-		topic_model = {type: 'topic', url: '', contents: []}; // TODO: Figure out url
-		topics.topics.push(topic_model);
-		section = {title: '', contents: [], type: 'section'};
-		topic_model.contents.push(section);
+        topic_model = {type: 'topic', url: '', contents: []}; // TODO: Figure out url
+        topics.topics.push(topic_model);
+        section = {title: '', contents: [], type: 'section'};
+        topic_model.contents.push(section);
             } else if (llab.isHeading(line)) {
-		headingType = llab.getKeyword(line, llab.topicKeywords.headings);
-		if (section.contents.length > 0) {
-		    section = {title: '', contents: [], type: 'section'};
+        headingType = llab.getKeyword(line, llab.topicKeywords.headings);
+        if (section.contents.length > 0) {
+            section = {title: '', contents: [], type: 'section'};
                     topic_model.contents.push(section);
-		}
-		section.title = llab.getContent(line)['text'];
-		section.headingType = headingType;
+        }
+        section.title = llab.getContent(line)['text'];
+        section.headingType = headingType;
             } else if (line[0] == "}") {
-		// shouldn't matter
+        // shouldn't matter
             } else if (llab.isInfo(line)) {
-		tag = llab.getKeyword(line, llab.topicKeywords.info);
-		indent = llab.indentLevel(line);
-		content = llab.getContent(line)['text'];
-		item = {type: tag, contents: content, indent: indent};
+        tag = llab.getKeyword(line, llab.topicKeywords.info);
+        indent = llab.indentLevel(line);
+        content = llab.getContent(line)['text'];
+        item = {type: tag, contents: content, indent: indent};
                 section.contents.push(item);
             } else if (llab.isResource(line) || true) { // dumb way to handle lines without a known tag
-		tag = llab.getKeyword(line, llab.topicKeywords.resources);
+        tag = llab.getKeyword(line, llab.topicKeywords.resources);
                 indent = llab.indentLevel(line);
-		content = llab.getContent(line);
-		item = {type: tag, indent: indent, contents: content.text, url: content.url};
-		section.contents.push(item);
+        content = llab.getContent(line);
+        item = {type: tag, indent: indent, contents: content.text, url: content.url};
+        section.contents.push(item);
             }
         } else if (line.length == 0) {
             raw = false;
-	}
+    }
         if (raw) {
             var raw_html = [];
-	    text = llab.getContent(line)['text']; // in case they start the raw html on the same line
-	    if (text) {
-		raw_html.push(text)
-	    }
+        text = llab.getContent(line)['text']; // in case they start the raw html on the same line
+        if (text) {
+        raw_html.push(text)
+        }
             while (lines[i+1].length >= 1 && lines[i+1].slice(0) != "}" && !llab.isKeyword(lines[i+1])) {
-		i++;
-		line = lines[i];
-		raw_html.push(line);
+        i++;
+        line = lines[i];
+        raw_html.push(line);
             }
-	    section.contents.push({type: 'raw_html', contents: raw_html});
-	    
+        section.contents.push({type: 'raw_html', contents: raw_html});
+        
             raw = false;
-	}
+    }
     }
     llab.topics = topics; // TODO: this is for testing purposes
     // $('body').append("<pre>\n" + JSON.stringify(llab.topics, null, '\t') + "\n</pre>") // testing
@@ -165,7 +165,7 @@ llab.parseTopicFile = function(data) {
 llab.renderTopicModel = function(topics) {
     llab.renderTitle(topics.title);
     for (var i = 0; i < topics.topics.length; i++) {
-	llab.renderTopic(topics.topics[i]);
+    llab.renderTopic(topics.topics[i]);
     }
 }
 
@@ -187,42 +187,42 @@ llab.renderTopic = function(topic_model) {
 
     var current;
     for (var i = 0; i < topic_model.contents.length; i++) {
-	current = topic_model.contents[i];
-	if (current.type == "section") {
-	    llab.renderSection(current, topicDOM);
-	}
+    current = topic_model.contents[i];
+    if (current.type == "section") {
+        llab.renderSection(current, topicDOM);
+    }
     }
 }
 
 llab.renderSection = function(section, parent) {
     var sectionDOM = $(document.createElement("section")).appendTo(parent);
     if (section.title) {
-	var headingType = section.headingType;
-	if (!llab.isTag(headingType) || headingType == "heading") {
-	    headingType = "h3";
-	}
-	sectionDOM.append($(document.createElement(headingType)).append(section.title));
+    var headingType = section.headingType;
+    if (!llab.isTag(headingType) || headingType == "heading") {
+        headingType = "h3";
+    }
+    sectionDOM.append($(document.createElement(headingType)).append(section.title));
     }
     
     var current;
     for (var i = 0; i < section.contents.length; i++) {
-	current = section.contents[i];
-	if (current.type && llab.isResource(current.type)) {
-	    llab.renderResource(current, sectionDOM);
-	} else if (current.type && llab.isInfo(current.type)) {
-	    var infoSection = [current];
-	    while (i < section.contents.length - 1 && section.contents[i].type == current.type) {
-		i++;
-		infoSection.push(section.contents[i]);
-	    }
-	    llab.renderInfo(infoSection, current.type, sectionDOM);
-	} else if (current.type == "section") {
-	    llab.renderSection(current, sectionDOM);
-	} else if (current.type == "raw_html") {
-	    sectionDOM.append(current.contents);
-	} else {
-	    sectionDOM.append(current.contents);
-	}
+    current = section.contents[i];
+    if (current.type && llab.isResource(current.type)) {
+        llab.renderResource(current, sectionDOM);
+    } else if (current.type && llab.isInfo(current.type)) {
+        var infoSection = [current];
+        while (i < section.contents.length - 1 && section.contents[i].type == current.type) {
+        i++;
+        infoSection.push(section.contents[i]);
+        }
+        llab.renderInfo(infoSection, current.type, sectionDOM);
+    } else if (current.type == "section") {
+        llab.renderSection(current, sectionDOM);
+    } else if (current.type == "raw_html") {
+        sectionDOM.append(current.contents);
+    } else {
+        sectionDOM.append(current.contents);
+    }
     }
 }
 
@@ -230,10 +230,10 @@ llab.renderResource = function(resource, parent) {
     var item = $(document.createElement("div")).attr({'class': resource.type});
     var new_contents = resource.contents + "\n";
     if (resource.url) {
-	var slash = resource.url[0] == "/" ? '' : '/';
-	item.append($(document.createElement("a")).attr({'href': llab.rootURL + slash + resource.url}).append(new_contents));
+    var slash = resource.url[0] == "/" ? '' : '/';
+    item.append($(document.createElement("a")).attr({'href': llab.rootURL + slash + resource.url}).append(new_contents));
     } else {
-	item.append(new_contents);
+    item.append(new_contents);
     }
     parent.append(item);
 }
@@ -302,12 +302,12 @@ $(document).ready(function() {
 // Stuff I need to add later
 junk = function() {
     if (course) {
-	if (course.indexOf("://") === -1) {
+    if (course.indexOf("://") === -1) {
             course = llab.courses_path + course;
-	}
-	$(FULL).append($(document.createElement("a")).attr(
+    }
+    $(FULL).append($(document.createElement("a")).attr(
             {"class":"course_link", "href": course }
-	).html(llab.strings.goMain));
+    ).html(llab.strings.goMain));
     }
 }
 
