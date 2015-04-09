@@ -80,6 +80,10 @@ llab.isHeading = function(line) {
     return llab.matchesArray(line, llab.topicKeywords.headings);
 }
 
+llab.isKeyword = function(line) {
+    return llab.isResource(line) || llab.isInfo(line) || llab.isHeading(line);
+}
+
 llab.renderFull = function(data, ignored1, ignored2) {
     var content = llab.parseTopicFile(data);
     llab.renderTopicModel(content);
@@ -142,18 +146,18 @@ llab.parseTopicFile = function(data) {
 	    if (text) {
 		raw_html.push(text)
 	    }
-	    i++;
-            while (lines[i].length >= 1 && line.slice[0] != "}") {
+            while (lines[i+1].length >= 1 && lines[i+1].slice(0) != "}" && !llab.isKeyword(lines[i+1])) {
+		i++;
 		line = lines[i];
 		raw_html.push(line);
-		i++;
             }
-            topic_model.contents.push({type: 'raw_html', contents: raw_html});
+	    section.contents.push({type: 'raw_html', contents: raw_html});
+	    
             raw = false;
 	}
     }
     llab.topics = topics; // TODO: this is for testing purposes
-    //$('body').append("<pre>\n" + JSON.stringify(llab.topics, null, '\t') + "\n</pre>") // testing
+    // $('body').append("<pre>\n" + JSON.stringify(llab.topics, null, '\t') + "\n</pre>") // testing
 
     return topics;
 }
@@ -191,7 +195,6 @@ llab.renderTopic = function(topic_model) {
 }
 
 llab.renderSection = function(section, parent) {
-    console.log("reached renderSection");
     var sectionDOM = $(document.createElement("section")).appendTo(parent);
     if (section.title) {
 	var headingType = section.headingType;
