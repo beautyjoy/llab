@@ -45,7 +45,6 @@
 /* The allowed tags for easy entry.
  * e.g.   h1: Some Text [maybe/a/link/too]
  */
-llab.tags = ["h1", "h2", "h3", "h4", "h5", "h6"];
 llab.topicKeywords = {};
 llab.topicKeywords.resources = ["quiz", "assignment", "resource",
                                 "forum", "video", "extresource",
