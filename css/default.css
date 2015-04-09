@@ -6,7 +6,7 @@ code, pre, tt, kbd, samp {
 
 h1, h4, h5, h6, .header-sans {
   font-family: 'VAG Rounded Light', 'VAG Rounded', 'Helvetica Neue', Helvetica, sans-serif;
-  font-weight: normal;
+  font-weight: 200;
 }
 
 h2, h3, blockquote,
@@ -112,10 +112,6 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 3px; /* Override Bootstrap */
   padding: 8px 0;
   color: #000;
-}
-
-h2, h3 {
-  font-weight: 800;
 }
 
 blockquote {
