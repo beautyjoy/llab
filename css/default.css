@@ -91,8 +91,8 @@ nav {
 .full is needed because the class reference is more specific and the
 above rules override these without it.
 */
-.full ul  ul, .full ol  ol,
-.full ul  ol, .full ol  ul {
+.full ul ul, .full ol ol,
+.full ul ol, .full ol ul {
   border: none;
   display: block;
   margin: none;
