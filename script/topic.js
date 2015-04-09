@@ -153,7 +153,7 @@ llab.parseTopicFile = function(data) {
 	}
     }
     llab.topics = topics; // TODO: this is for testing purposes
-    $('body').append("<pre>\n" + JSON.stringify(llab.topics, null, '\t') + "\n</pre>") // testing
+    //$('body').append("<pre>\n" + JSON.stringify(llab.topics, null, '\t') + "\n</pre>") // testing
 
     return topics;
 }
@@ -198,7 +198,7 @@ llab.renderSection = function(section, parent) {
 	if (!llab.isTag(headingType) || headingType == "heading") {
 	    headingType = "h3";
 	}
-	sectionDOM.append($(document.createElement(headingType)).text(section.title));
+	sectionDOM.append($(document.createElement(headingType)).append(section.title));
     }
     
     var current;
