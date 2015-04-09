@@ -59,13 +59,14 @@ llab.parseTopicFile = function(data) {
 
     data = data.replace(/(\r)/gm,""); // normalize line endings
     var lines = data.split("\n");
+    // TODO: If we support multiple topics per file -- this should have a URL field and maybe this should just be contents?
     var topics = { topics: [] };
     var line, topic_model, item, list, text, content, section, indent;
     var in_topic = false, raw = false;
     var url = document.URL;
     for (var i = 0; i < lines.length; i++) {
         line = llab.stripComments(lines[i]);
-        line = $.trim(line); // FIXME -- can't do this!
+        line = line.trim();
         if (line.length && !raw) {
             if (line.match(/^title:/)) {
                 topics.title = line.slice(6);
@@ -74,8 +75,7 @@ llab.parseTopicFile = function(data) {
             } else if (line.match(/^raw-html/)) {
                 raw = true;
             } else if (line[0] == "{") {
-                // TODO: Figure out url
-                topic_model = { type: 'topic', url: '', contents: [] };
+                topic_model = { type: 'topic', url: llab.topic, contents: [] };
                 topics.topics.push(topic_model);
                 section = { title: '', contents: [], type: 'section' };
                 topic_model.contents.push(section);
@@ -93,7 +93,7 @@ llab.parseTopicFile = function(data) {
                 tag = llab.getKeyword(line, llab.topicKeywords.info);
                 indent = llab.indentLevel(line);
                 content = llab.getContent(line)['text']; // ?
-                // todo: do we really need indentation now?
+                // TODO: do we really need indentation now?
                 // if so, I think it should be added to the type
                 // and only if indentation levels != nested levels.
                 item = { type: tag, contents: content, indent: indent };
@@ -123,6 +123,7 @@ llab.parseTopicFile = function(data) {
                 line = lines[i];
                 raw_html.push(line);
             }
+            // FIXME -- shouldn't the type have a - ?
             section.contents.push({ type: 'raw_html', contents: raw_html });
             raw = false;
         }
@@ -146,6 +147,7 @@ llab.getKeyword = function(line, A) {
 llab.getContent = function(line) {
     var sepIdx = line.indexOf(':');
     var content = line.slice(sepIdx + 1);
+    // TODO, we could probably strengthen this with a lastIndexOf() call.
     var sliced = content.split(/\[|\]/);
     return { text: sliced[0], url: sliced[1] };
 }
@@ -195,6 +197,7 @@ llab.renderTopic = function(topic_model) {
         course = params.course;
     var topicDOM = $("<div>").attr({ 'class': 'topic' });
 
+    // FIXME -- css eventually, should be a - 
     topicDOM.append($(document.createElement("div")).attr(
         {'class': 'topic_header'}).append(topic_model.title));
 
@@ -209,6 +212,7 @@ llab.renderTopic = function(topic_model) {
 
     // Make sure to only update view once things are rendered.
     $(FULL).append(topicDOM);
+    // TODO: append Go to Course Page link
 }
 
 llab.renderSection = function(section, parent) {
@@ -232,7 +236,7 @@ llab.renderSection = function(section, parent) {
             llab.renderInfo(infoSection, current.type, sectionDOM);
         } else if (current.type == "section") {
             llab.renderSection(current, sectionDOM);
-        } else { // handles current.type == "raw_html"
+        } else { // also handles: current.type == "raw_html"
             sectionDOM.append(current.contents);
         }
     }
@@ -241,7 +245,7 @@ llab.renderSection = function(section, parent) {
 }
 
 llab.renderResource = function(resource, parent) {
-    var item = $(document.createElement("div")).attr({'class': resource.type});
+    var item = $("<div>").attr({ 'class': resource.type });
     var new_contents = resource.contents + "\n";
     if (resource.url) {
         var slash = resource.url[0] == "/" ? '' : '/';
@@ -255,7 +259,7 @@ llab.renderResource = function(resource, parent) {
 llab.renderInfo = function(contents, type, parent) {
     var infoDOM =  $(document.createElement("div")).attr({'class': type});
     var list = $(document.createElement("ul")).appendTo(infoDOM);
-    list.append(contents.map(function(item) {return $(document.createElement("li")).append(item.contents);}));
+    list.append(contents.map(function(item) {return $(document.createElement("li")).append(item.contents) }));
     parent.append(infoDOM);
 }
 
@@ -277,12 +281,8 @@ llab.indentLevel = function(s) {
     return Math.floor(count/4);
 }
 
-
-/* Returns true iff S is an allowed html tag. */
-llab.isTag = function(s) {
-    return llab.tags.indexOf(s) !== -1;
-}
-
+// TODO: Separate out the llab.file stuff
+// TODO: save to an read from local storage.
 llab.displayTopic = function() {
     llab.file = llab.getQueryParameter("topic");
 
@@ -295,6 +295,7 @@ llab.displayTopic = function() {
             success : llab.renderFull
         });
     } else {
+        // FIXME -- put that text somewhere
         document.getElementsByTagName(llab.selectors.FULL).item(0).innerHTML = "Please specify a file in the URL.";
     }
 }
