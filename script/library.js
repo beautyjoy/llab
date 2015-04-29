@@ -22,6 +22,8 @@ llab.CORSCompliantServers.push("inst.eecs.berkeley.edu");
 llab.CORSCompliantServers.push("cs10.berkeley.edu");
 llab.CORSCompliantServers.push("localhost");
 llab.CORSCompliantServers.push("0.0.0.0");
+// Testing so that dev is like the server.
+llab.CORSCompliantServers.push("localhost:8000");
 
 
 //// TODO: Move this to config? Or refactor?
@@ -37,21 +39,21 @@ llab.getSnapRunURL = function(targeturl) {
         // pointing to some non-local resource...  do nothing!!
         return targeturl;
     }
-    
+
     // internal resource!
     var finalurl = llab.snapRunURLBase;
     var currdom = document.domain;
-    if (currdom == "localhost") {
-        currdom = 'http://' + currdom + ":" + window.location.port;
-    }
+    debugger
     if (llab.CORSCompliantServers.indexOf(currdom) == -1) {
         finalurl += llab.CORSproxy;
     }
+    // Make sure protocol exists incase https:// connections
+    currdom = window.location.protocol + '//' + currdom;
     if (targeturl.indexOf("..") != -1 || targeturl.indexOf(llab.rootURL) == -1) {
         var path = window.location.pathname;
         path = path.split("?")[0];
         path = path.substring(0, path.lastIndexOf("/") + 1);
-        currdom = window.location.protocol + '//' + currdom + path;
+        currdom += path;
     }
     finalurl = finalurl + currdom + targeturl;
 
@@ -267,7 +269,7 @@ llab.readCookie = function(name) {
 }
 
 llab.eraseCookie = function(name) {
-    createCookie(name,"",-1);
+    llab.createCookie(name,"",-1);
 }
 
 
@@ -286,9 +288,9 @@ llab.all = function(A) {
 
 llab.which = function(A) {
     for (i = 0; i < A.length; i++) {
-	if (A[i]) {
-	    return i;
-	}
+        if (A[i]) {
+            return i;
+        }
     }
     return -1;
 }
