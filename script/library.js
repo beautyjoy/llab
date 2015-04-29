@@ -43,7 +43,6 @@ llab.getSnapRunURL = function(targeturl) {
     // internal resource!
     var finalurl = llab.snapRunURLBase;
     var currdom = document.domain;
-    debugger
     if (llab.CORSCompliantServers.indexOf(currdom) == -1) {
         finalurl += llab.CORSproxy;
     }
