@@ -47,8 +47,8 @@ llab.BUILD_FILE_PATH = "./llab-complied.js";
 
 
 // Syntax Highlighting support
-llab.paths.syntax_highlights = "//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js";
-llab.paths.css_files.syntax_highlights = "css/tomorrow-night-blue.css";
+llab.paths.syntax_highlights = "lib/highlightjs/highlight.pack.js";
+llab.paths.css_files.syntax_highlights = "lib/highlightjs/styles/tomorrow-night-blue.css";
 
 
 
@@ -56,15 +56,12 @@ llab.paths.css_files.syntax_highlights = "css/tomorrow-night-blue.css";
 ///////////////////////// stage 0
 llab.paths.scripts[0] = [];
 llab.paths.scripts[0].push(llab.CONFIG_FILE_PATH);
-llab.paths.scripts[0].push("lib/jquery.min.js");
+llab.paths.scripts[0].push("lib/jquery/dist/jquery.min.js");
 
 llab.loaded['config'] = false;
 llab.paths.stage_complete_functions[0] = function() {
     return ( typeof jQuery === 'function' && llab.loaded['config'] );
 }
-
-
-
 
 
 /////////////////
@@ -89,7 +86,7 @@ llab.paths.scripts[2].push("script/curriculum.js");
 llab.paths.scripts[2].push("script/course.js");
 llab.paths.scripts[2].push("script/topic.js");
 llab.paths.scripts[2].push("script/quiz/multiplechoice.js");
-llab.paths.scripts[2].push("lib/bootstrap.min.js");
+llab.paths.scripts[2].push("lib/bootstrap/dist/js/bootstrap.min.js");
 // llab.paths.scripts[2].push("script/user.js");
 
 llab.loaded['multiplechoice'] = false;
