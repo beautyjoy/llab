@@ -53,6 +53,13 @@ llab.paths.css_files.syntax_highlights = "lib/highlightjs/styles/tomorrow-night-
 
 
 /////////////////////////
+// reference your custom CSS files, from within llab install directory.
+// Multiple CSS files is fine, include a separate push for each
+llab.paths.css_files.push('css/3.3.4/bootstrap.min.css');
+llab.paths.css_files.push('css/3.3.4/bootstrap-theme.min.css');
+llab.paths.css_files.push('css/default.css');
+
+
 ///////////////////////// stage 0
 llab.paths.scripts[0] = [];
 llab.paths.scripts[0].push(llab.CONFIG_FILE_PATH);
@@ -91,9 +98,7 @@ llab.paths.scripts[2].push("lib/bootstrap/dist/js/bootstrap.min.js");
 
 llab.loaded['multiplechoice'] = false;
 llab.paths.stage_complete_functions[2] = function() {
-    return ( llab.loaded['multiplechoice'] //&&
-             // llab.loaded['user']
-        );
+    return ( llab.loaded['multiplechoice'] ); //&& llab.loaded['user']
 }
 
 
@@ -153,9 +158,7 @@ llab.initialSetUp = function() {
 
     function loadScriptsAndLinks(stage_num) {
         var i, tag;
-
-        //console.log("starting script load stage " + stage_num);
-
+        
         // load css files
         while (llab.paths.css_files.length != 0) {
             tag = getTag("link", llab.paths.css_files.shift(), "text/css");
@@ -181,7 +184,6 @@ llab.initialSetUp = function() {
                 loadScriptsAndLinks(stage_num + 1);
             }
         } else {
-            // console.log("waiting on stage " + stage_num);
             setTimeout(function() {
                 proceedWhenComplete(stage_num);
             }, 5);
