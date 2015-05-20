@@ -47,24 +47,28 @@ llab.BUILD_FILE_PATH = "./llab-complied.js";
 
 
 // Syntax Highlighting support
-llab.paths.syntax_highlights = "//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js";
-llab.paths.css_files.syntax_highlights = "css/tomorrow-night-blue.css";
+llab.paths.syntax_highlights = "lib/highlightjs/highlight.pack.js";
+llab.paths.css_files.syntax_highlights = "lib/highlightjs/styles/tomorrow-night-blue.css";
 
 
 
 /////////////////////////
+// reference your custom CSS files, from within llab install directory.
+// Multiple CSS files is fine, include a separate push for each
+llab.paths.css_files.push('lib/bootstrap/dist/css/bootstrap.min.css');
+llab.paths.css_files.push('lib/bootstrap/dist/css/bootstrap-theme.min.css');
+llab.paths.css_files.push('css/default.css');
+
+
 ///////////////////////// stage 0
 llab.paths.scripts[0] = [];
 llab.paths.scripts[0].push(llab.CONFIG_FILE_PATH);
-llab.paths.scripts[0].push("lib/jquery.min.js");
+llab.paths.scripts[0].push("lib/jquery/dist/jquery.min.js");
 
 llab.loaded['config'] = false;
 llab.paths.stage_complete_functions[0] = function() {
     return ( typeof jQuery === 'function' && llab.loaded['config'] );
 }
-
-
-
 
 
 /////////////////
@@ -89,14 +93,12 @@ llab.paths.scripts[2].push("script/curriculum.js");
 llab.paths.scripts[2].push("script/course.js");
 llab.paths.scripts[2].push("script/topic.js");
 llab.paths.scripts[2].push("script/quiz/multiplechoice.js");
-llab.paths.scripts[2].push("lib/bootstrap.min.js");
+llab.paths.scripts[2].push("lib/bootstrap/dist/js/bootstrap.min.js");
 // llab.paths.scripts[2].push("script/user.js");
 
 llab.loaded['multiplechoice'] = false;
 llab.paths.stage_complete_functions[2] = function() {
-    return ( llab.loaded['multiplechoice'] //&&
-             // llab.loaded['user']
-        );
+    return ( llab.loaded['multiplechoice'] ); //&& llab.loaded['user']
 }
 
 
@@ -156,9 +158,7 @@ llab.initialSetUp = function() {
 
     function loadScriptsAndLinks(stage_num) {
         var i, tag;
-
-        //console.log("starting script load stage " + stage_num);
-
+        
         // load css files
         while (llab.paths.css_files.length != 0) {
             tag = getTag("link", llab.paths.css_files.shift(), "text/css");
@@ -184,7 +184,6 @@ llab.initialSetUp = function() {
                 loadScriptsAndLinks(stage_num + 1);
             }
         } else {
-            // console.log("waiting on stage " + stage_num);
             setTimeout(function() {
                 proceedWhenComplete(stage_num);
             }, 5);
