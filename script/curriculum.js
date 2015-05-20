@@ -198,7 +198,6 @@ llab.processLinks = function(data, status, jqXHR) {
 
         ddItem = llab.dropdownItem(itemContent, url);
         list.append(ddItem);
-        console.log(list);
     } // end for loop
 
     if (course) {
@@ -401,8 +400,6 @@ llab.thisPageNum = function() {
     } else {
         var result = -1;
         llab.url_list.forEach(function(item, idx) {
-            console.log(item);
-            console.log(idx);
             if (document.URL.indexOf(item) !== -1) {
                 result = idx;
                 return result;

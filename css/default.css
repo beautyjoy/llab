@@ -6,13 +6,14 @@ code, pre, tt, kbd, samp {
 
 h1, h4, h5, h6, .header-sans {
   font-family: 'VAG Rounded Light', 'VAG Rounded', 'Helvetica Neue', Helvetica, sans-serif;
-  font-weight: normal;
+  font-weight: 200;
 }
 
 h2, h3, blockquote,
 .serif, .dropdown-header,
 .title-small-screen, .header-serif, .title, .navbar-title {
-  font-family: 'Freight Text Pro', 'Baskerville', 'Georgia', 'Times', serif;
+  font-family: 'Freight Text Pro', Georgia, Times, serif;
+  font-weight: bold;
 }
 
 html, body { /* default Sans Serif Stack */
@@ -114,11 +115,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #000;
 }
 
-h2, h3 {
-  font-weight: 800;
-}
-
 blockquote {
+  font-weight: normal;
   font-style: italic;
   padding: 10px;
 }
@@ -847,6 +845,15 @@ img.indent, div.indent {
     width: 100%;
     /* Override this setting so that width takes effect. */
     max-width: 100%;
+  }
+}
+/****************************************/
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  h2, h3, blockquote,
+  .serif, .dropdown-header,
+  .title-small-screen, .header-serif, .title, .navbar-title {
+    font-weight: normal;
   }
 }
 
