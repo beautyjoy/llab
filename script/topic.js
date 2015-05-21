@@ -196,7 +196,7 @@ llab.renderCourseLink = function(course) {
     if (course.indexOf("://") === -1) {
         course = llab.courses_path + course;
     }
-    $(FULL).prepend($(document.createElement("a")).attr(
+    $('.nav.navbar-nav.navbar-right').prepend($(document.createElement("a")).attr(
         {"class":"course_link", "href": course }
     ).html(llab.strings.goMain));
 };
