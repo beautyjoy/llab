@@ -117,7 +117,7 @@ llab.parseTopicFile = function(data) {
             if (text) {
                 raw_html.push(text)
             }
-            // FIXME -- if nested topics are good check for { 
+            // FIXME -- if nested topics are good check for {
             while (lines[i+1].length >= 1 && lines[i+1].slice(0) != "}" && !llab.isKeyword(lines[i+1])) {
                 i++;
                 line = lines[i];
@@ -189,7 +189,17 @@ llab.renderTitle = function(title) {
     titleText = navbar.text(); // Normalize Window Title
     titleText = titleText.replace('snap', 'Snap!');
     document.title = titleText;
-}
+
+};
+
+llab.renderCourseLink = function(course) {
+    if (course.indexOf("://") === -1) {
+        course = llab.courses_path + course;
+    }
+    $(FULL).prepend($(document.createElement("a")).attr(
+        {"class":"course_link", "href": course }
+    ).html(llab.strings.goMain));
+};
 
 llab.renderTopic = function(topic_model) {
     var FULL = llab.selectors.FULL,
@@ -197,7 +207,7 @@ llab.renderTopic = function(topic_model) {
         course = params.course;
     var topicDOM = $("<div>").attr({ 'class': 'topic' });
 
-    // FIXME -- css eventually, should be a - 
+    // FIXME -- css eventually, should be topic-header
     topicDOM.append($(document.createElement("div")).attr(
         {'class': 'topic_header'}).append(topic_model.title));
 
@@ -212,7 +222,7 @@ llab.renderTopic = function(topic_model) {
 
     // Make sure to only update view once things are rendered.
     $(FULL).append(topicDOM);
-    // TODO: append Go to Course Page link
+    llab.renderCourseLink(course);
 }
 
 llab.renderSection = function(section, parent) {
@@ -240,7 +250,7 @@ llab.renderSection = function(section, parent) {
             sectionDOM.append(current.contents);
         }
     }
-    
+
     sectionDOM.appendTo(parent);
 }
 
@@ -248,6 +258,7 @@ llab.renderResource = function(resource, parent) {
     var item = $("<div>").attr({ 'class': resource.type });
     var new_contents = resource.contents + "\n";
     if (resource.url) {
+        console.log(resource.url);
         var slash = resource.url[0] == "/" ? '' : '/';
         item.append($(document.createElement("a")).attr({'href': llab.rootURL + slash + resource.url}).append(new_contents));
     } else {
@@ -315,18 +326,7 @@ $(document).ready(function() {
 });
 
 
-// Stuff I need to add later
-junk = function() {
-    if (course) {
-    if (course.indexOf("://") === -1) {
-            course = llab.courses_path + course;
-    }
-    $(FULL).append($(document.createElement("a")).attr(
-            {"class":"course_link", "href": course }
-    ).html(llab.strings.goMain));
-    }
-}
-
+// TODO: Export nodeJS stuff here.
 
 /*
   Error checking (do this after building page, so it won't slow it down?)
