@@ -291,7 +291,7 @@ code { /* Override bootstrap. */
   border-radius: 0; /* No round coners on dropdowns between buttons */
 }
 
-.arrow {/* For Buttons with arrows instead of words. */
+.arrow { /* For Buttons with arrows instead of words. */
   border-radius: 8px;
   font-variant: small-caps;
   width: 3em;
