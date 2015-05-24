@@ -232,7 +232,8 @@ llab.renderTopic = function(topic_model) {
 }
 
 llab.renderSection = function(section, parent) {
-    var sectionDOM = $("<section>");
+    var sectionDOM = $("<section>"),
+        params = llab.getURLParameters();
     if (section.title) {
         var tag = section.headingType == "heading" ? 'h3' : section.headingType;
         sectionDOM.append($('<' + tag + '>').append(section.title));
@@ -242,6 +243,13 @@ llab.renderSection = function(section, parent) {
     var current;
     for (var i = 0; i < section.contents.length; i++) {
         current = section.contents[i];
+        isHidden = params.hasOwnProperty('no' + current.type);
+
+        // Skip Rendering Hidden Resources.
+        if (isHidden) {
+            continue;
+        }
+
         if (current.type && llab.isResource(current.type)) {
             llab.renderResource(current, sectionDOM);
         } else if (current.type && llab.isInfo(current.type)) {
@@ -310,7 +318,7 @@ llab.displayTopic = function() {
             type : "GET",
             dataType : "text",
             cache : true,
-            success : llab.renderFull
+            success : llab.renderFull // FIXME -- rename
         });
     } else {
         // FIXME -- put that text somewhere
