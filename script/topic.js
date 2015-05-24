@@ -52,8 +52,10 @@ llab.topicKeywords.resources = ["quiz", "assignment", "resource",
 llab.topicKeywords.headings = ["h1", "h2", "h3", "h4", "h5", "h6", "heading"];
 llab.topicKeywords.info = ["big-idea", "learning-goal"]
 
+/* TODO: comment...
 
-llab.parseTopicFile = function(data) {
+*/
+llab.parseTopicFile = function parser(data) {
 
     llab.file = llab.topic;
 
@@ -128,17 +130,22 @@ llab.parseTopicFile = function(data) {
             raw = false;
         }
     }
-    llab.topics = topics; // TODO: this is for testing purposes
-    // $('body').append("<pre>\n" + JSON.stringify(llab.topics, null, '\t') + "\n</pre>") // testing
+    llab.topics = topics;
 
     return topics;
 }
 
+// Shorter method alias (used in node API)
+llab.parse = llab.parseTopicFile;
+
+/* TODO: Comment needed.
+*/
 llab.matchesArray = function(line, A) {
     var matches = A.map(function(s) {return line.match(s) });
     return llab.any(matches.map(function(m) {return m != null }));
 }
 
+// TODO: comment...
 llab.getKeyword = function(line, A) {
     var matches = A.map(function(s) {return line.match(s) });
     return A[llab.which(matches.map(function(m) {return m != null }))];
@@ -168,13 +175,13 @@ llab.isKeyword = function(line) {
     return llab.isResource(line) || llab.isInfo(line) || llab.isHeading(line);
 }
 
-llab.renderFull = function(data, ignored1, ignored2) {
+llab.renderFull = function renderAndParse(data) {
     var content = llab.parseTopicFile(data);
     llab.renderTopicModel(content);
 }
 
 // TODO: this data format is messy.
-llab.renderTopicModel = function(topics) {
+llab.renderTopicModel = function rederer(topics) {
     llab.renderTitle(topics.title);
     topics.topics.forEach(function(topic) {
         llab.renderTopic(topic);
@@ -189,7 +196,6 @@ llab.renderTitle = function(title) {
     titleText = navbar.text(); // Normalize Window Title
     titleText = titleText.replace('snap', 'Snap!');
     document.title = titleText;
-
 };
 
 llab.renderCourseLink = function(course) {
@@ -232,6 +238,7 @@ llab.renderSection = function(section, parent) {
         sectionDOM.append($('<' + tag + '>').append(section.title));
     }
 
+    // FIXME -- for each loop!
     var current;
     for (var i = 0; i < section.contents.length; i++) {
         current = section.contents[i];
@@ -258,9 +265,8 @@ llab.renderResource = function(resource, parent) {
     var item = $("<div>").attr({ 'class': resource.type });
     var new_contents = resource.contents + "\n";
     if (resource.url) {
-        console.log(resource.url);
         var slash = resource.url[0] == "/" ? '' : '/';
-        item.append($(document.createElement("a")).attr({'href': llab.rootURL + slash + resource.url}).append(new_contents));
+        item.append($(document.createElement("a")).attr({'href': resource.url}).append(new_contents));
     } else {
         item.append(new_contents);
     }
