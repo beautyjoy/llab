@@ -20,6 +20,8 @@ llab.CORSCompliantServers.push("bjc.eecs.berkeley.edu");
 llab.CORSCompliantServers.push("snap.berkeley.edu");
 llab.CORSCompliantServers.push("inst.eecs.berkeley.edu");
 llab.CORSCompliantServers.push("cs10.berkeley.edu");
+llab.CORSCompliantServers.push("beautyjoy.github.io");
+llab.CORSCompliantServers.push("cs10.github.io");
 llab.CORSCompliantServers.push("localhost");
 llab.CORSCompliantServers.push("0.0.0.0");
 // Testing so that dev is like the server.
