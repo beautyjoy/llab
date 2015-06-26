@@ -64,6 +64,7 @@ llab.paths.css_files.push('css/default.css');
 llab.paths.scripts[0] = [];
 llab.paths.scripts[0].push(llab.CONFIG_FILE_PATH);
 llab.paths.scripts[0].push("lib/jquery/dist/jquery.min.js");
+llab.paths.scripts[0].push("//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML");
 
 llab.loaded['config'] = false;
 llab.paths.stage_complete_functions[0] = function() {
@@ -158,7 +159,7 @@ llab.initialSetUp = function() {
 
     function loadScriptsAndLinks(stage_num) {
         var i, tag;
-        
+
         // load css files
         while (llab.paths.css_files.length != 0) {
             tag = getTag("link", llab.paths.css_files.shift(), "text/css");
