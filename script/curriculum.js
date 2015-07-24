@@ -5,7 +5,6 @@
  *  Dependencies:
  *      jQuery
  *      library.js
- *      (Bootsrap) - optional, needed for looks, if missing code will still run
  */
 
 llab.file = "";
@@ -284,6 +283,7 @@ llab.setupTitle = function() {
     // Special Case for Snap! in titles.
     document.title = document.title.replace('snap', 'Snap!');
 
+    // FIXME -- refactor.
     $(document.body).css('padding-top', $('.llab-nav').height() + 10);
     document.body.onresize = function(event) {
         $(document.body).css('padding-top', $('.llab-nav').height() + 10);

@@ -1,0 +1,228 @@
+{
+	"topics": [
+		{
+			"type": "topic",
+			"url": "",
+			"contents": [
+				{
+					"title": " Big Ideas",
+					"contents": [
+						{
+							"type": "big-idea",
+							"contents": " Understand the basic components of any computer",
+							"indent": 0
+						},
+						{
+							"type": "big-idea",
+							"contents": " Understand Moore's Law impact on the development of the processors",
+							"indent": 0
+						},
+						{
+							"type": "big-idea",
+							"contents": " Understand parallelism and its limitations in computing",
+							"indent": 0
+						},
+						{
+							"type": "big-idea",
+							"contents": " Explore the history and development of encryption techniques",
+							"indent": 0
+						},
+						{
+							"type": "video",
+							"indent": 0,
+							"contents": " Concurrency ",
+							"url": "https://coursesharing.org/courses/6/lectures/16"
+						},
+						{
+							"type": "reading",
+							"indent": 0,
+							"contents": " Blown to Bits: Chapter 5 Part 1 ",
+							"url": "http://inst.eecs.berkeley.edu/~cs10/sp12/readings/BtB5-pt1.pdf"
+						},
+						{
+							"type": "reading",
+							"indent": 0,
+							"contents": " Blown to Bits: Chapter 5 Part 2 ",
+							"url": "http://inst.eecs.berkeley.edu/~cs10/sp12/readings/BtB5-pt2.pdf"
+						},
+						{
+							"type": "reading",
+							"indent": 0,
+							"contents": " Blown to Bits: Chapter 5 Part 3 ",
+							"url": "http://inst.eecs.berkeley.edu/~cs10/sp12/readings/BtB5-pt3.pdf"
+						}
+					],
+					"type": "section",
+					"headingType": "h2"
+				},
+				{
+					"title": " Activities",
+					"contents": [
+						{
+							"indent": 0,
+							"contents": "In snap  what are the issues/facilities to do parallel work, and how does the machine work?"
+						},
+						{
+							"type": "learning-goal",
+							"contents": " A single sprite has control blocks which appear to respond in parallel (e.g., multiple \"when green flag, do...\", \"when space is clicked, do...\", \"when I receive broadcast\", etc.)",
+							"indent": 0
+						},
+						{
+							"type": "learning-goal",
+							"contents": " Multiple sprites only exacerbate the problem, and race conditions could occur (e.g., what if multiple sprites tried to paint the screen their color all at the same time?)",
+							"indent": 0
+						},
+						{
+							"type": "learning-goal",
+							"contents": " What happens when multiple signals are sent to the same \"when I receive broadcast\" block, do all get through? (yes if Broadcast and wait; no, but consistent, if Broadcast and Edit->Thread Safe Scripts checked; no, but inconsistent, if Edit->Thread Safe Scripts unchecked)",
+							"indent": 0
+						},
+						{
+							"type": "learning-goal",
+							"contents": " When we call \"launch\", does that mean another worker starts up? (answer: yes and no)",
+							"indent": 0
+						},
+						{
+							"type": "learning-goal",
+							"contents": " The meta learning goal for this part is for you to develop an accurate mental model of how Scratch handles concurrency. This is so you avoid race conditions and deadlock, and so that you can fully exploit it to your benefit!",
+							"indent": 0
+						}
+					],
+					"type": "section",
+					"headingType": "h2"
+				},
+				{
+					"title": " Background: concurrency without the computer",
+					"contents": [
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " Card Sorting ",
+							"url": "/bjc-r/cur/programming/sorting/cards/card-sorting.html"
+						},
+						{
+							"type": "group",
+							"indent": 0,
+							"contents": " Card Sorting: Discussion ",
+							"url": "/bjc-r/cur/programming/sorting/cards/card-sorting-discuss.html"
+						},
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " Card Sorting: Let's do it ",
+							"url": "/bjc-r/cur/programming/sorting/cards/card-sorting-lets-do-it.html"
+						},
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " Card Sorting: Reflect ",
+							"url": "/bjc-r/cur/programming/sorting/cards/card-sorting-reflect.html"
+						},
+						{
+							"type": "forum",
+							"indent": 0,
+							"contents": " Concurrency in real life... ",
+							"url": "/bjc-r/cur/programming/concurrency/concurrency-in-real-life.html"
+						}
+					],
+					"type": "section",
+					"headingType": "heading"
+				},
+				{
+					"title": " Two heads are better than one.",
+					"contents": [
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " snap  Machine Concepts ",
+							"url": "/bjc-r/cur/programming/concurrency/snap/snap-machine-concepts.html"
+						},
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " Concurrency in snap  ",
+							"url": "/bjc-r/cur/programming/concurrency/snap/snap-play-1.html"
+						},
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " Debugging: Serial vs. Parallel ",
+							"url": "/bjc-r/cur/programming/concurrency/snap/snap-debug.html"
+						},
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " Reflection ",
+							"url": "/bjc-r/cur/programming/concurrency/snap/reflection-snap-1.html"
+						}
+					],
+					"type": "section",
+					"headingType": "heading"
+				},
+				{
+					"title": " snap ... don't all talk at once!",
+					"contents": [
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " Overview: Threads ",
+							"url": "/bjc-r/cur/programming/concurrency/snap/overview-snap-2.html"
+						},
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " Determinism vs. Non-determinism ",
+							"url": "/bjc-r/cur/programming/concurrency/snap/snap-modify.html"
+						},
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " What are the possible values? ",
+							"url": "/bjc-r/cur/programming/concurrency/snap/read-and-finish-with-n-script-snap.html"
+						},
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " Race Conditions in snap  ",
+							"url": "/bjc-r/cur/programming/concurrency/snap/snap-play-2.html"
+						},
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " These are the possible values ",
+							"url": "/bjc-r/cur/programming/concurrency/snap/read-and-finish-with-n-answer-snap.html"
+						}
+					],
+					"type": "section",
+					"headingType": "heading"
+				},
+				{
+					"title": " snap ... some details to form a mental model",
+					"contents": [
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " Overview: Broadcasts ",
+							"url": "/bjc-r/cur/programming/concurrency/snap/overview-snap-3.html"
+						},
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " Multiple Broadcasts ",
+							"url": "/bjc-r/cur/programming/concurrency/snap/snap-play-3.html"
+						},
+						{
+							"type": "resource",
+							"indent": 0,
+							"contents": " Reflection: Multiple Broadcasts ",
+							"url": "/bjc-r/cur/programming/concurrency/snap/reflection-snap-3.html"
+						}
+					],
+					"type": "section",
+					"headingType": "heading"
+				}
+			]
+		}
+	],
+	"title": " Concurrency"
+}
