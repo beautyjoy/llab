@@ -6,7 +6,10 @@
 
 
 // retrieve llab or create an empty version.
-llab = llab || {};
+if (typeof llab === 'undefined') {
+    var llab = llab || {};
+}
+
 llab.loaded = llab.loaded || {};
 
 
@@ -301,3 +304,7 @@ llab.which = function(A) {
 /////////////////////  END
 
 llab.loaded['library'] = true;
+
+if (typeof module !== 'undefiled' && typeof module.exports !== 'undefined') {
+    module.exports = llab;
+}
