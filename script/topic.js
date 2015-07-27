@@ -42,6 +42,11 @@
 
 */
 
+// FIXME -- this is for node! This needs to be a require() in the future!
+if (typeof llab === 'undefined') {
+    llab = {};
+}
+
 /* The allowed tags for easy entry.
  * e.g.   h1: Some Text [maybe/a/link/too]
  */
@@ -62,10 +67,11 @@ llab.parseTopicFile = function parser(data) {
     data = data.replace(/(\r)/gm,""); // normalize line endings
     var lines = data.split("\n");
     // TODO: If we support multiple topics per file -- this should have a URL field and maybe this should just be contents?
-    var topics = { topics: [] };
-    var line, topic_model, item, list, text, content, section, indent;
-    var in_topic = false, raw = false;
-    var url = document.URL;
+    var line, topic_model, item, list, text, content, section, indent,
+        topics = { topics: [] },
+        in_topic = false, raw = false;
+    // TODO: Verify this isn't necessary!
+    // var url = document.URL;
     for (var i = 0; i < lines.length; i++) {
         line = llab.stripComments(lines[i]);
         line = line.trim();
@@ -106,8 +112,12 @@ llab.parseTopicFile = function parser(data) {
                 tag = llab.getKeyword(line, llab.topicKeywords.resources);
                 indent = llab.indentLevel(line);
                 content = llab.getContent(line);
-                item = { type: tag, indent: indent, contents: content.text,
-                         url: content.url };
+                item = {
+                    type: tag,
+                    indent: indent,
+                    contents: content.text,
+                    url: content.url
+                };
                 section.contents.push(item);
             }
         } else if (line.length == 0) {
@@ -120,7 +130,8 @@ llab.parseTopicFile = function parser(data) {
                 raw_html.push(text)
             }
             // FIXME -- if nested topics are good check for {
-            while (lines[i+1].length >= 1 && lines[i+1].slice(0) != "}" && !llab.isKeyword(lines[i+1])) {
+            while (lines[i+1].length >= 1 && lines[i+1].slice(0) != "}" &&
+                    !llab.isKeyword(lines[i+1])) {
                 i++;
                 line = lines[i];
                 raw_html.push(line);
@@ -326,21 +337,26 @@ llab.displayTopic = function() {
     }
 }
 
-// Make a call to build a topic page.
-// Be sure that content is set only on pages that it should be
-$(document).ready(function() {
-    var url = document.URL,
-        isTopicFile = (url.indexOf("topic.html") !== -1 ||
-            // FIXME -- this may be broken.
-            url.indexOf("empty-topic-page.html") !== -1);
-
-    if (isTopicFile) {
-        llab.displayTopic();
-    }
-});
-
 
 // TODO: Export nodeJS stuff here.
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    // FIXME -- this should probably be a subobject of llab.
+
+    module.exports = {topic: llab};
+} else if (typeof $ !== 'undefined' && typeof jquery !== 'undefined') {
+    // Make a call to build a topic page.
+    // Be sure that content is set only on pages that it should be
+    $(document).ready(function() {
+        var url = document.URL,
+            isTopicFile = (url.indexOf("topic.html") !== -1 ||
+                // FIXME -- this may be broken.
+                url.indexOf("empty-topic-page.html") !== -1);
+
+        if (isTopicFile) {
+            llab.displayTopic();
+        }
+    });
+}
 
 /*
   Error checking (do this after building page, so it won't slow it down?)
