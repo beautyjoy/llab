@@ -12,7 +12,10 @@ if (typeof llab === 'undefined') {
  */
 
 // NOTE!!
-// You also need to specify the direct path to this file, in loader.js
+//  loader.js will attempt to load the config file at ../llab-config.js
+//  So, save this correctly or make local changes to your loader.js
+
+
 
 
 // if the website isn't at the root of the server, add the path here.
