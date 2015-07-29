@@ -72,6 +72,7 @@ llab.getQueryParameter = function(paramName) {
     }
 };
 
+// TODO move to topic.js
 /** Strips comments off the line in a topic file. */
 llab.stripComments = function(line) {
     var index = line.indexOf("//");
@@ -81,6 +82,7 @@ llab.stripComments = function(line) {
     }
     return line;
 };
+
 
 /* Google Analytics Tracking
  * To make use of this code, the two ga() functions need to be called
@@ -294,6 +296,41 @@ llab.which = function(A) {
         }
     }
     return -1;
+}
+
+
+////////////////////
+// course utils
+
+/*
+ * course obj: 
+ *    startTime: Date
+ *    ...
+ */
+
+
+
+// might return null if pages are loaded without course context, 
+//  but can't return undefined
+llab.getCurrentCourse = function() {
+	// TODO do something here based on url.
+	// last resort, use something from config file.
+	return null;
+}
+
+// used inside brainstorm for now
+llab.getCourseStartTime = function(course) {
+	var time = llab.config.defaultCourseStartTime;
+	
+	if (typeof course == 'undefined') {
+		course = llab.getCurrentCourse();
+	}
+	if (course != null 
+			&& (typeof course['starttime'] != 'undefined') 
+			&& course['startime'] != null) {
+		time = course['starttime'];
+	}
+	return time;
 }
 
 

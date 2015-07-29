@@ -11,12 +11,16 @@ if (typeof llab === 'undefined') {
  ***********************
  */
 
-// NOTE!!
-//  loader.js will attempt to load the config file at ../llab-config.js
-//  So, save this correctly or make local changes to your loader.js
+//NOTE!!
+//loader.js will attempt to load the config file at ../llab-config.js
+//So, name and place this correctly or make local changes to your loader.js
+
+llab.config = {};
 
 
 
+/////////////////////
+/// PATHS
 
 // if the website isn't at the root of the server, add the path here.
 // starting / means this is an absolute link, yo
@@ -36,11 +40,9 @@ llab.llab_path = llab.rootURL + llab.install_directory;
 //   start with two slashes and a domain name, and these can come from the interet
 //  Multiple CSS files is fine, include a separate push for each
 
-// llab.paths.css_files.push('css/3.3.0/bootstrap-theme.min.css');
+//llab.paths.css_files.push('css/3.3.0/bootstrap-theme.min.css');
 //llab.paths.css_files.push("/css/tomorrow-night-blue.css");
 //llab.paths.css_files.push('//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css');
-
-
 
 // courses -- path to folder containing courses.
 //  a course 'name', when prepended with this, will be an absolute link
@@ -57,20 +59,25 @@ llab.empty_topic_page_path = llab.llab_path + "html/empty-topic-page.html";
 llab.empty_curriculum_page_path = llab.llab_path + "html/empty-curriculum-page.html";
 
 
+//////////////////////////
 // google analytics tokens
+
 llab.GAuse = true;
 llab.GACode = 'UA-47210910-3';
 llab.GAurl = 'berkeley.edu';
 
 
+///////////////////////////
+// User, course, etc
 
-// USER
+// year, month, day, hour, etc...   Remember, month is 0-11. (07 is august).
+llab.config.defaultCourseStartTime = new Date(2015, 07, 20, 12);
+
+
 llab.user = {};
 //// Ug, this configuration needs to be done at end of load, after USER objects
 //// are defined.  Need a syntax for this.  For now just doing it in user.js
 // llab.user.user = new USER_NO_AUTH();  // simple user
-
-
 
 
 /*
