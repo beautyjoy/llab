@@ -27,7 +27,7 @@ a:visited {
 }
 
 html {
-  font-size: 1em; /* Fix for weird bootstrap */
+  font-size: 1em; /* Fix for weird bootstrap */	
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -480,9 +480,12 @@ img.indent, div.indent {
 }
 
 /** ICON CLASSES **/
-/*  These are resource icons for each item. */
-.group, .reading, .extresource, .video, .forum,
-.resource, .assignment, .homework, .quiz {
+/*  These are resource icons for each item. 
+    Really, these should all apply on when contained in .topics...*/
+.topic .group, .topic .reading, .extresource, .topic .video, .topic .forum,
+.resource, .topic .assignment, .topic .homework, .topic .quiz, .codeit, 
+.simulation, .topic .matchsequence, .fillblank, .topic .summary,
+.topic .brainstorm, .display {
   background-repeat: no-repeat;
   background-position: left;
   background-size: 1em;
@@ -490,38 +493,58 @@ img.indent, div.indent {
   margin: 5px 0;
 }
 
-.quiz {
+.topic .quiz {
   background-image: url(../img/multiplechoice28.png);
 }
 
-.assignment, .homework {
+.topic .assignment, .topic .homework {
   background-image: url(../img/note28.png);
 }
 
-.resource {
+.topic .codeit {
+  background-image: url(../img/special-codeshield-32.png);
+}
+.topic .matchsequence {
+  background-image: url(../img/matchsequence28.png);
+}
+.topic .simulation {
+  background-image: url(../img/Icon-Simulation-28.png);
+}
+.topic .resource {
   background-image: url(../img/course-resources-32.png);
 }
 
-.forum {
+.topic .fillblank {
+  background-image: url(../img/fillblank28.png);
+}
+.topic .forum {
   background-image: url(../img/pageLink.png);
 }
 
 /* http://findicons.com/icon/58541/movies */
-.video {
+.topic .video {
   background-image: url(../img/movies.png);
 }
 
-.extresource {
+.topic .summary {
+  background-image: url(../img/Icon-Reading-28.png);	
+}
+
+.topic .brainstorm {
+  background-image: url(../img/brainstorm28.png);
+}
+
+.topic .extresource, .topic .display {
   background-image: url(../img/display28.png);
 }
 
 /* http://findicons.com/icon/93370/emblem_library?id=274277 */
-.reading {
+.topic .reading {
   background-image: url(../img/emblem_library.png);
 }
 
 /* http://findicons.com/icon/66444/user_group?id=66460 */
-.group {
+.topic .group {
   background-image: url(../img/user_group.png);
 }
 /* End items controlled by .topic div */

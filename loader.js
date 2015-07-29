@@ -35,12 +35,12 @@ llab.paths  = {};
 llab.paths.stage_complete_functions = [];
 llab.paths.scripts = [];  // holds the scripts to load, in stages below
 llab.paths.css_files = [];
-llab.rootURL = "";  // to be overridden in config.js
-llab.install_directory = "";  // to be overridden in config.js
+llab.rootURL = "";  // to be overridden in llab-config.js
+llab.install_directory = "";  // to be overridden in llab-config.js
 
 
 // This file must always be at the same level as the llab install directory
-llab.CONFIG_FILE_PATH = "../llab.js";
+llab.CONFIG_FILE_PATH = "../apcsa/llab-config.js";
 
 // This file must always be at the same level as the llab install directory
 llab.BUILD_FILE_PATH = "./llab-complied.js";
@@ -57,6 +57,7 @@ llab.paths.css_files.syntax_highlights = "lib/highlightjs/styles/tomorrow-night-
 // Multiple CSS files is fine, include a separate push for each
 llab.paths.css_files.push('lib/bootstrap/dist/css/bootstrap.min.css');
 llab.paths.css_files.push('lib/bootstrap/dist/css/bootstrap-theme.min.css');
+llab.paths.css_files.push('css/brainstorm.css');
 llab.paths.css_files.push('css/default.css');
 
 
@@ -76,7 +77,7 @@ llab.paths.stage_complete_functions[0] = function() {
 ///////////////// stage 1
 llab.paths.scripts[1] = [];
 llab.paths.scripts[1].push("script/library.js");
-// llab.paths.scripts[1].push("script/lib/sha1.js");     // for brainstorm
+llab.paths.scripts[1].push("lib/sha1.js");     // for brainstorm
 
 llab.loaded['library'] = false;
 llab.paths.stage_complete_functions[1] = function() {
@@ -110,7 +111,7 @@ llab.paths.stage_complete_functions[2] = function() {
 // quiz.js depends on each of the quiz item types having loaded
 llab.paths.scripts[3] = [];
 llab.paths.scripts[3].push("script/quiz.js");
-// llab.paths.scripts[3].push("script/brainstorm.js");
+llab.paths.scripts[3].push("script/brainstorm.js");
 
 
 
@@ -131,14 +132,20 @@ llab.getPathToThisScript = function() {
     return '';
 };
 
-llab.thisPath = llab.getPathToThisScript();
+llab.pathToLlab = llab.getPathToThisScript().replace(THIS_FILE, "");
 
 
 function getTag(name, src, type) {
     var tag = document.createElement(name);
 
-    if (src.substring(0, 2) !== "//") {
-        src = llab.thisPath.replace(THIS_FILE, src);
+    if (src.substring(0, 2) === "//") {
+    	// external server, carry on..
+    } else if (src.substring(0,1) === "/") {
+    	// root on this server
+    	src = window.location.href.replace(window.location.pathname, src);
+    } else {
+    	// relative link
+        src = llab.pathToLlab +  src;
     }
 
     var link  = name === 'link' ? 'href' : 'src';
