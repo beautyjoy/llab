@@ -12,7 +12,10 @@ if (typeof llab === 'undefined') {
  */
 
 // NOTE!!
-// You also need to specify the direct path to this file, in loader.js
+//  loader.js will attempt to load the config file at ../llab-config.js
+//  So, save this correctly or make local changes to your loader.js
+
+
 
 
 // if the website isn't at the root of the server, add the path here.
@@ -27,14 +30,15 @@ llab.install_directory = "llab/";
 // absolute path to llab files -- don't change this
 llab.llab_path = llab.rootURL + llab.install_directory;
 
-// reference your custom CSS files, from within llab install directory.
+// load your custom CSS files:
+//   start without a slash, and these will come from within llab install directory.
+//   start with a slash, and these will come from your server root
+//   start with two slashes and a domain name, and these can come from the interet
 //  Multiple CSS files is fine, include a separate push for each
-// llab.paths.css_files.push('css/3.3.0/bootstrap.min.css');
+
 // llab.paths.css_files.push('css/3.3.0/bootstrap-theme.min.css');
-llab.paths.css_files.push('css/3.3.0/bootstrap-compiled.min.css');
-llab.paths.css_files.push('css/default.css');
-// Syntax Highlighting
-llab.paths.css_files.push("css/tomorrow-night-blue.css");
+//llab.paths.css_files.push("/css/tomorrow-night-blue.css");
+//llab.paths.css_files.push('//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css');
 
 
 
