@@ -35,7 +35,8 @@ llab.bs.buildNodes = function() {
 // either didn't get the data, or the data is broken somehow
 llab.bs.revealDataDivError = function(bsdatadiv, i, err) {
 	// TODO -- you know, write a div saying 'whoops' or something
-	$(bsdatadiv).addClass("brainstorm-get-remote-data-error");
+	$(bsdatadiv).addClass("brainstorm-get-remote-data-error")
+	   .append("<hr><p>" + err + "</p>");
 }
 
 
@@ -59,6 +60,7 @@ llab.bs.buildNode = function(bsdatadiv, i, fetched) {
 
 
 //TODO separate model and view, yo
+// and, fix that cyclomatic complexity, yo-lol.
 var BRAINSTORM = function(bsdatadiv, i) {
 
 	this.bsdatadiv = bsdatadiv;
@@ -72,7 +74,7 @@ var BRAINSTORM = function(bsdatadiv, i) {
 	this.id = bsdatadiv.id;
 	this.showtitle = true;
 	this.title = bsdatadiv.find(".title").html();
-	if (this.title == "" || this.title == null) {
+	if (this.title === "" || this.title === null) {
 		this.showtitle = false;
 	}
 	if (this.showtitle) {
@@ -80,9 +82,9 @@ var BRAINSTORM = function(bsdatadiv, i) {
 	}
 
 	// now that we have id and title, set the 'real' id
-	if (this.id == "" || this.id == null) {
+	if (this.id === "" || this.id === null) {
 		this.id = this.title; // to make sure length doesn't matter
-		if (this.id == "" || this.id == null) {
+		if (this.id === "" || this.id === null) {
 			this.id = bsdatadiv.html();
 		}
 	}
@@ -90,7 +92,7 @@ var BRAINSTORM = function(bsdatadiv, i) {
 								// etc.
 
 	this.prompt = bsdatadiv.find(".prompt").html();
-	if (this.prompt == "" || this.prompt == null) {
+	if (this.prompt === "" || this.prompt === null) {
 		// TODO should treat this like ajax failure, really
 		this.prompt = "ERROR: MISCONFIGURATION OF PROMPT";
 	}
@@ -100,7 +102,7 @@ var BRAINSTORM = function(bsdatadiv, i) {
 	var inputarea = bsdiv.find(".input").find(".inputarea");
 	var numlines = inputarea.attr('rows');
 	var numlines_toset = bsdatadiv.attr('expected-lines');
-	if (numlines_toset != "" || numlines_toset != null) {
+	if (numlines_toset !== "" || numlines_toset !== null) {
 		numlines = numlines_toset;
 	}
 	inputarea.attr('rows', numlines);
@@ -217,13 +219,14 @@ llab.bs.makeCannedResponse = function(crDataDiv, i) {
 llab.bs.saveResponse = function(bsdiv) {
 	var responseText = bsdiv.find(".inputarea").val().trim();
 	if (responseText) {
-		bsnode = llab.bs.getNode(bsdiv);
-		if (typeof bsnode.userResponse['responseText'] != 'undefined') {
+		var bsnode = llab.bs.getNode(bsdiv);
+		if (typeof bsnode.userResponse['responseText'] !== 'undefined') {
 			// an edit!  note, we only save responseText, not username, time
 			if (bsnode.userResponse['edits']) {
 				bsnode.userResponse['edits'].push(bsnode.userResponse['responseText']);
-			} else
+			} else {
 			bsnode.userResponse['edits'] = [ bsnode.userResponse['responseText'] ];
+			}
 		}
 		bsnode.userResponse['time'] = new Date();
 		bsnode.userResponse['responseText'] = responseText;
@@ -239,9 +242,9 @@ llab.bs.saveResponse = function(bsdiv) {
 llab.bs.editResponse = function(bsdiv) {
 	console.log("so you want to edit your response, eh?");
 	
-	$(".input input[type=button]").val("edit");
-	$(".brainstorm .responseArea").hide(125);
-	$(".brainstorm .input").show(125);
+	$(bsdiv).find(".input input[type=button]").val("edit");
+	$(bsdiv).find(".brainstorm .responseArea").hide(125);
+	$(bsdiv).find(".brainstorm .input").show(125);
 }
 
 
@@ -252,7 +255,7 @@ llab.bs.syncResponsesView = function(bsdiv, bsnode) {
 	var responses = $(bsdiv).find(".responses");
 	var placeholder = $(bsdiv).find(".responsePlaceholder");
 	// user first
-	respDivUser = llab.bs.setResponseDiv(bsdiv, bsnode.userResponse, responses.find(".response.user"), "user");
+	var respDivUser = llab.bs.setResponseDiv(bsdiv, bsnode.userResponse, responses.find(".response.user"), "user");
 	// make sure user is first, and placeholder is next.
 	$(respDivUser).parent().prepend(respDivUser);
 	$(respDivUser).after(placeholder);
@@ -276,7 +279,7 @@ llab.bs.syncResponsesView = function(bsdiv, bsnode) {
 // TODO should we let username change?  right now it can
 // jsrender and jsview here, please
 llab.bs.setResponseDiv = function(bsdiv, resp, responseDiv, userClass) {
-	if (typeof responseDiv == "undefined" || responseDiv == null
+	if (typeof responseDiv === "undefined" || responseDiv === null
 			|| $.isEmptyObject(responseDiv) || responseDiv.length == 0) {
 		responseDiv = $(llab.bs.getResponseTemplate(resp, userClass));
 		// insert after the placeholder
@@ -303,7 +306,7 @@ llab.bs.getResponseTemplate = function(resp, userClass) {
 			+ '  <div class="responseTitle"> ' 
 			+ '    <span class="username">' + resp['username'] + '</span> '
 			+ '';
-	if (userClass == "user") {
+	if (userClass === "user") {
 		template += ''
 			+ '    <span class="edit"> '
 			+ '       <input type="button" value="edit" />'
@@ -349,6 +352,7 @@ llab.bs.refreshResponses = function(bsdiv) {
 /////////////////
 // options
 
+//TODO
 llab.bs.showSettings = function(bsdiv) {
 	console.log("no settings control yet...");
 }
