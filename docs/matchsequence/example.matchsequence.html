@@ -1,0 +1,95 @@
+<html>
+
+<head>
+<!-- put the following in exactly -->
+<script id="llab-bootstrap" type="text/javascript" src="../loader.js"></script>
+<title>Example matchsequence in page</title>
+<!--  based on i2bj-challenge-1.ms -->
+<!-- Note: this is only unordered stuff -->
+
+<!--  THIS ISN'T BEING USED YET -- STILL HACKING THINGS TOGETHER WITH JSON FOR NOW -->
+
+</head>
+
+
+
+<body>
+
+    <h2>Sample matchsequence page, yo</h2>
+    <p>you might have some instructions here, yo, who knows</p>
+
+<!-- 
+
+ -->
+    <div class="matchsequence-data" timeDependent="false"
+        hasInlineFeedback="true" ordered="false" shuffle="true"
+    >
+
+        <prompt-l>
+            <p>Match the choices to the target boxes.</p>
+        </prompt-l>
+
+        <interaction-l>
+        
+            <!--  order of these matter; indexes will be reference in the feedback
+                  'interactions' attribute -->
+            <choice-l matchMax="1">Select from the Project menu</choice-l>
+            <choice-l>Control-click (right-click) a
+            class</choice-l>
+            <choice-l>On the Object Bench,
+            control-click (right-click) on the object</choice-l>
+            <!-- choice-l defaults: matchMax=1   -->
+
+
+            <bucket-l numberOfEntries="0" ordinal="false">Used to
+            Open a Project</bucket-l>
+            <bucket-l class="bucket-l" numberOfEntries="0">Used to
+            Create an Object</bucket-l>
+            <bucket-l class="bucket-l" numberOfEntries="0">Used to
+            Remove an Object</bucket-l>
+            <!--  bucket-l defaults: ordinal="false", numberOfEntries="0" -->
+            
+        </interaction-l>
+
+
+        <feedback-l>
+        
+            <correct-l cell="1,1" order="0" isDefault="false">
+            Right-o!</correct-l>
+            <correct-l cell="2,2" />
+            <correct-l cell="3,3" />
+            <!--  correct-l defaults: order=0, isDefault=false, body->"Correct." -->
+            
+            <wrong-l interactions="1,2"> Try again, that doesn't
+            make sense </wrong-l>
+            <!--  wrong-l defaults: order=0, isDefault=false, body->"Incorrect." -->
+
+            <!--  missing feedback entries (in matrix of choice,bucket) will be 
+                  assumed wrong/incorrect with defaults.  It would be nice to 
+                  spec a way to change defaults for this reason, wouldn't it...  -->
+            
+
+        </feedback-l>
+
+<!-- 
+Custom Elements to register:
+prompt-l
+interaction-l
+choice-l
+bucket-l
+correct-l
+wrong-l
+incorrect-l
+
+ -->
+    </div>
+    
+    <!-- 
+    
+     -->
+
+    <p class="quoteBlue">And some after matchsequence just for fun
+        instructions also</p>
+</body>
+
+</html>
