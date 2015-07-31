@@ -235,10 +235,10 @@ llab.addFrame = function() {
     var frame = $(document.createElement("iframe")).attr(
         {'src': source, 'class': 'content-embed'} );
 
-    var conent = $(document.createElement('div')).append(frame).append(
+    var content = $(document.createElement('div')).append(frame).append(
     '<a href=' + source + ' target="blank">Open page in new window</a><br />');
 
-    $(FULL).append(conent);
+    $(FULL).append(content);
 };
 
 // Setup the entire page title. This includes creating any HTML elements.
@@ -252,9 +252,9 @@ llab.setupTitle = function() {
         return;
     }
 
-    // Create .full before adding stuff.
+    // Create FULL before adding stuff.
     if ($(FULL).length === 0) {
-        $(document.body).wrapInner('<div class="full"></div>');
+        $(document.body).wrapInner('<div class="llab-full"></div>');
     }
 
     // Work around when things are oddly loaded...
@@ -284,9 +284,9 @@ llab.setupTitle = function() {
     // Special Case for Snap! in titles.
     document.title = document.title.replace('snap', 'Snap!');
 
-    $(document.body).css('padding-top', $('.llab-nav').height() + 10);
+    $(document.body).css('padding-top', $(llab.selectors.NAVSELECT).height() + 10);
     document.body.onresize = function(event) {
-        $(document.body).css('padding-top', $('.llab-nav').height() + 10);
+        $(document.body).css('padding-top', $(llab.selectors.NAVSELECT).height() + 10);
     };
 
     llab.titleSet = true;
@@ -300,8 +300,8 @@ llab.createTitleNav = function() {
         '<nav class="llab-nav navbar navbar-default navbar-fixed-top" role="navigation">' +
         '<div class="nav navbar-nav navbar-left navbar-title"></div></nav>' +
         '<div class="title-small-screen"></div>'),
-        botHTML = "<div class='full-bottom-bar'><div class='bottom-nav " +
-                      "btn-group'></div></div>",
+        botHTML = '<div class="llab-full-bottom-bar"><div class="bottom-nav ' +
+                      'btn-group"></div></div>',
         navHTML = '<div class="nav navbar-nav navbar-right">' +
                   '<ul class="nav-btns btn-group"></ul></div>',
         topNav = $(llab.selectors.NAVSELECT),
