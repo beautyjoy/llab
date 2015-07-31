@@ -44,7 +44,7 @@ body {
   background-color: WhiteSmoke;
 }
 
-.full {
+.llab-full {
   border: 1px solid #003A70;
   border-radius: 6px;
   background-color: white;
@@ -78,7 +78,7 @@ nav {
 }
 
 /* FIXME --- poorly performant. */
-.full ul, .full ol {
+.llab-full ul, .llab-full ol {
   font-size: 1em;
   font-weight: inherit;
   display:inline-block;
@@ -89,11 +89,11 @@ nav {
 }
 
 /* Handle Nested Lists
-.full is needed because the class reference is more specific and the
+.llab-full is needed because the class reference is more specific and the
 above rules override these without it.
 */
-.full ul  ul, .full ol  ol,
-.full ul  ol, .full ol  ul {
+.llab-full ul  ul, .llab-full ol  ol,
+.llab-full ul  ol, .llab-full ol  ul {
   border: none;
   display: block;
   margin: none;
@@ -174,7 +174,7 @@ code { /* Override bootstrap. */
   text-overflow: ellipsis;
 }
 
-.full-bottom-bar {
+.llab-full-bottom-bar {
   background: #003A70;
   opacity: 0.85;
   filter: alpha(opacity=85); /* For IE8 and earlier */
@@ -816,7 +816,7 @@ img.indent, div.indent {
   body {
     width: 100%;
   }
-  .full {
+  .llab-full {
     width: 98%;
   }
   .navbar-right > .btn-group > .arrow {

@@ -28,18 +28,19 @@ if (termParam !== "") {
 }
 
 
+// wha?
 function renderTerm(body, ignored1, ignored2) {
     // uses termWord
-    var joe = $(".full");
-    $(".full .header").append(termWord);
-    $(".full").append(body);
+    $(llab.selectors.FULL)
+        .find(".header").append(termWord).end()
+        .append(body);
 
 }
 
 function renderIndex(page, ignored1, ignored2) {
     // render a list of all terms -- only way to do this in javascript is if the
     //  server is set up to list all contents of the directory
-    $(".full .header").html("Glossary Index");
+    $(llab.selectors.FULL + " .header").html("Glossary Index");
     $("li", page).each(function(index) {
         // ignore if it isn't a link that points to a *.body target
         alert(this);
