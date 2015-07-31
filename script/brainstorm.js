@@ -33,10 +33,11 @@ llab.bs.buildNodes = function() {
 }
 
 // either didn't get the data, or the data is broken somehow
-llab.bs.revealDataDivError = function(bsdatadiv, i, err) {
+llab.bs.revealDataDivError = function(bsdatadiv, i, error) {
 	// TODO -- you know, write a div saying 'whoops' or something
-	$(bsdatadiv).addClass("brainstorm-get-remote-data-error")
-	   .append("<hr><p>" + err + "</p>");
+	$(bsdatadiv).addClass("remote-data-error")
+	   .append("<hr><p>Failed to get this brainstorm specification. Don't code like Afroman.</p>"
+	           + "<p>Error: "+error+"</p>");
 }
 
 

@@ -15,8 +15,11 @@
 }
 
 /* class when couldn't get remote brainstorm data. fugly. */
-.brainstorm-get-remote-data-error {
-	background-color: #CC0000;
+.brainstorm-data .remote-data-error {
+	background-color: #fd5b5b;
+	background-image: url("../img/brainstorm-background.png");
+	text-align: center;
+	font-weight: bold;
 }
 
 /* initial */
@@ -59,6 +62,8 @@
 
 .brainstorm > .prompt {
 	padding: 10px 10px;
+	font-size: .9em;
+	text-align: left;
 }
 
 .brainstorm > .input {
