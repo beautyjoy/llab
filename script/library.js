@@ -302,15 +302,22 @@ llab.eraseCookie = function(name) {
  *    ...
  */
 
+llab.getCourseTitle = function(usercontext, resource) {
+    // if given a ... url?  user cookie? user donut?  dunno.
+    //brainstorm really wants this.
+    return null;
+}
 
 
 // might return null if pages are loaded without course context, 
 //  but can't return undefined
 llab.getCurrentCourse = function() {
 	// TODO do something here based on url.
-	// last resort, use something from config file.
+	// last resort, use something from config file. User?  who knows.
 	return null;
 }
+
+
 
 // used inside brainstorm for now
 llab.getCourseStartTime = function(course) {
