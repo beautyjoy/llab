@@ -332,8 +332,7 @@ llab.displayTopic = function() {
             success : llab.renderFull // FIXME -- rename
         });
     } else {
-        // FIXME -- put that text somewhere
-        document.getElementsByTagName(llab.selectors.FULL).item(0).innerHTML = "Please specify a file in the URL.";
+        $(llab.selectors.FULL).prepend('<p class="error">Please specify a file in the URL.</p>');
     }
 }
 

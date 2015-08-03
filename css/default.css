@@ -27,7 +27,7 @@ a:visited {
 }
 
 html {
-  font-size: 1em; /* Fix for weird bootstrap */	
+  font-size: 1em; /* Fix for weird bootstrap */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -44,7 +44,7 @@ body {
   background-color: WhiteSmoke;
 }
 
-.full {
+.llab-full {
   border: 1px solid #003A70;
   border-radius: 6px;
   background-color: white;
@@ -78,7 +78,7 @@ nav {
 }
 
 /* FIXME --- poorly performant. */
-.full ul, .full ol {
+.llab-full ul, .llab-full ol {
   font-size: 1em;
   font-weight: inherit;
   display:inline-block;
@@ -89,11 +89,11 @@ nav {
 }
 
 /* Handle Nested Lists
-.full is needed because the class reference is more specific and the
+.llab-full is needed because the class reference is more specific and the
 above rules override these without it.
 */
-.full ul ul, .full ol ol,
-.full ul ol, .full ol ul {
+.llab-full ul ul, .llab-full ol ol,
+.llab-full ul ol, .llab-full ol ul {
   border: none;
   display: block;
   margin: none;
@@ -174,7 +174,7 @@ code { /* Override bootstrap. */
   text-overflow: ellipsis;
 }
 
-.full-bottom-bar {
+.llab-full-bottom-bar {
   background: #003A70;
   opacity: 0.85;
   filter: alpha(opacity=85); /* For IE8 and earlier */
@@ -480,10 +480,10 @@ img.indent, div.indent {
 }
 
 /** ICON CLASSES **/
-/*  These are resource icons for each item. 
+/*  These are resource icons for each item.
     Really, these should all apply on when contained in .topics...*/
 .topic .group, .topic .reading, .extresource, .topic .video, .topic .forum,
-.resource, .topic .assignment, .topic .homework, .topic .quiz, .codeit, 
+.resource, .topic .assignment, .topic .homework, .topic .quiz, .codeit,
 .simulation, .topic .matchsequence, .fillblank, .topic .summary,
 .topic .brainstorm, .display {
   background-repeat: no-repeat;
@@ -527,7 +527,7 @@ img.indent, div.indent {
 }
 
 .topic .summary {
-  background-image: url(../img/Icon-Reading-28.png);	
+  background-image: url(../img/Icon-Reading-28.png);
 }
 
 .topic .brainstorm {
@@ -816,7 +816,7 @@ img.indent, div.indent {
   body {
     width: 100%;
   }
-  .full {
+  .llab-full {
     width: 98%;
   }
   .navbar-right > .btn-group > .arrow {
