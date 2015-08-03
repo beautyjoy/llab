@@ -347,6 +347,6 @@ llab.fragments.hamburger = '<span class="sr-only">Toggle navigation</span><span 
 
 llab.loaded['library'] = true;
 
-if (typeof module !== 'undefiled' && module.exports) {
+if (typeof module !== 'undefined' && module.exports) {
     module.exports = llab;
 }
