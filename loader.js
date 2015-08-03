@@ -24,12 +24,12 @@ if (!String.prototype.endsWith) {
 
 /* LLAB Loader
  * Lightweight Labs system.
- * This file is the entry point for all build-less llab pages.  
+ * This file is the entry point for all build-less llab pages.
  * The build system build html files that already have this generated.
  */
 
 // TODO
-// build system will bypass this and insert script/link references directly, 
+// build system will bypass this and insert script/link references directly,
 //   but we'll likely keep both
 // move to require.js, simple stuff!
 // could conditionally load a lot of this stuff based on components on the page
@@ -50,7 +50,8 @@ llab.install_directory = "";  // to be overridden in llab-config.js
 
 
 // This file is referenced at the same level as the llab install directory, not within it
-llab.CONFIG_FILE_PATH = "../apcsa/llab-config.js";
+// llab.CONFIG_FILE_PATH = "../apcsa/llab-config.js";
+llab.CONFIG_FILE_PATH = "../llab.js";
 
 // This file must always be at the same level as the llab install directory
 llab.BUILD_FILE_PATH = "./llab-complied.js";
@@ -183,7 +184,7 @@ llab.preSetUp = function() {
             });
     document.getElementsByTagName('head')[0].appendChild(tag);
 }
-    
+
 
 // TODO use promises composed of a stage's onload callbacks to trigger next stage.
 llab.initialSetup = function() {
@@ -195,7 +196,7 @@ llab.initialSetup = function() {
 
     function loadScriptsAndLinks(stage_num) {
         var i, tag;
-        
+
         // load css files
         while (llab.paths.css_files.length != 0) {
             tag = llab.loader.getTag("link", llab.paths.css_files.shift(), "text/css");
