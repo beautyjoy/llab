@@ -37,7 +37,7 @@ topicModel = {
             url: '/bjc-r/...'
         },
         "Should super-simple strings be supported?",
-        {...}
+        //{...}
     ]
 }
 
