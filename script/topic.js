@@ -47,6 +47,9 @@ if (typeof llab === 'undefined') {
     llab = {};
 }
 
+// TODO: All the stuff in this file should belong to a local topic module.
+var topic = {};
+
 /* The allowed tags for easy entry.
  * e.g.   h1: Some Text [maybe/a/link/too]
  */
@@ -336,13 +339,12 @@ llab.displayTopic = function() {
     }
 }
 
-
 // TODO: Export nodeJS stuff here.
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     // FIXME -- this should probably be a subobject of llab.
 
     module.exports = {topic: llab};
-} else if (typeof $ !== 'undefined' && typeof jquery !== 'undefined') {
+} else if (typeof $ !== 'undefined' && typeof jQuery !== 'undefined') {
     // Make a call to build a topic page.
     // Be sure that content is set only on pages that it should be
     $(document).ready(function() {
