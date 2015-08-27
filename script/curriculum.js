@@ -472,7 +472,7 @@ llab.goForward = function() {
 
 llab.addFeedback = function(title, topic, course) {
     // Prevent Button on small devices
-    if (screen.width < 1024) {
+    if (screen.width < 768) {
         return;
     }
 
