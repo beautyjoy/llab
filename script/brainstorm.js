@@ -82,13 +82,29 @@ var BRAINSTORM = function(bsdatadiv, i) {
 		bsdiv.find(".title").html(this.title).css('display', 'block');
 	}
 
-	// now that we have id and title, set the 'real' id
-	if (this.id === "" || this.id === null) {
-		this.id = this.title; // to make sure length doesn't matter
-		if (this.id === "" || this.id === null) {
-			this.id = bsdatadiv.html();
-		}
+	
+	// returns true if too short
+	var tooshort = function(thing) {
+	    if (typeof thing === 'undefined' || thing === "" || thing === null ) {
+	        return true;
+	    } else if (!(typeof thing === 'string')) {
+	        thing = String(thing);   
+	    }
+	    return (thing.length < 6);
 	}
+	
+    // now that we have id and title, set the 'real' id
+    var tempid;
+    if (!(tooshort(this.id))) {
+        tempid = "id" + String(this.id);
+    } else if (!(tooshort(this.title))) {
+        tempid = "title" + this.title;
+    } else {
+        tempid = bsdatadiv.html();
+    } 
+    // TODO we really need to include course in here, or id will be the same across courses!
+    // NOTE THIS DOESN't WORK RIGHT NOW.  
+	this.id = tempid + llab.getCourseTitle();
 	this.id = SHA1(this.id); // regularlize length, make things mysterious,
 								// etc.
 
