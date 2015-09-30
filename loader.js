@@ -24,12 +24,12 @@ if (!String.prototype.endsWith) {
 
 /* LLAB Loader
  * Lightweight Labs system.
- * This file is the entry point for all build-less llab pages.  
+ * This file is the entry point for all build-less llab pages.
  * The build system build html files that already have this generated.
  */
 
 // TODO
-// build system will bypass this and insert script/link references directly, 
+// build system will bypass this and insert script/link references directly,
 //   but we'll likely keep both
 // move to require.js, simple stuff!
 // could conditionally load a lot of this stuff based on components on the page
@@ -50,7 +50,8 @@ llab.install_directory = "";  // to be overridden in llab-config.js
 
 
 // This file is referenced at the same level as the llab install directory, not within it
-llab.CONFIG_FILE_PATH = "../apcsa/llab-config.js";
+// llab.CONFIG_FILE_PATH = "../apcsa/llab-config.js";
+llab.CONFIG_FILE_PATH = "../llab-config.js";
 
 // This file must always be at the same level as the llab install directory
 llab.BUILD_FILE_PATH = "./llab-complied.js";
@@ -81,6 +82,8 @@ llab.paths.defaults_file = "script/defaults.js";
 llab.paths.scripts[0] = [];
 llab.paths.scripts[0].push(llab.CONFIG_FILE_PATH);
 llab.paths.scripts[0].push("lib/jquery/dist/jquery.min.js");
+// TODO: Config this...
+llab.paths.scripts[0].push("//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML");
 
 llab.loaded['config'] = false;
 llab.paths.stage_complete_functions[0] = function() {
@@ -92,7 +95,8 @@ llab.paths.stage_complete_functions[0] = function() {
 ///////////////// stage 1
 llab.paths.scripts[1] = [];
 llab.paths.scripts[1].push("script/library.js");
-llab.paths.scripts[1].push("lib/jquery-ui-custom/jquery-ui.min.js"); //matchsequence
+llab.paths.scripts[1].push("lib/bootstrap/dist/js/bootstrap.min.js");
+llab.paths.scripts[1].push("lib/jquery-ui-custom/jquery-ui.min.js");  // for matchsequence
 llab.paths.scripts[1].push("lib/sha1.js");     // for brainstorm
 
 llab.loaded['library'] = false;
@@ -111,7 +115,6 @@ llab.paths.scripts[2].push("script/curriculum.js");
 llab.paths.scripts[2].push("script/course.js");
 llab.paths.scripts[2].push("script/topic.js");
 llab.paths.scripts[2].push("script/quiz/multiplechoice.js");
-llab.paths.scripts[2].push("lib/bootstrap/dist/js/bootstrap.min.js");
 // llab.paths.scripts[2].push("script/user.js");
 
 llab.loaded['multiplechoice'] = false;
@@ -183,7 +186,7 @@ llab.preSetUp = function() {
             });
     document.getElementsByTagName('head')[0].appendChild(tag);
 }
-    
+
 
 // TODO use promises composed of a stage's onload callbacks to trigger next stage.
 llab.initialSetup = function() {
@@ -195,7 +198,7 @@ llab.initialSetup = function() {
 
     function loadScriptsAndLinks(stage_num) {
         var i, tag;
-        
+
         // load css files
         while (llab.paths.css_files.length != 0) {
             tag = llab.loader.getTag("link", llab.paths.css_files.shift(), "text/css");

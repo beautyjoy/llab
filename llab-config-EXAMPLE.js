@@ -83,8 +83,20 @@ llab.alt_topic_page = llab.rootURL + "topic/topic.html";
 // TODO - someday my jsrender will come
 llab.empty_topic_page_path = llab.llab_path + "html/empty-topic-page.html";
 llab.empty_curriculum_page_path = llab.llab_path + "html/empty-curriculum-page.html";
-llab.empty_matchsequence_page_URL = llab.llab_path + "html/empty-matchsequence-page.html";
+llab.empty_matchsequence_div_URL = llab.llab_path + "html/empty-matchsequence-div.html";
+llab.empty_brainstorum_div_URL = llab.llab_path + "html/empty-brainstorm-div.html";
 
+
+
+
+
+///////////////////////////////////
+// COURSE SPECIFIC JAVASCRIPT FILES
+//
+//  choose a stage (array index), based on dependencies (see loader.js).  
+//  This file is loaded in stage 0, fwiw
+// 
+// llab.paths.scripts[2].push("script/thiscourse.js");
 
 
 

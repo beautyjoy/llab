@@ -154,7 +154,22 @@ MC.prototype.render = function() {
     // FIXME -- WRITE TO DOM OUTSIDE OF LOOP
     for (i = 0; i < this.choices.length; i++) {
         // TODO: Reduce this duplication......
-        choiceHTML = '<table><tbody><tr class="table-middle"><td class="table-middle">' + '<input type="' + type + '" name="radiobutton"' + ' id="' + this.removeSpace(this.choices[i].identifier) + '" value="' + this.removeSpace(this.choices[i].identifier) + '" class="' + type + '"/></td><td class="table-middle">' + '<div id="choicetext:' + this.removeSpace(this.choices[i].identifier) + '">' + this.choices[i].text + '</div></td><td class="table-middle"><div id="feedback_' + this.removeSpace(this.choices[i].identifier) + '" name="feedbacks"></div></td></tr></tbody></table>';
+        choiceHTML = '<table><tbody><tr class="table-middle"><td class="table-middle">' + 
+        '<input type="' 
+        + type 
+        + '" name="radiobutton"' 
+        + ' id="' 
+        + this.removeSpace(this.choices[i].identifier) 
+        + '" value="' 
+        + this.removeSpace(this.choices[i].identifier) 
+        + '" class="' 
+        + type 
+        + '"/></td><td class="table-middle">' 
+        + '<div id="choicetext:' + this.removeSpace(this.choices[i].identifier) 
+        + '">' + this.choices[i].text 
+        + '</div></td><td class="table-middle"><div id="feedback_' 
+        + this.removeSpace(this.choices[i].identifier) 
+        + '" name="feedbacks"></div></td></tr></tbody></table>';
 
         this.multipleChoice.find('.radiobuttondiv').append(choiceHTML);
 

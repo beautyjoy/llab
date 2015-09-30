@@ -62,7 +62,7 @@ llab.ms.addClassToElement = function(id, cls) {
 $(document).ready(function() {
     // first get the msdiv template
     llab.ms.nodes = [];
-    $.get(llab.empty_matchsequence_page_URL, function(mstemplate) {
+    $.get(llab.empty_matchsequence_div_URL, function(mstemplate) {
         $("div.matchsequence-data").each(function(i, msdatadiv) {
             // copy/instantiate template
             var msdiv = $(mstemplate).clone();

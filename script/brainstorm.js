@@ -260,8 +260,8 @@ llab.bs.editResponse = function(bsdiv) {
 	console.log("so you want to edit your response, eh?");
 	
 	$(bsdiv).find(".input input[type=button]").val("edit");
-	$(bsdiv).find(".brainstorm .responseArea").hide(125);
-	$(bsdiv).find(".brainstorm .input").show(125);
+	$(bsdiv).find(".responseArea").hide(125);
+	$(bsdiv).find(".input").show(125);
 }
 
 
