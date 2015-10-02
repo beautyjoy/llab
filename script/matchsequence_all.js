@@ -38,6 +38,8 @@
 // namespace for everything -- eventually!
 llab.ms = {} // namespace stuff
 
+
+
 /* 
  * TODO
  * - grab the latest code from wise?  Really?  Hm.
@@ -59,34 +61,14 @@ llab.ms.addClassToElement = function(id, cls) {
 }
 
 
-$(document).ready(function() {
-    // first get the msdiv template
-    llab.ms.nodes = [];
-    $.get(llab.empty_matchsequence_div_URL, function(mstemplate) {
-        $("div.matchsequence-data").each(function(i, msdatadiv) {
-            // copy/instantiate template
-            var msdiv = $(mstemplate).clone();
-            $(msdiv).attr("indexOnPage", i);
-            //attach .matchsequence templatediv after datadiv
-            $(msdatadiv).after(msdiv);
-            // get the ms specification and pass to buildTheDiv()
-            llab.ms.getSpecificationAndBuild(i, msdatadiv, msdiv);
-        });
-    }, "html").fail(function(jqXHR, textStatus, error) {
-        // TODO make better
-        $(".matchsequence-data").addClass("remote-data-error")
-           .append("<hr><p>Failed to retrievie Match & Sequence template. "
-                   + "I blame the patriarchy.</p><p>Error: "+error+"</p>");
-    });
-
-});
-
 
 // may need to go out
 llab.ms.getSpecificationAndBuild = function(i, msdatadiv, msdiv) {
     // TODO use .matchsequence-data div, yo.
     // hack for now!!
-    var msspec =  llab_ms_myModels[i];
+    // var msspec =  llab_ms_myModels[i];
+    var msspec = JSON.parse($(".llab_msdata").html());  // first element only
+
     // this is the callback when using ajax:
     llab.ms.buildTheDiv(msspec, i, msdiv, msdatadiv);
 }
@@ -103,7 +85,7 @@ llab.ms.buildTheDiv = function(msspec, i, msdiv, msdatadiv) {
     ms.render();
     $(msdatadiv).hide(125);
     $(msdiv).show(125)
-}
+};
 
 // unused -- removed the help links.  MatchSequendceInfoBox is a nice doc page, though
 //llab.ms.newWin = null;
@@ -1308,3 +1290,27 @@ MS.prototype.enableCheckAnswerButton = function() {
 MS.prototype.disableCheckAnswerButton = function() {
     $(this.msdiv).find('.checkAnswerButton').addClass('disabledLink');
 };
+
+
+
+$(document).ready(function() {
+    // first get the msdiv template
+    llab.ms.nodes = [];
+    $.get(llab.empty_matchsequence_div_URL, function(mstemplate) {
+        $("div.matchsequence-data").each(function(i, msdatadiv) {
+            // copy/instantiate template
+            var msdiv = $(mstemplate).clone();
+            $(msdiv).attr("indexOnPage", i);
+            //attach .matchsequence templatediv after datadiv
+            $(msdatadiv).after(msdiv);
+            // get the ms specification and pass to buildTheDiv()
+            llab.ms.getSpecificationAndBuild(i, msdatadiv, msdiv);
+        });
+    }, "html").fail(function(jqXHR, textStatus, error) {
+        // TODO make better
+        $(".matchsequence-data").addClass("remote-data-error")
+           .append("<hr><p>Failed to retrievie Match & Sequence template. "
+                   + "I blame the patriarchy.</p><p>Error: "+error+"</p>");
+    });
+
+});
