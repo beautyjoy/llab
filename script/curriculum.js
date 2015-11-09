@@ -3,9 +3,9 @@
  *  sets up a curriculum page -- either local or external.
  *
  *  Dependencies:
- *      jQuery
- *      library.js
- *      (Bootsrap) - optional, needed for looks, if missing code will still run
+ *     jQuery
+ *     library.js
+ *     (Bootsrap) - optional, needed for looks, if missing code will still run
  */
 
 llab.file = "";
@@ -18,16 +18,33 @@ llab.secondarySetUp = function() {
     // FIXME -- this needs to be called on EVERY page.
     llab.setupTitle();
 
-    // This stuff should only happen on curriculum pages
+    // Get the topic file and step from the URL
+    llab.file = llab.getQueryParameter("topic");
+
+    var params, course, cssFile, jsFile, css, js, codeElements;
+
+    params = llab.getURLParameters(),
+    course = params.course || '';
+
+    // FIXME -- not sure this really belongs here as well.
+    llab.addFeedback(document.title, llab.file, course);
 
     // fix snap links so they run snap
-    $("a.run").each(function(i) {
-        $(this).attr("target", "_blank");
+    $('a.run').each(function(i) {
+        $(this).attr('target', '_blank');
         $(this).attr('href', llab.getSnapRunURL(this.getAttribute('href')));
     });
 
-    // Get the topic file and step from the URL
-    llab.file = llab.getQueryParameter("topic");
+    llab.additionalSetup([
+        {  // TODO: PUT THESE CLASSES SOMEWHERE
+          trigger: 'pre code',
+          function: llab.codeHighlightSetup()
+        },
+        {   // TODO: PUT THESE CLASSES SOMEWHERE
+           trigger: '.katex, .katex-inline, .katex-block',
+           function: llab.mathDisplaySetup()
+        }
+    ]);
 
     // We don't have a topic file, so we should exit.
     if (llab.file === '' || !llab.isCurriculum()) {
@@ -51,24 +68,49 @@ llab.secondarySetUp = function() {
         }
     });
 
-    // TODO: Make a function.
-    var codeElements = $('pre code');
-    if (codeElements.length) {
-        var cssFile = llab.paths.css_files.syntax_highlights;
-        var jsFile  = llab.paths.syntax_highlights;
-        var css = llab.loader.getTag('link', cssFile, 'text/css');
-        css.rel = "stylesheet";
-        var js = llab.loader.getTag('script', jsFile, 'text/javascript'); // onload function
-        $(js).attr({'onload': 'llab.highlightSyntax()'});
-        // Using $ to append to head causes onload not to be fired...
-        document.head.appendChild(css);
-        document.head.appendChild(js);
-    }
-
 }; // close secondarysetup();
 
 
+/** A prelimary API for defining loading additional content based on triggers.
+ *  @{param} array TRIGGERS is an array of {trigger, callback} pairs.
+ *  a `trigger` is currently a CSS selector that gets passed to $ to see if any
+ *  of those elements are on the current page. If the elements are found then a
+ *  `callback` is called with no arguments.
+ *  TODO: Cleanup and test this code.
+ *  TODO: Explore ideas for better trigger options?
+ */
+llab.additionalSetup = function(triggers) {
+    var items;
+    triggers.forEach(function (obj) {
+       if (obj.trigger && obj.function) {
+          items = $(trigger);
+          if (items.length) {
+             Function.call(null, obj.function);
+          }
+       }
+    });
+}
+
+/** Import the required JS and CSS for Code highlighting.
+ *  TODO: Abstract this away into its own function
+ */
+llab.codeHighlightSetup = function () {
+    var cssFile, jsFile, css, js;
+    cssFile = llab.paths.css_files.syntax_highlights;
+    jsFile  = llab.paths.syntax_highlights;
+    css = llab.loader.getTag('link', cssFile, 'text/css');
+    css.rel = "stylesheet";
+    js = llab.loader.getTag('script', jsFile, 'text/javascript');
+    // onload function
+    $(js).attr({'onload': 'llab.highlightSyntax()'});
+    // Using $ to append to head causes onload not to be fired...
+    document.head.appendChild(css);
+    document.head.appendChild(js);
+}
+
+// Call The Functions to HighlightJS to render
 llab.highlightSyntax = function() {
+    // TODO: PUT THESE CLASSES SOMEWHERE
     $('pre code').each(function(i, block) {
         // Trim the extra whitespace in HTML files.
         block.innerHTML = block.innerHTML.trim();
@@ -78,14 +120,46 @@ llab.highlightSyntax = function() {
     });
 }
 
+/** Import the required JS and CSS for LaTeX Code.
+ *  TODO: Abstract this away into its own function
+ */
+llab.mathDisplaySetup = function () {
+    var cssFile, jsFile, css, js;
+    cssFile = llab.paths.css_files.math_katex_css;
+    jsFile  = llab.paths.math_katex_js;
+    css = llab.loader.getTag('link', cssFile, 'text/css');
+    css.rel = "stylesheet";
+    js = llab.loader.getTag('script', jsFile, 'text/javascript');
+    // onload function
+    $(js).attr({'onload': 'llab.displayMathDivs()'});
+    // Using $ to append to head causes onload not to be fired...
+    document.head.appendChild(css);
+    document.head.appendChild(js);
+}
+
+// Call the KaTeX APIS to render the LaTeX code.
+llab.displayMathDivs = function () {
+    // TODO: Investigate caching of the selectors?
+    // TODO: PUT THESE CLASSES SOMEWHERE
+    $('.katex, .katex-inline').each(function (idx, elm) {
+       katex.render(elm.innerHTML, elm, {throwOnError: false});
+    });
+    // TODO: PUT THESE CLASSES SOMEWHERE
+    $('.katex-block').each(function (idx, elm) {
+       katex.render(elm.innerHTML, elm, {
+          displayMode: true, throwOnError: false
+       });
+    });
+}
+
 /**
  *  Processes just the hyperlinked elements in the topic file,
  *  and creates navigation buttons.
  *  FIXME: This should share code with llab.topic!
  */
 llab.processLinks = function(data, status, jqXHR) {
-    /* NOTE: DO NOT REMOVE THIS CONDITIONAL WITHOUT SERIOUS TESTING
-     * llab.file gets reset with the ajax call.
+    /*  NOTE: DO NOT REMOVE THIS CONDITIONAL WITHOUT SERIOUS TESTING
+     *  llab.file gets reset with the ajax call?
      */
     if (llab.file === '') {
         llab.file = llab.getQueryParameter('topic');
@@ -105,7 +179,8 @@ llab.processLinks = function(data, status, jqXHR) {
         // TODO: Move this to a dropdown function
         list = $(document.createElement("ul")).attr(
         { 'class': 'dropdown-menu dropdown-menu-right',
-          'role' : "menu",  'aria-labeledby' : "Topic-Navigation-Menu"}),
+          'role': 'menu',
+          'aria-labeledby': 'Topic-Navigation-Menu'}),
         itemContent,
         ddItem,
         line,
@@ -222,8 +297,6 @@ llab.processLinks = function(data, status, jqXHR) {
     // FIXME -- this doesn't belong here.
     llab.indicateProgress(llab.url_list.length, llab.thisPageNum() + 1);
 
-    // FIXME -- not sure this really belongs here as well.
-    llab.addFeedback(document.title, llab.file, course);
 }; // end processLinks()
 
 
@@ -235,10 +308,12 @@ llab.addFrame = function() {
     var frame = $(document.createElement("iframe")).attr(
         {'src': source, 'class': 'content-embed'} );
 
-    var content = $(document.createElement('div')).append(frame).append(
-    '<a href=' + source + ' target="blank">Open page in new window</a><br />');
+    var conent = $(document.createElement('div'));
+    conent.append(
+       '<a href=' + source + ' target="_blank">Open page in new window</a><br />');
+    conent.append(frame);
 
-    $(FULL).append(content);
+    $(FULL).append(conent);
 };
 
 // Setup the entire page title. This includes creating any HTML elements.
@@ -252,9 +327,9 @@ llab.setupTitle = function() {
         return;
     }
 
-    // Create FULL before adding stuff.
+    // Create .full before adding stuff.
     if ($(FULL).length === 0) {
-        $(document.body).wrapInner('<div class="llab-full"></div>');
+        $(document.body).wrapInner('<div class="full"></div>');
     }
 
     // Work around when things are oddly loaded...
@@ -284,9 +359,9 @@ llab.setupTitle = function() {
     // Special Case for Snap! in titles.
     document.title = document.title.replace('snap', 'Snap!');
 
-    $(document.body).css('padding-top', $(llab.selectors.NAVSELECT).height() + 10);
+    $(document.body).css('padding-top', $('.llab-nav').height() + 10);
     document.body.onresize = function(event) {
-        $(document.body).css('padding-top', $(llab.selectors.NAVSELECT).height() + 10);
+        $(document.body).css('padding-top', $('.llab-nav').height() + 10);
     };
 
     llab.titleSet = true;
@@ -300,8 +375,8 @@ llab.createTitleNav = function() {
         '<nav class="llab-nav navbar navbar-default navbar-fixed-top" role="navigation">' +
         '<div class="nav navbar-nav navbar-left navbar-title"></div></nav>' +
         '<div class="title-small-screen"></div>'),
-        botHTML = '<div class="llab-full-bottom-bar"><div class="bottom-nav ' +
-                      'btn-group"></div></div>',
+        botHTML = "<div class='full-bottom-bar'><div class='bottom-nav " +
+                      "btn-group'></div></div>",
         navHTML = '<div class="nav navbar-nav navbar-right">' +
                   '<ul class="nav-btns btn-group"></ul></div>',
         topNav = $(llab.selectors.NAVSELECT),
@@ -472,7 +547,7 @@ llab.goForward = function() {
 
 llab.addFeedback = function(title, topic, course) {
     // Prevent Button on small devices
-    if (screen.width < 768) {
+    if (screen.width < 1024) {
         return;
     }
 

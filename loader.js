@@ -60,7 +60,9 @@ llab.BUILD_FILE_PATH = "./llab-complied.js";
 // Syntax Highlighting support
 llab.paths.syntax_highlights = "lib/highlightjs/highlight.pack.js";
 llab.paths.css_files.syntax_highlights = "lib/highlightjs/styles/tomorrow-night-blue.css";
-
+// Math / LaTeX rendering
+llab.paths.math_katex_js = "lib/katex.min.js";
+llab.paths.css_files.math_katex_css = "css/katex.min.css";
 
 
 
