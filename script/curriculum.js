@@ -15,13 +15,12 @@ var FULL = llab.selectors.FULL,
     hamburger = llab.fragments.hamburger;
 
 llab.secondarySetUp = function() {
-    // FIXME -- this needs to be called on EVERY page.
     llab.setupTitle();
 
     // Get the topic file and step from the URL
     llab.file = llab.getQueryParameter("topic");
 
-    var params, course, cssFile, jsFile, css, js, codeElements;
+    var params, course;
 
     params = llab.getURLParameters(),
     course = params.course || '';
@@ -35,14 +34,15 @@ llab.secondarySetUp = function() {
         $(this).attr('href', llab.getSnapRunURL(this.getAttribute('href')));
     });
 
+    // TODO: PUT THESE CLASSES SOMEWHERE USEFUL
     llab.additionalSetup([
-        {  // TODO: PUT THESE CLASSES SOMEWHERE
-          trigger: 'pre code',
-          function: llab.codeHighlightSetup()
+        {
+            trigger: 'pre code',
+            function: llab.codeHighlightSetup
         },
-        {   // TODO: PUT THESE CLASSES SOMEWHERE
-           trigger: '.katex, .katex-inline, .katex-block',
-           function: llab.mathDisplaySetup()
+        {
+            trigger: '.katex, .katex-inline, .katex-block',
+            function: llab.mathDisplaySetup
         }
     ]);
 
@@ -52,9 +52,8 @@ llab.secondarySetUp = function() {
     }
 
     // TODO: Migrate to newer ajax call.
-    var ajaxURL = llab.rootURL + "topic/" + llab.file;
     $.ajax({
-        url: ajaxURL,
+        url: llab.rootURL + "topic/" + llab.file,
         type: "GET",
         contentType: 'text/plain; charset=UTF-8',
         dataType: "text",
@@ -76,16 +75,15 @@ llab.secondarySetUp = function() {
  *  a `trigger` is currently a CSS selector that gets passed to $ to see if any
  *  of those elements are on the current page. If the elements are found then a
  *  `callback` is called with no arguments.
- *  TODO: Cleanup and test this code.
  *  TODO: Explore ideas for better trigger options?
  */
 llab.additionalSetup = function(triggers) {
     var items;
     triggers.forEach(function (obj) {
        if (obj.trigger && obj.function) {
-          items = $(trigger);
-          if (items.length) {
-             Function.call(null, obj.function);
+          items = $(obj.trigger);
+          if (items.length > 0) {
+             obj.function.call();
           }
        }
     });
@@ -96,8 +94,8 @@ llab.additionalSetup = function(triggers) {
  */
 llab.codeHighlightSetup = function () {
     var cssFile, jsFile, css, js;
-    cssFile = llab.paths.css_files.syntax_highlights;
-    jsFile  = llab.paths.syntax_highlights;
+    cssFile = llab.altFiles.syntax_highlights_css;
+    jsFile  = llab.altFiles.syntax_highlights_js;
     css = llab.loader.getTag('link', cssFile, 'text/css');
     css.rel = "stylesheet";
     js = llab.loader.getTag('script', jsFile, 'text/javascript');
@@ -125,8 +123,8 @@ llab.highlightSyntax = function() {
  */
 llab.mathDisplaySetup = function () {
     var cssFile, jsFile, css, js;
-    cssFile = llab.paths.css_files.math_katex_css;
-    jsFile  = llab.paths.math_katex_js;
+    cssFile = llab.altFiles.math_katex_css;
+    jsFile  = llab.altFiles.math_katex_js;
     css = llab.loader.getTag('link', cssFile, 'text/css');
     css.rel = "stylesheet";
     js = llab.loader.getTag('script', jsFile, 'text/javascript');
@@ -302,24 +300,26 @@ llab.processLinks = function(data, status, jqXHR) {
 
 // Create an iframe when loading from an empty curriculum page
 // Used for embedded content. (Videos, books, etc)
-llab.addFrame = function() {
-    var source = llab.getQueryParameter("src");
+llab.addFrame = function () {
+    var source, frame, content;
+    source = llab.getQueryParameter("src");
 
-    var frame = $(document.createElement("iframe")).attr(
+    frame = $(document.createElement("iframe")).attr(
         {'src': source, 'class': 'content-embed'} );
 
-    var conent = $(document.createElement('div'));
-    conent.append(
+    content = $(document.createElement('div'));
+    content.append(
        '<a href=' + source + ' target="_blank">Open page in new window</a><br />');
-    conent.append(frame);
+    content.append(frame);
 
-    $(FULL).append(conent);
+    $(FULL).append(content);
 };
 
 // Setup the entire page title. This includes creating any HTML elements.
 // This should be called EARLY in the load process!
 // FIXME: lots of stuff needs to be pulled out of this function
-llab.setupTitle = function() {
+llab.setupTitle = function () {
+    var titleText;
     // TODO: rename / refactor location
     $(document.head).append('<meta name="viewport" content="width=device-width, initial-scale=1">');
 
@@ -329,7 +329,8 @@ llab.setupTitle = function() {
 
     // Create .full before adding stuff.
     if ($(FULL).length === 0) {
-        $(document.body).wrapInner('<div class="full"></div>');
+        // TODO: Fix this line to be generic.
+        $(document.body).wrapInner('<div class="llab-full"></div>');
     }
 
     // Work around when things are oddly loaded...
@@ -341,7 +342,7 @@ llab.setupTitle = function() {
     llab.createTitleNav();
 
     // create Title tag, yo
-    var titleText = llab.getQueryParameter("title");
+    titleText = llab.getQueryParameter("title");
     if (titleText !== '') {
         document.title = titleText;
     }
@@ -359,9 +360,9 @@ llab.setupTitle = function() {
     // Special Case for Snap! in titles.
     document.title = document.title.replace('snap', 'Snap!');
 
-    $(document.body).css('padding-top', $('.llab-nav').height() + 10);
+    $(document.body).css('padding-top', $(llab.selectors.NAVSELECT).height() + 10);
     document.body.onresize = function(event) {
-        $(document.body).css('padding-top', $('.llab-nav').height() + 10);
+        $(document.body).css('padding-top', $(llab.selectors.NAVSELECT).height() + 10);
     };
 
     llab.titleSet = true;
@@ -375,7 +376,7 @@ llab.createTitleNav = function() {
         '<nav class="llab-nav navbar navbar-default navbar-fixed-top" role="navigation">' +
         '<div class="nav navbar-nav navbar-left navbar-title"></div></nav>' +
         '<div class="title-small-screen"></div>'),
-        botHTML = "<div class='full-bottom-bar'><div class='bottom-nav " +
+        botHTML = "<div class='llab-full-bottom-bar'><div class='bottom-nav " +
                       "btn-group'></div></div>",
         navHTML = '<div class="nav navbar-nav navbar-right">' +
                   '<ul class="nav-btns btn-group"></ul></div>',
@@ -547,7 +548,7 @@ llab.goForward = function() {
 
 llab.addFeedback = function(title, topic, course) {
     // Prevent Button on small devices
-    if (screen.width < 1024) {
+    if (screen.width < 768) {
         return;
     }
 
@@ -564,17 +565,15 @@ llab.addFeedback = function(title, topic, course) {
                 'type': 'button',
                 'data-toggle': "collapse",
                 'data-target': "#fdbk" }).text('Feedback'),
-        innerDiv = $(document.createElement('div')).attr(
-            {   'id': "fdbk",
+        innerDiv = $(document.createElement('div')).attr({
+                'id': "fdbk",
                 'class': "collapse feedback-panel panel panel-primary"
             }),
         feedback = $(document.createElement('div')).attr(
             {'class' : 'page-feedback'}).append(button, innerDiv);
 
     // Delay inserting a frame until the button is clicked.
-    // Reason 1: Performance
-    // Reason 2: GetFeedback tracks "opens" and each load is an open
-    button.click('click', function(event) {
+    button.click('click', function (event) {
         if ($('#feedback-frame').length === 0) {
             var frame = $(document.createElement('iframe')).attr(
             {
