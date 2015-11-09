@@ -56,9 +56,9 @@ llab.secondarySetUp = function() {
     if (codeElements.length) {
         var cssFile = llab.paths.css_files.syntax_highlights;
         var jsFile  = llab.paths.syntax_highlights;
-        var css = getTag('link', cssFile, 'text/css');
+        var css = llab.loader.getTag('link', cssFile, 'text/css');
         css.rel = "stylesheet";
-        var js = getTag('script', jsFile, 'text/javascript'); // onload function
+        var js = llab.loader.getTag('script', jsFile, 'text/javascript'); // onload function
         $(js).attr({'onload': 'llab.highlightSyntax()'});
         // Using $ to append to head causes onload not to be fired...
         document.head.appendChild(css);

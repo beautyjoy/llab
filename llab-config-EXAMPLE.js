@@ -13,21 +13,21 @@ if (typeof llab === 'undefined') {
 
 /**
  *  THIS is an example of what your config file can or should contain.
- *  
- *  Make a copy of this file, name it "llab-config.js", and put it 
+ *
+ *  Make a copy of this file, name it "llab-config.js", and put it
  *  in the directory that contains the llab repository.  That is, do not
  *  put it inside the "llab" directory, but at the same level as that directory.
  *  Capiche?
- *  
+ *
  *  //TODO this should probably be refactored into yaml.  maybe.
- */ 
+ */
 
 
 
 llab.config = {};
 
 // TODO:
-//  need to be careful about "paths" versus "urls".  
+//  need to be careful about "paths" versus "urls".
 //    in the buildless system, we don't need actual "paths" anywhere, right?
 //    but in node.js (build system or whatever), we'll want paths sometimes, I think.
 //
@@ -76,7 +76,7 @@ llab.topics_path = llab.rootURL + "topic/";
 llab.topic_launch_page = llab.llab_path + "html/topic.html";
 llab.alt_topic_page = llab.rootURL + "topic/topic.html";
 
-// Page templates. 
+// Page templates.
 //  You could put custom version in your course repo and refer to them here.
 
 // TODO - need to distinguish btw URL and paths !!
@@ -89,8 +89,8 @@ llab.empty_matchsequence_page_URL = llab.llab_path + "html/empty-matchsequence-p
 
 
 //////////////////////////////
-//  DEFAULT VALUES AND STRINGS 
-// look in defaults.js, inside llab/script, to see what you can abuse.  
+//  DEFAULT VALUES AND STRINGS
+// look in defaults.js, inside llab/script, to see what you can abuse.
 // Values set here will override those, because llab/script/defaults is loaded first.
 
 // e.g:
@@ -112,7 +112,7 @@ llab.GAurl = 'berkeley.edu';
 // User, course, etc
 
 // year, month, day, hour, etc...   Remember, month is 0-11. (07 is august).
-llab.config.defaultCourseStartTime = new Date(2015, 07, 20, 12);
+llab.config.defaultCourseStartTime = new Date(2015, 7, 20, 12);
 
 
 llab.user = {};

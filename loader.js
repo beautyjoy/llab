@@ -158,12 +158,12 @@ llab.loader.getTag = function(name, src, type, onload) {
     var tag = document.createElement(name);
 
     if (src.substring(0, 2) === "//") {
-    	// external server, carry on..
+        // external server, carry on..
     } else if (src.substring(0,1) === "/") {
-    	// root on this server
-    	src = window.location.href.replace(window.location.pathname, src);
+        // root on this server
+        src = window.location.href.replace(window.location.pathname, src);
     } else {
-    	// relative link
+        // relative link
         src = llab.pathToLlab +  src;
     }
 
