@@ -49,7 +49,9 @@ llab.CORSCompliantServers.push("0.0.0.0");
 llab.CORSCompliantServers.push("localhost:8000");
 
 
-llab.snapRunURLBase = "http://snap.berkeley.edu/snapsource/snap.html#open:";
+// llab.snapRunURLBase = "http://snap.berkeley.edu/snapsource/snap.html#open:";
+
+llab.snapRunURLBase = "http://bjc.edc.org/snapsource/snap.html#open:";
 
 
 
