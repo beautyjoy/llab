@@ -329,7 +329,7 @@ pre > code {
 }
 
 pre {
-  margin: 10px 10px 10px 2%;
+  margin: 10px;
   width: 96%;
   padding: 0; /* useful for code elements */
 }
