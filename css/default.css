@@ -330,7 +330,7 @@ pre > code {
 
 pre {
   margin: 10px;
-  width: 96%;
+  width: calc(100% - 20px); /* sum the left/right margins */
   padding: 0; /* useful for code elements */
 }
 
