@@ -15,21 +15,12 @@ llab.strings.goMain = 'Go to the Course Page';
 llab.strings.clickNav = 'Click here to navigate&nbsp;&nbsp;';
 
 
-
-<<<<<<< HEAD
-=======
 //These are code fragments which are reusable components.
 llab.fragments = {};
 llab.fragments.bootstrapSep = '<li class="divider list_item" role="presentation"></li>';
 llab.fragments.bootstrapCaret = '<span class="caret"></span>';
 llab.fragments.hamburger = '<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>';
 
-
-
-
-
-
->>>>>>> df13c5d33237ad090b3a3a0b634f2cc99a2716a4
 /////////////////
 // CORS, joy.
 
@@ -53,11 +44,3 @@ llab.CORSCompliantServers.push("localhost:8000");
 
 
 llab.snapRunURLBase = "http://snap.berkeley.edu/snapsource/snap.html#open:";
-<<<<<<< HEAD
-=======
-//llab.snapRunURLBase = "http://bjc.edc.org/snapsource/snap.html#open:";
->>>>>>> df13c5d33237ad090b3a3a0b634f2cc99a2716a4
-
-
-
-
