@@ -64,7 +64,6 @@ llab.topicKeywords.info = ["big-idea", "learning-goal"]
 
 */
 llab.parseTopicFile = function parser(data) {
-
     llab.file = llab.topic;
 
     data = data.replace(/(\r)/gm,""); // normalize line endings
@@ -322,7 +321,6 @@ llab.indentLevel = function(s) {
 
 // TODO: Separate out the llab.file stuff
 // TODO: save to an read from local storage.
-
 llab.displayTopic = function() {
     llab.file = llab.getQueryParameter("topic");
 

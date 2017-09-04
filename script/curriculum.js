@@ -17,11 +17,14 @@ llab.secondarySetUp = function() {
     // FIXME -- this needs to be called on EVERY page.
     llab.setupTitle();
 
-    // This stuff should only happen on curriculum pages
+    // Get the topic file and step from the URL
+    llab.file = llab.getQueryParameter("topic");
+
+    var params, course;
 
     // fix snap links so they run snap
-    $("a.run").each(function(i) {
-        $(this).attr("target", "_blank");
+    $('a.run').each(function(i) {
+        $(this).attr('target', '_blank');
         $(this).attr('href', llab.getSnapRunURL(this.getAttribute('href')));
     });
 
@@ -36,7 +39,7 @@ llab.secondarySetUp = function() {
     // TODO: Migrate to newer ajax call.
     var ajaxURL = llab.rootURL + "topic/" + llab.file;
     $.ajax({
-        url: ajaxURL,
+        url: llab.rootURL + "topic/" + llab.file,
         type: "GET",
         contentType: 'text/plain; charset=UTF-8',
         dataType: "text",
@@ -104,7 +107,8 @@ llab.processLinks = function(data, status, jqXHR) {
         // TODO: Move this to a dropdown function
         list = $(document.createElement("ul")).attr(
         { 'class': 'dropdown-menu dropdown-menu-right',
-          'role' : "menu",  'aria-labeledby' : "Topic-Navigation-Menu"}),
+          'role': 'menu',
+          'aria-labeledby': 'Topic-Navigation-Menu'}),
         itemContent,
         ddItem,
         line,
@@ -221,29 +225,30 @@ llab.processLinks = function(data, status, jqXHR) {
     // FIXME -- this doesn't belong here.
     llab.indicateProgress(llab.url_list.length, llab.thisPageNum() + 1);
 
-    // FIXME -- not sure this really belongs here as well.
-    llab.addFeedback(document.title, llab.file, course);
 }; // end processLinks()
 
 
 // Create an iframe when loading from an empty curriculum page
 // Used for embedded content. (Videos, books, etc)
-llab.addFrame = function() {
-    var source = llab.getQueryParameter("src");
+llab.addFrame = function () {
+    var source, frame, content;
+    source = llab.getQueryParameter("src");
 
-    var frame = $(document.createElement("iframe")).attr(
+    frame = $(document.createElement("iframe")).attr(
         {'src': source, 'class': 'content-embed'} );
 
-    var content = $(document.createElement('div')).append(frame).append(
-    '<a href=' + source + ' target="blank">Open page in new window</a><br />');
-
+    content = $(document.createElement('div'));
+    content.append(
+       '<a href=' + source + ' target="_blank">Open page in new window</a><br />');
+    content.append(frame);
     $(FULL).append(content);
 };
 
 // Setup the entire page title. This includes creating any HTML elements.
 // This should be called EARLY in the load process!
 // FIXME: lots of stuff needs to be pulled out of this function
-llab.setupTitle = function() {
+llab.setupTitle = function () {
+    var titleText;
     // TODO: rename / refactor location
     $(document.head).append('<meta name="viewport" content="width=device-width, initial-scale=1">');
 
@@ -471,7 +476,7 @@ llab.goForward = function() {
 
 llab.addFeedback = function(title, topic, course) {
     // Prevent Button on small devices
-    if (screen.width < 1024) {
+    if (screen.width < 768) {
         return;
     }
 
@@ -488,17 +493,15 @@ llab.addFeedback = function(title, topic, course) {
                 'type': 'button',
                 'data-toggle': "collapse",
                 'data-target': "#fdbk" }).text('Feedback'),
-        innerDiv = $(document.createElement('div')).attr(
-            {   'id': "fdbk",
+        innerDiv = $(document.createElement('div')).attr({
+                'id': "fdbk",
                 'class': "collapse feedback-panel panel panel-primary"
             }),
         feedback = $(document.createElement('div')).attr(
             {'class' : 'page-feedback'}).append(button, innerDiv);
 
     // Delay inserting a frame until the button is clicked.
-    // Reason 1: Performance
-    // Reason 2: GetFeedback tracks "opens" and each load is an open
-    button.click('click', function(event) {
+    button.click('click', function (event) {
         if ($('#feedback-frame').length === 0) {
             var frame = $(document.createElement('iframe')).attr(
             {

@@ -6,10 +6,7 @@
 
 
 // retrieve llab or create an empty version.
-if (typeof llab === 'undefined') {
-    llab = {};
-}
-
+llab = llab || {};
 llab.loaded = llab.loaded || {};
 
 
@@ -17,11 +14,9 @@ llab.loaded = llab.loaded || {};
 //These are STRINGS that are selectors of classes of container page elements.
 //We want to store them in a single place because it's easier to update, but might
 llab.selectors = {};
-llab.selectors.FULL = ".llab-full"; // the whole page and nuthing but the page
-llab.selectors.NAVSELECT = ".llab-nav"; // container for the navigation pulldown
+llab.selectors.FULL = ".llab-full";                  // the whole page and nuthing but the page
+llab.selectors.NAVSELECT = ".llab-nav";              // container for the navigation pulldown
 llab.selectors.PROGRESS = ".llab-full-bottom-bar";   // that bottom progress bar
-llab.selectors.NAVTITLE = '.navbar-title';
-llab.selectors.MOBILETITLE = '.title-small-screen';
 
 
 /** Modify Snap! XML links to be CORS compliant, if needed.
@@ -340,8 +335,6 @@ llab.fragments = {};
 llab.fragments.bootstrapSep = '<li class="divider list_item" role="presentation"></li>';
 llab.fragments.bootstrapCaret = '<span class="caret"></span>';
 llab.fragments.hamburger = '<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>';
-
-
 
 /////////////////////  END
 

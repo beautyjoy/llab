@@ -56,11 +56,17 @@ llab.CONFIG_FILE_PATH = "../llab.js";
 // This file must always be at the same level as the llab install directory
 llab.BUILD_FILE_PATH = "./llab-complied.js";
 
-
 // Syntax Highlighting support
 llab.paths.syntax_highlights = "lib/highlightjs/highlight.pack.js";
 llab.paths.css_files.syntax_highlights = "lib/highlightjs/styles/tomorrow-night-blue.css";
 
+llab.altFiles = {};
+// Syntax Highlighting support
+llab.altFiles.syntax_highlights_js = "lib/highlightjs/highlight.pack.js";
+llab.altFiles.syntax_highlights_css = "lib/highlightjs/styles/tomorrow-night-blue.css";
+// Math / LaTeX rendering
+llab.altFiles.math_katex_js = "lib/katex.min.js";
+llab.altFiles.math_katex_css = "css/katex.min.css";
 
 
 
@@ -69,10 +75,9 @@ llab.paths.css_files.syntax_highlights = "lib/highlightjs/styles/tomorrow-night-
 // Multiple CSS files is fine, include a separate push for each
 llab.paths.css_files.push('lib/bootstrap/dist/css/bootstrap.min.css');
 llab.paths.css_files.push('lib/bootstrap/dist/css/bootstrap-theme.min.css');
-llab.paths.css_files.push('css/brainstorm.css');
-llab.paths.css_files.push('css/matchsequence.css');
+// llab.paths.css_files.push('css/brainstorm.css');
+// llab.paths.css_files.push('css/matchsequence.css');
 llab.paths.css_files.push('css/default.css');
-
 
 
 ///////////////////////// pre stage 0
@@ -132,7 +137,7 @@ llab.paths.stage_complete_functions[2] = function() {
 llab.paths.scripts[3] = [];
 llab.paths.scripts[3].push("script/quiz.js");
 // llab.paths.scripts[3].push("script/matchsequence_all.js");
-llab.paths.scripts[3].push("script/brainstorm.js");
+// llab.paths.scripts[3].push("script/brainstorm.js");
 
 llab.paths.stage_complete_functions[3] = function() {
     return true; // the last stage, no need to wait
@@ -158,12 +163,12 @@ llab.loader.getTag = function(name, src, type, onload) {
     var tag = document.createElement(name);
 
     if (src.substring(0, 2) === "//") {
-    	// external server, carry on..
+        // external server, carry on..
     } else if (src.substring(0,1) === "/") {
-    	// root on this server
-    	src = window.location.href.replace(window.location.pathname, src);
+        // root on this server
+        src = window.location.href.replace(window.location.pathname, src);
     } else {
-    	// relative link
+        // relative link
         src = llab.pathToLlab +  src;
     }
 
@@ -204,7 +209,6 @@ llab.initialSetup = function() {
         while (llab.paths.css_files.length != 0) {
             tag = llab.loader.getTag("link", llab.paths.css_files.shift(), "text/css");
             tag.rel = "stylesheet";
-            tag.media = "screen";
             headElement.appendChild(tag);
         }
 
