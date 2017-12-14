@@ -483,39 +483,39 @@ MC.prototype.postRender = function() {
 // BEAUTIOUS
 MC.prototype.getTemplate = function() {
     return "<div class='panel panel-primary MultipleChoice Question'>" +
-        "		<div class='panel-heading questionType'>" +
-        "			Multiple Choice" +
-        "		</div>" +
-        "		<!-- end of questionCountBox -->" +
-        "		<div class='panel-body currentQuestionBox'>" +
-        "			<div class='leftColumn'>" +
-        "				<div class='promptDiv'></div>" +
-        "				<div class='radiobuttondiv'></div>" +
-        "				<div class='feedbackdiv'></div>" +
-        "			</div>" +
-        "		</div>" +
-        "		<div class='clearBoth'></div>" +
-        "		<div class='interactionBox'>" +
-        "			<div class='statusMessages'>" +
-        "				<div class='numberAttemptsDiv'></div>" +
-        "				<div class='scoreDiv'></div>" +
-        "				<div class='resultMessageDiv'></div>" +
-        "			</div>" +
-        "			<!-- Anchor-Based Button Layout using TABLE -->" +
-        "			<div class='buttonDiv'>" +
-        "				<table class='buttonTable'>" +
-        "					<tr>" +
-        "						<td><div class='buttonDiv'>" +
-        "							<button class='checkAnswerButton btn btn-primary'>Check Answer</button>" +
-        "						</div></td><td>" +
-        "						<div class='buttonDiv'>" +
-        "							<button class='tryAgainButton btn btn-primary'>Try Again</button>" +
-        "						</div></td>" +
-        "					</tr>" +
-        "				</table>" +
-        "			</div>" +
-        "		</div>" +
-        "	</div>";
+        "        <div class='panel-heading questionType'>" +
+        "            Multiple Choice" +
+        "        </div>" +
+        "        <!-- end of questionCountBox -->" +
+        "        <div class='panel-body currentQuestionBox'>" +
+        "            <div class='leftColumn'>" +
+        "                <div class='promptDiv'></div>" +
+        "                <div class='radiobuttondiv'></div>" +
+        "                <div class='feedbackdiv'></div>" +
+        "            </div>" +
+        "        </div>" +
+        "        <div class='clearBoth'></div>" +
+        "        <div class='interactionBox'>" +
+        "            <div class='statusMessages'>" +
+        "                <div class='numberAttemptsDiv'></div>" +
+        "                <div class='scoreDiv'></div>" +
+        "                <div class='resultMessageDiv'></div>" +
+        "            </div>" +
+        "            <!-- Anchor-Based Button Layout using TABLE -->" +
+        "            <div class='buttonDiv'>" +
+        "                <table class='buttonTable'>" +
+        "                    <tr>" +
+        "                        <td><div class='buttonDiv'>" +
+        "                            <button class='checkAnswerButton btn btn-primary'>Check Answer</button>" +
+        "                        </div></td><td>" +
+        "                        <div class='buttonDiv'>" +
+        "                            <button class='tryAgainButton btn btn-primary'>Try Again</button>" +
+        "                        </div></td>" +
+        "                    </tr>" +
+        "                </table>" +
+        "            </div>" +
+        "        </div>" +
+        "    </div>";
 };
 
 
