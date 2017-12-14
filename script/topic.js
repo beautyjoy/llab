@@ -241,7 +241,7 @@ llab.displayTopic = function() {
             success : llab.renderFull
         });
     } else {
-        $(llab.selectors.FULL).prepend('<p class="error">Please specify a file in the URL.</p>');
+        $(llab.selectors.FULL).text("Please specify a file in the URL.");
     }
 }
 

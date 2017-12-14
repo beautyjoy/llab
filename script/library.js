@@ -10,16 +10,24 @@ llab = llab || {};
 llab.loaded = llab.loaded || {};
 
 
+/////////////////
+// TODO: ALL CORS SETTINGS SHOULD BE MOVED TO THE CONFIG FILE.
+llab.CORSproxy = "https://bjcredir.herokuapp.com/";
 
-//These are STRINGS that are selectors of classes of container page elements.
-//We want to store them in a single place because it's easier to update, but might
-llab.selectors = {};
-llab.selectors.FULL = ".llab-full";                  // the whole page and nuthing but the page
-llab.selectors.NAVSELECT = ".llab-nav";              // container for the navigation pulldown
-llab.selectors.PROGRESS = ".llab-full-bottom-bar";   // that bottom progress bar
+llab.CORSCompliantServers = [];
+llab.CORSCompliantServers.push("bjc.berkeley.edu");
+llab.CORSCompliantServers.push("bjc.eecs.berkeley.edu");
+llab.CORSCompliantServers.push("snap.berkeley.edu");
+llab.CORSCompliantServers.push("inst.eecs.berkeley.edu");
+llab.CORSCompliantServers.push("cs10.berkeley.edu");
+llab.CORSCompliantServers.push("localhost");
+llab.CORSCompliantServers.push("0.0.0.0");
+llab.CORSCompliantServers.push("bjc.edc.org");
+llab.CORSCompliantServers.push("bjc-edc-2017-18.github.io");
 
+//// TODO: Move this to config? Or refactor?
 
-
+llab.snapRunURLBase = "http://snap.berkeley.edu/snapsource/snap.html#open:";
 
 // returns the current domain with a cors proxy if needed
 
@@ -34,16 +42,17 @@ llab.getSnapRunURL = function(targeturl) {
     // internal resource!
     var finalurl = llab.snapRunURLBase;
     var currdom = document.domain;
-    if (llab.CORSCompliantServers.indexOf(currdom) == -1) {
+    if (currdom == "localhost") {
+        currdom = 'http://' + currdom + ":" + window.location.port;
+    } else if (llab.CORSCompliantServers.indexOf(currdom) == -1) {
         finalurl += llab.CORSproxy;
-    }
-    // Make sure protocol exists incase https:// connections
-    currdom = window.location.protocol + '//' + currdom;
-    if (targeturl.indexOf("..") != -1 || targeturl.indexOf(llab.rootURL) == -1) {
+    } else if (targeturl.indexOf("..") != -1 || targeturl.indexOf(llab.rootURL) == -1) {
         var path = window.location.pathname;
         path = path.split("?")[0];
         path = path.substring(0, path.lastIndexOf("/") + 1);
-        currdom += path;
+        currdom = window.location.protocol + '//' + currdom + path;
+    } else {
+        finalurl += window.location.protocol + '//';
     }
     finalurl = finalurl + currdom + targeturl;
 
@@ -51,8 +60,16 @@ llab.getSnapRunURL = function(targeturl) {
 };
 
 
+/** Returns the value of the URL parameter associated with NAME. */
+llab.getQueryParameter = function(paramName) {
+    var params = llab.getURLParameters();
+    if (params.hasOwnProperty(paramName)) {
+        return params[paramName];
+    } else {
+        return '';
+    }
+};
 
-// TODO move to topic.js
 /** Strips comments off the line in a topic file. */
 llab.stripComments = function(line) {
     var index = line.indexOf("//");
@@ -63,7 +80,22 @@ llab.stripComments = function(line) {
     return line;
 };
 
+/* Google Analytics Tracking
+ * To make use of this code, the two ga() functions need to be called
+ * on each page that is loaded, which means this file must be loaded.
+ */
+llab.GAfun = function(i,s,o,g,r,a,m) { i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) };
 
+llab.GA = function() {
+    llab.GAfun(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+};
+
+// GA Function Calls -- these do the real work!:
+if (llab.GACode) {
+    llab.GA();
+    ga('create', llab.GACode, llab.GAUrl);
+    ga('send', 'pageview');
+}
 
 /** Truncate a STR to an output of N chars.
  *  N does NOT include any HTML characters in the string.
@@ -83,50 +115,6 @@ llab.truncate = function(str, n) {
     }
 
     return str; // return the HTML content if possible.
-};
-
-
-
-
-
-llab.spanTag = function(content, className) {
-    return '<span class="' + className + '">' + content + '</span>'
-}
-
-
-
-/////////////////////////////////
-/* Google Analytics Tracking
- * To make use of this code, the two ga() functions need to be called
- * on each page that is loaded, which means this file must be loaded.
- */
-llab.GAfun = function(i,s,o,g,r,a,m) { i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) };
-
-llab.GA = function() {
-    llab.GAfun(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-};
-
-// GA Function Calls -- these do the real work!:
-if (llab.GACode) {
-    llab.GA();
-    ga('create', llab.GACode, llab.GAUrl);
-    ga('send', 'pageview');
-}
-
-
-
-//////////////////////////////////
-// query string stuff
-
-
-/** Returns the value of the URL parameter associated with NAME. */
-llab.getQueryParameter = function(paramName) {
-    var params = llab.getURLParameters();
-    if (params.hasOwnProperty(paramName)) {
-        return params[paramName];
-    } else {
-        return '';
-    }
 };
 
 
@@ -194,7 +182,6 @@ queryString.stringify = function (obj) {
     }).join('&') : '';
 };
 /*! End Query String */
-
 llab.QS = queryString;
 
 
@@ -238,31 +225,26 @@ llab.getAttributesForElement = function(elm) {
 };
 
 
+// These are STRINGS that are query selectors for selecting page elements
+// We want to store them in a single place because it's easier to update
+llab.selectors = {};
+// These are code fragments which are reusable components.
+llab.fragments = {};
+// These are common strings that need not be build and should be reused!
+llab.strings = {};
+llab.strings.goMain = 'Go to Table of Contents';
+// &#8230; is ellipsis
+llab.strings.clickNav = 'Click here to navigate&nbsp;&nbsp;';
+//
+llab.fragments.bootstrapSep = '<li class="divider list_item" role="presentation"></li>';
+llab.fragments.bootstrapCaret = '<span class="caret"></span>';
+llab.fragments.hamburger = '<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>';
+// LLAB selectors for common page elements
+llab.selectors.FULL = '.full';
+llab.selectors.NAVSELECT = '.llab-nav';
+llab.selectors.PROGRESS = '.full-bottom-bar';
 
-
-//////////////////////////////
-// Cool array level operations
-llab.any = function(A) {
-    return A.reduce(function(x, y) {return x || y;});
-}
-
-llab.all = function(A) {
-    return A.reduce(function(x, y) {return x && y;});
-}
-
-llab.which = function(A) {
-    for (i = 0; i < A.length; i++) {
-        if (A[i]) {
-            return i;
-        }
-    }
-    return -1;
-}
-
-
-
-////////////////////
-// cookie stuff
+//// cookie stuff
 // someday my framework will come, but for now, stolen blithely from http://www.quirksmode.org/js/cookies.html
 llab.createCookie = function(name,value,days) {
     if (days) {
@@ -286,52 +268,30 @@ llab.readCookie = function(name) {
 }
 
 llab.eraseCookie = function(name) {
-    llab.createCookie(name,"",-1);
+    createCookie(name,"",-1);
 }
 
 
-
-
-
-////////////////////
-// course utils
-
-/*
- * course obj: 
- *    startTime: Date
- *    ...
- */
-
-llab.getCourseTitle = function(usercontext, resource) {
-    // if given a ... url?  user cookie? user donut?  dunno.
-    //brainstorm really wants this.
-    return null;
+llab.spanTag = function(content, className) {
+    return '<span class="' + className + '">' + content + '</span>'
 }
 
-
-// might return null if pages are loaded without course context, 
-//  but can't return undefined
-llab.getCurrentCourse = function() {
-	// TODO do something here based on url.
-	// last resort, use something from config file. User?  who knows.
-	return null;
+// Cool array level operations
+llab.any = function(A) {
+    return A.reduce(function(x, y) {return x || y });
 }
 
+llab.all = function(A) {
+    return A.reduce(function(x, y) {return x && y });
+}
 
-
-// used inside brainstorm for now
-llab.getCourseStartTime = function(course) {
-	var time = llab.config.defaultCourseStartTime;
-	
-	if (typeof course == 'undefined') {
-		course = llab.getCurrentCourse();
-	}
-	if (course != null 
-			&& (typeof course['starttime'] != 'undefined') 
-			&& course['startime'] != null) {
-		time = course['starttime'];
-	}
-	return time;
+llab.which = function(A) {
+    for (i = 0; i < A.length; i++) {
+        if (A[i]) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 
