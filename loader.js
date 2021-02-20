@@ -44,7 +44,6 @@ llab.loaded = {};  // keys are true if that script file is loaded
 llab.paths  = {};
 llab.paths.stage_complete_functions = [];
 llab.paths.scripts = [];  // holds the scripts to load, in stages below
-llab.paths.css_files = [];
 llab.rootURL = "";  // to be overridden in llab-config.js
 llab.install_directory = "";  // to be overridden in llab-config.js
 
@@ -63,19 +62,6 @@ llab.altFiles.syntax_highlights_css = "lib/highlightjs/styles/tomorrow-night-blu
 // Math / LaTeX rendering
 llab.altFiles.math_katex_js = "lib/katex.min.js";
 llab.altFiles.math_katex_css = "css/katex.min.css";
-
-
-
-/////////////////////////
-// reference your custom CSS files, from within llab install directory.
-// Multiple CSS files is fine, include a separate push for each
-llab.paths.css_files.push('lib/bootstrap/dist/css/bootstrap.min.css');
-llab.paths.css_files.push('lib/bootstrap/dist/css/bootstrap-theme.min.css');
-// llab.paths.css_files.push('css/brainstorm.css');
-// llab.paths.css_files.push('css/matchsequence.css');
-llab.paths.css_files.push('css/default.css');
-
-
 
 ///////////////////////// pre stage 0
 llab.paths.defaults_file = "script/defaults.js";
@@ -199,13 +185,6 @@ llab.initialSetup = function() {
 
     function loadScriptsAndLinks(stage_num) {
         var i, tag;
-
-        // load css files
-        while (llab.paths.css_files.length != 0) {
-            tag = llab.loader.getTag("link", llab.paths.css_files.shift(), "text/css");
-            tag.rel = "stylesheet";
-            headElement.appendChild(tag);
-        }
 
         // load scripts
         llab.paths.scripts[stage_num].forEach(function(scriptfile) {
