@@ -326,14 +326,13 @@ llab.setupTitle = function () {
     if (llab.titleSet) {
         return;
     }
-
     // Create .full before adding stuff.
     if ($(FULL).length === 0) {
         // TODO: Fix this line to be generic.
         $(document.body).wrapInner('<div class="llab-full"></div>');
     }
 
-    // Work around when things are oddly loaded...
+    // If NAVSELET was inlined, remove it and re-add it.
     if ($(llab.selectors.NAVSELECT).length !== 0) {
         $(llab.selectors.NAVSELECT).remove();
     }
@@ -586,6 +585,8 @@ llab.addFeedback = function(title, topic, course) {
             $('#fdbk').append(frame);
         }
     });
+    if ($("page-feedback") !== 0)
+        $("page-feedback").remove();
     $(document.body).append(feedback);
 };
 
