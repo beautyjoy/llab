@@ -44,6 +44,7 @@ llab.loaded = {};  // keys are true if that script file is loaded
 llab.paths  = {};
 llab.paths.stage_complete_functions = [];
 llab.paths.scripts = [];  // holds the scripts to load, in stages below
+llab.paths.css_files = [];
 llab.rootURL = "";  // to be overridden in llab-config.js
 llab.install_directory = "";  // to be overridden in llab-config.js
 
