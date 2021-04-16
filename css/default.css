@@ -12,7 +12,7 @@ h1, h4, h5, h6, .header-sans {
 h2, h3, blockquote,
 .serif, .dropdown-header,
 .title-small-screen, .header-serif, .title, .navbar-title {
-  font-family: 'Freight Text Pro', Georgia, Times, serif;
+  font-family: Georgia, Times, serif;
   font-weight: bold;
 }
 
