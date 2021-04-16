@@ -321,12 +321,11 @@ llab.addFrame = function () {
 llab.setupTitle = function () {
     var titleText;
     // TODO: rename / refactor location
-    $(document.head).append('<meta name="viewport" content="width=device-width, initial-scale=1">');
+//    $(document.head).append('<meta name="viewport" content="width=device-width, initial-scale=1">');
 
     if (llab.titleSet) {
         return;
     }
-
     // Create .full before adding stuff.
     if ($(FULL).length === 0) {
         // TODO: Fix this line to be generic.
@@ -335,36 +334,36 @@ llab.setupTitle = function () {
     }
 
     // Work around when things are oddly loaded...
-    if ($(llab.selectors.NAVSELECT).length !== 0) {
-        $(llab.selectors.NAVSELECT).remove();
-    }
+    // if ($(llab.selectors.NAVSELECT).length !== 0) {
+    //     $(llab.selectors.NAVSELECT).remove();
+    // }
 
     // Create the header section and nav buttons
-    llab.createTitleNav();
+//    llab.createTitleNav();
 
     // create Title tag, yo
     titleText = llab.getQueryParameter("title");
     if (titleText !== '') {
-        document.title = titleText;
+     //   document.title = titleText;
     }
 
     // Set the header title to the page title.
     titleText = document.title;
     if (titleText) {
         // FIXME this needs to be a selector
-        $('.navbar-title').html(titleText);
-        $('.title-small-screen').html(titleText);
+//        $('.navbar-title').html(titleText);
+ //       $('.title-small-screen').html(titleText);
     }
 
     // Clean up document title if it contains HTML
-    document.title = $(".navbar-title").text();
+//    document.title = $(".navbar-title").text();
     // Special Case for Snap! in titles.
-    document.title = document.title.replace('snap', 'Snap!');
+  //  document.title = document.title.replace('snap', 'Snap!');
 
-    $(document.body).css('padding-top', $(llab.selectors.NAVSELECT).height() + 10);
-    document.body.onresize = function(event) {
-        $(document.body).css('padding-top', $(llab.selectors.NAVSELECT).height() + 10);
-    };
+    // $(document.body).css('padding-top', $(llab.selectors.NAVSELECT).height() + 10);
+    // document.body.onresize = function(event) {
+    //     $(document.body).css('padding-top', $(llab.selectors.NAVSELECT).height() + 10);
+    // };
 
     llab.titleSet = true;
 };
@@ -500,10 +499,10 @@ llab.setButtonURLs = function() {
 
     var buttonsExist = forward.length !== 0 && back.length !== 0;
 
-    if (!buttonsExist & $(llab.selectors.NAVSELECT) !== 0) {
-        // freshly minted buttons. MMM, tasty!
-        llab.createTitleNav();
-    }
+    // if (!buttonsExist & $(llab.selectors.NAVSELECT) !== 0) {
+    //     // freshly minted buttons. MMM, tasty!
+    //     llab.createTitleNav();
+    // }
 
     forward = $('.forwardbutton');
     back    = $('.backbutton');
@@ -569,12 +568,12 @@ llab.addFeedback = function(title, topic, course) {
         innerDiv = $(document.createElement('div')).attr({
                 'id': "fdbk",
                 'class': "collapse feedback-panel panel panel-primary"
-            }),
+                }),
         feedback = $(document.createElement('div')).attr(
             {'class' : 'page-feedback'}).append(button, innerDiv);
 
     // Delay inserting a frame until the button is clicked.
-    button.click('click', function (event) {
+    $(".feedback-button").click('click', function (event) {
         if ($('#feedback-frame').length === 0) {
             var frame = $(document.createElement('iframe')).attr(
             {
