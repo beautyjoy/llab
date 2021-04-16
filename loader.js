@@ -69,6 +69,10 @@ llab.altFiles.math_katex_css = "css/katex.min.css";
 /////////////////////////
 // reference your custom CSS files, from within llab install directory.
 // Multiple CSS files is fine, include a separate push for each
+
+// NOTE: it is strongly recommended to inline your CSS directly into your
+// page's HTML, as it will avoid flashes of unstyled content.
+// See https://github.com/beautyjoy/bjc-r/pull/800 for more context.
 llab.paths.css_files.push('lib/bootstrap/dist/css/bootstrap.min.css');
 llab.paths.css_files.push('lib/bootstrap/dist/css/bootstrap-theme.min.css');
 // llab.paths.css_files.push('css/brainstorm.css');
