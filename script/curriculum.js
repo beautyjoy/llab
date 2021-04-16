@@ -568,7 +568,7 @@ llab.addFeedback = function(title, topic, course) {
         innerDiv = $(document.createElement('div')).attr({
                 'id': "fdbk",
                 'class': "collapse feedback-panel panel panel-primary"
-                }),
+            }),
         feedback = $(document.createElement('div')).attr(
             {'class' : 'page-feedback'}).append(button, innerDiv);
 
