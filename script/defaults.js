@@ -33,9 +33,10 @@ llab.fragments.hamburger = '<span class="sr-only">Toggle navigation</span><span 
 
 // these are used in llab.getSnapRunURL(), inside library.js
 
-llab.CORSproxy = "https://bjcredir.herokuapp.com/";
+llab.CORSproxy = "https://cors.io/";
 
 llab.CORSCompliantServers = [];
+llab.CORSCompliantServers.push("cs10.org");
 llab.CORSCompliantServers.push("bjc.berkeley.edu");
 llab.CORSCompliantServers.push("bjc.eecs.berkeley.edu");
 llab.CORSCompliantServers.push("snap.berkeley.edu");
@@ -45,13 +46,10 @@ llab.CORSCompliantServers.push("beautyjoy.github.io");
 llab.CORSCompliantServers.push("cs10.github.io");
 llab.CORSCompliantServers.push("localhost");
 llab.CORSCompliantServers.push("0.0.0.0");
+
 // Testing so that dev is like the server.
 llab.CORSCompliantServers.push("localhost:8000");
 
 
 llab.snapRunURLBase = "http://snap.berkeley.edu/snapsource/snap.html#open:";
 //llab.snapRunURLBase = "http://bjc.edc.org/snapsource/snap.html#open:";
-
-
-
-
