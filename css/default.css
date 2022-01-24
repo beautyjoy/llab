@@ -5,14 +5,14 @@ code, pre, tt, kbd, samp {
 }
 
 h1, h4, h5, h6, .header-sans {
-  font-family: 'VAG Rounded Light', 'VAG Rounded', 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
   font-weight: 200;
 }
 
 h2, h3, blockquote,
 .serif, .dropdown-header,
 .title-small-screen, .header-serif, .title, .navbar-title {
-  font-family: 'Freight Text Pro', Georgia, Times, serif;
+  font-family: Georgia, Times, serif;
   font-weight: bold;
 }
 
@@ -27,7 +27,7 @@ a:visited {
 }
 
 html {
-  font-size: 1em; /* Fix for weird bootstrap */	
+  font-size: 1em; /* Fix for weird bootstrap */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -480,10 +480,10 @@ img.indent, div.indent {
 }
 
 /** ICON CLASSES **/
-/*  These are resource icons for each item. 
+/*  These are resource icons for each item.
     Really, these should all apply on when contained in .topics...*/
 .topic .group, .topic .reading, .extresource, .topic .video, .topic .forum,
-.resource, .topic .assignment, .topic .homework, .topic .quiz, .codeit, 
+.resource, .topic .assignment, .topic .homework, .topic .quiz, .codeit,
 .simulation, .topic .matchsequence, .fillblank, .topic .summary,
 .topic .brainstorm, .display {
   background-repeat: no-repeat;
@@ -527,7 +527,7 @@ img.indent, div.indent {
 }
 
 .topic .summary {
-  background-image: url(../img/Icon-Reading-28.png);	
+  background-image: url(../img/Icon-Reading-28.png);
 }
 
 .topic .brainstorm {
@@ -902,31 +902,6 @@ img.indent, div.indent {
   font-weight: normal;
   font-style: normal;
 }
-
-@font-face { /* Sans Headers */
-  font-family: 'VAG Rounded Light';
-  src: url('../fonts/vagrounded/VAGRoundedStd-Light.eot');
-  src: url('../fonts/vagrounded/VAGRoundedStd-Light.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/vagrounded/VAGRoundedStd-Light.woff') format('woff'),
-       url('../fonts/vagrounded/VAGRoundedStd-Light.ttf')  format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face { /* All Serif Elements */
-  font-family: 'Freight Text Pro';
-  src: url('../fonts/FreightTextPro/FreightTextProBook.otf');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face { /* All Serif Elements */
-  font-family: 'Freight Text Pro';
-  src: url('../fonts/FreightTextPro/FreightTextProBold.otf');
-  font-weight: bold;
-  font-style: normal;
-}
-
 /* * * * END FONTS * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
@@ -974,4 +949,3 @@ form > h2, form > ol > li {
 form label {
   font-family: sans-serif;
 }
-
