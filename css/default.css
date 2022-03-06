@@ -465,9 +465,16 @@ img.indent, div.indent {
 }
 
 .quoteBlue { /* FIXME, name needed */
-  border-left: 12px solid #164CBA;
+  border: 1px solid #164CBA;
+  border-left-width: 12px;
   background-color: #99F;
+  color: #000000;
 }
+
+.quoteBlue code { /* FIXME, name needed */
+  color: #003A70;
+}
+
 
 .quoteGreen { /* FIXME, name needed */
   border-left: 12px solid #693;

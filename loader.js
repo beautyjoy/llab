@@ -16,6 +16,7 @@ llab = {
         scripts: [],
         css_files: []
     },
+    loader: {},
     rootURL: '',
     install_directory: '',
     CONFIG_FILE_PATH: '../llab.js' // currently unsed.
@@ -42,7 +43,7 @@ llab.GAurl  = document.hostname;
 // ADDITIONAL LIBRARIES
 
 // Syntax Highlighting support
-llab.paths.syntax_highlights = "//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js";
+llab.paths.syntax_highlights_js = "//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js";
 llab.paths.syntax_highlighting_css = "css/tomorrow-night-blue.css";
 // Math / LaTeX rendering
 llab.paths.math_katex_js = "lib/katex.min.js";
@@ -134,7 +135,7 @@ function getTag(name, src, type) {
     return tag;
 }
 
-
+llab.loader.getTag = getTag;
 
 llab.initialSetUp = function() {
     function loadScriptsAndLinks(stage_num) {

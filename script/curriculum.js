@@ -94,8 +94,8 @@ llab.additionalSetup = function(triggers) {
  */
 llab.codeHighlightSetup = function () {
     var cssFile, jsFile, css, js;
-    cssFile = llab.altFiles.syntax_highlights_css;
-    jsFile  = llab.altFiles.syntax_highlights_js;
+    cssFile = llab.paths.syntax_highlighting_css;
+    jsFile  = llab.paths.syntax_highlights_js;
     css = llab.loader.getTag('link', cssFile, 'text/css');
     css.rel = "stylesheet";
     js = llab.loader.getTag('script', jsFile, 'text/javascript');
@@ -123,8 +123,8 @@ llab.highlightSyntax = function() {
  */
 llab.mathDisplaySetup = function () {
     var cssFile, jsFile, css, js;
-    cssFile = llab.altFiles.math_katex_css;
-    jsFile  = llab.altFiles.math_katex_js;
+    cssFile = llab.paths.math_katex_css;
+    jsFile  = llab.paths.math_katex_js;
     css = llab.loader.getTag('link', cssFile, 'text/css');
     css.rel = "stylesheet";
     js = llab.loader.getTag('script', jsFile, 'text/javascript');
@@ -618,4 +618,3 @@ llab.indicateProgress = function(numSteps, currentStep) {
 $(document).ready(function() {
     llab.secondarySetUp();
 });
-
